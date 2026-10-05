@@ -983,12 +983,38 @@
     function speakWelcomeGreeting() {
         if ('speechSynthesis' in window) {
             window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance("Welcome To Venus Studio, Tap here to Login");
+            const utterance = new SpeechSynthesisUtterance("Welcome To Venus Studio, Tap here to login");
             utterance.lang = 'en-US'; utterance.rate = 0.95; utterance.pitch = 1.0;
-            utterance.onend = function() { if (btnTapHere) btnTapHere.classList.add('show'); };
-            setTimeout(() => { if (btnTapHere && !btnTapHere.classList.contains('show')) btnTapHere.classList.add('show'); }, 3500);
+            
+            // Event boundary mendeteksi kata per kata yang diucapkan oleh speech synthesis
+            utterance.onboundary = function(event) {
+                if (event.name === 'word') {
+                    const spokenWord = utterance.text.substring(event.charIndex, event.charIndex + event.charLength).toLowerCase();
+                    if (spokenWord === 'tap') {
+                        if (btnTapHere && !btnTapHere.classList.contains('show')) {
+                            btnTapHere.classList.add('show');
+                        }
+                    }
+                }
+            };
+
+            utterance.onend = function() { 
+                if (btnTapHere && !btnTapHere.classList.contains('show')) {
+                    btnTapHere.classList.add('show'); 
+                }
+            };
+
+            // Fallback pengaman jika event boundary tidak disupport browser
+            setTimeout(() => { 
+                if (btnTapHere && !btnTapHere.classList.contains('show')) { 
+                    btnTapHere.classList.add('show'); 
+                } 
+            }, 2500);
+
             window.speechSynthesis.speak(utterance);
-        } else { if (btnTapHere) btnTapHere.classList.add('show'); }
+        } else { 
+            if (btnTapHere) btnTapHere.classList.add('show'); 
+        }
     }
 
     if (btnTapHere) {
