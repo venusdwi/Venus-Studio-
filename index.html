@@ -208,21 +208,21 @@
         .brand-top-header { display: flex; align-items: center; justify-content: center; pointer-events: none; user-select: none; padding: 2px 10px; background: transparent; border: none; }
         .brand-studio-title { font-family: 'Rajdhani', sans-serif; font-size: 1.05rem; font-weight: 900; letter-spacing: 4px; color: #00f0ff; text-transform: uppercase; text-shadow: 0 0 15px rgba(0, 240, 255, 0.8); }
 
-        .clickable-header-wrapper, .music-player-panel, .personal-data-panel { cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px 16px; border-radius: 16px; background: rgba(2, 10, 28, var(--glass-alpha)); backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur)); border: 1.5px solid rgba(0, 240, 255, 0.45); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.2); width: 100%; transition: transform 0.2s ease, filter 0.2s ease, background 0.2s ease; margin-bottom: 12px; }
-        .clickable-header-wrapper:active, .music-player-panel:active, .personal-data-panel:active { transform: scale(0.98); filter: brightness(1.2); background: rgba(0, 240, 255, 0.15); }
-        h2.title-cyber, .title-music-box, .title-personal-box { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: clamp(1.4rem, 5vw, 1.8rem); letter-spacing: 2px; text-transform: uppercase; background: linear-gradient(135deg, #ffffff 0%, #00f0ff 60%, #38bdf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 20px rgba(0, 240, 255, 0.8); text-align: center; }
+        .clickable-header-wrapper, .music-player-panel, .personal-data-panel, .debt-tracker-panel { cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px 16px; border-radius: 16px; background: rgba(2, 10, 28, var(--glass-alpha)); backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur)); border: 1.5px solid rgba(0, 240, 255, 0.45); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.2); width: 100%; transition: transform 0.2s ease, filter 0.2s ease, background 0.2s ease; margin-bottom: 12px; }
+        .clickable-header-wrapper:active, .music-player-panel:active, .personal-data-panel:active, .debt-tracker-panel:active { transform: scale(0.98); filter: brightness(1.2); background: rgba(0, 240, 255, 0.15); }
+        h2.title-cyber, .title-music-box, .title-personal-box, .title-debt-box { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: clamp(1.4rem, 5vw, 1.8rem); letter-spacing: 2px; text-transform: uppercase; background: linear-gradient(135deg, #ffffff 0%, #00f0ff 60%, #38bdf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 20px rgba(0, 240, 255, 0.8); text-align: center; }
         .subtitle-cyber { font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; font-weight: 800; letter-spacing: 2px; color: #7dd3fc; text-transform: uppercase; margin-top: 4px; opacity: 0.95; text-align: center; }
 
         /* MODAL / POP-UP */
-        .cyber-modal-overlay, .music-modal-overlay, .personal-modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100dvh; background: rgba(2, 7, 20, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 99999999; display: flex; justify-content: center; align-items: center; padding: 12px; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.35s ease; }
-        .cyber-modal-overlay.active, .music-modal-overlay.active, .personal-modal-overlay.active { opacity: 1; visibility: visible; pointer-events: auto; }
+        .cyber-modal-overlay, .music-modal-overlay, .personal-modal-overlay, .debt-modal-overlay, .debt-pin-overlay, .edit-debt-overlay, .view-debt-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100dvh; background: rgba(2, 7, 20, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 99999999; display: flex; justify-content: center; align-items: center; padding: 12px; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.35s ease; }
+        .cyber-modal-overlay.active, .music-modal-overlay.active, .personal-modal-overlay.active, .debt-modal-overlay.active, .debt-pin-overlay.active, .edit-debt-overlay.active, .view-debt-overlay.active { opacity: 1; visibility: visible; pointer-events: auto; }
 
-        .music-modal-card, .personal-modal-card { background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.75); border-radius: 26px; padding: 22px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); transform: scale(0.9); transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .music-modal-card, .personal-modal-card, .debt-modal-card, .view-debt-card { background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.75); border-radius: 26px; padding: 22px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); transform: scale(0.9); transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
         .cyber-modal-card { background: rgba(3, 14, 38, 0.98); border: none !important; border-radius: 26px; padding: 22px 18px 24px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: none !important; transform: scale(0.9); transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
-        .cyber-modal-overlay.active .cyber-modal-card, .music-modal-overlay.active .music-modal-card, .personal-modal-overlay.active .personal-modal-card { transform: scale(1); }
+        .cyber-modal-overlay.active .cyber-modal-card, .music-modal-overlay.active .music-modal-card, .personal-modal-overlay.active .personal-modal-card, .debt-modal-overlay.active .debt-modal-card, .view-debt-overlay.active .view-debt-card { transform: scale(1); }
 
-        .close-cyber-modal, .close-music-modal, .close-personal-modal { background: rgba(0, 240, 255, 0.12); border: 1.5px solid rgba(0, 240, 255, 0.5); color: #00f0ff; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800; transition: all 0.2s ease; flex-shrink: 0; }
-        .close-cyber-modal:active, .close-music-modal:active, .close-personal-modal:active { background: rgba(0, 240, 255, 0.35); transform: scale(0.92); }
+        .close-cyber-modal, .close-music-modal, .close-personal-modal, .close-debt-modal, .close-view-debt { background: rgba(0, 240, 255, 0.12); border: 1.5px solid rgba(0, 240, 255, 0.5); color: #00f0ff; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800; transition: all 0.2s ease; flex-shrink: 0; }
+        .close-cyber-modal:active, .close-music-modal:active, .close-personal-modal:active, .close-debt-modal:active, .close-view-debt:active { background: rgba(0, 240, 255, 0.35); transform: scale(0.92); }
 
         /* AUDIO STABILIZER */
         .audio-stabilizer-container { width: 100% !important; max-width: 260px !important; height: 68px !important; display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: flex-end !important; margin: 1.4rem auto 0.2rem auto !important; padding: 0 !important; position: relative !important; border: none !important; background: transparent !important; box-shadow: none !important; }
@@ -252,7 +252,7 @@
         .playlist-delete-btn { color: #fb7185; font-size: 0.8rem; font-weight: 700; cursor: pointer; padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(244, 63, 94, 0.35); background: rgba(244, 63, 94, 0.08); letter-spacing: 0.3px; display: inline-block; text-align: center; }
         .track-music-icon-svg { width: 16px; height: 16px; fill: #00f0ff; margin-right: 8px; flex-shrink: 0; filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.8)); }
 
-        .full-app-content, .personal-app-content { display: flex; flex-direction: column; width: 100%; flex-grow: 1; overflow-y: auto; background: transparent !important; border: none !important; padding: 6px 4px 120px 4px !important; text-align: left; gap: 16px; margin-top: 10px; scroll-behavior: smooth; }
+        .full-app-content, .personal-app-content, .debt-app-content { display: flex; flex-direction: column; width: 100%; flex-grow: 1; overflow-y: auto; background: transparent !important; border: none !important; padding: 6px 4px 120px 4px !important; text-align: left; gap: 16px; margin-top: 10px; scroll-behavior: smooth; }
 
         .glass-control-panel, .backup-panel, form { background: transparent !important; border: none !important; box-shadow: none !important; padding: 4px 0 !important; }
         .glass-control-panel { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-shrink: 0; height: 40px; }
@@ -280,7 +280,6 @@
         .pemasukan { background: rgba(16, 185, 129, calc(var(--glass-alpha) * 0.45 + 0.05)); border: 1px solid rgba(16, 185, 129, 0.55); color: #34d399; }
         .pengeluaran { background: rgba(244, 63, 94, calc(var(--glass-alpha) * 0.45 + 0.05)); border: 1px solid rgba(244, 63, 94, 0.55); color: #fb7185; }
         
-        /* WARNA KUSTOM UNTUK SALDO CASH & SALDO BANK */
         .card-cash { background: rgba(56, 189, 248, calc(var(--glass-alpha) * 0.45 + 0.05)); border: 1px solid rgba(56, 189, 248, 0.55); color: #38bdf8; }
         .card-bank { background: rgba(168, 85, 247, calc(var(--glass-alpha) * 0.45 + 0.05)); border: 1px solid rgba(168, 85, 247, 0.55); color: #c084fc; }
 
@@ -292,7 +291,6 @@
         input, select, textarea { padding: 15px 16px; border: 1.5px solid rgba(0, 240, 255, 0.45); border-radius: 12px; font-size: 1.05rem; font-weight: 600; outline: none; background: rgba(2, 12, 32, 0.85); color: #ffffff; width: 100%; }
         input:focus, select:focus, textarea:focus { border-color: #00f0ff; box-shadow: 0 0 12px rgba(0, 240, 255, 0.4); }
 
-        /* KODE CSS UNTUK CUSTOM SELECT BOX AGAR SELALU DI TENGAH */
         .custom-select-box { padding: 15px 16px; border: 1.5px solid rgba(0, 240, 255, 0.45); border-radius: 12px; font-size: 1.05rem; font-weight: 800; background: rgba(2, 12, 32, 0.85); color: #64748b; text-align: center; cursor: pointer; transition: all 0.2s ease; }
         .custom-select-box.selected { color: #ffffff; border-color: #00f0ff; }
         .custom-option-btn { background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.45); border-radius: 12px; color: #ffffff; font-size: 1.05rem; font-weight: 800; padding: 16px; width: 100%; text-align: center; cursor: pointer; transition: all 0.2s ease; display: block; }
@@ -425,6 +423,39 @@
     </div>
 </div>
 
+<!-- PIN MODAL KHUSUS UNTUK DEBT TRACKER -->
+<div class="debt-pin-overlay" id="debtPinOverlay">
+    <div class="pin-card">
+        <div class="pin-icon-box">🔒</div>
+        <div class="pin-title">DEBT ACCESS PIN</div>
+        <div class="pin-subtitle">Masukkan PIN untuk membuka Debt Tracker</div>
+        <div class="pin-inputs-container" id="debtPinInputsContainer">
+            <div class="pin-box active" data-debt-pin-index="0"></div>
+            <div class="pin-box" data-debt-pin-index="1"></div>
+            <div class="pin-box" data-debt-pin-index="2"></div>
+            <div class="pin-box" data-debt-pin-index="3"></div>
+            <div class="pin-box" data-debt-pin-index="4"></div>
+            <div class="pin-box" data-debt-pin-index="5"></div>
+        </div>
+        <div class="pin-error-msg" id="debtPinErrorMsg"></div>
+        <div class="on-screen-keypad">
+            <button type="button" class="keypad-btn" onclick="pressDebtPinKey('1')">1</button>
+            <button type="button" class="keypad-btn" onclick="pressDebtPinKey('2')">2</button>
+            <button type="button" class="keypad-btn" onclick="pressDebtPinKey('3')">3</button>
+            <button type="button" class="keypad-btn" onclick="pressDebtPinKey('4')">4</button>
+            <button type="button" class="keypad-btn" onclick="pressDebtPinKey('5')">5</button>
+            <button type="button" class="keypad-btn" onclick="pressDebtPinKey('6')">6</button>
+            <button type="button" class="keypad-btn" onclick="pressDebtPinKey('7')">7</button>
+            <button type="button" class="keypad-btn" onclick="pressDebtPinKey('8')">8</button>
+            <button type="button" class="keypad-btn" onclick="pressDebtPinKey('9')">9</button>
+            <button type="button" class="keypad-btn action-btn" onclick="clearDebtPin()">C</button>
+            <button type="button" class="keypad-btn" onclick="pressDebtPinKey('0')">0</button>
+            <button type="button" class="keypad-btn action-btn" onclick="deleteDebtPin()">⌫</button>
+        </div>
+        <button type="button" id="cancelDebtPinBtn" style="background: rgba(0, 240, 255, 0.1); border: 1.5px solid rgba(0, 240, 255, 0.4); color: #00f0ff; width: 100%; padding: 12px; border-radius: 12px; font-weight: 800; cursor: pointer; margin-top: 4px;">Batal</button>
+    </div>
+</div>
+
 <div class="tech-bg-container">
     <canvas id="circuitCanvas"></canvas>
     <div class="cyber-vignette"></div>
@@ -479,6 +510,131 @@
             </div>
             <div style="display: flex; flex-direction: column; gap: 10px; width: 100%; flex-grow: 1; overflow-y: auto; margin-top: 12px;" id="fullHistoryListContainer"></div>
         </div>
+    </div>
+</div>
+
+<!-- MODAL DEBT TRACKER (CATATAN HUTANG) -->
+<div class="debt-modal-overlay" id="debtModalOverlay">
+    <div class="debt-modal-card">
+        <div style="display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; width: 100%; flex-shrink: 0; padding: 2px 0;">
+            <div></div>
+            <div style="font-family: 'Orbitron', sans-serif; font-size: 1.15rem; font-weight: 900; color: #00f0ff; letter-spacing: 1.5px; text-align: center;">DEBT TRACKER</div>
+            <div style="display: flex; justify-content: flex-end;">
+                <button type="button" class="close-debt-modal" id="closeDebtModalBtn" style="position: static;">✕</button>
+            </div>
+        </div>
+
+        <div class="debt-app-content">
+            <div class="dashboard" style="gap: 10px;">
+                <div class="card-hero" style="background: rgba(244, 63, 94, 0.15); border-color: rgba(244, 63, 94, 0.5); padding: 14px;">
+                    <h4 style="color: #fb7185; margin-bottom: 4px;">TOTAL DEBT (TOTAL HUTANG)</h4>
+                    <p id="totalDebtAmount" style="color: #fb7185; font-size: 1.6rem;">Rp 0</p>
+                </div>
+                <div class="card-hero" style="background: rgba(251, 191, 36, 0.12); border-color: rgba(251, 191, 36, 0.5); padding: 12px;">
+                    <h4 style="color: #fbbf24; margin-bottom: 4px;">SISA HUTANG (REMAINING DEBT)</h4>
+                    <p id="remainingDebtAmount" style="color: #fbbf24; font-size: 1.4rem;">Rp 0</p>
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 12px; width: 100%; margin-top: 4px;" id="debtListContainer"></div>
+            <button type="button" class="btn-add-account-action" id="btnAddDebtModal">+ TAMBAH HUTANG</button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL LIHAT DETAIL HUTANG (FULL SCREEN DENGAN RIWAYAT PEMBAYARAN) -->
+<div class="view-debt-overlay" id="viewDebtModal">
+    <div class="view-debt-card">
+        <div style="display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; width: 100%; flex-shrink: 0; padding: 2px 0;">
+            <div></div>
+            <div style="font-family: 'Orbitron', sans-serif; font-size: 1.15rem; font-weight: 900; color: #00f0ff; letter-spacing: 1.5px; text-align: center;">DETAIL HUTANG</div>
+            <div style="display: flex; justify-content: flex-end;">
+                <button type="button" class="close-view-debt" id="closeViewDebtModalBtn" style="position: static;">✕</button>
+            </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; width: 100%; flex-grow: 1; overflow-y: auto; text-align: left; gap: 14px; margin-top: 10px; padding-bottom: 20px;">
+            <!-- 1. NAMA PEMBERI HUTANG -->
+            <div style="background: rgba(0, 240, 255, 0.05); border: 1.5px solid rgba(0, 240, 255, 0.3); border-radius: 14px; padding: 14px;">
+                <span style="font-size: 0.78rem; font-weight: 800; color: #7dd3fc; text-transform: uppercase;">Pemberi Hutang / Keterangan</span>
+                <div id="viewDebtName" style="font-size: 1.15rem; font-weight: 900; color: #fff; margin-top: 4px;">-</div>
+            </div>
+
+            <!-- 2. TOTAL HUTANG UKURAN BESAR -->
+            <div class="card-hero" style="background: rgba(244, 63, 94, 0.15); border-color: rgba(244, 63, 94, 0.5); padding: 16px 14px; text-align: center;">
+                <h4 style="color: #fb7185; margin-bottom: 4px; font-size: 0.85rem;">TOTAL HUTANG</h4>
+                <p id="viewDebtTotal" style="color: #fb7185; font-size: 1.8rem; font-weight: 900;">Rp 0</p>
+            </div>
+
+            <!-- 3. KOLOM JUMLAH HUTANG YANG DI BAYAR -->
+            <div class="form-group" style="background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.4); border-radius: 14px; padding: 14px; gap: 8px;">
+                <label style="font-size: 0.88rem; color: #34d399;">Jumlah Hutang Yang Di Bayar (Rp)</label>
+                <input type="text" id="viewDebtPayInput" placeholder="Contoh: 50.000" inputmode="numeric" style="padding: 12px 14px; font-size: 1.05rem;">
+            </div>
+
+            <!-- 4. KOLOM UNTUK PEMBAYARAN HUTANG (LUNAS / CICIL) -->
+            <div class="form-group" style="background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.4); border-radius: 14px; padding: 14px; gap: 8px;">
+                <label style="font-size: 0.88rem; color: #00f0ff;">Status Pembayaran Hutang</label>
+                <div class="custom-select-box selected" id="btnSelectPaymentStatus" style="font-size: 1rem; padding: 12px 14px;">-- Pilih Status Pembayaran --</div>
+                <input type="hidden" id="paymentStatusValue">
+            </div>
+
+            <!-- 5. SISA HUTANG -->
+            <div class="card-hero" style="background: rgba(251, 191, 36, 0.12); border-color: rgba(251, 191, 36, 0.5); padding: 14px; text-align: center;">
+                <h4 style="color: #fbbf24; margin-bottom: 4px; font-size: 0.85rem;">SISA HUTANG (REMAINING)</h4>
+                <p id="viewDebtRemaining" style="color: #fbbf24; font-size: 1.4rem; font-weight: 900;">Rp 0</p>
+            </div>
+
+            <!-- 6. RIWAYAT PEMBAYARAN / CICILAN -->
+            <div class="form-group" style="background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.4); border-radius: 14px; padding: 14px; gap: 8px;">
+                <label style="font-size: 0.88rem; color: #38bdf8;">Riwayat Pembayaran / Cicilan</label>
+                <div class="account-history-box" id="debtPaymentHistoryList" style="max-height: 120px;">
+                    <div style="font-size: 0.8rem; color: #64748b; font-style: italic; text-align: center;">Belum ada riwayat pembayaran.</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 10px; width: 100%; flex-shrink: 0; padding-top: 10px;">
+            <button type="button" id="btnDeleteDebtItemFromView" style="background: rgba(244, 63, 94, 0.2); border: 1.5px solid rgba(244, 63, 94, 0.6); color: #fb7185; flex: 1; padding: 14px; border-radius: 12px; font-weight: 800; cursor:pointer;">Hapus</button>
+            <button type="button" id="btnSaveDebtPayment" style="background: linear-gradient(135deg, #00f0ff 0%, #0077ff 100%); border: none; color: #020714; flex: 2; padding: 14px; border-radius: 12px; font-weight: 900; cursor:pointer;">Simpan Pembayaran</button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL TAMBAH / EDIT RINCIAN HUTANG -->
+<div class="edit-debt-overlay" id="editDebtModal">
+    <div class="popup-box" style="max-width: 360px; text-align: left; align-items: stretch; gap: 14px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 900; color: #00f0ff;" id="editDebtModalTitle">TAMBAH HUTANG</div>
+            <button type="button" id="closeEditDebtModalBtn" style="background:none; border:none; color:#94a3b8; font-size:1.5rem; cursor:pointer;">✕</button>
+        </div>
+        <input type="hidden" id="editDebtIndex">
+        <div class="form-group">
+            <label>Nama Pemberi Hutang / Keterangan</label>
+            <input type="text" id="editDebtNameInput" placeholder="Contoh: Hutang ke Amara">
+        </div>
+        <div class="form-group">
+            <label>Total Jumlah Hutang (Rp)</label>
+            <input type="text" id="editDebtAmountInput" placeholder="Contoh: 100.000" inputmode="numeric">
+        </div>
+        <div class="form-group">
+            <label>Sudah Dibayar / Dicicil (Rp)</label>
+            <input type="text" id="editDebtPaidInput" placeholder="0 jika belum bayar" inputmode="numeric">
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 4px;" id="debtActionButtonsRow">
+            <button type="button" id="btnDeleteDebtItem" style="background: rgba(244, 63, 94, 0.2); border: 1.5px solid rgba(244, 63, 94, 0.6); color: #fb7185; flex: 1; padding: 14px; border-radius: 12px; font-weight: 800; cursor:pointer; display:none;">Hapus</button>
+            <button type="button" id="btnSaveDebtItem" style="background: linear-gradient(135deg, #00f0ff 0%, #0077ff 100%); border: none; color: #020714; flex: 2; padding: 14px; border-radius: 12px; font-weight: 900; cursor:pointer;">Simpan</button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL PILIH STATUS PEMBAYARAN -->
+<div class="popup-overlay" id="modalSelectPaymentStatus">
+    <div class="popup-box" style="max-width: 320px; padding: 24px;">
+        <div class="popup-title" style="font-size: 1.2rem; margin-bottom: 16px;">STATUS PEMBAYARAN</div>
+        <button type="button" class="custom-option-btn" onclick="selectPaymentStatus('cicil', '💳 CICIL (Sebagian)')">💳 CICIL (Sebagian)</button>
+        <button type="button" class="custom-option-btn" style="margin-top: 10px; color: #34d399; border-color: rgba(16,185,129,0.5);" onclick="selectPaymentStatus('lunas', '✅ LUNAS (Bayar Semua Sisa)')">✅ LUNAS (Bayar Semua Sisa)</button>
+        <button type="button" class="popup-btn" style="margin-top: 20px; background: transparent; border: 1px solid #00f0ff; color: #00f0ff; padding: 12px; box-shadow: none;" onclick="document.getElementById('modalSelectPaymentStatus').classList.remove('active')">Batal</button>
     </div>
 </div>
 
@@ -587,7 +743,6 @@
             <div class="dashboard">
                 <div class="card-hero"><h4>SALDO SISA</h4><p id="totalSaldo">Rp 0</p></div>
                 
-                <!-- KOLOM TAMBAHAN: SALDO CASH & SALDO BANK / DIGITAL -->
                 <div class="sub-dashboard">
                     <div class="card-sub card-cash"><h4>SALDO CASH</h4><p id="totalSaldoCash">Rp 0</p></div>
                     <div class="card-sub card-bank"><h4>SALDO BANK / QRIS</h4><p id="totalSaldoBank">Rp 0</p></div>
@@ -600,7 +755,6 @@
             </div>
 
             <form id="transactionForm">
-                <!-- CUSTOM SELECT BOX: JENIS TRANSAKSI -->
                 <div class="form-group">
                     <label>Jenis Transaksi</label>
                     <div class="custom-select-box" id="btnSelectType">-- Pilih Jenis --</div>
@@ -615,14 +769,12 @@
                     <div class="form-group"><label for="inputTime">Jam Input</label><div class="datetime-custom-wrapper" id="timeWrapperBtn"><span class="datetime-display-text" id="timeDisplayText"></span><input type="time" id="inputTime" required></div></div>
                 </div>
                 
-                <!-- CUSTOM SELECT BOX: METODE PEMBAYARAN -->
                 <div class="form-group" id="paymentMethodGroup">
                     <label>Metode Pembayaran</label>
                     <div class="custom-select-box" id="btnSelectMethod">-- Pilih Metode --</div>
                     <input type="hidden" id="paymentMethod" required>
                 </div>
 
-                <!-- BUKTI TRANSAKSI -->
                 <div class="form-group">
                     <label for="proofInput">Bukti Transaksi (Opsional)</label>
                     <input type="file" id="proofInput" accept="image/*" style="padding: 12px 16px; background: rgba(2, 12, 32, 0.85); color: #7dd3fc; border: 1.5px dashed rgba(0, 240, 255, 0.45); border-radius: 12px; font-size: 0.95rem; width: 100%;">
@@ -656,7 +808,6 @@
         
         <input type="hidden" id="editTxId">
         
-        <!-- PREVIEW FOTO BUKTI -->
         <div class="form-group">
             <label>Bukti Transaksi</label>
             <img id="detailProofImage" src="" style="display: none; width: 100%; max-height: 250px; object-fit: contain; border-radius: 12px; margin-bottom: 8px; border: 1.5px solid rgba(0,240,255,0.4); background: rgba(0,0,0,0.5); cursor: zoom-in;" alt="Bukti Transaksi" title="Klik untuk memperbesar">
@@ -690,7 +841,7 @@
     </div>
 </div>
 
-<!-- TAHAP 3: KONTEN UTAMA WEB -->
+<!-- TAHAP 3: KONTEN UTAMA WEB (HALAMAN UTAMA) -->
 <div class="container" id="mainAppContainer">
     <button type="button" class="install-app-btn" id="btnInstallApp">⚡ INSTAL APLIKASI</button>
     <div class="header-box">
@@ -701,6 +852,9 @@
     </div>
     <div class="personal-data-panel" id="openPersonalModalPanel" title="Ketuk untuk membuka Personal Data">
         <h2 class="title-personal-box">PERSONAL DATA</h2><div class="subtitle-cyber">ACCOUNTS & PASSWORDS MANAGER</div>
+    </div>
+    <div class="debt-tracker-panel" id="openDebtModalPanel" title="Ketuk untuk membuka Debt Tracker">
+        <h2 class="title-debt-box">DEBT TRACKER</h2><div class="subtitle-cyber">DEBTS & LIABILITIES MONITOR</div>
     </div>
     <div class="music-player-panel" id="openMusicModalPanel" title="Ketuk untuk membuka Playlist Music">
         <h2 class="title-music-box">PLAYLIST MUSIC</h2><div class="subtitle-cyber">CYBER AUDIO PLAYER</div>
@@ -738,7 +892,7 @@
     </div>
 </div>
 
-<!-- MODAL-MODAL KHUSUS UNTUK CUSTOM SELECT BOX (MENJAGA TEXT RATA TENGAH) -->
+<!-- MODAL-MODAL KHUSUS UNTUK CUSTOM SELECT BOX -->
 <div class="popup-overlay" id="modalSelectType">
     <div class="popup-box" style="max-width: 320px; padding: 24px;">
         <div class="popup-title" style="font-size: 1.2rem; margin-bottom: 16px;">JENIS TRANSAKSI</div>
@@ -792,11 +946,14 @@
     const cyberModalOverlay = document.getElementById('cyberModalOverlay');
     const musicModalOverlay = document.getElementById('musicModalOverlay');
     const personalModalOverlay = document.getElementById('personalModalOverlay');
+    const debtModalOverlay = document.getElementById('debtModalOverlay');
+    const debtPinOverlay = document.getElementById('debtPinOverlay');
     const cyberScannerFlash = document.getElementById('cyberScannerFlash');
 
     window.addEventListener('DOMContentLoaded', () => {
         initIndexedDB();
         renderAccountTitles();
+        renderDebts();
         
         const savedOpacity = localStorage.getItem('cyber_glass_opacity');
         if (savedOpacity !== null) {
@@ -817,6 +974,7 @@
             if (activeModal === 'cyber') { cyberModalOverlay.classList.add('active'); }
             else if (activeModal === 'music') { musicModalOverlay.classList.add('active'); }
             else if (activeModal === 'personal') { personalModalOverlay.classList.add('active'); }
+            else if (activeModal === 'debt') { debtModalOverlay.classList.add('active'); }
         } else {
             setTimeout(() => { playNetflixIntroSound(); speakWelcomeGreeting(); }, 600);
         }
@@ -843,7 +1001,7 @@
 
     const CORRECT_PIN = "040698"; 
     let enteredPin = "";
-    const pinBoxes = document.querySelectorAll('.pin-box');
+    const pinBoxes = document.querySelectorAll('.pin-box:not([data-debt-pin-index])');
     const pinErrorMsg = document.getElementById('pinErrorMsg');
 
     function updatePinDisplay() {
@@ -866,6 +1024,53 @@
             pinErrorMsg.innerText = "PIN Salah! Silakan coba lagi."; setTimeout(() => { clearAllPin(); }, 300);
         }
     }
+
+    // --- PIN UNTUK DEBT TRACKER ---
+    let enteredDebtPin = "";
+    const debtPinBoxes = document.querySelectorAll('[data-debt-pin-index]');
+    const debtPinErrorMsg = document.getElementById('debtPinErrorMsg');
+    const openDebtModalPanel = document.getElementById('openDebtModalPanel');
+    const closeDebtModalBtn = document.getElementById('closeDebtModalBtn');
+    const cancelDebtPinBtn = document.getElementById('cancelDebtPinBtn');
+
+    openDebtModalPanel.addEventListener('click', () => {
+        clearDebtPin();
+        debtPinOverlay.classList.add('active');
+    });
+
+    cancelDebtPinBtn.addEventListener('click', () => {
+        debtPinOverlay.classList.remove('active');
+    });
+
+    closeDebtModalBtn.addEventListener('click', () => { 
+        debtModalOverlay.classList.remove('active'); 
+        sessionStorage.setItem('venus_active_modal', 'none'); 
+    });
+
+    function updateDebtPinDisplay() {
+        debtPinBoxes.forEach((box, index) => {
+            if (index < enteredDebtPin.length) { box.innerText = "●"; box.classList.add('filled'); box.classList.remove('active'); }
+            else if (index === enteredDebtPin.length) { box.innerText = ""; box.classList.remove('filled'); box.classList.add('active'); }
+            else { box.innerText = ""; box.classList.remove('filled', 'active'); }
+        });
+        if (enteredDebtPin.length === 6) verifyDebtPin();
+    }
+    function pressDebtPinKey(num) { if (enteredDebtPin.length < 6) { enteredDebtPin += num; debtPinErrorMsg.innerText = ""; updateDebtPinDisplay(); } }
+    function deleteDebtPin() { if (enteredDebtPin.length > 0) { enteredDebtPin = enteredDebtPin.slice(0, -1); debtPinErrorMsg.innerText = ""; updateDebtPinDisplay(); } }
+    function clearDebtPin() { enteredDebtPin = ""; debtPinErrorMsg.innerText = ""; updateDebtPinDisplay(); }
+
+    function verifyDebtPin() {
+        if (enteredDebtPin === CORRECT_PIN) {
+            playSuccessSound();
+            debtPinOverlay.classList.remove('active');
+            debtModalOverlay.classList.add('active');
+            sessionStorage.setItem('venus_active_modal', 'debt');
+            renderDebts();
+        } else {
+            debtPinErrorMsg.innerText = "PIN Salah!"; setTimeout(() => { clearDebtPin(); }, 300);
+        }
+    }
+
     function playSuccessSound() {
         try {
             const ctx = new (window.AudioContext || window.webkitAudioContext)(); const now = ctx.currentTime;
@@ -889,7 +1094,7 @@
     openPersonalModalPanel.addEventListener('click', () => { personalModalOverlay.classList.add('active'); sessionStorage.setItem('venus_active_modal', 'personal'); });
     closePersonalModalBtn.addEventListener('click', () => { personalModalOverlay.classList.remove('active'); sessionStorage.setItem('venus_active_modal', 'none'); });
 
-    // --- FUNGSI CUSTOM SELECT BOX ---
+    // --- FITUR CUSTOM SELECT BOX ---
     function selectType(val, text) {
         document.getElementById('type').value = val;
         document.getElementById('btnSelectType').innerText = text;
@@ -919,6 +1124,238 @@
         document.getElementById('modalEditSelectMethod').classList.remove('active');
     }
     document.getElementById('btnEditSelectMethod').addEventListener('click', () => document.getElementById('modalEditSelectMethod').classList.add('active'));
+
+
+    // --- FITUR DEBT TRACKER (CATATAN HUTANG) ---
+    const debtListContainer = document.getElementById('debtListContainer');
+    const totalDebtAmount = document.getElementById('totalDebtAmount');
+    const remainingDebtAmount = document.getElementById('remainingDebtAmount');
+    const btnAddDebtModal = document.getElementById('btnAddDebtModal');
+    
+    const viewDebtModal = document.getElementById('viewDebtModal');
+    const closeViewDebtModalBtn = document.getElementById('closeViewDebtModalBtn');
+    const viewDebtName = document.getElementById('viewDebtName');
+    const viewDebtTotal = document.getElementById('viewDebtTotal');
+    const viewDebtPayInput = document.getElementById('viewDebtPayInput');
+    const viewDebtRemaining = document.getElementById('viewDebtRemaining');
+    const debtPaymentHistoryList = document.getElementById('debtPaymentHistoryList');
+    const btnSaveDebtPayment = document.getElementById('btnSaveDebtPayment');
+    const btnDeleteDebtItemFromView = document.getElementById('btnDeleteDebtItemFromView');
+    let currentViewDebtIndex = null;
+
+    const editDebtModal = document.getElementById('editDebtModal');
+    const closeEditDebtModalBtn = document.getElementById('closeEditDebtModalBtn');
+    const editDebtIndex = document.getElementById('editDebtIndex');
+    const editDebtModalTitle = document.getElementById('editDebtModalTitle');
+    const editDebtNameInput = document.getElementById('editDebtNameInput');
+    const editDebtAmountInput = document.getElementById('editDebtAmountInput');
+    const editDebtPaidInput = document.getElementById('editDebtPaidInput');
+    const btnSaveDebtItem = document.getElementById('btnSaveDebtItem');
+    const btnDeleteDebtItem = document.getElementById('btnDeleteDebtItem');
+    const btnDeleteDebtItemRow = document.getElementById('btnDeleteDebtItem');
+
+    document.getElementById('editDebtAmountInput').addEventListener('input', function() {
+        let rawValue = this.value.replace(/\D/g, '');
+        this.value = rawValue ? parseInt(rawValue, 10).toLocaleString('id-ID') : '';
+    });
+    document.getElementById('editDebtPaidInput').addEventListener('input', function() {
+        let rawValue = this.value.replace(/\D/g, '');
+        this.value = rawValue ? parseInt(rawValue, 10).toLocaleString('id-ID') : '';
+    });
+    viewDebtPayInput.addEventListener('input', function() {
+        let rawValue = this.value.replace(/\D/g, '');
+        this.value = rawValue ? parseInt(rawValue, 10).toLocaleString('id-ID') : '';
+        updateRemainingOnFly();
+    });
+
+    function selectPaymentStatus(val, text) {
+        document.getElementById('paymentStatusValue').value = val;
+        document.getElementById('btnSelectPaymentStatus').innerText = text;
+        document.getElementById('modalSelectPaymentStatus').classList.remove('active');
+        
+        if (val === 'lunas' && currentViewDebtIndex !== null) {
+            let debts = getStoredDebts();
+            let debt = debts[currentViewDebtIndex];
+            let remaining = Math.max(0, debt.amount - (debt.paid || 0));
+            viewDebtPayInput.value = remaining.toLocaleString('id-ID');
+            updateRemainingOnFly();
+        }
+    }
+    document.getElementById('btnSelectPaymentStatus').addEventListener('click', () => {
+        document.getElementById('modalSelectPaymentStatus').classList.add('active');
+    });
+
+    function updateRemainingOnFly() {
+        if (currentViewDebtIndex === null) return;
+        let debts = getStoredDebts();
+        let debt = debts[currentViewDebtIndex];
+        let currentPaid = debt.paid || 0;
+        let payAmount = parseFloat(viewDebtPayInput.value.replace(/\./g, '')) || 0;
+        let newRemaining = Math.max(0, debt.amount - (currentPaid + payAmount));
+        viewDebtRemaining.innerText = formatRupiah(newRemaining);
+    }
+
+    function getStoredDebts() {
+        let data = JSON.parse(localStorage.getItem('venus_debt_tracker_data'));
+        if (!data || !Array.isArray(data)) { data = []; localStorage.setItem('venus_debt_tracker_data', JSON.stringify(data)); }
+        return data;
+    }
+
+    function renderDebts() {
+        const debts = getStoredDebts();
+        debtListContainer.innerHTML = '';
+        let totalDebt = 0;
+        let totalRemaining = 0;
+
+        if (debts.length === 0) {
+            debtListContainer.innerHTML = '<div style="text-align:center; color:#a5f3fc; font-size:0.95rem; padding:15px 0;">Belum ada catatan hutang</div>';
+        } else {
+            debts.slice().reverse().forEach((d, revIdx) => {
+                const origIndex = debts.length - 1 - revIdx;
+                const paid = d.paid || 0;
+                const remaining = Math.max(0, d.amount - paid);
+
+                totalDebt += d.amount;
+                totalRemaining += remaining;
+
+                const div = document.createElement('div');
+                div.className = 'account-title-card';
+                div.innerHTML = `
+                    <span class="account-title-name">${d.name}</span>
+                    <span class="account-title-arrow">›</span>
+                `;
+                div.addEventListener('click', () => openViewDebtModal(origIndex));
+                debtListContainer.appendChild(div);
+            });
+        }
+        totalDebtAmount.innerText = formatRupiah(totalDebt);
+        remainingDebtAmount.innerText = formatRupiah(totalRemaining);
+    }
+
+    btnAddDebtModal.addEventListener('click', () => {
+        editDebtIndex.value = '';
+        editDebtModalTitle.innerText = 'TAMBAH HUTANG';
+        editDebtNameInput.value = '';
+        editDebtAmountInput.value = '';
+        editDebtPaidInput.value = '';
+        btnDeleteDebtItemRow.style.display = 'none';
+        editDebtModal.classList.add('active');
+    });
+
+    function openViewDebtModal(index) {
+        const debts = getStoredDebts();
+        const debt = debts[index];
+        if (!debt) return;
+        currentViewDebtIndex = index;
+        const paid = debt.paid || 0;
+        const remaining = Math.max(0, debt.amount - paid);
+
+        viewDebtName.innerText = debt.name;
+        viewDebtTotal.innerText = formatRupiah(debt.amount);
+        viewDebtPayInput.value = '';
+        document.getElementById('paymentStatusValue').value = '';
+        document.getElementById('btnSelectPaymentStatus').innerText = '-- Pilih Status Pembayaran --';
+        viewDebtRemaining.innerText = formatRupiah(remaining);
+        
+        renderDebtPaymentHistory(debt.history || []);
+        viewDebtModal.classList.add('active');
+    }
+
+    function renderDebtPaymentHistory(historyArray) {
+        if (!historyArray || historyArray.length === 0) {
+            debtPaymentHistoryList.innerHTML = '<div style="font-size: 0.8rem; color: #64748b; font-style: italic; text-align: center;">Belum ada riwayat pembayaran.</div>';
+            return;
+        }
+        debtPaymentHistoryList.innerHTML = '';
+        historyArray.slice().reverse().forEach(h => {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'account-history-item';
+            itemDiv.innerHTML = `
+                <div class="history-user-info" style="color: #34d399;">Bayar: ${formatRupiah(h.amount)} (${h.status.toUpperCase()})</div>
+                <div class="history-timestamp">🕒 ${h.timestamp}</div>
+            `;
+            debtPaymentHistoryList.appendChild(itemDiv);
+        });
+    }
+
+    closeViewDebtModalBtn.addEventListener('click', () => { viewDebtModal.classList.remove('active'); });
+
+    btnSaveDebtPayment.addEventListener('click', () => {
+        if (currentViewDebtIndex === null) return;
+        let debts = getStoredDebts();
+        let debt = debts[currentViewDebtIndex];
+        
+        let payAmount = parseFloat(viewDebtPayInput.value.replace(/\./g, '')) || 0;
+        let statusVal = document.getElementById('paymentStatusValue').value;
+        if (payAmount <= 0) return alert('Masukkan jumlah pembayaran yang valid!');
+        if (!statusVal) return alert('Pilih status pembayaran terlebih dahulu!');
+
+        let currentPaid = debt.paid || 0;
+        debt.paid = currentPaid + payAmount;
+        if (debt.paid > debt.amount) debt.paid = debt.amount;
+
+        if (!debt.history) debt.history = [];
+        const nowTime = new Date();
+        const timeStr = `${String(nowTime.getDate()).padStart(2,'0')}/${String(nowTime.getMonth()+1).padStart(2,'0')}/${nowTime.getFullYear()} ${String(nowTime.getHours()).padStart(2,'0')}:${String(nowTime.getMinutes()).padStart(2,'0')}`;
+        debt.history.push({ timestamp: timeStr, amount: payAmount, status: statusVal });
+
+        localStorage.setItem('venus_debt_tracker_data', JSON.stringify(debts));
+        renderDebts();
+        viewDebtModal.classList.remove('active');
+        playCashStatusSound();
+    });
+
+    btnDeleteDebtItemFromView.addEventListener('click', () => {
+        if (currentViewDebtIndex === null) return;
+        if (confirm('Apakah Anda yakin ingin menghapus rincian hutang ini?')) {
+            let debts = getStoredDebts();
+            debts.splice(currentViewDebtIndex, 1);
+            localStorage.setItem('venus_debt_tracker_data', JSON.stringify(debts));
+            renderDebts();
+            viewDebtModal.classList.remove('active');
+        }
+    });
+
+    closeEditDebtModalBtn.addEventListener('click', () => { editDebtModal.classList.remove('active'); });
+
+    btnSaveDebtItem.addEventListener('click', () => {
+        const indexStr = editDebtIndex.value;
+        let debts = getStoredDebts();
+        const newName = editDebtNameInput.value.trim();
+        const newAmount = parseFloat(editDebtAmountInput.value.replace(/\./g, ''));
+        const newPaid = parseFloat(editDebtPaidInput.value.replace(/\./g, '')) || 0;
+
+        if (!newName || isNaN(newAmount)) return alert('Nama dan jumlah tidak boleh kosong!');
+        
+        if (indexStr === '') {
+            debts.push({ id: Date.now(), name: newName, amount: newAmount, paid: newPaid, history: [] });
+        } else {
+            const index = parseInt(indexStr);
+            debts[index].name = newName;
+            debts[index].amount = newAmount;
+            debts[index].paid = newPaid;
+        }
+
+        localStorage.setItem('venus_debt_tracker_data', JSON.stringify(debts));
+        renderDebts();
+        editDebtModal.classList.remove('active');
+        playCashStatusSound();
+    });
+
+    btnDeleteDebtItem.addEventListener('click', () => {
+        const index = parseInt(editDebtIndex.value);
+        if (confirm('Apakah Anda yakin ingin menghapus rincian hutang ini?')) {
+            let debts = getStoredDebts();
+            debts.splice(index, 1);
+            localStorage.setItem('venus_debt_tracker_data', JSON.stringify(debts));
+            renderDebts();
+            editDebtModal.classList.remove('active');
+        }
+    });
+
+    function playCashStatusSound() {
+        try { playCashSound(); } catch(e) {}
+    }
 
 
     // --- FITUR PERSONAL DATA ---
@@ -1156,7 +1593,6 @@
     function formatMonthName(yearMonthStr) { if (!yearMonthStr) return "Semua Data"; const [year, month] = yearMonthStr.split('-'); const dateObj = new Date(year, month - 1, 1); return dateObj.toLocaleDateString('id-ID', { month: 'long', year: 'numeric' }); }
     function formatTransactionDateTime(dateStr, timeStr) { if (!dateStr) return timeStr || ''; const parts = dateStr.split('-'); if (parts.length !== 3) return `${dateStr} (${timeStr} WIB)`; const [y, m, d] = parts; const dateObj = new Date(parseInt(y), parseInt(m) - 1, parseInt(d)); const shortMonthNames = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agt", "Sept", "Okt", "Nov", "Des"]; const monthName = shortMonthNames[dateObj.getMonth()] || m; let formattedTime = timeStr ? timeStr.replace(':', '.') : '00.00'; return `<span class="cyber-note-icon">🗒️</span> ${parseInt(d)} ${monthName} ${y} ( ${formattedTime} WIB )`; }
 
-    // FUNGSI KOMPRESI GAMBAR (BUKTI TRANSAKSI)
     function compressImage(file, callback) {
         if (!file) { callback(null); return; }
         const reader = new FileReader(); reader.readAsDataURL(file);
@@ -1177,10 +1613,7 @@
         if (filtered.length === 0) {
             historyList.innerHTML = '<li style="text-align:center; color:#a5f3fc; font-size:0.95rem; padding:20px 0;">Tidak ada transaksi pada periode ini</li>';
         } else {
-            // PENGURUTAN: Transaksi terbaru (berdasarkan ID / Waktu Input) selalu berada di posisi paling atas
-                            // PENGURUTAN: Transaksi terbaru (berdasarkan ID / Waktu Input) selalu berada di posisi paling atas
-        filtered.sort((a, b) => b.id - a.id).forEach(t => {
-
+            filtered.sort((a, b) => b.id - a.id).forEach(t => {
                 const li = document.createElement('li'); 
                 li.className = `history-item ${t.type}`;
                 const proofBadge = t.proof ? `<span class="item-method-badge" style="background: rgba(0, 240, 255, 0.15); color: #00f0ff; border-color: rgba(0, 240, 255, 0.4);">📸 Ada Bukti</span>` : '';
@@ -1204,14 +1637,14 @@
             if (t.type === 'in') {
                 totalIn += t.amount;
                 if (isCash) cashBalance += t.amount;
-                else bankBalance += t.amount; // TRANSFER / QRIS
+                else bankBalance += t.amount;
             } else if (t.type === 'out') {
                 totalOut += t.amount;
                 if (isCash) cashBalance -= t.amount;
                 else bankBalance -= t.amount;
             } else if (t.type === 'refund') {
-                totalOut -= t.amount; // Pengembalian dana mengurangi total pengeluaran
-                if (isCash) cashBalance += t.amount; // Dana kembali ke cash/bank sesuai metodenya
+                totalOut -= t.amount;
+                if (isCash) cashBalance += t.amount;
                 else bankBalance += t.amount;
             }
         });
@@ -1220,14 +1653,11 @@
         document.getElementById('totalPemasukan').innerText = formatRupiah(totalIn); 
         document.getElementById('totalPengeluaran').innerText = formatRupiah(totalOut);
         
-        // MENAMPILKAN SALDO CASH & SALDO BANK OTOMATIS
         document.getElementById('totalSaldoCash').innerText = formatRupiah(cashBalance);
         document.getElementById('totalSaldoBank').innerText = formatRupiah(bankBalance);
 
         try { localStorage.setItem('my_transactions', JSON.stringify(transactions)); } catch(e) { alert('PERINGATAN: Memori penyimpanan penuh.'); }
     }
-
-    function cIdFallback(idA, idB) { return idA; }
 
     const detailTransactionModal = document.getElementById('detailTransactionModal'); const closeDetailModalBtn = document.getElementById('closeDetailModalBtn');
     const editTxId = document.getElementById('editTxId'); const editType = document.getElementById('editType'); const editAmount = document.getElementById('editAmount'); const editDescription = document.getElementById('editDescription'); const editDate = document.getElementById('editDate'); const editTime = document.getElementById('editTime'); const editMethod = document.getElementById('editMethod'); const detailProofImage = document.getElementById('detailProofImage'); const editProofInput = document.getElementById('editProofInput');
@@ -1258,7 +1688,6 @@
     }
     closeDetailModalBtn.addEventListener('click', () => { detailTransactionModal.classList.remove('active'); });
 
-    // --- FITUR LIHAT GAMBAR FULLSCREEN ---
     const fullscreenImageModal = document.getElementById('fullscreenImageModal');
     const fullscreenImageView = document.getElementById('fullscreenImageView');
     const closeFullscreenBtn = document.getElementById('closeFullscreenBtn');
@@ -1341,7 +1770,6 @@
     const now = new Date(); selectedDateValue = now.toISOString().slice(0,10); const initH = String(now.getHours()).padStart(2,'0'); const initM = String(now.getMinutes()).padStart(2,'0'); const initTimeStr = `${initH}:${initM}`;
     inputDate.value = selectedDateValue; dateDisplayText.innerText = formatDateDisplay(selectedDateValue); inputTime.value = initTimeStr; timeDisplayText.innerText = initTimeStr;
 
-    // --- FITUR UNDUH & PULIH BACKUP KEUANGAN (Export ke JSON) ---
     document.getElementById('btnExportBackup').addEventListener('click', () => {
         if (!transactions || transactions.length === 0) return alert('Belum ada data transaksi untuk di-backup!');
         const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(transactions)); const downloadAnchor = document.createElement('a'); downloadAnchor.setAttribute("href", dataStr); const tanggalHariIni = new Date().toISOString().split('T')[0]; downloadAnchor.setAttribute("download", `CyberVault_Finance_Backup_${tanggalHariIni}.json`); document.body.appendChild(downloadAnchor); downloadAnchor.click(); downloadAnchor.remove();
