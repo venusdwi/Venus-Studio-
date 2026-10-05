@@ -15,7 +15,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <title>CYBER VAULT | Keuangan Digital</title>
+    <title>VENUS STUDIO | Keuangan Digital</title>
     
     <!-- Google Fonts for high-end modern sci-fi aesthetic -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -387,7 +387,7 @@
         <div class="hacker-line">&gt; INITIALIZING SECURE HANDSHAKE...</div>
         <div class="hacker-line">&gt; DECRYPTING ACCESS KEY [040698]...</div>
         <div class="hacker-line">&gt; ACCESS GRANTED: WELCOME BACK, ADMIN.</div>
-        <div class="hacker-line">&gt; LAUNCHING CYBER VAULT SYSTEM... [OK]</div>
+        <div class="hacker-line">&gt; LAUNCHING VENUS STUDIO SYSTEM... [OK]</div>
     </div>
 </div>
 
@@ -717,7 +717,7 @@
     <div class="cyber-modal-card">
         <div style="display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; width: 100%; flex-shrink: 0; padding: 2px 0;">
             <div></div>
-            <div style="font-family: 'Orbitron', sans-serif; font-size: 1.05rem; font-weight: 900; color: #00f0ff; letter-spacing: 1.5px; text-align: center;">CYBER VAULT SYSTEM</div>
+            <div style="font-family: 'Orbitron', sans-serif; font-size: 1.05rem; font-weight: 900; color: #00f0ff; letter-spacing: 1.5px; text-align: center;">VENUS STUDIO SYSTEM</div>
             <div style="display: flex; justify-content: flex-end;"><button type="button" class="close-cyber-modal" id="closeCyberModalBtn" style="position: static;">✕</button></div>
         </div>
 
@@ -731,7 +731,7 @@
             <div class="backup-panel">
                 <div class="backup-header">
                     <span style="font-size: 0.9rem; font-weight: 800; color: #a5f3fc;">BACKUP KEUANGAN</span>
-                    <span class="backup-status-tag" id="backupStatusText">Auto-Saved</span>
+                    <span class="backup-status-tag" id="backupStatusText">Cloud-Synced</span>
                 </div>
                 <div class="backup-actions">
                     <button type="button" class="btn-backup-action" id="btnExportBackup">Unduh Backup</button>
@@ -933,6 +933,43 @@
     </div>
 </div>
 
+<!-- FIREBASE SDK (MODULAR) -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+  import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBmB88zqhJuQZv2KLeP7DYIb5sIYis27G8",
+    authDomain: "venus-studio-e7086.firebaseapp.com",
+    databaseURL: "https://venus-studio-e7086-default-rtdb.firebaseio.com",
+    projectId: "venus-studio-e7086",
+    storageBucket: "venus-studio-e7086.firebasestorage.app",
+    messagingSenderId: "239725601505",
+    appId: "1:239725601505:web:af2cd4e2607b11eb008da0",
+    measurementId: "G-R7G3GLQ548"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  // Fungsi Global Firebase Sync
+  window.saveTransactionsToFirebase = function(txData) {
+    set(ref(db, 'venus_studio/transactions'), txData)
+      .then(() => { console.log("Cloud Sync: Berhasil simpan ke Firebase!"); })
+      .catch((err) => { console.error("Cloud Sync Gagal:", err); });
+  };
+
+  window.loadTransactionsFromFirebase = function(callback) {
+    const dbRef = ref(db, 'venus_studio/transactions');
+    onValue(dbRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        callback(data);
+      }
+    });
+  };
+</script>
+
 <script>
     // --- ANIMASI & SUARA AUDIO AWAL ---
     function playNetflixIntroSound() { try { const ctx = new (window.AudioContext || window.webkitAudioContext)(); if (ctx.state === 'suspended') ctx.resume(); const now = ctx.currentTime; const osc1 = ctx.createOscillator(); const gain1 = ctx.createGain(); osc1.type = 'sawtooth'; osc1.frequency.setValueAtTime(100, now); osc1.frequency.exponentialRampToValueAtTime(32, now + 0.55); gain1.gain.setValueAtTime(0.01, now); gain1.gain.linearRampToValueAtTime(0.75, now + 0.08); gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.85); osc1.connect(gain1); gain1.connect(ctx.destination); osc1.start(now); osc1.stop(now + 0.85); const osc2 = ctx.createOscillator(); const gain2 = ctx.createGain(); osc2.type = 'sine'; osc2.frequency.setValueAtTime(140, now + 0.22); osc2.frequency.exponentialRampToValueAtTime(38, now + 1.6); gain2.gain.setValueAtTime(0.01, now + 0.22); gain2.gain.linearRampToValueAtTime(0.95, now + 0.3); gain2.gain.exponentialRampToValueAtTime(0.0001, now + 1.8); osc2.connect(gain2); gain2.connect(ctx.destination); osc2.start(now + 0.22); osc2.stop(now + 1.8); } catch (e) {} }
@@ -978,6 +1015,20 @@
         } else {
             setTimeout(() => { playNetflixIntroSound(); speakWelcomeGreeting(); }, 600);
         }
+
+        // Sinkronisasi data dari Firebase Realtime Database secara otomatis saat aplikasi dimuat
+        setTimeout(() => {
+            if (window.loadTransactionsFromFirebase) {
+                window.loadTransactionsFromFirebase((cloudData) => {
+                    if (cloudData && Array.isArray(cloudData)) {
+                        transactions = cloudData;
+                        localStorage.setItem('my_transactions', JSON.stringify(transactions));
+                        updateUI();
+                        console.log("Cloud Sync: Data berhasil dimuat dari Firebase!");
+                    }
+                });
+            }
+        }, 1500);
     });
 
     function speakWelcomeGreeting() {
@@ -986,7 +1037,6 @@
             const utterance = new SpeechSynthesisUtterance("Welcome To Venus Studio, Tap here to login");
             utterance.lang = 'en-US'; utterance.rate = 0.95; utterance.pitch = 1.0;
             
-            // Event boundary mendeteksi kata per kata yang diucapkan oleh speech synthesis
             utterance.onboundary = function(event) {
                 if (event.name === 'word') {
                     const spokenWord = utterance.text.substring(event.charIndex, event.charIndex + event.charLength).toLowerCase();
@@ -1004,7 +1054,6 @@
                 }
             };
 
-            // Fallback pengaman jika event boundary tidak disupport browser
             setTimeout(() => { 
                 if (btnTapHere && !btnTapHere.classList.contains('show')) { 
                     btnTapHere.classList.add('show'); 
@@ -1051,7 +1100,6 @@
         }
     }
 
-    // --- PIN UNTUK DEBT TRACKER ---
     let enteredDebtPin = "";
     const debtPinBoxes = document.querySelectorAll('[data-debt-pin-index]');
     const debtPinErrorMsg = document.getElementById('debtPinErrorMsg');
@@ -1120,7 +1168,6 @@
     openPersonalModalPanel.addEventListener('click', () => { personalModalOverlay.classList.add('active'); sessionStorage.setItem('venus_active_modal', 'personal'); });
     closePersonalModalBtn.addEventListener('click', () => { personalModalOverlay.classList.remove('active'); sessionStorage.setItem('venus_active_modal', 'none'); });
 
-    // --- FITUR CUSTOM SELECT BOX ---
     function selectType(val, text) {
         document.getElementById('type').value = val;
         document.getElementById('btnSelectType').innerText = text;
@@ -1682,7 +1729,12 @@
         document.getElementById('totalSaldoCash').innerText = formatRupiah(cashBalance);
         document.getElementById('totalSaldoBank').innerText = formatRupiah(bankBalance);
 
-        try { localStorage.setItem('my_transactions', JSON.stringify(transactions)); } catch(e) { alert('PERINGATAN: Memori penyimpanan penuh.'); }
+        try { 
+            localStorage.setItem('my_transactions', JSON.stringify(transactions)); 
+            if (window.saveTransactionsToFirebase) {
+                window.saveTransactionsToFirebase(transactions);
+            }
+        } catch(e) { alert('PERINGATAN: Memori penyimpanan penuh.'); }
     }
 
     const detailTransactionModal = document.getElementById('detailTransactionModal'); const closeDetailModalBtn = document.getElementById('closeDetailModalBtn');
@@ -1798,7 +1850,7 @@
 
     document.getElementById('btnExportBackup').addEventListener('click', () => {
         if (!transactions || transactions.length === 0) return alert('Belum ada data transaksi untuk di-backup!');
-        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(transactions)); const downloadAnchor = document.createElement('a'); downloadAnchor.setAttribute("href", dataStr); const tanggalHariIni = new Date().toISOString().split('T')[0]; downloadAnchor.setAttribute("download", `CyberVault_Finance_Backup_${tanggalHariIni}.json`); document.body.appendChild(downloadAnchor); downloadAnchor.click(); downloadAnchor.remove();
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(transactions)); const downloadAnchor = document.createElement('a'); downloadAnchor.setAttribute("href", dataStr); const tanggalHariIni = new Date().toISOString().split('T')[0]; downloadAnchor.setAttribute("download", `VenusStudio_Finance_Backup_${tanggalHariIni}.json`); document.body.appendChild(downloadAnchor); downloadAnchor.click(); downloadAnchor.remove();
     });
     const importFinanceFileInput = document.getElementById('importFileInput'); document.getElementById('btnImportBackup').addEventListener('click', () => { importFinanceFileInput.click(); });
     importFinanceFileInput.addEventListener('change', function(e) {
