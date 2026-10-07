@@ -2,9 +2,9 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- KUNCI 1: Mengamankan Viewport iPhone -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, viewport-fit=cover">
     
-    <!-- KONFIGURASI PWA AGAR BISA DI-INSTALL SEPERTI APK -->
     <meta name="theme-color" content="#020714">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -12,32 +12,37 @@
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="icon-192.png">
 
-    <!-- Mencegah Cache Browser Secara Ketat -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>VENUS STUDIO | Keuangan Digital</title>
     
-    <!-- Google Fonts for high-end modern sci-fi aesthetic -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Orbitron:wght@600;800;900&family=Rajdhani:wght@600;700;800&display=swap" rel="stylesheet">
     
     <style>
+        /* ====================================================
+           KUNCI 2: SENSOR SENTUH ANTI-GESER IOS SAFARI 
+           ==================================================== */
+        html, body {
+            width: 100% !important;
+            max-width: 100vw !important;
+            overflow-x: clip !important; /* Memotong paksa kebocoran di Safari Modern */
+            position: relative !important;
+            
+            /* INI SENJATA UTAMANYA: Hanya izinkan scroll atas-bawah, matikan total geser kanan-kiri */
+            touch-action: pan-y !important; 
+            overscroll-behavior-x: none !important; /* Matikan efek mantul (bounce) ke samping */
+        }
+
         *, *::before, *::after {
-            box-sizing: border-box;
-            max-width: 100%;
+            box-sizing: border-box !important;
+            max-width: 100vw !important;
             font-family: 'Plus Jakarta Sans', sans-serif;
             margin: 0;
             padding: 0;
             -webkit-tap-highlight-color: transparent;
-        }
-
-        html {
-            width: 100%;
-            max-width: 100vw;
-            overflow-x: hidden !important;
-            -webkit-text-size-adjust: 100%;
         }
 
         body {
@@ -49,10 +54,6 @@
             align-items: flex-start;
             min-height: 100vh;
             min-height: 100dvh;
-            width: 100%;
-            max-width: 100vw;
-            overflow-x: hidden !important;
-            position: relative;
         }
 
         /* --- CSS UNTUK MENYEMBUNYIKAN SCROLLBAR --- */
