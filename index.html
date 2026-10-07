@@ -2,9 +2,9 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <!-- KUNCI 1: Mengamankan Viewport iPhone -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     
+    <!-- KONFIGURASI PWA AGAR BISA DI-INSTALL SEPERTI APK -->
     <meta name="theme-color" content="#020714">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -12,30 +12,18 @@
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="icon-192.png">
 
+    <!-- Mencegah Cache Browser Secara Ketat -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>VENUS STUDIO | Keuangan Digital</title>
     
+    <!-- Google Fonts for high-end modern sci-fi aesthetic -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Orbitron:wght@600;800;900&family=Rajdhani:wght@600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        /* ====================================================
-           KUNCI 2: SENSOR SENTUH ANTI-GESER IOS SAFARI 
-           ==================================================== */
-        html, body {
-            width: 100% !important;
-            max-width: 100vw !important;
-            overflow-x: clip !important; /* Memotong paksa kebocoran di Safari Modern */
-            position: relative !important;
-            
-            /* INI SENJATA UTAMANYA: Hanya izinkan scroll atas-bawah, matikan total geser kanan-kiri */
-            touch-action: pan-y !important; 
-            overscroll-behavior-x: none !important; /* Matikan efek mantul (bounce) ke samping */
-        }
-
         *, *::before, *::after {
             box-sizing: border-box !important;
             max-width: 100vw !important;
@@ -43,6 +31,14 @@
             margin: 0;
             padding: 0;
             -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            width: 100% !important;
+            max-width: 100vw !important;
+            overflow-x: hidden !important;
+            -webkit-text-size-adjust: 100%;
+            position: relative;
         }
 
         body {
@@ -54,6 +50,10 @@
             align-items: flex-start;
             min-height: 100vh;
             min-height: 100dvh;
+            width: 100% !important;
+            max-width: 100vw !important;
+            overflow-x: hidden !important;
+            position: relative;
         }
 
         /* --- CSS UNTUK MENYEMBUNYIKAN SCROLLBAR --- */
@@ -85,7 +85,8 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
+            width: 100vw !important;
+            max-width: 100vw !important;
             height: 100vh;
             height: 100dvh;
             background: linear-gradient(rgba(2, 7, 20, 0.9), rgba(2, 7, 20, 0.98)), url('bg-splash.jpg') no-repeat center center;
@@ -96,7 +97,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 40px 20px;
-            overflow: hidden;
+            overflow: hidden !important;
             transition: opacity 0.5s ease, visibility 0.5s ease;
         }
 
@@ -111,18 +112,17 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100% !important;
+            height: 100% !important;
             pointer-events: none;
             z-index: 1;
             background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.15) 0%, transparent 60%);
-            animation: pulseGlowMove 6s infinite linear;
+            animation: pulseGlowMove 4s infinite ease-in-out;
         }
 
         @keyframes pulseGlowMove {
-            0% { transform: translateX(0) scale(1); opacity: 0.6; }
-            50% { transform: translateX(15%) scale(1.08); opacity: 1; }
-            100% { transform: translateX(0) scale(1); opacity: 0.6; }
+            0%, 100% { transform: scale(1); opacity: 0.6; }
+            50% { transform: scale(1.08); opacity: 1; }
         }
 
         .splash-particles {
@@ -167,11 +167,11 @@
         @keyframes tapPulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); } 50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(0, 240, 255, 0.6); } }
 
         /* TAHAP 2: LAYAR KODE AKSES PIN */
-        .pin-screen-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100dvh; background: rgba(2, 7, 20, 0.98); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); z-index: 9999990; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 20px; transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        .pin-screen-overlay { position: fixed; top: 0; left: 0; width: 100vw !important; height: 100vh; height: 100dvh; background: rgba(2, 7, 20, 0.98); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); z-index: 9999990; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 20px; transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
         .pin-screen-overlay.active { display: flex !important; }
         .pin-screen-overlay.hidden { opacity: 0; transform: scale(1.05); pointer-events: none; }
 
-        .cyber-scanner-flash { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100dvh; background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.2) 0%, rgba(2, 7, 20, 0.98) 85%), linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px); background-size: 100% 100%, 20px 20px, 20px 20px; z-index: 99999995; opacity: 0; visibility: hidden; pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; transition: opacity 0.25s ease; }
+        .cyber-scanner-flash { position: fixed; top: 0; left: 0; width: 100vw !important; height: 100vh; height: 100dvh; background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.2) 0%, rgba(2, 7, 20, 0.98) 85%), linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px); background-size: 100% 100%, 20px 20px, 20px 20px; z-index: 99999995; opacity: 0; visibility: hidden; pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; transition: opacity 0.25s ease; }
         .cyber-scanner-flash.active { opacity: 1; visibility: visible; animation: hackerTerminalSeq 1.1s forwards cubic-bezier(0.1, 0.9, 0.2, 1); }
 
         .hacker-terminal-box { background: rgba(2, 12, 32, 0.92); border: 1.5px solid #00f0ff; border-radius: 14px; padding: 20px 24px; max-width: 340px; width: 100%; box-shadow: 0 0 40px rgba(0, 240, 255, 0.5), inset 0 0 15px rgba(0, 240, 255, 0.25); font-family: 'Rajdhani', sans-serif; text-align: left; display: flex; flex-direction: column; gap: 8px; }
@@ -200,12 +200,12 @@
         .keypad-btn:active { background: rgba(0, 240, 255, 0.3); border-color: #00f0ff; transform: scale(0.95); }
         .keypad-btn.action-btn { font-size: 1.2rem; color: #7dd3fc; }
 
-        .tech-bg-container { position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; z-index: 0; overflow: hidden; pointer-events: none; background: radial-gradient(circle at 50% 50%, #061838 0%, #020817 65%, #01040a 100%); }
+        .tech-bg-container { position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100vw !important; height: 100vh !important; z-index: 0; overflow: hidden !important; pointer-events: none; background: radial-gradient(circle at 50% 50%, #061838 0%, #020817 65%, #01040a 100%); }
         #circuitCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
         .cyber-vignette { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: radial-gradient(circle at 50% 50%, transparent 30%, rgba(1, 4, 12, 0.65) 100%); pointer-events: none; }
 
         /* TAHAP 3: KONTEN UTAMA WEB */
-        .container { position: relative; z-index: 10; width: 100%; max-width: 440px; margin: 0 auto; background: transparent; border: none; box-shadow: none; padding: 10px 4px; display: none; gap: 12px; opacity: 0; transform: scale(0.95); transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .container { position: relative; z-index: 10; width: 100% !important; max-width: 440px !important; overflow-x: hidden !important; margin: 0 auto; background: transparent; border: none; box-shadow: none; padding: 10px 4px; display: none; gap: 12px; opacity: 0; transform: scale(0.95); transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
         .container.active { display: flex !important; flex-direction: column; opacity: 1; transform: scale(1); }
         .install-app-btn { background: linear-gradient(135deg, rgba(0, 240, 255, 0.2) 0%, rgba(0, 119, 255, 0.2) 100%); border: 1px solid rgba(0, 240, 255, 0.6); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 0.9rem; font-weight: 800; padding: 10px 16px; border-radius: 12px; cursor: pointer; display: none; align-items: center; justify-content: center; gap: 6px; margin: 0 auto 14px auto; box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); letter-spacing: 1px; text-transform: uppercase; }
 
@@ -219,7 +219,7 @@
         .subtitle-cyber { font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; font-weight: 800; letter-spacing: 2px; color: #7dd3fc; text-transform: uppercase; margin-top: 4px; opacity: 0.95; text-align: center; }
 
         /* MODAL / POP-UP */
-        .cyber-modal-overlay, .music-modal-overlay, .personal-modal-overlay, .debt-modal-overlay, .debt-pin-overlay, .edit-debt-overlay, .view-debt-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100dvh; background: rgba(2, 7, 20, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 99999999; display: flex; justify-content: center; align-items: center; padding: 12px; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.35s ease; }
+        .cyber-modal-overlay, .music-modal-overlay, .personal-modal-overlay, .debt-modal-overlay, .debt-pin-overlay, .edit-debt-overlay, .view-debt-overlay { position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh; background: rgba(2, 7, 20, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 99999999; display: flex; justify-content: center; align-items: center; padding: 12px; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.35s ease; overflow-x: hidden !important; }
         .cyber-modal-overlay.active, .music-modal-overlay.active, .personal-modal-overlay.active, .debt-modal-overlay.active, .debt-pin-overlay.active, .edit-debt-overlay.active, .view-debt-overlay.active { opacity: 1; visibility: visible; pointer-events: auto; }
 
         .music-modal-card, .personal-modal-card, .debt-modal-card, .view-debt-card { background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.75); border-radius: 26px; padding: 22px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); transform: scale(0.9); transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
@@ -357,7 +357,7 @@
         .amount-out { color: #fb7185; }
         .amount-refund { color: #fbbf24; }
 
-        .popup-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(1, 4, 12, 0.85); backdrop-filter: blur(10px); z-index: 99999999; display: flex; justify-content: center; align-items: center; padding: 16px; opacity: 0; pointer-events: none; transition: opacity 0.2s ease-out; }
+        .popup-overlay { position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; background: rgba(1, 4, 12, 0.85); backdrop-filter: blur(10px); z-index: 99999999; display: flex; justify-content: center; align-items: center; padding: 16px; opacity: 0; pointer-events: none; transition: opacity 0.2s ease-out; overflow-x: hidden !important; }
         .popup-overlay.active { opacity: 1; pointer-events: auto; }
         .popup-box { background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.8); border-radius: 26px; padding: 32px 24px; width: 100%; max-width: 380px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; box-shadow: 0 0 40px rgba(0, 240, 255, 0.5); }
         .popup-icon { width: 72px; height: 72px; border-radius: 50%; background: rgba(16, 185, 129, 0.25); border: 2px solid var(--pemasukan-green); color: #34d399; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; }
@@ -365,46 +365,6 @@
         .popup-subtitle { font-size: 1.05rem; color: #a5f3fc; line-height: 1.5; }
         .popup-btn { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff; font-family: 'Rajdhani', sans-serif; font-size: 1.25rem; font-weight: 900; letter-spacing: 1.5px; border: 1px solid rgba(255, 255, 255, 0.4); padding: 16px 48px; border-radius: 16px; cursor: pointer; width: 100%; box-shadow: 0 0 20px rgba(16, 185, 129, 0.5); margin-top: 6px; }
         .popup-btn:active { transform: scale(0.97); filter: brightness(1.15); }
-
-        /* ====================================================
-           KODE PAMUNGKAS ANTI-GESER KE KANAN-KIRI (IOS SAFARI)
-           ==================================================== */
-        html, body {
-            width: 100% !important;
-            max-width: 100vw !important;
-            overflow-x: hidden !important;
-            position: relative !important;
-        }
-
-        *, *::before, *::after {
-            box-sizing: border-box !important;
-            max-width: 100vw !important; 
-        }
-
-        .splash-screen-overlay, 
-        .pin-screen-overlay, 
-        .cyber-scanner-flash,
-        .cyber-modal-overlay,
-        .music-modal-overlay,
-        .personal-modal-overlay,
-        .debt-modal-overlay,
-        .debt-pin-overlay,
-        .edit-debt-overlay,
-        .view-debt-overlay,
-        .popup-overlay {
-            width: 100vw !important;
-            max-width: 100vw !important;
-            left: 0 !important;
-            right: 0 !important;
-            overflow-x: hidden !important;
-        }
-
-        .container {
-            width: 100% !important;
-            max-width: 440px !important;
-            overflow-x: hidden !important;
-            margin: 0 auto !important;
-        }
     </style>
 </head>
 <body>
