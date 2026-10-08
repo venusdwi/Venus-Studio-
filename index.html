@@ -94,9 +94,9 @@
             z-index: 99999999;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            padding: 40px 20px;
+            padding: 20px;
             overflow: hidden !important;
             transition: opacity 0.5s ease, visibility 0.5s ease;
         }
@@ -138,7 +138,7 @@
             z-index: 1;
         }
 
-        .splash-top-section { width: 100%; display: flex; justify-content: center; z-index: 5; padding-top: 10px; }
+        .splash-top-section { position: fixed; top: 50px; width: 100%; display: flex; justify-content: center; z-index: 5; }
         .splash-logo-glow { width: 88px; height: 88px; border-radius: 50%; background: rgba(0, 240, 255, 0.08); border: 2px dashed rgba(0, 240, 255, 0.6); display: flex; align-items: center; justify-content: center; position: relative; box-shadow: 0 0 35px rgba(0, 240, 255, 0.4), inset 0 0 20px rgba(0, 240, 255, 0.2); animation: coreRotateOuter 10s infinite linear, logoFloat 2s infinite alternate ease-in-out; }
         .splash-logo-glow::before { content: ''; position: absolute; top: -6px; left: -6px; right: -6px; bottom: -6px; border-radius: 50%; border: 2px solid var(--accent-cyan); border-top-color: transparent; border-bottom-color: transparent; animation: coreRotateInner 3s infinite linear; }
         .cyber-core-svg { width: 38px; height: 38px; fill: var(--accent-cyan); filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.9)); animation: corePulseIcon 1.5s infinite alternate ease-in-out; }
@@ -159,7 +159,7 @@
             100% { opacity: 1; transform: scale(1); letter-spacing: 1.5px; filter: blur(0px); text-shadow: 0 0 12px rgba(0, 240, 255, 0.5); }
         }
 
-        .splash-bottom-section { width: 100%; display: flex; justify-content: center; z-index: 5; padding-bottom: 20px; }
+        .splash-bottom-section { position: fixed; bottom: 85px; width: 100%; display: flex; justify-content: center; z-index: 50; }
         .tap-here-btn { background: linear-gradient(135deg, rgba(0, 240, 255, 0.15) 0%, rgba(0, 119, 255, 0.25) 100%); border: 1.5px solid rgba(0, 240, 255, 0.7); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 1.15rem; font-weight: 800; letter-spacing: 3px; padding: 14px 38px; border-radius: 30px; cursor: pointer; box-shadow: 0 0 20px rgba(0, 240, 255, 0.35); text-transform: uppercase; opacity: 0; visibility: hidden; transition: opacity 0.5s ease, transform 0.2s ease; }
         .tap-here-btn.show { opacity: 1; visibility: visible; animation: tapPulse 1.5s infinite ease-in-out; }
         .tap-here-btn:active { transform: scale(0.95); background: rgba(0, 240, 255, 0.35); box-shadow: 0 0 30px rgba(0, 240, 255, 0.8); }
