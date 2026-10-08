@@ -32,32 +32,29 @@
             padding: 0;
             -webkit-tap-highlight-color: transparent;
         }
-        
- html {
-    width: 100% !important;
-    max-width: 100vw !important;
-    overflow-x: hidden !important;
-    -webkit-text-size-adjust: 100%;
-    position: relative;
-    background-color: #020714 !important; /* Memaksa celah browser menjadi gelap */
-    overscroll-behavior: none !important; /* Mencegah efek pantulan putih saat ditarik */
-}
 
-body {
-    background-color: #020714;
-    color: #ffffff;
-    padding: 16px 12px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
-    min-height: 100dvh;
-    width: 100% !important;
-    max-width: 100vw !important;
-    overflow-x: hidden !important;
-    position: relative;
-    overscroll-behavior: none !important;
-}
+        html {
+            width: 100% !important;
+            max-width: 100vw !important;
+            overflow-x: hidden !important;
+            -webkit-text-size-adjust: 100%;
+            position: relative;
+        }
+
+        body {
+            background-color: #020714;
+            color: #ffffff;
+            padding: 16px 12px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            min-height: 100dvh;
+            width: 100% !important;
+            max-width: 100vw !important;
+            overflow-x: hidden !important;
+            position: relative;
+        }
 
         /* --- CSS UNTUK MENYEMBUNYIKAN SCROLLBAR --- */
         *::-webkit-scrollbar {
@@ -97,7 +94,7 @@ body {
             z-index: 99999999;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: center; /* Mengubah posisi ke center */
             align-items: center;
             padding: 20px;
             overflow: hidden !important;
@@ -141,6 +138,7 @@ body {
             z-index: 1;
         }
 
+        /* Membuat posisi Top (Logo) tetap di atas */
         .splash-top-section { position: fixed; top: 50px; width: 100%; display: flex; justify-content: center; z-index: 5; }
         .splash-logo-glow { width: 88px; height: 88px; border-radius: 50%; background: rgba(0, 240, 255, 0.08); border: 2px dashed rgba(0, 240, 255, 0.6); display: flex; align-items: center; justify-content: center; position: relative; box-shadow: 0 0 35px rgba(0, 240, 255, 0.4), inset 0 0 20px rgba(0, 240, 255, 0.2); animation: coreRotateOuter 10s infinite linear, logoFloat 2s infinite alternate ease-in-out; }
         .splash-logo-glow::before { content: ''; position: absolute; top: -6px; left: -6px; right: -6px; bottom: -6px; border-radius: 50%; border: 2px solid var(--accent-cyan); border-top-color: transparent; border-bottom-color: transparent; animation: coreRotateInner 3s infinite linear; }
@@ -162,8 +160,12 @@ body {
             100% { opacity: 1; transform: scale(1); letter-spacing: 1.5px; filter: blur(0px); text-shadow: 0 0 12px rgba(0, 240, 255, 0.5); }
         }
 
+        /* Membuat posisi Bottom (Tombol TAP HERE) tetap dan dinaikkan */
         .splash-bottom-section { position: fixed; bottom: 85px; width: 100%; display: flex; justify-content: center; z-index: 50; }
-        .tap-here-btn { background: linear-gradient(135deg, rgba(0, 240, 255, 0.15) 0%, rgba(0, 119, 255, 0.25) 100%); border: 1.5px solid rgba(0, 240, 255, 0.7); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 1.15rem; font-weight: 800; letter-spacing: 3px; padding: 14px 38px; border-radius: 30px; cursor: pointer; box-shadow: 0 0 20px rgba(0, 240, 255, 0.35); text-transform: uppercase; opacity: 0; visibility: hidden; transition: opacity 0.5s ease, transform 0.2s ease; }
+        
+        /* Tambahan text-decoration dan outline untuk membersihkan garis putih bocor */
+        .tap-here-btn { background: linear-gradient(135deg, rgba(0, 240, 255, 0.15) 0%, rgba(0, 119, 255, 0.25) 100%); border: 1.5px solid rgba(0, 240, 255, 0.7); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 1.15rem; font-weight: 800; letter-spacing: 3px; padding: 14px 38px; border-radius: 30px; cursor: pointer; box-shadow: 0 0 20px rgba(0, 240, 255, 0.35); text-transform: uppercase; opacity: 0; visibility: hidden; transition: opacity 0.5s ease, transform 0.2s ease; text-decoration: none !important; outline: none !important; -webkit-appearance: none; }
+        
         .tap-here-btn.show { opacity: 1; visibility: visible; animation: tapPulse 1.5s infinite ease-in-out; }
         .tap-here-btn:active { transform: scale(0.95); background: rgba(0, 240, 255, 0.35); box-shadow: 0 0 30px rgba(0, 240, 255, 0.8); }
 
