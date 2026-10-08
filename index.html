@@ -976,6 +976,29 @@
 </script>
 
 <script>
+    // --- FITUR AUTO-LOCK DENGAN TOLERANSI WAKTU 1 MENIT ---
+    const LOCK_TIMEOUT_MS = 60 * 1000; // 1 Menit dalam milidetik
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden') {
+            localStorage.setItem('venus_last_leave_time', Date.now());
+        } else if (document.visibilityState === 'visible') {
+            const lastLeave = localStorage.getItem('venus_last_leave_time');
+            if (lastLeave) {
+                const elapsed = Date.now() - parseInt(lastLeave, 10);
+                if (elapsed > LOCK_TIMEOUT_MS) {
+                    sessionStorage.removeItem('venus_is_logged');
+                    sessionStorage.removeItem('venus_active_modal');
+                    location.reload();
+                }
+            }
+        }
+    });
+
+    window.addEventListener('pagehide', () => {
+        localStorage.setItem('venus_last_leave_time', Date.now());
+    });
+
     // --- ANIMASI & SUARA AUDIO AWAL ---
     function playNetflixIntroSound() { try { const ctx = new (window.AudioContext || window.webkitAudioContext)(); if (ctx.state === 'suspended') ctx.resume(); const now = ctx.currentTime; const osc1 = ctx.createOscillator(); const gain1 = ctx.createGain(); osc1.type = 'sawtooth'; osc1.frequency.setValueAtTime(100, now); osc1.frequency.exponentialRampToValueAtTime(32, now + 0.55); gain1.gain.setValueAtTime(0.01, now); gain1.gain.linearRampToValueAtTime(0.75, now + 0.08); gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.85); osc1.connect(gain1); gain1.connect(ctx.destination); osc1.start(now); osc1.stop(now + 0.85); const osc2 = ctx.createOscillator(); const gain2 = ctx.createGain(); osc2.type = 'sine'; osc2.frequency.setValueAtTime(140, now + 0.22); osc2.frequency.exponentialRampToValueAtTime(38, now + 1.6); gain2.gain.setValueAtTime(0.01, now + 0.22); gain2.gain.linearRampToValueAtTime(0.95, now + 0.3); gain2.gain.exponentialRampToValueAtTime(0.0001, now + 1.8); osc2.connect(gain2); gain2.connect(ctx.destination); osc2.start(now + 0.22); osc2.stop(now + 1.8); } catch (e) {} }
     function playDramaticTransitionSound() { try { const ctx = new (window.AudioContext || window.webkitAudioContext)(); if (ctx.state === 'suspended') ctx.resume(); const now = ctx.currentTime; const osc = ctx.createOscillator(); const gain = ctx.createGain(); osc.type = 'sawtooth'; osc.frequency.setValueAtTime(150, now); osc.frequency.exponentialRampToValueAtTime(800, now + 0.4); gain.gain.setValueAtTime(0.01, now); gain.gain.linearRampToValueAtTime(0.35, now + 0.2); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6); osc.connect(gain); gain.connect(ctx.destination); osc.start(now); osc.stop(now + 0.6); } catch (e) {} }
@@ -1021,7 +1044,6 @@
             setTimeout(() => { playNetflixIntroSound(); speakWelcomeGreeting(); }, 600);
         }
 
-        // Sinkronisasi data dari Firebase Realtime Database secara otomatis saat aplikasi dimuat
         setTimeout(() => {
             if (window.loadTransactionsFromFirebase) {
                 window.loadTransactionsFromFirebase((cloudData) => {
@@ -1652,12 +1674,45 @@
     // --- CYBER VAULT KEUANGAN LOGIC ---
     const glassOpacitySlider = document.getElementById('glassOpacitySlider'); const opacityValText = document.getElementById('opacityValText');
     glassOpacitySlider.addEventListener('input', function() { document.documentElement.style.setProperty('--glass-alpha', (this.value / 100).toFixed(2)); opacityValText.innerText = this.value + '%'; localStorage.setItem('cyber_glass_opacity', this.value); });
+    
     let transactions = JSON.parse(localStorage.getItem('my_transactions')) || [];
-    const currentRealTimeYM = new Date().toISOString().slice(0, 7); let currentFilterMonth = currentRealTimeYM;
-    const filterBadgeText = document.getElementById('filterBadgeText'); const filterMonthInputDirect = document.getElementById('filterMonthInputDirect'); const filterBadgeWrapperBtn = document.getElementById('filterBadgeWrapperBtn');
-    filterMonthInputDirect.value = currentFilterMonth; filterBadgeText.innerText = formatMonthName(currentFilterMonth);
-    filterBadgeWrapperBtn.addEventListener('click', (e) => { e.stopPropagation(); try { filterMonthInputDirect.showPicker(); } catch (err) { filterMonthInputDirect.click(); } });
-    filterMonthInputDirect.addEventListener('change', function() { if (this.value) { currentFilterMonth = this.value; filterBadgeText.innerText = formatMonthName(currentFilterMonth); updateUI(); } });
+    
+    // Tanggal real-time otomatis hari ini
+    const currentRealTimeDate = new Date().toISOString().slice(0, 10); 
+    const currentRealTimeYM = currentRealTimeDate.slice(0, 7); 
+    
+    let currentFilterDate = currentRealTimeDate; 
+    let currentFilterMonth = currentRealTimeYM;
+
+    const filterBadgeText = document.getElementById('filterBadgeText'); 
+    const filterMonthInputDirect = document.getElementById('filterMonthInputDirect'); 
+    const filterBadgeWrapperBtn = document.getElementById('filterBadgeWrapperBtn');
+
+    filterMonthInputDirect.value = currentRealTimeYM; 
+    filterBadgeText.innerText = formatTransactionDateShort(currentRealTimeDate);
+
+    filterBadgeWrapperBtn.addEventListener('click', (e) => { 
+        e.stopPropagation(); 
+        currentFilterDate = null; 
+        try { filterMonthInputDirect.showPicker(); } catch (err) { filterMonthInputDirect.click(); } 
+    });
+
+    filterMonthInputDirect.addEventListener('change', function() { 
+        if (this.value) { 
+            currentFilterMonth = this.value; 
+            currentFilterDate = null;
+            filterBadgeText.innerText = formatMonthName(currentFilterMonth); 
+            updateUI(); 
+        } 
+    });
+
+    function formatTransactionDateShort(dateStr) {
+        if (!dateStr) return '';
+        const [y, m, d] = dateStr.split('-');
+        const shortMonthNames = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agt", "Sept", "Okt", "Nov", "Des"];
+        return `${parseInt(d)} ${shortMonthNames[parseInt(m)-1]} ${y}`;
+    }
+
     let selectedDateValue = new Date().toISOString().slice(0,10); const inputDate = document.getElementById('inputDate'); const dateWrapperBtn = document.getElementById('dateWrapperBtn'); const dateDisplayText = document.getElementById('dateDisplayText');
     function formatDateDisplay(dateStr) { if (!dateStr) return ''; const [y, m, d] = dateStr.split('-'); return `${d}/${m}/${y}`; }
     dateWrapperBtn.addEventListener('click', (e) => { e.stopPropagation(); try { inputDate.showPicker(); } catch (err) { inputDate.click(); } });
@@ -1686,12 +1741,19 @@
     }
 
     function updateUI() {
-        const historyList = document.getElementById('historyList'); historyList.innerHTML = '';
-        let filtered = currentFilterMonth ? transactions.filter(t => t.date && t.date.startsWith(currentFilterMonth)) : transactions;
+        const historyList = document.getElementById('historyList'); 
+        historyList.innerHTML = '';
+        
+        let filtered = transactions;
+        if (currentFilterDate) {
+            filtered = transactions.filter(t => t.date === currentFilterDate);
+        } else if (currentFilterMonth) {
+            filtered = transactions.filter(t => t.date && t.date.startsWith(currentFilterMonth));
+        }
+
         if (filtered.length === 0) {
-            historyList.innerHTML = '<li style="text-align:center; color:#a5f3fc; font-size:0.95rem; padding:20px 0;">Tidak ada transaksi pada periode ini</li>';
+            historyList.innerHTML = '<li style="text-align:center; color:#a5f3fc; font-size:0.95rem; padding:20px 0;">Tidak ada transaksi pada tanggal ini</li>';
         } else {
-            // Urutkan berdasarkan Tanggal terbaru, lalu Jam terbaru secara real-time
             filtered.sort((a, b) => {
                 if (b.date !== a.date) {
                     return b.date.localeCompare(a.date);
