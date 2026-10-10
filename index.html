@@ -94,7 +94,7 @@
             z-index: 99999999;
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Mengubah posisi ke center */
+            justify-content: center;
             align-items: center;
             padding: 20px;
             overflow: hidden !important;
@@ -138,7 +138,6 @@
             z-index: 1;
         }
 
-        /* Membuat posisi Top (Logo) tetap di atas */
         .splash-top-section { position: fixed; top: 50px; width: 100%; display: flex; justify-content: center; z-index: 5; }
         .splash-logo-glow { width: 88px; height: 88px; border-radius: 50%; background: rgba(0, 240, 255, 0.08); border: 2px dashed rgba(0, 240, 255, 0.6); display: flex; align-items: center; justify-content: center; position: relative; box-shadow: 0 0 35px rgba(0, 240, 255, 0.4), inset 0 0 20px rgba(0, 240, 255, 0.2); animation: coreRotateOuter 10s infinite linear, logoFloat 2s infinite alternate ease-in-out; }
         .splash-logo-glow::before { content: ''; position: absolute; top: -6px; left: -6px; right: -6px; bottom: -6px; border-radius: 50%; border: 2px solid var(--accent-cyan); border-top-color: transparent; border-bottom-color: transparent; animation: coreRotateInner 3s infinite linear; }
@@ -160,12 +159,8 @@
             100% { opacity: 1; transform: scale(1); letter-spacing: 1.5px; filter: blur(0px); text-shadow: 0 0 12px rgba(0, 240, 255, 0.5); }
         }
 
-        /* Membuat posisi Bottom (Tombol TAP HERE) tetap dan dinaikkan */
         .splash-bottom-section { position: fixed; bottom: 85px; width: 100%; display: flex; justify-content: center; z-index: 50; }
-        
-        /* Tambahan text-decoration dan outline untuk membersihkan garis putih bocor */
         .tap-here-btn { background: linear-gradient(135deg, rgba(0, 240, 255, 0.15) 0%, rgba(0, 119, 255, 0.25) 100%); border: 1.5px solid rgba(0, 240, 255, 0.7); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 1.15rem; font-weight: 800; letter-spacing: 3px; padding: 14px 38px; border-radius: 30px; cursor: pointer; box-shadow: 0 0 20px rgba(0, 240, 255, 0.35); text-transform: uppercase; opacity: 0; visibility: hidden; transition: opacity 0.5s ease, transform 0.2s ease; text-decoration: none !important; outline: none !important; -webkit-appearance: none; }
-        
         .tap-here-btn.show { opacity: 1; visibility: visible; animation: tapPulse 1.5s infinite ease-in-out; }
         .tap-here-btn:active { transform: scale(0.95); background: rgba(0, 240, 255, 0.35); box-shadow: 0 0 30px rgba(0, 240, 255, 0.8); }
 
@@ -943,7 +938,7 @@
     </div>
 </div>
 
-<!-- FIREBASE SDK (MODULAR) -->
+<!-- FIREBASE SDK & IMGBB UPLOADER -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
   import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
@@ -962,7 +957,6 @@
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
 
-  // Fungsi Global Firebase Sync
   window.saveTransactionsToFirebase = function(txData) {
     set(ref(db, 'venus_studio/transactions'), txData)
       .then(() => { console.log("Cloud Sync: Berhasil simpan ke Firebase!"); })
@@ -973,16 +967,46 @@
     const dbRef = ref(db, 'venus_studio/transactions');
     onValue(dbRef, (snapshot) => {
       const data = snapshot.val();
-      if (data) {
-        callback(data);
-      }
+      if (data) { callback(data); }
+    });
+  };
+
+  // Fungsi Upload Foto ke ImgBB
+  window.uploadProofToImgBB = function(base64Image, callback) {
+    if (!base64Image) { callback(null); return; }
+    
+    const IMGBB_API_KEY = '2b0db5ed602c84f82c6f30304445cb3d'; 
+    const base64Data = base64Image.split(',')[1];
+    
+    const formData = new FormData();
+    formData.append('image', base64Data);
+
+    fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.success) {
+            console.log("Foto terunggah ke ImgBB:", result.data.url);
+            callback(result.data.url); 
+        } else {
+            console.error("ImgBB Error:", result);
+            alert("Gagal mengunggah foto ke ImgBB.");
+            callback(null);
+        }
+    })
+    .catch(error => {
+        console.error("Fetch Error:", error);
+        alert("Gagal terhubung ke server gambar. Pastikan internet stabil.");
+        callback(null);
     });
   };
 </script>
 
 <script>
     // --- FITUR AUTO-LOCK DENGAN TOLERANSI WAKTU 1 MENIT ---
-    const LOCK_TIMEOUT_MS = 60 * 1000; // 1 Menit dalam milidetik
+    const LOCK_TIMEOUT_MS = 60 * 1000;
 
     document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'hidden') {
@@ -1231,7 +1255,7 @@
     document.getElementById('btnEditSelectMethod').addEventListener('click', () => document.getElementById('modalEditSelectMethod').classList.add('active'));
 
 
-    // --- FITUR DEBT TRACKER (CATATAN HUTANG) ---
+    // --- FITUR DEBT TRACKER ---
     const debtListContainer = document.getElementById('debtListContainer');
     const totalDebtAmount = document.getElementById('totalDebtAmount');
     const remainingDebtAmount = document.getElementById('remainingDebtAmount');
@@ -1682,7 +1706,6 @@
     
     let transactions = JSON.parse(localStorage.getItem('my_transactions')) || [];
     
-    // Tanggal real-time otomatis hari ini
     const currentRealTimeDate = new Date().toISOString().slice(0, 10); 
     const currentRealTimeYM = currentRealTimeDate.slice(0, 7); 
     
@@ -1815,7 +1838,9 @@
             if (window.saveTransactionsToFirebase) {
                 window.saveTransactionsToFirebase(transactions);
             }
-        } catch(e) { alert('PERINGATAN: Memori penyimpanan penuh.'); }
+        } catch(e) { 
+            console.warn('Local storage limit reached, syncing to cloud only.'); 
+        }
     }
 
     const detailTransactionModal = document.getElementById('detailTransactionModal'); const closeDetailModalBtn = document.getElementById('closeDetailModalBtn');
@@ -1872,10 +1897,38 @@
         const id = parseInt(editTxId.value); const type = editType.value; const amount = parseFloat(editAmount.value.replace(/\./g, '')); const description = editDescription.value; const date = editDate.value; const time = editTime.value; const method = editMethod.value;
         if (!amount || isNaN(amount) || !description || !date || !time) return alert('Semua kolom wajib diisi dengan benar!');
         const index = transactions.findIndex(t => t.id === id);
+        
+        const btnUpdateTransaction = document.getElementById('btnUpdateTransaction');
+        
         if (index !== -1) {
             const editProofFile = document.getElementById('editProofInput').files[0];
-            if (editProofFile) { compressImage(editProofFile, function(base64Proof) { transactions[index] = { id, type, amount, description, date, time, method, proof: base64Proof }; finalizeUpdate(); }); } else { transactions[index] = { id, type, amount, description, date, time, method, proof: transactions[index].proof }; finalizeUpdate(); }
-            function finalizeUpdate() { updateUI(); detailTransactionModal.classList.remove('active'); playCashSound(); }
+            if (editProofFile) { 
+                btnUpdateTransaction.innerText = "Mengunggah Foto...";
+                btnUpdateTransaction.disabled = true;
+                
+                compressImage(editProofFile, function(base64Proof) { 
+                    if (base64Proof && window.uploadProofToImgBB) {
+                        window.uploadProofToImgBB(base64Proof, function(downloadUrl) {
+                            transactions[index] = { id, type, amount, description, date, time, method, proof: downloadUrl }; 
+                            finalizeUpdate(); 
+                        });
+                    } else {
+                        transactions[index] = { id, type, amount, description, date, time, method, proof: null }; 
+                        finalizeUpdate(); 
+                    }
+                }); 
+            } else { 
+                transactions[index] = { id, type, amount, description, date, time, method, proof: transactions[index].proof }; 
+                finalizeUpdate(); 
+            }
+            
+            function finalizeUpdate() { 
+                updateUI(); 
+                detailTransactionModal.classList.remove('active'); 
+                playCashSound(); 
+                btnUpdateTransaction.innerText = "Simpan Perubahan";
+                btnUpdateTransaction.disabled = false;
+            }
         }
     });
     document.getElementById('btnDeleteTransaction').addEventListener('click', () => { const id = parseInt(editTxId.value); if (confirm('Apakah Anda yakin ingin menghapus transaksi ini?')) { transactions = transactions.filter(t => t.id !== id); updateUI(); detailTransactionModal.classList.remove('active'); } });
@@ -1897,9 +1950,19 @@
         }
         
         btnSubmit.disabled = true; btnText.innerHTML = '<span class="btn-spinner"></span> Memproses...';
+        
         compressImage(proofFile, function(base64Proof) {
-            setTimeout(() => {
-                transactions.push({ id: Date.now(), type, amount, description, date, time, method, proof: base64Proof }); 
+            if (base64Proof && window.uploadProofToImgBB) {
+                btnText.innerHTML = '<span class="btn-spinner"></span> Mengunggah Foto...';
+                window.uploadProofToImgBB(base64Proof, function(downloadUrl) {
+                    finalizeTransaction(downloadUrl);
+                });
+            } else {
+                finalizeTransaction(null);
+            }
+            
+            function finalizeTransaction(proofUrl) {
+                transactions.push({ id: Date.now(), type, amount, description, date, time, method, proof: proofUrl }); 
                 updateUI(); 
                 
                 transactionForm.reset(); 
@@ -1922,7 +1985,7 @@
                 else if (type === 'refund') { popupTitle.innerText = "Pengembalian Dana!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (Pengurangan Pengeluaran)`; }
                 
                 popupNotification.classList.add('active');
-            }, 500);
+            }
         });
     });
     document.getElementById('popupCloseBtn').addEventListener('click', () => { popupNotification.classList.remove('active'); });
