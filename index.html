@@ -815,7 +815,10 @@
         
         <div class="form-group">
             <label>Bukti Transaksi</label>
-            <img id="detailProofImage" src="" style="display: none; width: 100%; max-height: 250px; object-fit: contain; border-radius: 12px; margin-bottom: 8px; border: 1.5px solid rgba(0,240,255,0.4); background: rgba(0,0,0,0.5); cursor: zoom-in;" alt="Bukti Transaksi" title="Klik untuk memperbesar">
+            <div id="detailProofContainer" style="display: none; flex-direction: column; gap: 6px;">
+                <img id="detailProofImage" src="" style="width: 100%; max-height: 250px; object-fit: contain; border-radius: 12px; border: 1.5px solid rgba(0,240,255,0.4); background: rgba(0,0,0,0.5); cursor: zoom-in;" alt="Bukti Transaksi" title="Klik untuk memperbesar">
+                <a id="detailProofLink" href="" target="_blank" style="font-size: 0.85rem; color: #00f0ff; text-decoration: underline; text-align: center; display: block;">Buka Gambar di Tab Baru (External Link)</a>
+            </div>
             <input type="file" id="editProofInput" accept="image/*" style="padding: 12px; font-size: 0.9rem; background: rgba(2, 12, 32, 0.85); color: #7dd3fc; border: 1.5px dashed rgba(0, 240, 255, 0.45); border-radius: 12px; width: 100%;">
         </div>
 
@@ -1844,7 +1847,11 @@
     }
 
     const detailTransactionModal = document.getElementById('detailTransactionModal'); const closeDetailModalBtn = document.getElementById('closeDetailModalBtn');
-    const editTxId = document.getElementById('editTxId'); const editType = document.getElementById('editType'); const editAmount = document.getElementById('editAmount'); const editDescription = document.getElementById('editDescription'); const editDate = document.getElementById('editDate'); const editTime = document.getElementById('editTime'); const editMethod = document.getElementById('editMethod'); const detailProofImage = document.getElementById('detailProofImage'); const editProofInput = document.getElementById('editProofInput');
+    const editTxId = document.getElementById('editTxId'); const editType = document.getElementById('editType'); const editAmount = document.getElementById('editAmount'); const editDescription = document.getElementById('editDescription'); const editDate = document.getElementById('editDate'); const editTime = document.getElementById('editTime'); const editMethod = document.getElementById('editMethod'); 
+    const detailProofContainer = document.getElementById('detailProofContainer');
+    const detailProofImage = document.getElementById('detailProofImage'); 
+    const detailProofLink = document.getElementById('detailProofLink');
+    const editProofInput = document.getElementById('editProofInput');
 
     function openDetailModal(id) {
         const tx = transactions.find(t => t.id === id); if (!tx) return;
@@ -1867,7 +1874,15 @@
         if(editMethod.value === 'QRIS') methodText = '📱 QRIS (E-Wallet)';
         document.getElementById('btnEditSelectMethod').innerText = methodText;
 
-        if (tx.proof) { detailProofImage.src = tx.proof; detailProofImage.style.display = 'block'; } else { detailProofImage.src = ''; detailProofImage.style.display = 'none'; }
+        if (tx.proof && tx.proof.startsWith('http')) { 
+            detailProofImage.src = tx.proof; 
+            detailProofLink.href = tx.proof;
+            detailProofContainer.style.display = 'flex'; 
+        } else { 
+            detailProofImage.src = ''; 
+            detailProofLink.href = '#';
+            detailProofContainer.style.display = 'none'; 
+        }
         editProofInput.value = ''; detailTransactionModal.classList.add('active');
     }
     closeDetailModalBtn.addEventListener('click', () => { detailTransactionModal.classList.remove('active'); });
