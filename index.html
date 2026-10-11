@@ -1926,32 +1926,36 @@
             return alert('Mohon pastikan Jenis Transaksi dan Metode Pembayaran sudah dipilih!');
         }
         
-        btnSubmit.disabled = true; btnText.innerHTML = '<span class="btn-spinner"></span> Mengompresi Foto...';
+        btnSubmit.disabled = true; 
+        btnText.innerHTML = '<span class="btn-spinner"></span> Memproses...';
         
         compressImage(proofFile, function(base64Proof) {
-            transactions.push({ id: Date.now(), type, amount, description, date, time, method, proof: base64Proof }); 
-            updateUI(); 
-            
-            transactionForm.reset(); 
-            document.getElementById('proofInput').value = '';
-            
-            document.getElementById('type').value = '';
-            document.getElementById('btnSelectType').innerText = '-- Pilih Jenis --';
-            document.getElementById('btnSelectType').classList.remove('selected');
-            
-            document.getElementById('paymentMethod').value = '';
-            document.getElementById('btnSelectMethod').innerText = '-- Pilih Metode --';
-            document.getElementById('btnSelectMethod').classList.remove('selected');
+            // Jeda 2 detik penuh sesuai permintaan sebelum data disimpan dan notifikasi muncul
+            setTimeout(() => {
+                transactions.push({ id: Date.now(), type, amount, description, date, time, method, proof: base64Proof }); 
+                updateUI(); 
+                
+                transactionForm.reset(); 
+                document.getElementById('proofInput').value = '';
+                
+                document.getElementById('type').value = '';
+                document.getElementById('btnSelectType').innerText = '-- Pilih Jenis --';
+                document.getElementById('btnSelectType').classList.remove('selected');
+                
+                document.getElementById('paymentMethod').value = '';
+                document.getElementById('btnSelectMethod').innerText = '-- Pilih Metode --';
+                document.getElementById('btnSelectMethod').classList.remove('selected');
 
-            const freshNow = new Date(); selectedDateValue = freshNow.toISOString().slice(0,10); const freshHour = String(freshNow.getHours()).padStart(2,'0'); const freshMinute = String(freshNow.getMinutes()).padStart(2,'0'); const freshTimeString = `${freshHour}:${freshMinute}`;
-            inputDate.value = selectedDateValue; dateDisplayText.innerText = formatDateDisplay(selectedDateValue); inputTime.value = freshTimeString; timeDisplayText.innerText = freshTimeString;
-            btnSubmit.disabled = false; btnText.innerText = 'Tambah Transaksi'; playCashSound();
-            
-            if (type === 'in') { popupTitle.innerText = "Pemasukan Masuk!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (+${formatRupiah(amount)})`; } 
-            else if (type === 'out') { popupTitle.innerText = "Pengeluaran Dicatat!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (-${formatRupiah(amount)})`; }
-            else if (type === 'refund') { popupTitle.innerText = "Pengembalian Dana!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (Pengurangan Pengeluaran)`; }
-            
-            popupNotification.classList.add('active');
+                const freshNow = new Date(); selectedDateValue = freshNow.toISOString().slice(0,10); const freshHour = String(freshNow.getHours()).padStart(2,'0'); const freshMinute = String(freshNow.getMinutes()).padStart(2,'0'); const freshTimeString = `${freshHour}:${freshMinute}`;
+                inputDate.value = selectedDateValue; dateDisplayText.innerText = formatDateDisplay(selectedDateValue); inputTime.value = freshTimeString; timeDisplayText.innerText = freshTimeString;
+                btnSubmit.disabled = false; btnText.innerText = 'Tambah Transaksi'; playCashSound();
+                
+                if (type === 'in') { popupTitle.innerText = "Pemasukan Masuk!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (+${formatRupiah(amount)})`; } 
+                else if (type === 'out') { popupTitle.innerText = "Pengeluaran Dicatat!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (-${formatRupiah(amount)})`; }
+                else if (type === 'refund') { popupTitle.innerText = "Pengembalian Dana!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (Pengurangan Pengeluaran)`; }
+                
+                popupNotification.classList.add('active');
+            }, 2000);
         });
     });
     document.getElementById('popupCloseBtn').addEventListener('click', () => { popupNotification.classList.remove('active'); });
