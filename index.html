@@ -877,6 +877,19 @@
     </div>
 </div>
 
+<!-- CUSTOM CYBER CONFIRM MODAL (GANTI CONFIRM BAWAAN BROWSER) -->
+<div class="popup-overlay" id="cyberConfirmModal" style="z-index: 9999999999;">
+    <div class="popup-box" style="max-width: 350px; text-align: center; gap: 16px; border-color: rgba(244, 63, 94, 0.7); box-shadow: 0 0 40px rgba(244, 63, 94, 0.4);">
+        <div style="width: 54px; height: 54px; border-radius: 50%; background: rgba(244, 63, 94, 0.15); border: 2px solid #f43f5e; color: #fb7185; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin: 0 auto;">⚠️</div>
+        <div style="font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 900; color: #fff;">KONFIRMASI</div>
+        <div id="cyberConfirmMessage" style="font-size: 0.95rem; color: #a5f3fc; line-height: 1.5;">Apakah Anda yakin ingin menghapus transaksi ini?</div>
+        <div style="display: flex; gap: 10px; width: 100%; margin-top: 6px;">
+            <button type="button" id="cyberConfirmCancelBtn" style="background: rgba(0, 240, 255, 0.1); border: 1.5px solid rgba(0, 240, 255, 0.4); color: #00f0ff; flex: 1; padding: 14px; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 1rem;">Batal</button>
+            <button type="button" id="cyberConfirmOkBtn" style="background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%); border: none; color: #fff; flex: 1; padding: 14px; border-radius: 12px; font-weight: 900; cursor: pointer; font-size: 1rem; box-shadow: 0 0 15px rgba(244, 63, 94, 0.5);">Hapus</button>
+        </div>
+    </div>
+</div>
+
 <div class="popup-overlay" id="newPlatformModal">
     <div class="popup-box" style="max-width: 360px; text-align: left; align-items: stretch; gap: 16px;">
         <div style="font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 900; color: #00f0ff; text-align: center;">TAMBAH PLATFORM BARU</div>
@@ -975,6 +988,32 @@
 </script>
 
 <script>
+    // --- FUNGSI CUSTOM CYBER CONFIRM (PENGGANTI CONFIRM BAWAAN BROWSER) ---
+    function showCyberConfirm(message, onConfirm) {
+        const modal = document.getElementById('cyberConfirmModal');
+        const msgEl = document.getElementById('cyberConfirmMessage');
+        const okBtn = document.getElementById('cyberConfirmOkBtn');
+        const cancelBtn = document.getElementById('cyberConfirmCancelBtn');
+        
+        msgEl.innerText = message;
+        modal.classList.add('active');
+
+        // Bersihkan event listener sebelumnya agar tidak numpuk
+        const newOkBtn = okBtn.cloneNode(true);
+        const newCancelBtn = cancelBtn.cloneNode(true);
+        okBtn.parentNode.replaceChild(newOkBtn, okBtn);
+        cancelBtn.parentNode.replaceChild(newCancelBtn, cancelBtn);
+
+        newOkBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+            if (onConfirm) onConfirm();
+        });
+
+        newCancelBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+    }
+
     // --- FITUR AUTO-LOCK DENGAN TOLERANSI WAKTU 1 MENIT ---
     const LOCK_TIMEOUT_MS = 60 * 1000;
 
@@ -1406,13 +1445,13 @@
 
     btnDeleteDebtItemFromView.addEventListener('click', () => {
         if (currentViewDebtIndex === null) return;
-        if (confirm('Apakah Anda yakin ingin menghapus rincian hutang ini?')) {
+        showCyberConfirm('Apakah Anda yakin ingin menghapus rincian hutang ini?', () => {
             let debts = getStoredDebts();
             debts.splice(currentViewDebtIndex, 1);
             localStorage.setItem('venus_debt_tracker_data', JSON.stringify(debts));
             renderDebts();
             viewDebtModal.classList.remove('active');
-        }
+        });
     });
 
     closeEditDebtModalBtn.addEventListener('click', () => { editDebtModal.classList.remove('active'); });
@@ -1443,13 +1482,13 @@
 
     btnDeleteDebtItem.addEventListener('click', () => {
         const index = parseInt(editDebtIndex.value);
-        if (confirm('Apakah Anda yakin ingin menghapus rincian hutang ini?')) {
+        showCyberConfirm('Apakah Anda yakin ingin menghapus rincian hutang ini?', () => {
             let debts = getStoredDebts();
             debts.splice(index, 1);
             localStorage.setItem('venus_debt_tracker_data', JSON.stringify(debts));
             renderDebts();
             editDebtModal.classList.remove('active');
-        }
+        });
     });
 
     function playCashStatusSound() {
@@ -1581,7 +1620,15 @@
     });
     btnDeleteHistoryItem.addEventListener('click', () => {
         const accIdx = parseInt(editHistoryAccIndex.value); const itemIdx = parseInt(editHistoryItemIndex.value); let accounts = getStoredAccounts();
-        if (confirm('Apakah Anda yakin ingin menghapus riwayat aktivitas ini?')) { if (accounts[accIdx] && accounts[accIdx].history) { accounts[accIdx].history.splice(itemIdx, 1); localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); renderSubHistory(accIdx, accounts[accIdx].history); renderFullHistory(accIdx); editHistoryItemModal.classList.remove('active'); } }
+        showCyberConfirm('Apakah Anda yakin ingin menghapus riwayat aktivitas ini?', () => {
+            if (accounts[accIdx] && accounts[accIdx].history) { 
+                accounts[accIdx].history.splice(itemIdx, 1); 
+                localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); 
+                renderSubHistory(accIdx, accounts[accIdx].history); 
+                renderFullHistory(accIdx); 
+                editHistoryItemModal.classList.remove('active'); 
+            }
+        });
     });
     document.getElementById('btnExportPersonal').addEventListener('click', () => {
         const savedData = localStorage.getItem('venus_password_manager_data'); if (!savedData) return alert('Belum ada data akun yang tersimpan!');
@@ -1908,7 +1955,15 @@
             }
         }
     });
-    document.getElementById('btnDeleteTransaction').addEventListener('click', () => { const id = parseInt(editTxId.value); if (confirm('Apakah Anda yakin ingin menghapus transaksi ini?')) { transactions = transactions.filter(t => t.id !== id); updateUI(); detailTransactionModal.classList.remove('active'); } });
+
+    document.getElementById('btnDeleteTransaction').addEventListener('click', () => { 
+        const id = parseInt(editTxId.value); 
+        showCyberConfirm('Apakah Anda yakin ingin menghapus transaksi ini?', () => {
+            transactions = transactions.filter(t => t.id !== id); 
+            updateUI(); 
+            detailTransactionModal.classList.remove('active');
+        }); 
+    });
 
     const transactionForm = document.getElementById('transactionForm'); const btnSubmit = document.getElementById('btnSubmit'); const btnText = document.getElementById('btnText'); const popupNotification = document.getElementById('popupNotification'); const popupTitle = document.getElementById('popupTitle'); const popupSubtitle = document.getElementById('popupSubtitle');
 
@@ -1930,7 +1985,7 @@
         btnText.innerHTML = '<span class="btn-spinner"></span> Memproses...';
         
         compressImage(proofFile, function(base64Proof) {
-            // Jeda 2 detik penuh sesuai permintaan sebelum data disimpan dan notifikasi muncul
+            // Jeda 2 detik penuh sesuai permintaan sebelumnya
             setTimeout(() => {
                 transactions.push({ id: Date.now(), type, amount, description, date, time, method, proof: base64Proof }); 
                 updateUI(); 
@@ -1969,7 +2024,7 @@
     const importFinanceFileInput = document.getElementById('importFileInput'); document.getElementById('btnImportBackup').addEventListener('click', () => { importFinanceFileInput.click(); });
     importFinanceFileInput.addEventListener('change', function(e) {
         const file = e.target.files[0]; if (!file) return; const reader = new FileReader();
-        reader.onload = function(event) { try { const dataPulih = JSON.parse(event.target.result); if (Array.isArray(dataPulih)) { if(confirm('Apakah Anda yakin ingin memulihkan data? Data transaksi saat ini akan tertimpa.')) { transactions = dataPulih; updateUI(); alert('Data transaksi keuangan berhasil dipulihkan!'); } } else alert('Format file backup tidak sesuai!'); } catch (err) { alert('Gagal membaca file .json!'); } };
+        reader.onload = function(event) { try { const dataPulih = JSON.parse(event.target.result); if (Array.isArray(dataPulih)) { showCyberConfirm('Apakah Anda yakin ingin memulihkan data? Data transaksi saat ini akan tertimpa.', () => { transactions = dataPulih; updateUI(); alert('Data transaksi keuangan berhasil dipulihkan!'); }); } else alert('Format file backup tidak sesuai!'); } catch (err) { alert('Gagal membaca file .json!'); } };
         reader.readAsText(file); e.target.value = '';
     });
 </script>
