@@ -189,13 +189,13 @@
         .keypad-btn.action-btn { font-size: 1.2rem; color: #7dd3fc; }
 
         /* HANYA UNTUK HALAMAN UTAMA / SETELAH LOGIN (ADA PARTIKEL & KONEKSI) */
-        .tech-bg-container { position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100vw !important; height: 100vh !important; z-index: 0; overflow: hidden !important; pointer-events: none; background: radial-gradient(circle at 50% 50%, #061838 0%, #020817 65%, #01040a 100%); display: none; }
-        .tech-bg-container.active { display: block !important; }
+        .tech-bg-container { position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100vw !important; height: 100vh !important; z-index: 0; overflow: hidden !important; pointer-events: none; background: radial-gradient(circle at 50% 50%, #061838 0%, #020817 65%, #01040a 100%); opacity: 0; visibility: hidden; transition: opacity 0.8s ease, visibility 0.8s ease; }
+        .tech-bg-container.active { opacity: 1; visibility: visible; }
         #circuitCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
         .cyber-vignette { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: radial-gradient(circle at 50% 50%, transparent 30%, rgba(1, 4, 12, 0.65) 100%); pointer-events: none; }
 
-        /* TAHAP 3: KONTEN UTAMA WEB */
-        .container { position: relative; z-index: 10; width: 100% !important; max-width: 440px !important; overflow-x: hidden !important; margin: 0 auto; background: transparent; border: none; box-shadow: none; padding: 10px 4px; display: none; gap: 12px; opacity: 0; transform: scale(0.95); transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        /* TAHAP 3: KONTEN UTAMA WEB (DENGAN TRANSISI SMOOTH FADE & ZOOM) */
+        .container { position: relative; z-index: 10; width: 100% !important; max-width: 440px !important; overflow-x: hidden !important; margin: 0 auto; background: transparent; border: none; box-shadow: none; padding: 10px 4px; display: none; gap: 12px; opacity: 0; transform: scale(0.92); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .container.active { display: flex !important; flex-direction: column; opacity: 1; transform: scale(1); }
         .install-app-btn { background: linear-gradient(135deg, rgba(0, 240, 255, 0.2) 0%, rgba(0, 119, 255, 0.2) 100%); border: 1px solid rgba(0, 240, 255, 0.6); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 0.9rem; font-weight: 800; padding: 10px 16px; border-radius: 12px; cursor: pointer; display: none; align-items: center; justify-content: center; gap: 6px; margin: 0 auto 14px auto; box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); letter-spacing: 1px; text-transform: uppercase; }
 
