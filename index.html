@@ -953,6 +953,86 @@
     </div>
 </div>
 
+<!-- SCRIPT ANIMASI PARTIKEL & KONEKSI GARIS (CIRCUIT CANVAS) -->
+<script>
+    const canvas = document.getElementById('circuitCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let width, height;
+
+    function resizeCanvas() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.vx = (Math.random() - 0.5) * 0.8;
+            this.vy = (Math.random() - 0.5) * 0.8;
+            this.radius = Math.random() * 2 + 1;
+        }
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+            if (this.x < 0) this.x = width;
+            if (this.x > width) this.x = 0;
+            if (this.y < 0) this.y = height;
+            if (this.y > height) this.y = 0;
+        }
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(0, 240, 255, 0.7)';
+            ctx.shadowBlur = 8;
+            ctx.shadowColor = '#00f0ff';
+            ctx.fill();
+            ctx.shadowBlur = 0; // reset
+        }
+    }
+
+    function initParticles() {
+        particles = [];
+        const numParticles = Math.floor((width * height) / 14000); // Jumlah partikel responsif
+        for (let i = 0; i < numParticles; i++) {
+            particles.push(new Particle());
+        }
+    }
+    initParticles();
+
+    function animateParticles() {
+        ctx.clearRect(0, 0, width, height);
+
+        // Update & Draw Partikel
+        for (let i = 0; i < particles.length; i++) {
+            particles[i].update();
+            particles[i].draw();
+
+            // Hubungkan titik yang berdekatan dengan garis neon
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < 110) {
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    const alpha = (1 - (dist / 110)) * 0.35;
+                    ctx.strokeStyle = `rgba(0, 240, 255, ${alpha})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.stroke();
+                }
+            }
+        }
+        requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+</script>
+
 <!-- FIREBASE SDK -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
@@ -998,7 +1078,6 @@
         msgEl.innerText = message;
         modal.classList.add('active');
 
-        // Bersihkan event listener sebelumnya agar tidak numpuk
         const newOkBtn = okBtn.cloneNode(true);
         const newCancelBtn = cancelBtn.cloneNode(true);
         okBtn.parentNode.replaceChild(newOkBtn, okBtn);
@@ -1779,12 +1858,11 @@
             const img = new Image(); img.src = event.target.result;
             img.onload = function() {
                 const canvas = document.createElement('canvas'); 
-                const MAX_WIDTH = 600; // Lebar maksimal diperkecil agar ukurannya sangat ringan (±20-40 KB)
+                const MAX_WIDTH = 600; 
                 let width = img.width; let height = img.height;
                 if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
                 canvas.width = width; canvas.height = height; const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0, width, height); 
-                // Kualitas kompresi 0.5 (50%) agar aman dari batas memori Firebase & LocalStorage
                 callback(canvas.toDataURL('image/jpeg', 0.5)); 
             }
         };
@@ -1985,7 +2063,6 @@
         btnText.innerHTML = '<span class="btn-spinner"></span> Memproses...';
         
         compressImage(proofFile, function(base64Proof) {
-            // Jeda 2 detik penuh sesuai permintaan sebelumnya
             setTimeout(() => {
                 transactions.push({ id: Date.now(), type, amount, description, date, time, method, proof: base64Proof }); 
                 updateUI(); 
