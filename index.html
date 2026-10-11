@@ -953,7 +953,7 @@
     </div>
 </div>
 
-<!-- SCRIPT ANIMASI PARTIKEL & KONEKSI GARIS (CIRCUIT CANVAS) -->
+<!-- SCRIPT ANIMASI PARTIKEL & KONEKSI GARIS (CIRCUIT CANVAS - DIPERBANYAK & DIPERTEBAL) -->
 <script>
     const canvas = document.getElementById('circuitCanvas');
     const ctx = canvas.getContext('2d');
@@ -971,9 +971,9 @@
         constructor() {
             this.x = Math.random() * width;
             this.y = Math.random() * height;
-            this.vx = (Math.random() - 0.5) * 0.8;
-            this.vy = (Math.random() - 0.5) * 0.8;
-            this.radius = Math.random() * 2 + 1;
+            this.vx = (Math.random() - 0.5) * 1.0;
+            this.vy = (Math.random() - 0.5) * 1.0;
+            this.radius = Math.random() * 2.2 + 1.2;
         }
         update() {
             this.x += this.vx;
@@ -986,8 +986,8 @@
         draw() {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(0, 240, 255, 0.7)';
-            ctx.shadowBlur = 8;
+            ctx.fillStyle = 'rgba(0, 240, 255, 0.85)';
+            ctx.shadowBlur = 10;
             ctx.shadowColor = '#00f0ff';
             ctx.fill();
             ctx.shadowBlur = 0; // reset
@@ -996,7 +996,8 @@
 
     function initParticles() {
         particles = [];
-        const numParticles = Math.floor((width * height) / 14000); // Jumlah partikel responsif
+        // Jarak pembagi diperkecil dari 14000 ke 8500 agar partikel jauh lebih banyak
+        const numParticles = Math.floor((width * height) / 8500); 
         for (let i = 0; i < numParticles; i++) {
             particles.push(new Particle());
         }
@@ -1011,19 +1012,19 @@
             particles[i].update();
             particles[i].draw();
 
-            // Hubungkan titik yang berdekatan dengan garis neon
+            // Hubungkan titik yang berdekatan dengan garis neon yang dipertebal
             for (let j = i + 1; j < particles.length; j++) {
                 const dx = particles[i].x - particles[j].x;
                 const dy = particles[i].y - particles[j].y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
 
-                if (dist < 110) {
+                if (dist < 130) { // Jangkauan koneksi sedikit diperluas
                     ctx.beginPath();
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);
-                    const alpha = (1 - (dist / 110)) * 0.35;
+                    const alpha = (1 - (dist / 130)) * 0.55; // Opasitas ditingkatkan agar lebih terang
                     ctx.strokeStyle = `rgba(0, 240, 255, ${alpha})`;
-                    ctx.lineWidth = 0.8;
+                    ctx.lineWidth = 1.2; // Garis sedikit dipertebal dari 0.8 ke 1.2
                     ctx.stroke();
                 }
             }
