@@ -126,7 +126,7 @@
 
         .splash-top-section { position: fixed; top: 50px; width: 100%; display: flex; justify-content: center; z-index: 5; }
         
-        /* LOGO & LINGKARAN PUTUS-PUTUS DIUBAH MENJADI WARNA CYAN/BIRU SELARAS TEMA */
+        /* LOGO & LINGKARAN PUTUS-PUTUS WARNA CYAN/BIRU */
         .splash-logo-glow { width: 88px; height: 88px; border-radius: 50%; background: rgba(0, 240, 255, 0.05); border: 2px dashed rgba(0, 240, 255, 0.5); display: flex; align-items: center; justify-content: center; position: relative; box-shadow: 0 0 35px rgba(0, 240, 255, 0.25), inset 0 0 20px rgba(0, 240, 255, 0.1); animation: coreRotateOuter 10s infinite linear, logoFloat 2s infinite alternate ease-in-out; }
         .splash-logo-glow::before { content: ''; position: absolute; top: -6px; left: -6px; right: -6px; bottom: -6px; border-radius: 50%; border: 2px solid #00f0ff; border-top-color: transparent; border-bottom-color: transparent; animation: coreRotateInner 3s infinite linear; }
         .cyber-core-svg { width: 38px; height: 38px; fill: #00f0ff; filter: drop-shadow(0 0 12px rgba(0, 240, 255, 0.95)); animation: corePulseIcon 1.5s infinite alternate ease-in-out; }
@@ -189,7 +189,8 @@
         .keypad-btn.action-btn { font-size: 1.2rem; color: #7dd3fc; }
 
         /* HANYA UNTUK HALAMAN UTAMA / SETELAH LOGIN (ADA PARTIKEL & KONEKSI) */
-        .tech-bg-container { position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100vw !important; height: 100vh !important; z-index: 0; overflow: hidden !important; pointer-events: none; background: radial-gradient(circle at 50% 50%, #061838 0%, #020817 65%, #01040a 100%); }
+        .tech-bg-container { position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100vw !important; height: 100vh !important; z-index: 0; overflow: hidden !important; pointer-events: none; background: radial-gradient(circle at 50% 50%, #061838 0%, #020817 65%, #01040a 100%); display: none; }
+        .tech-bg-container.active { display: block !important; }
         #circuitCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
         .cyber-vignette { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: radial-gradient(circle at 50% 50%, transparent 30%, rgba(1, 4, 12, 0.65) 100%); pointer-events: none; }
 
@@ -384,7 +385,7 @@
     </div>
 </div>
 
-<!-- TAHAP 2: LAYAR KODE AKSES PIN -->
+<!-- TAHAP 2: LAYAR KODE AKSES PIN (TANPA PARTIKEL) -->
 <div class="pin-screen-overlay" id="pinScreenOverlay">
     <div class="pin-card">
         <div class="pin-icon-box">🔒</div>
@@ -450,7 +451,7 @@
 </div>
 
 <!-- CONTAINER PARTIKEL & KONEKSI GARIS (HANYA MUNCUL DI HALAMAN UTAMA) -->
-<div class="tech-bg-container">
+<div class="tech-bg-container" id="techBgContainer">
     <canvas id="circuitCanvas"></canvas>
     <div class="cyber-vignette"></div>
 </div>
@@ -1118,6 +1119,7 @@
     const debtModalOverlay = document.getElementById('debtModalOverlay');
     const debtPinOverlay = document.getElementById('debtPinOverlay');
     const cyberScannerFlash = document.getElementById('cyberScannerFlash');
+    const techBgContainer = document.getElementById('techBgContainer');
 
     window.addEventListener('DOMContentLoaded', () => {
         initIndexedDB();
@@ -1137,6 +1139,7 @@
         if (isLogged) {
             splashScreenOverlay.classList.add('hidden');
             pinScreenOverlay.classList.add('hidden');
+            techBgContainer.classList.add('active');
             mainAppContainer.classList.add('active');
             updateUI();
 
@@ -1225,7 +1228,13 @@
     function verifyPin() {
         if (enteredPin === CORRECT_PIN) {
             playSuccessSound(); cyberScannerFlash.classList.add('active'); pinScreenOverlay.classList.add('hidden');
-            setTimeout(() => { mainAppContainer.classList.add('active'); updateUI(); sessionStorage.setItem('venus_is_logged', 'true'); sessionStorage.setItem('venus_active_modal', 'none'); }, 850);
+            setTimeout(() => { 
+                techBgContainer.classList.add('active');
+                mainAppContainer.classList.add('active'); 
+                updateUI(); 
+                sessionStorage.setItem('venus_is_logged', 'true'); 
+                sessionStorage.setItem('venus_active_modal', 'none'); 
+            }, 850);
         } else {
             pinErrorMsg.innerText = "PIN Salah! Silakan coba lagi."; setTimeout(() => { clearAllPin(); }, 300);
         }
