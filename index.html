@@ -80,7 +80,7 @@
             --glass-blur: 16px;
         }
 
-        /* TAHAP 1: SPLASH SCREEN FULL LAYAR */
+        /* TAHAP 1: SPLASH SCREEN FULL LAYAR (TANPA PARTIKEL) */
         .splash-screen-overlay {
             position: fixed;
             top: 0;
@@ -89,8 +89,7 @@
             max-width: 100vw !important;
             height: 100vh;
             height: 100dvh;
-            background: linear-gradient(rgba(2, 7, 20, 0.9), rgba(2, 7, 20, 0.98)), url('bg-splash.jpg') no-repeat center center;
-            background-size: cover;
+            background: linear-gradient(rgba(2, 7, 20, 0.95), rgba(2, 7, 20, 0.99)), #020714;
             z-index: 99999999;
             display: flex;
             flex-direction: column;
@@ -125,28 +124,17 @@
             50% { transform: scale(1.08); opacity: 1; }
         }
 
-        .splash-particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: radial-gradient(white 1px, transparent 0);
-            background-size: 40px 40px;
-            opacity: 0.15;
-            pointer-events: none;
-            z-index: 1;
-        }
-
         .splash-top-section { position: fixed; top: 50px; width: 100%; display: flex; justify-content: center; z-index: 5; }
-        .splash-logo-glow { width: 88px; height: 88px; border-radius: 50%; background: rgba(0, 240, 255, 0.08); border: 2px dashed rgba(0, 240, 255, 0.6); display: flex; align-items: center; justify-content: center; position: relative; box-shadow: 0 0 35px rgba(0, 240, 255, 0.4), inset 0 0 20px rgba(0, 240, 255, 0.2); animation: coreRotateOuter 10s infinite linear, logoFloat 2s infinite alternate ease-in-out; }
-        .splash-logo-glow::before { content: ''; position: absolute; top: -6px; left: -6px; right: -6px; bottom: -6px; border-radius: 50%; border: 2px solid var(--accent-cyan); border-top-color: transparent; border-bottom-color: transparent; animation: coreRotateInner 3s infinite linear; }
-        .cyber-core-svg { width: 38px; height: 38px; fill: var(--accent-cyan); filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.9)); animation: corePulseIcon 1.5s infinite alternate ease-in-out; }
+        
+        /* LOGO 'V' DIUBAH JADI WARNA PUTIH DENGAN EFEK GLOW */
+        .splash-logo-glow { width: 88px; height: 88px; border-radius: 50%; background: rgba(255, 255, 255, 0.05); border: 2px dashed rgba(255, 255, 255, 0.5); display: flex; align-items: center; justify-content: center; position: relative; box-shadow: 0 0 35px rgba(255, 255, 255, 0.25), inset 0 0 20px rgba(255, 255, 255, 0.1); animation: coreRotateOuter 10s infinite linear, logoFloat 2s infinite alternate ease-in-out; }
+        .splash-logo-glow::before { content: ''; position: absolute; top: -6px; left: -6px; right: -6px; bottom: -6px; border-radius: 50%; border: 2px solid #ffffff; border-top-color: transparent; border-bottom-color: transparent; animation: coreRotateInner 3s infinite linear; }
+        .cyber-core-svg { width: 38px; height: 38px; fill: #ffffff; filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.95)); animation: corePulseIcon 1.5s infinite alternate ease-in-out; }
 
         @keyframes coreRotateOuter { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @keyframes coreRotateInner { 0% { transform: rotate(360deg); } 100% { transform: rotate(0deg); } }
-        @keyframes corePulseIcon { 0% { transform: scale(0.92); opacity: 0.8; filter: drop-shadow(0 0 6px rgba(0, 240, 255, 0.6)); } 100% { transform: scale(1.08); opacity: 1; filter: drop-shadow(0 0 15px rgba(0, 240, 255, 1)); } }
-        @keyframes logoFloat { 0% { transform: translateY(0); box-shadow: 0 0 20px rgba(0, 240, 255, 0.4); } 100% { transform: translateY(-8px); box-shadow: 0 0 40px rgba(0, 240, 255, 0.9); } }
+        @keyframes corePulseIcon { 0% { transform: scale(0.92); opacity: 0.85; filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.7)); } 100% { transform: scale(1.08); opacity: 1; filter: drop-shadow(0 0 18px rgba(255, 255, 255, 1)); } }
+        @keyframes logoFloat { 0% { transform: translateY(0); box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); } 100% { transform: translateY(-8px); box-shadow: 0 0 40px rgba(255, 255, 255, 0.7); } }
 
         .splash-center-section { text-align: center; display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 400px; z-index: 5; }
         .splash-welcome-top { font-family: 'Rajdhani', sans-serif; font-size: 1.1rem; font-weight: 800; letter-spacing: 5px; color: #7dd3fc; text-transform: uppercase; opacity: 0.85; margin-bottom: 4px; }
@@ -166,8 +154,8 @@
 
         @keyframes tapPulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); } 50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(0, 240, 255, 0.6); } }
 
-        /* TAHAP 2: LAYAR KODE AKSES PIN */
-        .pin-screen-overlay { position: fixed; top: 0; left: 0; width: 100vw !important; height: 100vh; height: 100dvh; background: rgba(2, 7, 20, 0.98); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); z-index: 9999990; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 20px; transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        /* TAHAP 2: LAYAR KODE AKSES PIN (TANPA PARTIKEL) */
+        .pin-screen-overlay { position: fixed; top: 0; left: 0; width: 100vw !important; height: 100vh; height: 100dvh; background: #020714; z-index: 9999990; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 20px; transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
         .pin-screen-overlay.active { display: flex !important; }
         .pin-screen-overlay.hidden { opacity: 0; transform: scale(1.05); pointer-events: none; }
 
@@ -200,6 +188,7 @@
         .keypad-btn:active { background: rgba(0, 240, 255, 0.3); border-color: #00f0ff; transform: scale(0.95); }
         .keypad-btn.action-btn { font-size: 1.2rem; color: #7dd3fc; }
 
+        /* HANYA UNTUK HALAMAN UTAMA / SETELAH LOGIN (ADA PARTIKEL & KONEKSI) */
         .tech-bg-container { position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100vw !important; height: 100vh !important; z-index: 0; overflow: hidden !important; pointer-events: none; background: radial-gradient(circle at 50% 50%, #061838 0%, #020817 65%, #01040a 100%); }
         #circuitCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
         .cyber-vignette { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: radial-gradient(circle at 50% 50%, transparent 30%, rgba(1, 4, 12, 0.65) 100%); pointer-events: none; }
@@ -371,7 +360,6 @@
 
 <!-- TAHAP 1: SPLASH SCREEN FULL LAYAR -->
 <div class="splash-screen-overlay active" id="splashScreenOverlay">
-    <div class="splash-particles"></div>
     <div class="splash-pulse-line"></div>
     <div class="splash-top-section">
         <div class="splash-logo-glow">
@@ -461,6 +449,7 @@
     </div>
 </div>
 
+<!-- CONTAINER PARTIKEL & KONEKSI GARIS (HANYA MUNCUL DI HALAMAN UTAMA) -->
 <div class="tech-bg-container">
     <canvas id="circuitCanvas"></canvas>
     <div class="cyber-vignette"></div>
@@ -953,7 +942,7 @@
     </div>
 </div>
 
-<!-- SCRIPT ANIMASI PARTIKEL & KONEKSI GARIS (CIRCUIT CANVAS - DIPERBANYAK & DIPERTEBAL) -->
+<!-- SCRIPT ANIMASI PARTIKEL & KONEKSI GARIS (CIRCUIT CANVAS) -->
 <script>
     const canvas = document.getElementById('circuitCanvas');
     const ctx = canvas.getContext('2d');
@@ -996,7 +985,6 @@
 
     function initParticles() {
         particles = [];
-        // Jarak pembagi diperkecil dari 14000 ke 8500 agar partikel jauh lebih banyak
         const numParticles = Math.floor((width * height) / 8500); 
         for (let i = 0; i < numParticles; i++) {
             particles.push(new Particle());
@@ -1007,24 +995,22 @@
     function animateParticles() {
         ctx.clearRect(0, 0, width, height);
 
-        // Update & Draw Partikel
         for (let i = 0; i < particles.length; i++) {
             particles[i].update();
             particles[i].draw();
 
-            // Hubungkan titik yang berdekatan dengan garis neon yang dipertebal
             for (let j = i + 1; j < particles.length; j++) {
                 const dx = particles[i].x - particles[j].x;
                 const dy = particles[i].y - particles[j].y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
 
-                if (dist < 130) { // Jangkauan koneksi sedikit diperluas
+                if (dist < 130) {
                     ctx.beginPath();
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);
-                    const alpha = (1 - (dist / 130)) * 0.55; // Opasitas ditingkatkan agar lebih terang
+                    const alpha = (1 - (dist / 130)) * 0.55;
                     ctx.strokeStyle = `rgba(0, 240, 255, ${alpha})`;
-                    ctx.lineWidth = 1.2; // Garis sedikit dipertebal dari 0.8 ke 1.2
+                    ctx.lineWidth = 1.2;
                     ctx.stroke();
                 }
             }
