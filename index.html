@@ -1081,8 +1081,8 @@
         });
     }
 
-    // --- FITUR AUTO-LOCK DENGAN TOLERANSI WAKTU 1 MENIT ---
-    const LOCK_TIMEOUT_MS = 60 * 1000;
+    // --- FITUR AUTO-LOCK DENGAN TOLERANSI WAKTU 5 MENIT ---
+    const LOCK_TIMEOUT_MS = 5 * 60 * 1000;
 
     document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'hidden') {
@@ -1094,6 +1094,9 @@
                 if (elapsed > LOCK_TIMEOUT_MS) {
                     sessionStorage.removeItem('venus_is_logged');
                     sessionStorage.removeItem('venus_active_modal');
+                    // Reset inputan transaksi yang belum kelar
+                    const transactionForm = document.getElementById('transactionForm');
+                    if (transactionForm) transactionForm.reset();
                     location.reload();
                 }
             }
