@@ -744,7 +744,7 @@
                 </div>
             </div>
 
-            <!-- FORM INPUT TRANSAKSI UTAMA (DIPASTIKAN MUNCUL DI SINI) -->
+            <!-- FORM INPUT TRANSAKSI UTAMA -->
             <form id="transactionForm" class="cyber-input-form">
                 <div class="form-group">
                     <label>Jenis Transaksi</label>
@@ -1058,12 +1058,26 @@
 
   window.saveTransactionsToFirebase = function(txData) {
     set(ref(db, 'venus_studio/transactions'), txData)
-      .then(() => { console.log("Cloud Sync: Berhasil simpan ke Firebase!"); })
-      .catch((err) => { console.error("Cloud Sync Gagal:", err); });
+      .then(() => { console.log("Cloud Sync: Berhasil simpan transaksi ke Firebase!"); })
+      .catch((err) => { console.error("Cloud Sync Transaksi Gagal:", err); });
   };
 
   window.loadTransactionsFromFirebase = function(callback) {
     const dbRef = ref(db, 'venus_studio/transactions');
+    onValue(dbRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) { callback(data); }
+    });
+  };
+
+  window.saveDebtsToFirebase = function(debtData) {
+    set(ref(db, 'venus_studio/debts'), debtData)
+      .then(() => { console.log("Cloud Sync: Berhasil simpan debts ke Firebase!"); })
+      .catch((err) => { console.error("Cloud Sync Debts Gagal:", err); });
+  };
+
+  window.loadDebtsFromFirebase = function(callback) {
+    const dbRef = ref(db, 'venus_studio/debts');
     onValue(dbRef, (snapshot) => {
       const data = snapshot.val();
       if (data) { callback(data); }
@@ -1176,6 +1190,14 @@
                         transactions = cloudData;
                         localStorage.setItem('my_transactions', JSON.stringify(transactions));
                         updateUI();
+                    }
+                });
+            }
+            if (window.loadDebtsFromFirebase) {
+                window.loadDebtsFromFirebase((cloudDebtData) => {
+                    if (cloudDebtData && Array.isArray(cloudDebtData)) {
+                        localStorage.setItem('venus_debt_tracker_data', JSON.stringify(cloudDebtData));
+                        renderDebts();
                     }
                 });
             }
@@ -1430,6 +1452,13 @@
         return data;
     }
 
+    function saveAndSyncDebts(debts) {
+        localStorage.setItem('venus_debt_tracker_data', JSON.stringify(debts));
+        if (window.saveDebtsToFirebase) {
+            window.saveDebtsToFirebase(debts);
+        }
+    }
+
     function renderDebts() {
         const debts = getStoredDebts();
         debtListContainer.innerHTML = '';
@@ -1528,7 +1557,7 @@
         const timeStr = `${String(nowTime.getDate()).padStart(2,'0')}/${String(nowTime.getMonth()+1).padStart(2,'0')}/${nowTime.getFullYear()} ${String(nowTime.getHours()).padStart(2,'0')}:${String(nowTime.getMinutes()).padStart(2,'0')}`;
         debt.history.push({ timestamp: timeStr, amount: payAmount, status: statusVal });
 
-        localStorage.setItem('venus_debt_tracker_data', JSON.stringify(debts));
+        saveAndSyncDebts(debts);
         renderDebts();
         viewDebtModal.classList.remove('active');
         playCashStatusSound();
@@ -1539,7 +1568,7 @@
         showCyberConfirm('Apakah Anda yakin ingin menghapus rincian hutang ini?', () => {
             let debts = getStoredDebts();
             debts.splice(currentViewDebtIndex, 1);
-            localStorage.setItem('venus_debt_tracker_data', JSON.stringify(debts));
+            saveAndSyncDebts(debts);
             renderDebts();
             viewDebtModal.classList.remove('active');
         });
@@ -1565,7 +1594,7 @@
             debts[index].paid = newPaid;
         }
 
-        localStorage.setItem('venus_debt_tracker_data', JSON.stringify(debts));
+        saveAndSyncDebts(debts);
         renderDebts();
         editDebtModal.classList.remove('active');
         playCashStatusSound();
@@ -1576,7 +1605,7 @@
         showCyberConfirm('Apakah Anda yakin ingin menghapus rincian hutang ini?', () => {
             let debts = getStoredDebts();
             debts.splice(index, 1);
-            localStorage.setItem('venus_debt_tracker_data', JSON.stringify(debts));
+            saveAndSyncDebts(debts);
             renderDebts();
             editDebtModal.classList.remove('active');
         });
