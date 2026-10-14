@@ -4,13 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     
-    <!-- KONFIGURASI PWA AGAR BISA DI-INSTALL SEPERTI APK -->
+    <!-- KONFIGURASI PWA & IOS AGAR BISA DI-INSTALL SEPERTI APK & MUNCUL IKONNYA -->
     <meta name="theme-color" content="#020714">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="VENUS STUDIO">
+    
+    <!-- TAG KHUSUS UNTUK IKON DI HOME SCREEN IOS (IPHONE/IPAD) MENGGUNAKAN logo.png -->
+    <link rel="apple-touch-icon" href="logo.png">
+    <link rel="apple-touch-icon-precomposed" href="logo.png">
+    
     <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="icon-192.png">
+    <link rel="icon" type="image/png" href="logo.png">
 
     <!-- Mencegah Cache Browser Secara Ketat -->
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
