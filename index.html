@@ -38,11 +38,10 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        html {
+        html, body {
             width: 100% !important;
             max-width: 100vw !important;
             overflow-x: hidden !important;
-            -webkit-text-size-adjust: 100%;
             position: relative;
         }
 
@@ -55,10 +54,7 @@
             align-items: flex-start;
             min-height: 100vh;
             min-height: 100dvh;
-            width: 100% !important;
-            max-width: 100vw !important;
-            overflow-x: hidden !important;
-            position: relative;
+            -webkit-text-size-adjust: 100%;
         }
 
         /* --- CSS UNTUK MENYEMBUNYIKAN SCROLLBAR --- */
@@ -66,8 +62,8 @@
             display: none;
         }
         * {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
         :root {
@@ -85,7 +81,7 @@
             --glass-blur: 16px;
         }
 
-        /* TAHAP 1: SPLASH SCREEN FULL LAYAR (TANPA PARTIKEL) */
+        /* TAHAP 1: SPLASH SCREEN FULL LAYAR (TERKUNCI AGAR TIDAK BISA GESER KANAN-KIRI) */
         .splash-screen-overlay {
             position: fixed;
             top: 0;
@@ -131,7 +127,6 @@
 
         .splash-top-section { position: fixed; top: 50px; width: 100%; display: flex; justify-content: center; z-index: 5; }
         
-        /* LOGO & LINGKARAN PUTUS-PUTUS WARNA CYAN/BIRU */
         .splash-logo-glow { width: 88px; height: 88px; border-radius: 50%; background: rgba(0, 240, 255, 0.05); border: 2px dashed rgba(0, 240, 255, 0.5); display: flex; align-items: center; justify-content: center; position: relative; box-shadow: 0 0 35px rgba(0, 240, 255, 0.25), inset 0 0 20px rgba(0, 240, 255, 0.1); animation: coreRotateOuter 10s infinite linear, logoFloat 2s infinite alternate ease-in-out; }
         .splash-logo-glow::before { content: ''; position: absolute; top: -6px; left: -6px; right: -6px; bottom: -6px; border-radius: 50%; border: 2px solid #00f0ff; border-top-color: transparent; border-bottom-color: transparent; animation: coreRotateInner 3s infinite linear; }
         .cyber-core-svg { width: 38px; height: 38px; fill: #00f0ff; filter: drop-shadow(0 0 12px rgba(0, 240, 255, 0.95)); animation: corePulseIcon 1.5s infinite alternate ease-in-out; }
@@ -159,12 +154,12 @@
 
         @keyframes tapPulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); } 50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(0, 240, 255, 0.6); } }
 
-        /* TAHAP 2: LAYAR KODE AKSES PIN (TANPA PARTIKEL) */
-        .pin-screen-overlay { position: fixed; top: 0; left: 0; width: 100vw !important; height: 100vh; height: 100dvh; background: #020714; z-index: 9999990; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 20px; transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        /* TAHAP 2: LAYAR KODE AKSES PIN */
+        .pin-screen-overlay { position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh; background: #020714; z-index: 9999990; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 20px; overflow-x: hidden !important; }
         .pin-screen-overlay.active { display: flex !important; }
         .pin-screen-overlay.hidden { opacity: 0; transform: scale(1.05); pointer-events: none; }
 
-        .cyber-scanner-flash { position: fixed; top: 0; left: 0; width: 100vw !important; height: 100vh; height: 100dvh; background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.2) 0%, rgba(2, 7, 20, 0.98) 85%), linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px); background-size: 100% 100%, 20px 20px, 20px 20px; z-index: 99999995; opacity: 0; visibility: hidden; pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; transition: opacity 0.25s ease; }
+        .cyber-scanner-flash { position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh; background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.2) 0%, rgba(2, 7, 20, 0.98) 85%), linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px); background-size: 100% 100%, 20px 20px, 20px 20px; z-index: 99999995; opacity: 0; visibility: hidden; pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; transition: opacity 0.25s ease; overflow-x: hidden !important; }
         .cyber-scanner-flash.active { opacity: 1; visibility: visible; animation: hackerTerminalSeq 1.1s forwards cubic-bezier(0.1, 0.9, 0.2, 1); }
 
         .hacker-terminal-box { background: rgba(2, 12, 32, 0.92); border: 1.5px solid #00f0ff; border-radius: 14px; padding: 20px 24px; max-width: 340px; width: 100%; box-shadow: 0 0 40px rgba(0, 240, 255, 0.5), inset 0 0 15px rgba(0, 240, 255, 0.25); font-family: 'Rajdhani', sans-serif; text-align: left; display: flex; flex-direction: column; gap: 8px; }
@@ -193,13 +188,13 @@
         .keypad-btn:active { background: rgba(0, 240, 255, 0.3); border-color: #00f0ff; transform: scale(0.95); }
         .keypad-btn.action-btn { font-size: 1.2rem; color: #7dd3fc; }
 
-        /* HANYA UNTUK HALAMAN UTAMA / SETELAH LOGIN (ADA PARTIKEL & KONEKSI) */
-        .tech-bg-container { position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100vw !important; height: 100vh !important; z-index: 0; overflow: hidden !important; pointer-events: none; background: radial-gradient(circle at 50% 50%, #061838 0%, #020817 65%, #01040a 100%); opacity: 0; visibility: hidden; transition: opacity 0.8s ease, visibility 0.8s ease; }
+        /* HANYA UNTUK HALAMAN UTAMA / SETELAH LOGIN */
+        .tech-bg-container { position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh !important; z-index: 0; overflow: hidden !important; pointer-events: none; background: radial-gradient(circle at 50% 50%, #061838 0%, #020817 65%, #01040a 100%); opacity: 0; visibility: hidden; transition: opacity 0.8s ease, visibility 0.8s ease; }
         .tech-bg-container.active { opacity: 1; visibility: visible; }
         #circuitCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
         .cyber-vignette { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: radial-gradient(circle at 50% 50%, transparent 30%, rgba(1, 4, 12, 0.65) 100%); pointer-events: none; }
 
-        /* TAHAP 3: KONTEN UTAMA WEB (DENGAN TRANSISI SMOOTH FADE & ZOOM) */
+        /* TAHAP 3: KONTEN UTAMA WEB (TERKUNCI AGAR TIDAK BISA GESER KANAN-KIRI) */
         .container { position: relative; z-index: 10; width: 100% !important; max-width: 440px !important; overflow-x: hidden !important; margin: 0 auto; background: transparent; border: none; box-shadow: none; padding: 10px 4px; display: none; gap: 12px; opacity: 0; transform: scale(0.92); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .container.active { display: flex !important; flex-direction: column; opacity: 1; transform: scale(1); }
         .install-app-btn { background: linear-gradient(135deg, rgba(0, 240, 255, 0.2) 0%, rgba(0, 119, 255, 0.2) 100%); border: 1px solid rgba(0, 240, 255, 0.6); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 0.9rem; font-weight: 800; padding: 10px 16px; border-radius: 12px; cursor: pointer; display: none; align-items: center; justify-content: center; gap: 6px; margin: 0 auto 14px auto; box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); letter-spacing: 1px; text-transform: uppercase; }
@@ -213,12 +208,12 @@
         h2.title-cyber, .title-music-box, .title-personal-box, .title-debt-box { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: clamp(1.4rem, 5vw, 1.8rem); letter-spacing: 2px; text-transform: uppercase; background: linear-gradient(135deg, #ffffff 0%, #00f0ff 60%, #38bdf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 20px rgba(0, 240, 255, 0.8); text-align: center; }
         .subtitle-cyber { font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; font-weight: 800; letter-spacing: 2px; color: #7dd3fc; text-transform: uppercase; margin-top: 4px; opacity: 0.95; text-align: center; }
 
-        /* MODAL / POP-UP */
+        /* MODAL / POP-UP TERKUNCI AGAR TIDAK BISA GESER KANAN-KIRI */
         .cyber-modal-overlay, .music-modal-overlay, .personal-modal-overlay, .debt-modal-overlay, .debt-pin-overlay, .edit-debt-overlay, .view-debt-overlay { position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh; background: rgba(2, 7, 20, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 99999999; display: flex; justify-content: center; align-items: center; padding: 12px; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.35s ease; overflow-x: hidden !important; }
         .cyber-modal-overlay.active, .music-modal-overlay.active, .personal-modal-overlay.active, .debt-modal-overlay.active, .debt-pin-overlay.active, .edit-debt-overlay.active, .view-debt-overlay.active { opacity: 1; visibility: visible; pointer-events: auto; }
 
-        .music-modal-card, .personal-modal-card, .debt-modal-card, .view-debt-card { background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.75); border-radius: 26px; padding: 22px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); transform: scale(0.9); transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
-        .cyber-modal-card { background: rgba(3, 14, 38, 0.98); border: none !important; border-radius: 26px; padding: 22px 18px 24px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: none !important; transform: scale(0.9); transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        .music-modal-card, .personal-modal-card, .debt-modal-card, .view-debt-card { background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.75); border-radius: 26px; padding: 22px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); transform: scale(0.9); transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); overflow-x: hidden !important; }
+        .cyber-modal-card { background: rgba(3, 14, 38, 0.98); border: none !important; border-radius: 26px; padding: 22px 18px 24px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: none !important; transform: scale(0.9); transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); overflow-x: hidden !important; }
         .cyber-modal-overlay.active .cyber-modal-card, .music-modal-overlay.active .music-modal-card, .personal-modal-overlay.active .personal-modal-card, .debt-modal-overlay.active .debt-modal-card, .view-debt-overlay.active .view-debt-card { transform: scale(1); }
 
         .close-cyber-modal, .close-music-modal, .close-personal-modal, .close-debt-modal, .close-view-debt { background: rgba(0, 240, 255, 0.12); border: 1.5px solid rgba(0, 240, 255, 0.5); color: #00f0ff; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800; transition: all 0.2s ease; flex-shrink: 0; }
@@ -246,15 +241,15 @@
         .cyber-icon { width: 22px; height: 22px; fill: #00f0ff; filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.8)); }
         .ctrl-btn.large .cyber-icon { width: 28px; height: 28px; }
 
-        .playlist-wrapper { width: 100%; flex-grow: 1; min-height: 160px; overflow-y: auto; background: rgba(2, 12, 32, 0.7); border: 1.5px solid rgba(0, 240, 255, 0.3); border-radius: 14px; padding: 8px; display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
+        .playlist-wrapper { width: 100%; flex-grow: 1; min-height: 160px; overflow-y: auto; overflow-x: hidden !important; background: rgba(2, 12, 32, 0.7); border: 1.5px solid rgba(0, 240, 255, 0.3); border-radius: 14px; padding: 8px; display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
         .playlist-item { display: flex; align-items: center; justify-content: space-between; background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.22); padding: 10px 12px; border-radius: 10px; cursor: pointer; font-size: 0.9rem; text-align: left; gap: 10px; }
         .playlist-item.active-track { background: rgba(0, 240, 255, 0.2); border-color: #00f0ff; }
         .playlist-delete-btn { color: #fb7185; font-size: 0.8rem; font-weight: 700; cursor: pointer; padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(244, 63, 94, 0.35); background: rgba(244, 63, 94, 0.08); letter-spacing: 0.3px; display: inline-block; text-align: center; }
         .track-music-icon-svg { width: 16px; height: 16px; fill: #00f0ff; margin-right: 8px; flex-shrink: 0; filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.8)); }
 
-        .full-app-content, .personal-app-content, .debt-app-content { display: flex; flex-direction: column; width: 100%; flex-grow: 1; overflow-y: auto; background: transparent !important; border: none !important; padding: 6px 4px 120px 4px !important; text-align: left; gap: 16px; margin-top: 10px; scroll-behavior: smooth; }
+        .full-app-content, .personal-app-content, .debt-app-content { display: flex; flex-direction: column; width: 100% !important; max-width: 100% !important; flex-grow: 1; overflow-y: auto; overflow-x: hidden !important; background: transparent !important; border: none !important; padding: 6px 4px 120px 4px !important; text-align: left; gap: 16px; margin-top: 10px; scroll-behavior: smooth; }
 
-        .glass-control-panel, .backup-panel, form { background: transparent !important; border: none !important; box-shadow: none !important; padding: 4px 0 !important; }
+        .glass-control-panel, .backup-panel, form { background: transparent !important; border: none !important; box-shadow: none !important; padding: 4px 0 !important; width: 100% !important; max-width: 100% !important; overflow-x: hidden !important; }
         .glass-control-panel { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-shrink: 0; height: 40px; }
         .glass-label-text { font-size: 0.9rem; font-weight: 800; color: #7dd3fc; white-space: nowrap; line-height: 1; display: flex; align-items: center; height: 100%; }
         .glass-slider-wrapper { display: flex; align-items: center; flex-grow: 1; padding: 0 4px; height: 100%; }
@@ -264,15 +259,15 @@
 
         .backup-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
         .backup-status-tag { font-size: 0.78rem; font-weight: 700; color: #34d399; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.35); padding: 4px 10px; border-radius: 12px; }
-        .backup-actions { display: flex; gap: 10px; }
-        .btn-backup-action { flex: 1; padding: 12px 10px; font-size: 0.9rem; font-weight: 800; border-radius: 12px; border: 1px solid rgba(0, 240, 255, 0.35); background: rgba(2, 12, 32, 0.6); color: #00f0ff; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .backup-actions { display: flex; gap: 10px; width: 100%; }
+        .btn-backup-action { flex: 1; padding: 12px 10px; font-size: 0.9rem; font-weight: 800; border-radius: 12px; border: 1.5px solid rgba(0, 240, 255, 0.35); background: rgba(2, 12, 32, 0.6); color: #00f0ff; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
-        .dashboard { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; }
+        .dashboard { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; width: 100%; overflow-x: hidden !important; }
         .card-hero { background: rgba(0, 180, 255, calc(var(--glass-alpha) * 0.45 + 0.05)); border: 1px solid rgba(0, 240, 255, 0.5); border-radius: 16px; padding: 18px 14px; text-align: center; }
         .card-hero h4 { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 1.5px; color: #7dd3fc; font-weight: 800; margin-bottom: 6px; }
         .card-hero p { font-size: clamp(1.6rem, 5.5vw, 2rem); font-weight: 900; color: #ffffff; text-shadow: 0 2px 14px rgba(0, 240, 255, 0.8); }
         
-        .sub-dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .sub-dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
         .card-sub { padding: 16px 12px; border-radius: 14px; text-align: center; }
         .card-sub h4 { font-size: 0.78rem; text-transform: uppercase; font-weight: 800; margin-bottom: 6px; }
         .card-sub p { font-size: clamp(0.95rem, 4vw, 1.15rem); font-weight: 800; }
@@ -283,40 +278,40 @@
         .card-cash { background: rgba(56, 189, 248, calc(var(--glass-alpha) * 0.45 + 0.05)); border: 1px solid rgba(56, 189, 248, 0.55); color: #38bdf8; }
         .card-bank { background: rgba(168, 85, 247, calc(var(--glass-alpha) * 0.45 + 0.05)); border: 1px solid rgba(168, 85, 247, 0.55); color: #c084fc; }
 
-        form { display: flex; flex-direction: column; gap: 14px; }
-        .form-group { display: flex; flex-direction: column; gap: 6px; }
-        .datetime-group { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        form { display: flex; flex-direction: column; gap: 14px; width: 100%; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; width: 100%; }
+        .datetime-group { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
         label { font-size: 0.92rem; font-weight: 800; color: #7dd3fc; letter-spacing: 0.5px; margin-bottom: 2px; }
         
-        input, select, textarea { padding: 15px 16px; border: 1.5px solid rgba(0, 240, 255, 0.45); border-radius: 12px; font-size: 1.05rem; font-weight: 600; outline: none; background: rgba(2, 12, 32, 0.85); color: #ffffff; width: 100%; }
+        input, select, textarea { padding: 15px 16px; border: 1.5px solid rgba(0, 240, 255, 0.45); border-radius: 12px; font-size: 1.05rem; font-weight: 600; outline: none; background: rgba(2, 12, 32, 0.85); color: #ffffff; width: 100%; max-width: 100% !important; }
         input:focus, select:focus, textarea:focus { border-color: #00f0ff; box-shadow: 0 0 12px rgba(0, 240, 255, 0.4); }
 
-        .custom-select-box { padding: 15px 16px; border: 1.5px solid rgba(0, 240, 255, 0.45); border-radius: 12px; font-size: 1.05rem; font-weight: 800; background: rgba(2, 12, 32, 0.85); color: #64748b; text-align: center; cursor: pointer; transition: all 0.2s ease; }
+        .custom-select-box { padding: 15px 16px; border: 1.5px solid rgba(0, 240, 255, 0.45); border-radius: 12px; font-size: 1.05rem; font-weight: 800; background: rgba(2, 12, 32, 0.85); color: #64748b; text-align: center; cursor: pointer; transition: all 0.2s ease; width: 100%; }
         .custom-select-box.selected { color: #ffffff; border-color: #00f0ff; }
         .custom-option-btn { background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.45); border-radius: 12px; color: #ffffff; font-size: 1.05rem; font-weight: 800; padding: 16px; width: 100%; text-align: center; cursor: pointer; transition: all 0.2s ease; display: block; }
         .custom-option-btn:active { background: rgba(0, 240, 255, 0.25); border-color: #00f0ff; transform: scale(0.98); }
 
-        .account-title-card { background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.4); border-radius: 14px; padding: 16px 18px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: all 0.2s ease; }
+        .account-title-card { background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.4); border-radius: 14px; padding: 16px 18px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: all 0.2s ease; width: 100%; }
         .account-title-card:active { background: rgba(0, 240, 255, 0.2); border-color: #00f0ff; transform: scale(0.98); }
         .account-title-name { font-family: 'Rajdhani', sans-serif; font-size: 1.15rem; font-weight: 800; color: #00f0ff; letter-spacing: 1px; text-transform: uppercase; }
         .account-title-arrow { color: #7dd3fc; font-weight: 900; font-size: 1.25rem; }
 
-        .btn-add-account-action { background: rgba(0, 240, 255, 0.1); border: 1.5px dashed rgba(0, 240, 255, 0.6); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 1rem; font-weight: 800; padding: 16px; border-radius: 14px; cursor: pointer; text-align: center; letter-spacing: 1px; text-transform: uppercase; transition: all 0.2s ease; }
+        .btn-add-account-action { background: rgba(0, 240, 255, 0.1); border: 1.5px dashed rgba(0, 240, 255, 0.6); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 1rem; font-weight: 800; padding: 16px; border-radius: 14px; cursor: pointer; text-align: center; letter-spacing: 1px; text-transform: uppercase; transition: all 0.2s ease; width: 100%; }
         .btn-add-account-action:active { background: rgba(0, 240, 255, 0.3); transform: scale(0.98); }
 
-        .sub-account-modal, .all-history-modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3, 14, 38, 0.98); z-index: 20; display: none; flex-direction: column; padding: 20px 16px; justify-content: space-between; border-radius: 26px; overflow-y: auto; }
+        .sub-account-modal, .all-history-modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3, 14, 38, 0.98); z-index: 20; display: none; flex-direction: column; padding: 20px 16px; justify-content: space-between; border-radius: 26px; overflow-y: auto; overflow-x: hidden !important; }
         .sub-account-modal.active, .all-history-modal.active { display: flex !important; }
 
-        .account-history-box { background: rgba(2, 12, 32, 0.9); border: 1px solid rgba(0, 240, 255, 0.3); border-radius: 12px; padding: 10px; margin-top: 6px; max-height: 140px; overflow-y: auto; text-align: left; }
-        .account-history-item { font-size: 0.9rem; color: #ffffff; background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.2); border-radius: 8px; padding: 10px; margin-bottom: 8px; display: flex; flex-direction: column; gap: 4px; cursor: pointer; transition: background 0.15s ease; }
+        .account-history-box { background: rgba(2, 12, 32, 0.9); border: 1px solid rgba(0, 240, 255, 0.3); border-radius: 12px; padding: 10px; margin-top: 6px; max-height: 140px; overflow-y: auto; overflow-x: hidden !important; text-align: left; width: 100%; }
+        .account-history-item { font-size: 0.9rem; color: #ffffff; background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.2); border-radius: 8px; padding: 10px; margin-bottom: 8px; display: flex; flex-direction: column; gap: 4px; cursor: pointer; transition: background 0.15s ease; width: 100%; }
         .account-history-item:active { background: rgba(0, 240, 255, 0.18); }
         .history-user-info { font-size: 0.98rem; font-weight: 800; color: #ffffff; word-break: break-all; }
         .history-timestamp { font-size: 0.78rem; font-weight: 700; color: #38bdf8; }
 
-        .history-clickable-title-box { display: flex; align-items: center; justify-content: space-between; background: rgba(0, 240, 255, 0.08); border: 1.5px solid rgba(0, 240, 255, 0.35); padding: 12px 14px; border-radius: 12px; cursor: pointer; margin-top: 4px; transition: all 0.2s ease; }
+        .history-clickable-title-box { display: flex; align-items: center; justify-content: space-between; background: rgba(0, 240, 255, 0.08); border: 1.5px solid rgba(0, 240, 255, 0.35); padding: 12px 14px; border-radius: 12px; cursor: pointer; margin-top: 4px; transition: all 0.2s ease; width: 100%; }
         .history-clickable-title-box:active { background: rgba(0, 240, 255, 0.25); transform: scale(0.98); }
 
-        .datetime-custom-wrapper { position: relative; display: flex; align-items: center; background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.45); border-radius: 12px; padding: 15px 16px; cursor: pointer; transition: all 0.2s ease; z-index: 10; pointer-events: auto !important; }
+        .datetime-custom-wrapper { position: relative; display: flex; align-items: center; background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.45); border-radius: 12px; padding: 15px 16px; cursor: pointer; transition: all 0.2s ease; z-index: 10; pointer-events: auto !important; width: 100%; }
         .datetime-custom-wrapper:active { border-color: #00f0ff; background: rgba(0, 240, 255, 0.15); transform: scale(0.98); }
         .datetime-custom-wrapper input[type="date"], .datetime-custom-wrapper input[type="time"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 15; border: none; background: transparent; }
         .datetime-display-text { font-size: 1.1rem; font-weight: 600; color: #ffffff; pointer-events: none; width: 100%; }
@@ -326,8 +321,8 @@
         .btn-spinner { width: 22px; height: 22px; border: 2px solid rgba(255,255,255,0.3); border-top: 2px solid #ffffff; border-radius: 50%; animation: spinLoading 0.8s linear infinite; display: inline-block; flex-shrink: 0; }
         @keyframes spinLoading { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        .history-section-wrapper { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; margin-top: 10px; }
-        .history-title-wrapper { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; border-radius: 12px; background: rgba(0, 240, 255, 0.06); border: 1.5px solid rgba(0, 240, 255, 0.25); position: relative; }
+        .history-section-wrapper { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; margin-top: 10px; width: 100%; }
+        .history-title-wrapper { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; border-radius: 12px; background: rgba(0, 240, 255, 0.06); border: 1.5px solid rgba(0, 240, 255, 0.25); position: relative; width: 100%; }
         .history-title { font-size: 1.15rem; color: #fff; font-weight: 900; margin: 0; letter-spacing: 0.5px; }
 
         .filter-badge-wrapper { position: relative; display: inline-flex; align-items: center; justify-content: center; background: rgba(0, 240, 255, 0.18); border: 1px solid rgba(0, 240, 255, 0.5); padding: 6px 14px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; overflow: hidden; min-height: 36px; }
@@ -336,18 +331,18 @@
         #filterMonthInputDirect { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 10; }
 
         .history-list { list-style: none; display: flex; flex-direction: column; gap: 10px; width: 100%; }
-        .history-item { display: flex; justify-content: space-between; align-items: center; padding: 16px 15px; background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 212, 255, 0.3); border-radius: 14px; border-left: 6px solid #a5f3fc; cursor: pointer; transition: transform 0.15s ease, background 0.15s ease; }
+        .history-item { display: flex; justify-content: space-between; align-items: center; padding: 16px 15px; background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 212, 255, 0.3); border-radius: 14px; border-left: 6px solid #a5f3fc; cursor: pointer; transition: transform 0.15s ease, background 0.15s ease; width: 100%; }
         .history-item:active { transform: scale(0.98); background: rgba(0, 240, 255, 0.12); }
         .history-item.in { border-left-color: var(--pemasukan-green); }
         .history-item.out { border-left-color: var(--pengeluaran-red); }
         .history-item.refund { border-left-color: var(--refund-yellow); }
 
-        .item-info { display: flex; flex-direction: column; gap: 5px; flex-grow: 1; }
-        .item-desc { font-weight: 800; font-size: 1.1rem; color: #fff; line-height: 1.4; }
+        .item-info { display: flex; flex-direction: column; gap: 5px; flex-grow: 1; min-width: 0; }
+        .item-desc { font-weight: 800; font-size: 1.1rem; color: #fff; line-height: 1.4; word-break: break-word; }
         .item-date { font-size: 0.85rem; font-weight: 700; color: #38bdf8; display: flex; align-items: center; gap: 6px; }
         .cyber-note-icon { display: inline-flex; align-items: center; justify-content: center; font-size: 0.95rem; filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.85)); }
         .item-method-badge { font-size: 0.75rem; font-weight: 800; color: #fb7185; background: rgba(244, 63, 94, 0.15); border: 1px solid rgba(244, 63, 94, 0.35); padding: 3px 8px; border-radius: 6px; margin-left: 6px; display: inline-block; vertical-align: middle; margin-top: 4px; }
-        .item-amount { font-weight: 900; font-size: 1.15rem; }
+        .item-amount { font-weight: 900; font-size: 1.15rem; flex-shrink: 0; white-space: nowrap; }
         .amount-in { color: #34d399; }
         .amount-out { color: #fb7185; }
         .amount-refund { color: #fbbf24; }
@@ -390,7 +385,7 @@
     </div>
 </div>
 
-<!-- TAHAP 2: LAYAR KODE AKSES PIN (TANPA PARTIKEL) -->
+<!-- TAHAP 2: LAYAR KODE AKSES PIN -->
 <div class="pin-screen-overlay" id="pinScreenOverlay">
     <div class="pin-card">
         <div class="pin-icon-box">🔒</div>
@@ -455,7 +450,7 @@
     </div>
 </div>
 
-<!-- CONTAINER PARTIKEL & KONEKSI GARIS (HANYA MUNCUL DI HALAMAN UTAMA) -->
+<!-- CONTAINER PARTIKEL & KONEKSI GARIS -->
 <div class="tech-bg-container" id="techBgContainer">
     <canvas id="circuitCanvas"></canvas>
     <div class="cyber-vignette"></div>
@@ -475,7 +470,7 @@
         <div class="personal-app-content" id="mainPersonalListContainer">
             <div style="display: flex; flex-direction: column; gap: 12px; width: 100%;" id="accountTitlesList"></div>
             <button type="button" class="btn-add-account-action" id="btnAddAccountModal">+ TAMBAH AKUN</button>
-            <div style="display: flex; gap: 10px; margin-top: auto; padding-top: 10px;">
+            <div style="display: flex; gap: 10px; margin-top: auto; padding-top: 10px; width: 100%;">
                 <button type="button" id="btnExportPersonal" style="flex: 1; padding: 14px; font-size: 0.9rem; font-weight: 800; border-radius: 12px; background: rgba(16,185,129,0.2); border: 1px solid rgba(16,185,129,0.6); color: #34d399; cursor: pointer;">Backup Data</button>
                 <button type="button" id="btnImportPersonal" style="flex: 1; padding: 14px; font-size: 0.9rem; font-weight: 800; border-radius: 12px; background: rgba(245,158,11,0.2); border: 1px solid rgba(245,158,11,0.6); color: #fbbf24; cursor: pointer;">Pulihkan Data</button>
                 <input type="file" id="importPersonalFileInput" accept=".json" style="display: none;">
@@ -500,7 +495,7 @@
                     <div class="account-history-box" id="subAccountHistoryList"></div>
                 </div>
             </form>
-            <button type="button" id="btnDeleteAccountItem" style="background: rgba(244,63,94,0.15); border: 1.5px solid rgba(244,63,94,0.5); font-weight: 800; padding: 12px; border-radius: 12px; cursor: pointer; color: #fb7185; margin-top: 10px; font-size: 0.95rem;">Hapus Akun Ini</button>
+            <button type="button" id="btnDeleteAccountItem" style="background: rgba(244,63,94,0.15); border: 1.5px solid rgba(244,63,94,0.5); font-weight: 800; padding: 12px; border-radius: 12px; cursor: pointer; color: #fb7185; margin-top: 10px; font-size: 0.95rem; width: 100%;">Hapus Akun Ini</button>
         </div>
 
         <div class="all-history-modal" id="allHistoryModal">
@@ -513,7 +508,7 @@
     </div>
 </div>
 
-<!-- MODAL DEBT TRACKER (CATATAN HUTANG) -->
+<!-- MODAL DEBT TRACKER -->
 <div class="debt-modal-overlay" id="debtModalOverlay">
     <div class="debt-modal-card">
         <div style="display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; width: 100%; flex-shrink: 0; padding: 2px 0;">
@@ -542,7 +537,7 @@
     </div>
 </div>
 
-<!-- MODAL LIHAT DETAIL HUTANG (FULL SCREEN DENGAN RIWAYAT PEMBAYARAN) -->
+<!-- MODAL LIHAT DETAIL HUTANG -->
 <div class="view-debt-overlay" id="viewDebtModal">
     <div class="view-debt-card">
         <div style="display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; width: 100%; flex-shrink: 0; padding: 2px 0;">
@@ -554,38 +549,32 @@
         </div>
 
         <div style="display: flex; flex-direction: column; width: 100%; flex-grow: 1; overflow-y: auto; text-align: left; gap: 14px; margin-top: 10px; padding-bottom: 20px;">
-            <!-- 1. NAMA PEMBERI HUTANG -->
-            <div style="background: rgba(0, 240, 255, 0.05); border: 1.5px solid rgba(0, 240, 255, 0.3); border-radius: 14px; padding: 14px;">
+            <div style="background: rgba(0, 240, 255, 0.05); border: 1.5px solid rgba(0, 240, 255, 0.3); border-radius: 14px; padding: 14px; width: 100%;">
                 <span style="font-size: 0.78rem; font-weight: 800; color: #7dd3fc; text-transform: uppercase;">Pemberi Hutang / Keterangan</span>
                 <div id="viewDebtName" style="font-size: 1.15rem; font-weight: 900; color: #fff; margin-top: 4px;">-</div>
             </div>
 
-            <!-- 2. TOTAL HUTANG UKURAN BESAR -->
             <div class="card-hero" style="background: rgba(244, 63, 94, 0.15); border-color: rgba(244, 63, 94, 0.5); padding: 16px 14px; text-align: center;">
                 <h4 style="color: #fb7185; margin-bottom: 4px; font-size: 0.85rem;">TOTAL HUTANG</h4>
                 <p id="viewDebtTotal" style="color: #fb7185; font-size: 1.8rem; font-weight: 900;">Rp 0</p>
             </div>
 
-            <!-- 3. KOLOM JUMLAH HUTANG YANG DI BAYAR -->
             <div class="form-group" style="background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.4); border-radius: 14px; padding: 14px; gap: 8px;">
                 <label style="font-size: 0.88rem; color: #34d399;">Jumlah Hutang Yang Di Bayar (Rp)</label>
                 <input type="text" id="viewDebtPayInput" placeholder="Contoh: 50.000" inputmode="numeric" style="padding: 12px 14px; font-size: 1.05rem;">
             </div>
 
-            <!-- 4. KOLOM UNTUK PEMBAYARAN HUTANG (LUNAS / CICIL) -->
             <div class="form-group" style="background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.4); border-radius: 14px; padding: 14px; gap: 8px;">
                 <label style="font-size: 0.88rem; color: #00f0ff;">Status Pembayaran Hutang</label>
                 <div class="custom-select-box selected" id="btnSelectPaymentStatus" style="font-size: 1rem; padding: 12px 14px;">-- Pilih Status Pembayaran --</div>
                 <input type="hidden" id="paymentStatusValue">
             </div>
 
-            <!-- 5. SISA HUTANG -->
             <div class="card-hero" style="background: rgba(251, 191, 36, 0.12); border-color: rgba(251, 191, 36, 0.5); padding: 14px; text-align: center;">
                 <h4 style="color: #fbbf24; margin-bottom: 4px; font-size: 0.85rem;">SISA HUTANG (REMAINING)</h4>
                 <p id="viewDebtRemaining" style="color: #fbbf24; font-size: 1.4rem; font-weight: 900;">Rp 0</p>
             </div>
 
-            <!-- 6. RIWAYAT PEMBAYARAN / CICILAN -->
             <div class="form-group" style="background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.4); border-radius: 14px; padding: 14px; gap: 8px;">
                 <label style="font-size: 0.88rem; color: #38bdf8;">Riwayat Pembayaran / Cicilan</label>
                 <div class="account-history-box" id="debtPaymentHistoryList" style="max-height: 120px;">
@@ -668,7 +657,7 @@
         <input type="hidden" id="editHistoryAccIndex"><input type="hidden" id="editHistoryItemIndex">
         <div class="form-group"><label>Username / Email</label><input type="text" id="modalHistoryUsername"></div>
         <div class="form-group"><label>Password / Kata Sandi</label><input type="text" id="modalHistoryPassword"></div>
-        <div style="display: flex; gap: 10px; margin-top: 6px;">
+        <div style="display: flex; gap: 10px; margin-top: 6px; width: 100%;">
             <button type="button" id="btnDeleteHistoryItem" style="background: rgba(244, 63, 94, 0.2); border: 1.5px solid rgba(244, 63, 94, 0.6); color: #fb7185; flex: 1; padding: 14px; border-radius: 12px; font-weight: 800; cursor:pointer;">Hapus</button>
             <button type="button" id="btnSaveHistoryItem" style="background: linear-gradient(135deg, #00f0ff 0%, #0077ff 100%); border: none; color: #020714; flex: 2; padding: 14px; border-radius: 12px; font-weight: 900; cursor:pointer;">Simpan</button>
         </div>
@@ -798,9 +787,9 @@
 
 <audio id="bgAudioPlayer" crossorigin="anonymous" style="display: none;"></audio>
 
-<!-- MODAL DETAIL TRANSAKSI / LIHAT BUKTI -->
+<!-- MODAL DETAIL TRANSAKSI -->
 <div class="popup-overlay" id="detailTransactionModal">
-    <div class="popup-box" style="max-width: 380px; text-align: left; align-items: stretch; gap: 16px; max-height: 90vh; overflow-y: auto;">
+    <div class="popup-box" style="max-width: 380px; text-align: left; align-items: stretch; gap: 16px; max-height: 90vh; overflow-y: auto; overflow-x: hidden !important;">
         <div style="display: flex; justify-content: space-between; align-items: center;">
             <div style="font-family: 'Orbitron', sans-serif; font-size: 1.15rem; font-weight: 900; color: #00f0ff;">DETAIL TRANSAKSI</div>
             <button type="button" id="closeDetailModalBtn" style="background:none; border:none; color:#94a3b8; font-size:1.5rem; cursor:pointer;">✕</button>
@@ -836,14 +825,14 @@
             <input type="hidden" id="editMethod">
         </div>
 
-        <div style="display: flex; gap: 10px; margin-top: 6px;">
+        <div style="display: flex; gap: 10px; margin-top: 6px; width: 100%;">
             <button type="button" id="btnDeleteTransaction" style="background: rgba(244, 63, 94, 0.2); border: 1.5px solid rgba(244, 63, 94, 0.6); color: #fb7185; flex: 1; padding: 14px; border-radius: 12px; font-weight: 800; cursor:pointer; font-size: 1rem;">Hapus</button>
             <button type="button" id="btnUpdateTransaction" style="background: linear-gradient(135deg, #00f0ff 0%, #0077ff 100%); border: none; color: #020714; flex: 2; padding: 14px; border-radius: 12px; font-weight: 900; cursor:pointer; font-size: 1rem;">Simpan Perubahan</button>
         </div>
     </div>
 </div>
 
-<!-- TAHAP 3: KONTEN UTAMA WEB (HALAMAN UTAMA) -->
+<!-- KONTEN UTAMA WEB -->
 <div class="container" id="mainAppContainer">
     <button type="button" class="install-app-btn" id="btnInstallApp">⚡ INSTAL APLIKASI</button>
     <div class="header-box">
@@ -872,7 +861,7 @@
     </div>
 </div>
 
-<!-- CUSTOM CYBER CONFIRM MODAL (GANTI CONFIRM BAWAAN BROWSER) -->
+<!-- CUSTOM CYBER CONFIRM MODAL -->
 <div class="popup-overlay" id="cyberConfirmModal" style="z-index: 9999999999;">
     <div class="popup-box" style="max-width: 350px; text-align: center; gap: 16px; border-color: rgba(244, 63, 94, 0.7); box-shadow: 0 0 40px rgba(244, 63, 94, 0.4);">
         <div style="width: 54px; height: 54px; border-radius: 50%; background: rgba(244, 63, 94, 0.15); border: 2px solid #f43f5e; color: #fb7185; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin: 0 auto;">⚠️</div>
@@ -892,7 +881,7 @@
             <label>Nama Platform / Judul Akun</label>
             <input type="text" id="newPlatformInput" placeholder="Misal: Twitter, Facebook, Netflix">
         </div>
-        <div style="display: flex; gap: 10px; margin-top: 6px;">
+        <div style="display: flex; gap: 10px; margin-top: 6px; width: 100%;">
             <button type="button" id="cancelNewPlatformBtn" style="background: rgba(244, 63, 94, 0.2); border: 1.5px solid rgba(244, 63, 94, 0.6); color: #fb7185; flex: 1; padding: 14px; border-radius: 12px; font-weight: 800; cursor:pointer; font-size: 1rem;">Batal</button>
             <button type="button" id="saveNewPlatformBtn" style="background: linear-gradient(135deg, #00f0ff 0%, #0077ff 100%); border: none; color: #020714; flex: 2; padding: 14px; border-radius: 12px; font-weight: 900; cursor:pointer; font-size: 1rem;">Tambah</button>
         </div>
@@ -907,7 +896,7 @@
     </div>
 </div>
 
-<!-- MODAL-MODAL KHUSUS UNTUK CUSTOM SELECT BOX -->
+<!-- MODAL-MODAL PILIHAN -->
 <div class="popup-overlay" id="modalSelectType">
     <div class="popup-box" style="max-width: 320px; padding: 24px;">
         <div class="popup-title" style="font-size: 1.2rem; margin-bottom: 16px;">JENIS TRANSAKSI</div>
@@ -948,7 +937,7 @@
     </div>
 </div>
 
-<!-- SCRIPT ANIMASI PARTIKEL & KONEKSI GARIS (CIRCUIT CANVAS) -->
+<!-- SCRIPT ANIMASI PARTIKEL & KONEKSI GARIS -->
 <script>
     const canvas = document.getElementById('circuitCanvas');
     const ctx = canvas.getContext('2d');
@@ -985,7 +974,7 @@
             ctx.shadowBlur = 10;
             ctx.shadowColor = '#00f0ff';
             ctx.fill();
-            ctx.shadowBlur = 0; // reset
+            ctx.shadowBlur = 0;
         }
     }
 
@@ -1061,7 +1050,6 @@
 </script>
 
 <script>
-    // --- FUNGSI CUSTOM CYBER CONFIRM (PENGGANTI CONFIRM BAWAAN BROWSER) ---
     function showCyberConfirm(message, onConfirm) {
         const modal = document.getElementById('cyberConfirmModal');
         const msgEl = document.getElementById('cyberConfirmMessage');
@@ -1086,7 +1074,6 @@
         });
     }
 
-    // --- FITUR AUTO-LOCK DENGAN TOLERANSI WAKTU 5 MENIT ---
     const LOCK_TIMEOUT_MS = 5 * 60 * 1000;
 
     document.addEventListener('visibilitychange', () => {
@@ -1099,7 +1086,6 @@
                 if (elapsed > LOCK_TIMEOUT_MS) {
                     sessionStorage.removeItem('venus_is_logged');
                     sessionStorage.removeItem('venus_active_modal');
-                    // Reset inputan transaksi yang belum kelar
                     const transactionForm = document.getElementById('transactionForm');
                     if (transactionForm) transactionForm.reset();
                     location.reload();
@@ -1112,7 +1098,6 @@
         localStorage.setItem('venus_last_leave_time', Date.now());
     });
 
-    // --- ANIMASI & SUARA AUDIO AWAL ---
     function playNetflixIntroSound() { try { const ctx = new (window.AudioContext || window.webkitAudioContext)(); if (ctx.state === 'suspended') ctx.resume(); const now = ctx.currentTime; const osc1 = ctx.createOscillator(); const gain1 = ctx.createGain(); osc1.type = 'sawtooth'; osc1.frequency.setValueAtTime(100, now); osc1.frequency.exponentialRampToValueAtTime(32, now + 0.55); gain1.gain.setValueAtTime(0.01, now); gain1.gain.linearRampToValueAtTime(0.75, now + 0.08); gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.85); osc1.connect(gain1); gain1.connect(ctx.destination); osc1.start(now); osc1.stop(now + 0.85); const osc2 = ctx.createOscillator(); const gain2 = ctx.createGain(); osc2.type = 'sine'; osc2.frequency.setValueAtTime(140, now + 0.22); osc2.frequency.exponentialRampToValueAtTime(38, now + 1.6); gain2.gain.setValueAtTime(0.01, now + 0.22); gain2.gain.linearRampToValueAtTime(0.95, now + 0.3); gain2.gain.exponentialRampToValueAtTime(0.0001, now + 1.8); osc2.connect(gain2); gain2.connect(ctx.destination); osc2.start(now + 0.22); osc2.stop(now + 1.8); } catch (e) {} }
     function playDramaticTransitionSound() { try { const ctx = new (window.AudioContext || window.webkitAudioContext)(); if (ctx.state === 'suspended') ctx.resume(); const now = ctx.currentTime; const osc = ctx.createOscillator(); const gain = ctx.createGain(); osc.type = 'sawtooth'; osc.frequency.setValueAtTime(150, now); osc.frequency.exponentialRampToValueAtTime(800, now + 0.4); gain.gain.setValueAtTime(0.01, now); gain.gain.linearRampToValueAtTime(0.35, now + 0.2); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6); osc.connect(gain); gain.connect(ctx.destination); osc.start(now); osc.stop(now + 0.6); } catch (e) {} }
     function playCashSound() { try { const ctx = new (window.AudioContext || window.webkitAudioContext)(); if (ctx.state === 'suspended') ctx.resume(); const now = ctx.currentTime; [987.77, 1318.51, 1567.98].forEach((freq, idx) => { const osc = ctx.createOscillator(); const gain = ctx.createGain(); osc.type = 'sine'; osc.frequency.setValueAtTime(freq, now + idx * 0.08); gain.gain.setValueAtTime(0.01, now + idx * 0.08); gain.gain.linearRampToValueAtTime(0.3, now + idx * 0.08 + 0.02); gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.4); osc.connect(gain); gain.connect(ctx.destination); osc.start(now + idx * 0.08); osc.stop(now + idx * 0.08 + 0.4); }); } catch (e) {} }
@@ -1156,7 +1141,10 @@
             else if (activeModal === 'personal') { personalModalOverlay.classList.add('active'); }
             else if (activeModal === 'debt') { debtModalOverlay.classList.add('active'); }
         } else {
-            setTimeout(() => { playNetflixIntroSound(); speakWelcomeGreeting(); }, 600);
+            setTimeout(() => { 
+                playNetflixIntroSound(); 
+                speakWelcomeGreeting(); 
+            }, 600);
         }
 
         setTimeout(() => {
@@ -1166,7 +1154,6 @@
                         transactions = cloudData;
                         localStorage.setItem('my_transactions', JSON.stringify(transactions));
                         updateUI();
-                        console.log("Cloud Sync: Data berhasil dimuat dari Firebase!");
                     }
                 });
             }
@@ -1202,6 +1189,7 @@
                 } 
             }, 2500);
 
+            // Langsung panggil suara otomatis saat halaman dibuka
             window.speechSynthesis.speak(utterance);
         } else { 
             if (btnTapHere) btnTapHere.classList.add('show'); 
@@ -1346,8 +1334,7 @@
     }
     document.getElementById('btnEditSelectMethod').addEventListener('click', () => document.getElementById('modalEditSelectMethod').classList.add('active'));
 
-
-    // --- FITUR DEBT TRACKER ---
+    // --- DEBT TRACKER LOGIC ---
     const debtListContainer = document.getElementById('debtListContainer');
     const totalDebtAmount = document.getElementById('totalDebtAmount');
     const remainingDebtAmount = document.getElementById('remainingDebtAmount');
@@ -1578,8 +1565,7 @@
         try { playCashSound(); } catch(e) {}
     }
 
-
-    // --- FITUR PERSONAL DATA ---
+    // --- PERSONAL DATA LOGIC ---
     const accountTitlesList = document.getElementById('accountTitlesList');
     const btnAddAccountModal = document.getElementById('btnAddAccountModal');
     const newPlatformModal = document.getElementById('newPlatformModal');
@@ -1728,7 +1714,7 @@
         }; reader.readAsText(file); importPersonalFileInput.value = '';
     });
 
-    // --- FITUR AUDIO PLAYER ---
+    // --- AUDIO PLAYER LOGIC ---
     let db = null; let playlist = []; let currentTrackIndex = -1;
     const bgAudioPlayer = document.getElementById('bgAudioPlayer'); const modalTrackTitle = document.getElementById('modalTrackTitle'); const playPauseTrackBtn = document.getElementById('playPauseTrackBtn'); const playPauseSvgIcon = document.getElementById('playPauseSvgIcon'); const prevTrackBtn = document.getElementById('prevTrackBtn'); const nextTrackBtn = document.getElementById('nextTrackBtn'); const musicProgressBar = document.getElementById('musicProgressBar'); const currentTimeLabel = document.getElementById('currentTimeLabel'); const durationLabel = document.getElementById('durationLabel'); const modalUploadBtn = document.getElementById('modalUploadBtn'); const audioFileInput = document.getElementById('audioFileInput'); const playlistContainer = document.getElementById('playlistContainer'); const stabilizerBars = document.querySelectorAll('.stabilizer-bar');
     let audioCtx = null; let analyser = null; let audioSourceNode = null; let animationId = null;
@@ -1854,7 +1840,6 @@
     function formatMonthName(yearMonthStr) { if (!yearMonthStr) return "Semua Data"; const [year, month] = yearMonthStr.split('-'); const dateObj = new Date(year, month - 1, 1); return dateObj.toLocaleDateString('id-ID', { month: 'long', year: 'numeric' }); }
     function formatTransactionDateTime(dateStr, timeStr) { if (!dateStr) return timeStr || ''; const parts = dateStr.split('-'); if (parts.length !== 3) return `${dateStr} (${timeStr} WIB)`; const [y, m, d] = parts; const dateObj = new Date(parseInt(y), parseInt(m) - 1, parseInt(d)); const shortMonthNames = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agt", "Sept", "Okt", "Nov", "Des"]; const monthName = shortMonthNames[dateObj.getMonth()] || m; let formattedTime = timeStr ? timeStr.replace(':', '.') : '00.00'; return `<span class="cyber-note-icon">🗒️</span> ${parseInt(d)} ${monthName} ${y} ( ${formattedTime} WIB )`; }
 
-    // --- FUNGSI KOMPRESI OTOMATIS (MENCEGAH ERROR MEMORI PENUH / LOCALSTORAGE OVERFLOW) ---
     function compressImage(file, callback) {
         if (!file) { callback(null); return; }
         const reader = new FileReader(); reader.readAsDataURL(file);
