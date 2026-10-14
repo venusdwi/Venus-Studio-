@@ -249,7 +249,7 @@
 
         .full-app-content, .personal-app-content, .debt-app-content { display: flex; flex-direction: column; width: 100% !important; max-width: 100% !important; flex-grow: 1; overflow-y: auto; overflow-x: hidden !important; background: transparent !important; border: none !important; padding: 6px 4px 120px 4px !important; text-align: left; gap: 16px; margin-top: 10px; scroll-behavior: smooth; }
 
-        .glass-control-panel, .backup-panel, form { background: transparent !important; border: none !important; box-shadow: none !important; padding: 4px 0 !important; width: 100% !important; max-width: 100% !important; overflow-x: hidden !important; }
+        .glass-control-panel, .backup-panel { background: transparent !important; border: none !important; box-shadow: none !important; padding: 4px 0 !important; width: 100% !important; max-width: 100% !important; overflow-x: hidden !important; }
         .glass-control-panel { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-shrink: 0; height: 40px; }
         .glass-label-text { font-size: 0.9rem; font-weight: 800; color: #7dd3fc; white-space: nowrap; line-height: 1; display: flex; align-items: center; height: 100%; }
         .glass-slider-wrapper { display: flex; align-items: center; flex-grow: 1; padding: 0 4px; height: 100%; }
@@ -278,7 +278,8 @@
         .card-cash { background: rgba(56, 189, 248, calc(var(--glass-alpha) * 0.45 + 0.05)); border: 1px solid rgba(56, 189, 248, 0.55); color: #38bdf8; }
         .card-bank { background: rgba(168, 85, 247, calc(var(--glass-alpha) * 0.45 + 0.05)); border: 1px solid rgba(168, 85, 247, 0.55); color: #c084fc; }
 
-        form { display: flex; flex-direction: column; gap: 14px; width: 100%; }
+        /* FORM INPUT TRANSAKSI UTAMA */
+        .cyber-input-form { display: flex !important; flex-direction: column !important; gap: 14px !important; width: 100% !important; background: rgba(2, 10, 28, 0.6) !important; border: 1.5px solid rgba(0, 240, 255, 0.35) !important; border-radius: 16px !important; padding: 16px !important; margin-top: 4px !important; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important; }
         .form-group { display: flex; flex-direction: column; gap: 6px; width: 100%; }
         .datetime-group { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
         label { font-size: 0.92rem; font-weight: 800; color: #7dd3fc; letter-spacing: 0.5px; margin-bottom: 2px; }
@@ -743,20 +744,39 @@
                 </div>
             </div>
 
-            <!-- FORM INPUT TRANSAKSI (SUDAH DIKEMBALIKAN DI SINI) -->
-            <form id="transactionForm">
+            <!-- FORM INPUT TRANSAKSI UTAMA (DIPASTIKAN MUNCUL DI SINI) -->
+            <form id="transactionForm" class="cyber-input-form">
                 <div class="form-group">
                     <label>Jenis Transaksi</label>
                     <div class="custom-select-box" id="btnSelectType">-- Pilih Jenis --</div>
                     <input type="hidden" id="type" required>
                 </div>
                 
-                <div class="form-group"><label for="amount">Jumlah (Rp)</label><input type="text" id="amount" placeholder="Contoh: 500.000" inputmode="numeric" required></div>
-                <div class="form-group"><label for="description">Keterangan</label><input type="text" id="description" placeholder="Contoh: Gaji, Makan Siang" required></div>
+                <div class="form-group">
+                    <label for="amount">Jumlah (Rp)</label>
+                    <input type="text" id="amount" placeholder="Contoh: 500.000" inputmode="numeric" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Keterangan</label>
+                    <input type="text" id="description" placeholder="Contoh: Gaji, Makan Siang" required>
+                </div>
                 
                 <div class="datetime-group">
-                    <div class="form-group"><label for="inputDate">Tanggal Input</label><div class="datetime-custom-wrapper" id="dateWrapperBtn"><span class="datetime-display-text" id="dateDisplayText"></span><input type="date" id="inputDate" required></div></div>
-                    <div class="form-group"><label for="inputTime">Jam Input</label><div class="datetime-custom-wrapper" id="timeWrapperBtn"><span class="datetime-display-text" id="timeDisplayText"></span><input type="time" id="inputTime" required></div></div>
+                    <div class="form-group">
+                        <label for="inputDate">Tanggal Input</label>
+                        <div class="datetime-custom-wrapper" id="dateWrapperBtn">
+                            <span class="datetime-display-text" id="dateDisplayText"></span>
+                            <input type="date" id="inputDate" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputTime">Jam Input</label>
+                        <div class="datetime-custom-wrapper" id="timeWrapperBtn">
+                            <span class="datetime-display-text" id="timeDisplayText"></span>
+                            <input type="time" id="inputTime" required>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="form-group" id="paymentMethodGroup">
@@ -769,6 +789,7 @@
                     <label for="proofInput">Bukti Transaksi (Opsional)</label>
                     <input type="file" id="proofInput" accept="image/*" style="padding: 12px 16px; background: rgba(2, 12, 32, 0.85); color: #7dd3fc; border: 1.5px dashed rgba(0, 240, 255, 0.45); border-radius: 12px; font-size: 0.95rem; width: 100%;">
                 </div>
+
                 <button type="submit" id="btnSubmit"><span id="btnText">Tambah Transaksi</span></button>
             </form>
 
@@ -1190,7 +1211,6 @@
                 } 
             }, 2500);
 
-            // Otomatis bersuara saat aplikasi terbuka
             window.speechSynthesis.speak(utterance);
         } else { 
             if (btnTapHere) btnTapHere.classList.add('show'); 
