@@ -323,12 +323,16 @@
         @keyframes spinLoading { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .history-section-wrapper { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; margin-top: 10px; width: 100%; }
-        .history-title-wrapper { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; border-radius: 12px; background: rgba(0, 240, 255, 0.06); border: 1.5px solid rgba(0, 240, 255, 0.25); position: relative; width: 100%; }
-        .history-title { font-size: 1.15rem; color: #fff; font-weight: 900; margin: 0; letter-spacing: 0.5px; }
+        .history-title-wrapper { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; border-radius: 12px; background: rgba(0, 240, 255, 0.06); border: 1.5px solid rgba(0, 240, 255, 0.25); position: relative; width: 100%; gap: 8px; }
+        .history-title { font-size: 1.1rem; color: #fff; font-weight: 900; margin: 0; letter-spacing: 0.5px; white-space: nowrap; }
 
-        .filter-badge-wrapper { position: relative; display: inline-flex; align-items: center; justify-content: center; background: rgba(0, 240, 255, 0.18); border: 1px solid rgba(0, 240, 255, 0.5); padding: 6px 14px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; overflow: hidden; min-height: 36px; }
+        .filter-actions-group { display: flex; align-items: center; gap: 6px; }
+        .btn-today-quick { background: rgba(0, 240, 255, 0.15); border: 1px solid rgba(0, 240, 255, 0.5); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 0.78rem; font-weight: 800; padding: 6px 10px; border-radius: 10px; cursor: pointer; text-transform: uppercase; white-space: nowrap; height: 36px; display: inline-flex; align-items: center; justify-content: center; }
+        .btn-today-quick:active { background: rgba(0, 240, 255, 0.35); transform: scale(0.95); }
+
+        .filter-badge-wrapper { position: relative; display: inline-flex; align-items: center; justify-content: center; background: rgba(0, 240, 255, 0.18); border: 1px solid rgba(0, 240, 255, 0.5); padding: 6px 12px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; overflow: hidden; min-height: 36px; }
         .filter-badge-wrapper:active { background: rgba(0, 240, 255, 0.35); transform: scale(0.95); }
-        .filter-badge-text { font-size: 0.82rem; font-weight: 800; color: #00f0ff; text-align: center; pointer-events: none; white-space: nowrap; display: block; line-height: 1.2; }
+        .filter-badge-text { font-size: 0.78rem; font-weight: 800; color: #00f0ff; text-align: center; pointer-events: none; white-space: nowrap; display: block; line-height: 1.2; }
         #filterDateInputDirect { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 10; }
 
         .history-list { list-style: none; display: flex; flex-direction: column; gap: 10px; width: 100%; }
@@ -795,10 +799,13 @@
 
             <div class="history-section-wrapper">
                 <div class="history-title-wrapper">
-                    <h3 class="history-title">Riwayat Transaksi</h3>
-                    <div class="filter-badge-wrapper" id="filterBadgeWrapperBtn" title="Ketuk untuk ganti tanggal/bulan/tahun">
-                        <span class="filter-badge-text" id="filterBadgeText"></span>
-                        <input type="date" id="filterDateInputDirect">
+                    <h3 class="history-title">Riwayat</h3>
+                    <div class="filter-actions-group">
+                        <button type="button" class="btn-today-quick" id="btnQuickToday" title="Filter Hari Ini">Hari Ini</button>
+                        <div class="filter-badge-wrapper" id="filterBadgeWrapperBtn" title="Ketuk untuk ganti tanggal/bulan/tahun">
+                            <span class="filter-badge-text" id="filterBadgeText"></span>
+                            <input type="date" id="filterDateInputDirect">
+                        </div>
                     </div>
                 </div>
                 <ul class="history-list" id="historyList"></ul>
@@ -1116,6 +1123,12 @@
         if (document.visibilityState === 'hidden') {
             localStorage.setItem('venus_last_leave_time', Date.now());
         } else if (document.visibilityState === 'visible') {
+            // Ketika app dibuka kembali dari background, otomatis sinkronkan filter tanggal ke hari ini real-time!
+            currentFilterDate = new Date().toISOString().slice(0, 10);
+            if(filterDateInputDirect) filterDateInputDirect.value = currentFilterDate;
+            if(filterBadgeText) filterBadgeText.innerText = formatTransactionDateShort(currentFilterDate);
+            updateUI();
+
             const lastLeave = localStorage.getItem('venus_last_leave_time');
             if (lastLeave) {
                 const elapsed = Date.now() - parseInt(lastLeave, 10);
@@ -1270,6 +1283,10 @@
             setTimeout(() => { 
                 techBgContainer.classList.add('active');
                 mainAppContainer.classList.add('active'); 
+                // Set selalu ke tanggal hari ini real-time saat login berhasil
+                currentFilterDate = new Date().toISOString().slice(0, 10);
+                if(filterDateInputDirect) filterDateInputDirect.value = currentFilterDate;
+                if(filterBadgeText) filterBadgeText.innerText = formatTransactionDateShort(currentFilterDate);
                 updateUI(); 
                 sessionStorage.setItem('venus_is_logged', 'true'); 
                 sessionStorage.setItem('venus_active_modal', 'none'); 
@@ -1340,7 +1357,16 @@
     const openMusicModalPanel = document.getElementById('openMusicModalPanel'); const closeMusicModalBtn = document.getElementById('closeMusicModalBtn');
     const openPersonalModalPanel = document.getElementById('openPersonalModalPanel'); const closePersonalModalBtn = document.getElementById('closePersonalModalBtn');
 
-    toggleAppViewBtn.addEventListener('click', () => { cyberModalOverlay.classList.add('active'); sessionStorage.setItem('venus_active_modal', 'cyber'); updateUI(); });
+    toggleAppViewBtn.addEventListener('click', () => { 
+        // Paksa sinkronisasi ke tanggal hari ini real-time setiap kali Cyber Vault dibuka
+        currentFilterDate = new Date().toISOString().slice(0, 10);
+        if(filterDateInputDirect) filterDateInputDirect.value = currentFilterDate;
+        if(filterBadgeText) filterBadgeText.innerText = formatTransactionDateShort(currentFilterDate);
+        updateUI();
+
+        cyberModalOverlay.classList.add('active'); 
+        sessionStorage.setItem('venus_active_modal', 'cyber'); 
+    });
     closeCyberModalBtn.addEventListener('click', () => { cyberModalOverlay.classList.remove('active'); sessionStorage.setItem('venus_active_modal', 'none'); });
     openMusicModalPanel.addEventListener('click', () => { musicModalOverlay.classList.add('active'); sessionStorage.setItem('venus_active_modal', 'music'); });
     closeMusicModalBtn.addEventListener('click', () => { musicModalOverlay.classList.remove('active'); sessionStorage.setItem('venus_active_modal', 'none'); });
@@ -1842,15 +1868,27 @@
     
     let transactions = JSON.parse(localStorage.getItem('my_transactions')) || [];
     
+    // SELALU PAKSA INisialisasi ke Tanggal Hari Ini (Real-Time Device Date)
     let currentFilterDate = new Date().toISOString().slice(0, 10); 
     let currentFilterMonth = null;
 
     const filterBadgeText = document.getElementById('filterBadgeText'); 
     const filterDateInputDirect = document.getElementById('filterDateInputDirect'); 
     const filterBadgeWrapperBtn = document.getElementById('filterBadgeWrapperBtn');
+    const btnQuickToday = document.getElementById('btnQuickToday');
 
     filterDateInputDirect.value = currentFilterDate; 
     filterBadgeText.innerText = formatTransactionDateShort(currentFilterDate);
+
+    // Tombol cepat "Hari Ini" agar mudah diklik kembali ke tanggal real-time
+    btnQuickToday.addEventListener('click', (e) => {
+        e.stopPropagation();
+        currentFilterDate = new Date().toISOString().slice(0, 10);
+        currentFilterMonth = null;
+        filterDateInputDirect.value = currentFilterDate;
+        filterBadgeText.innerText = formatTransactionDateShort(currentFilterDate);
+        updateUI();
+    });
 
     filterBadgeWrapperBtn.addEventListener('click', (e) => { 
         e.stopPropagation(); 
@@ -1904,12 +1942,12 @@
     }
 
     function updateUI() {
-        // Otomatis update tanggal filter mengikuti hari real-time jika aplikasi dibuka pas lewat tengah malam
+        // Selalu pastikan setiap update UI mengecek tanggal hari ini secara real-time
         const todayStr = new Date().toISOString().slice(0, 10);
         if (!currentFilterDate && !currentFilterMonth) {
             currentFilterDate = todayStr;
-            filterDateInputDirect.value = todayStr;
-            filterBadgeText.innerText = formatTransactionDateShort(todayStr);
+            if(filterDateInputDirect) filterDateInputDirect.value = todayStr;
+            if(filterBadgeText) filterBadgeText.innerText = formatTransactionDateShort(todayStr);
         }
 
         const historyList = document.getElementById('historyList'); 
@@ -2139,7 +2177,7 @@
 
     document.getElementById('btnExportBackup').addEventListener('click', () => {
         if (!transactions || transactions.length === 0) return alert('Belum ada data transaksi untuk di-backup!');
-        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(transactions)); const downloadAnchor = document.createElement('a'); downloadAnchor.setAttribute("href", dataStr); const tanggalHariIni = new Date().toISOString().split('T')[0]; downloadAnchor.setAttribute("download", `VenusStudio_Finance_Backup_${tanggalHariIni}.json`); document.body.appendChild(downloadAnchor); downloadAnchor.click(); downloadAnchor.remove();
+        const dataStr = "data:text/json;charset=utf-8,"+ encodeURIComponent(JSON.stringify(transactions)); const downloadAnchor = document.createElement('a'); downloadAnchor.setAttribute("href", dataStr); const tanggalHariIni = new Date().toISOString().split('T')[0]; downloadAnchor.setAttribute("download", `VenusStudio_Finance_Backup_${tanggalHariIni}.json`); document.body.appendChild(downloadAnchor); downloadAnchor.click(); downloadAnchor.remove();
     });
     const importFinanceFileInput = document.getElementById('importFileInput'); document.getElementById('btnImportBackup').addEventListener('click', () => { importFinanceFileInput.click(); });
     importFinanceFileInput.addEventListener('change', function(e) {
