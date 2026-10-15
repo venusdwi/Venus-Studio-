@@ -1123,10 +1123,21 @@
         if (document.visibilityState === 'hidden') {
             localStorage.setItem('venus_last_leave_time', Date.now());
         } else if (document.visibilityState === 'visible') {
-            // Ketika app dibuka kembali dari background, otomatis sinkronkan filter tanggal ke hari ini real-time!
-            currentFilterDate = new Date().toISOString().slice(0, 10);
-            if(filterDateInputDirect) filterDateInputDirect.value = currentFilterDate;
-            if(filterBadgeText) filterBadgeText.innerText = formatTransactionDateShort(currentFilterDate);
+            // Ketika aplikasi dibuka kembali dari background, otomatis sinkronkan tanggal input & filter ke hari ini real-time!
+            const realTimeToday = new Date().toISOString().slice(0, 10);
+            const nowTime = new Date();
+            const timeStr = `${String(nowTime.getHours()).padStart(2,'0')}:${String(nowTime.getMinutes()).padStart(2,'0')}`;
+
+            currentFilterDate = realTimeToday;
+            if(filterDateInputDirect) filterDateInputDirect.value = realTimeToday;
+            if(filterBadgeText) filterBadgeText.innerText = formatTransactionDateShort(realTimeToday);
+
+            selectedDateValue = realTimeToday;
+            if(inputDate) inputDate.value = realTimeToday;
+            if(dateDisplayText) dateDisplayText.innerText = formatDateDisplay(realTimeToday);
+            if(inputTime) inputTime.value = timeStr;
+            if(timeDisplayText) timeDisplayText.innerText = timeStr;
+
             updateUI();
 
             const lastLeave = localStorage.getItem('venus_last_leave_time');
@@ -1283,10 +1294,22 @@
             setTimeout(() => { 
                 techBgContainer.classList.add('active');
                 mainAppContainer.classList.add('active'); 
-                // Set selalu ke tanggal hari ini real-time saat login berhasil
-                currentFilterDate = new Date().toISOString().slice(0, 10);
-                if(filterDateInputDirect) filterDateInputDirect.value = currentFilterDate;
-                if(filterBadgeText) filterBadgeText.innerText = formatTransactionDateShort(currentFilterDate);
+                
+                // Sinkronisasi otomatis tanggal real-time perangkat saat login berhasil
+                const realTimeToday = new Date().toISOString().slice(0, 10);
+                const nowTime = new Date();
+                const timeStr = `${String(nowTime.getHours()).padStart(2,'0')}:${String(nowTime.getMinutes()).padStart(2,'0')}`;
+
+                currentFilterDate = realTimeToday;
+                if(filterDateInputDirect) filterDateInputDirect.value = realTimeToday;
+                if(filterBadgeText) filterBadgeText.innerText = formatTransactionDateShort(realTimeToday);
+
+                selectedDateValue = realTimeToday;
+                if(inputDate) inputDate.value = realTimeToday;
+                if(dateDisplayText) dateDisplayText.innerText = formatDateDisplay(realTimeToday);
+                if(inputTime) inputTime.value = timeStr;
+                if(timeDisplayText) timeDisplayText.innerText = timeStr;
+
                 updateUI(); 
                 sessionStorage.setItem('venus_is_logged', 'true'); 
                 sessionStorage.setItem('venus_active_modal', 'none'); 
@@ -1358,10 +1381,21 @@
     const openPersonalModalPanel = document.getElementById('openPersonalModalPanel'); const closePersonalModalBtn = document.getElementById('closePersonalModalBtn');
 
     toggleAppViewBtn.addEventListener('click', () => { 
-        // Paksa sinkronisasi ke tanggal hari ini real-time setiap kali Cyber Vault dibuka
-        currentFilterDate = new Date().toISOString().slice(0, 10);
-        if(filterDateInputDirect) filterDateInputDirect.value = currentFilterDate;
-        if(filterBadgeText) filterBadgeText.innerText = formatTransactionDateShort(currentFilterDate);
+        // Sinkronisasi real-time setiap kali Cyber Vault dibuka
+        const realTimeToday = new Date().toISOString().slice(0, 10);
+        const nowTime = new Date();
+        const timeStr = `${String(nowTime.getHours()).padStart(2,'0')}:${String(nowTime.getMinutes()).padStart(2,'0')}`;
+
+        currentFilterDate = realTimeToday;
+        if(filterDateInputDirect) filterDateInputDirect.value = realTimeToday;
+        if(filterBadgeText) filterBadgeText.innerText = formatTransactionDateShort(realTimeToday);
+
+        selectedDateValue = realTimeToday;
+        if(inputDate) inputDate.value = realTimeToday;
+        if(dateDisplayText) dateDisplayText.innerText = formatDateDisplay(realTimeToday);
+        if(inputTime) inputTime.value = timeStr;
+        if(timeDisplayText) timeDisplayText.innerText = timeStr;
+
         updateUI();
 
         cyberModalOverlay.classList.add('active'); 
@@ -1868,7 +1902,7 @@
     
     let transactions = JSON.parse(localStorage.getItem('my_transactions')) || [];
     
-    // SELALU PAKSA INisialisasi ke Tanggal Hari Ini (Real-Time Device Date)
+    // SELALU INISIALISASI KE TANGGAL HARI INI REAL-TIME PERANGKAT
     let currentFilterDate = new Date().toISOString().slice(0, 10); 
     let currentFilterMonth = null;
 
@@ -1880,7 +1914,6 @@
     filterDateInputDirect.value = currentFilterDate; 
     filterBadgeText.innerText = formatTransactionDateShort(currentFilterDate);
 
-    // Tombol cepat "Hari Ini" agar mudah diklik kembali ke tanggal real-time
     btnQuickToday.addEventListener('click', (e) => {
         e.stopPropagation();
         currentFilterDate = new Date().toISOString().slice(0, 10);
@@ -1911,13 +1944,23 @@
         return `${parseInt(d)} ${shortMonthNames[parseInt(m)-1]} ${y}`;
     }
 
-    let selectedDateValue = new Date().toISOString().slice(0,10); const inputDate = document.getElementById('inputDate'); const dateWrapperBtn = document.getElementById('dateWrapperBtn'); const dateDisplayText = document.getElementById('dateDisplayText');
+    let selectedDateValue = new Date().toISOString().slice(0,10); 
+    const inputDate = document.getElementById('inputDate'); 
+    const dateWrapperBtn = document.getElementById('dateWrapperBtn'); 
+    const dateDisplayText = document.getElementById('dateDisplayText');
+    
     function formatDateDisplay(dateStr) { if (!dateStr) return ''; const [y, m, d] = dateStr.split('-'); return `${d}/${m}/${y}`; }
+    
     dateWrapperBtn.addEventListener('click', (e) => { e.stopPropagation(); try { inputDate.showPicker(); } catch (err) { inputDate.click(); } });
     inputDate.addEventListener('change', function() { if (this.value) { selectedDateValue = this.value; dateDisplayText.innerText = formatDateDisplay(this.value); } });
-    const inputTime = document.getElementById('inputTime'); const timeWrapperBtn = document.getElementById('timeWrapperBtn'); const timeDisplayText = document.getElementById('timeDisplayText');
+    
+    const inputTime = document.getElementById('inputTime'); 
+    const timeWrapperBtn = document.getElementById('timeWrapperBtn'); 
+    const timeDisplayText = document.getElementById('timeDisplayText');
+    
     timeWrapperBtn.addEventListener('click', (e) => { e.stopPropagation(); try { inputTime.showPicker(); } catch (err) { inputTime.click(); } });
     inputTime.addEventListener('change', function() { if (this.value) { timeDisplayText.innerText = this.value; } });
+    
     function formatRupiah(number) { return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(number); }
     document.getElementById('amount').addEventListener('input', function() { let rawValue = this.value.replace(/\D/g, ''); this.value = rawValue ? parseInt(rawValue, 10).toLocaleString('id-ID') : ''; });
     document.getElementById('editAmount').addEventListener('input', function() { let rawValue = this.value.replace(/\D/g, ''); this.value = rawValue ? parseInt(rawValue, 10).toLocaleString('id-ID') : ''; });
@@ -1942,7 +1985,6 @@
     }
 
     function updateUI() {
-        // Selalu pastikan setiap update UI mengecek tanggal hari ini secara real-time
         const todayStr = new Date().toISOString().slice(0, 10);
         if (!currentFilterDate && !currentFilterMonth) {
             currentFilterDate = todayStr;
@@ -2164,7 +2206,7 @@
                 btnSubmit.disabled = false; btnText.innerText = 'Tambah Transaksi'; playCashSound();
                 
                 if (type === 'in') { popupTitle.innerText = "Pemasukan Masuk!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (+${formatRupiah(amount)})`; } 
-                else if (type === 'out') { popupTitle.Badge = "Pengeluaran Dicatat!"; popupTitle.innerText = "Pengeluaran Dicatat!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (-${formatRupiah(amount)})`; }
+                else if (type === 'out') { popupTitle.innerText = "Pengeluaran Dicatat!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (-${formatRupiah(amount)})`; }
                 else if (type === 'refund') { popupTitle.innerText = "Pengembalian Dana!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (Pengurangan Pengeluaran)`; }
                 
                 popupNotification.classList.add('active');
@@ -2172,8 +2214,18 @@
         });
     });
     document.getElementById('popupCloseBtn').addEventListener('click', () => { popupNotification.classList.remove('active'); });
-    const now = new Date(); selectedDateValue = now.toISOString().slice(0,10); const initH = String(now.getHours()).padStart(2,'0'); const initM = String(now.getMinutes()).padStart(2,'0'); const initTimeStr = `${initH}:${initM}`;
-    inputDate.value = selectedDateValue; dateDisplayText.innerText = formatDateDisplay(selectedDateValue); inputTime.value = initTimeStr; timeDisplayText.innerText = initTimeStr;
+
+    // Inisialisasi awal nilai tanggal dan waktu input transaksi ke waktu aktual perangkat
+    const initialNow = new Date(); 
+    selectedDateValue = initialNow.toISOString().slice(0,10); 
+    const initH = String(initialNow.getHours()).padStart(2,'0'); 
+    const initM = String(initialNow.getMinutes()).padStart(2,'0'); 
+    const initTimeStr = `${initH}:${initM}`;
+    
+    inputDate.value = selectedDateValue; 
+    dateDisplayText.innerText = formatDateDisplay(selectedDateValue); 
+    inputTime.value = initTimeStr; 
+    timeDisplayText.innerText = initTimeStr;
 
     document.getElementById('btnExportBackup').addEventListener('click', () => {
         if (!transactions || transactions.length === 0) return alert('Belum ada data transaksi untuk di-backup!');
