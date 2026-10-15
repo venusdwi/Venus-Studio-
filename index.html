@@ -329,7 +329,7 @@
         .filter-badge-wrapper { position: relative; display: inline-flex; align-items: center; justify-content: center; background: rgba(0, 240, 255, 0.18); border: 1px solid rgba(0, 240, 255, 0.5); padding: 6px 14px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; overflow: hidden; min-height: 36px; }
         .filter-badge-wrapper:active { background: rgba(0, 240, 255, 0.35); transform: scale(0.95); }
         .filter-badge-text { font-size: 0.82rem; font-weight: 800; color: #00f0ff; text-align: center; pointer-events: none; white-space: nowrap; display: block; line-height: 1.2; }
-        #filterMonthInputDirect { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 10; }
+        #filterDateInputDirect { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 10; }
 
         .history-list { list-style: none; display: flex; flex-direction: column; gap: 10px; width: 100%; }
         .history-item { display: flex; justify-content: space-between; align-items: center; padding: 16px 15px; background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 212, 255, 0.3); border-radius: 14px; border-left: 6px solid #a5f3fc; cursor: pointer; transition: transform 0.15s ease, background 0.15s ease; width: 100%; }
@@ -796,9 +796,9 @@
             <div class="history-section-wrapper">
                 <div class="history-title-wrapper">
                     <h3 class="history-title">Riwayat Transaksi</h3>
-                    <div class="filter-badge-wrapper" id="filterBadgeWrapperBtn" title="Ketuk untuk ganti bulan/tahun">
+                    <div class="filter-badge-wrapper" id="filterBadgeWrapperBtn" title="Ketuk untuk ganti tanggal/bulan/tahun">
                         <span class="filter-badge-text" id="filterBadgeText"></span>
-                        <input type="month" id="filterMonthInputDirect">
+                        <input type="date" id="filterDateInputDirect">
                     </div>
                 </div>
                 <ul class="history-list" id="historyList"></ul>
@@ -1842,30 +1842,26 @@
     
     let transactions = JSON.parse(localStorage.getItem('my_transactions')) || [];
     
-    const currentRealTimeDate = new Date().toISOString().slice(0, 10); 
-    const currentRealTimeYM = currentRealTimeDate.slice(0, 7); 
-    
-    let currentFilterDate = currentRealTimeDate; 
-    let currentFilterMonth = currentRealTimeYM;
+    let currentFilterDate = new Date().toISOString().slice(0, 10); 
+    let currentFilterMonth = null;
 
     const filterBadgeText = document.getElementById('filterBadgeText'); 
-    const filterMonthInputDirect = document.getElementById('filterMonthInputDirect'); 
+    const filterDateInputDirect = document.getElementById('filterDateInputDirect'); 
     const filterBadgeWrapperBtn = document.getElementById('filterBadgeWrapperBtn');
 
-    filterMonthInputDirect.value = currentRealTimeYM; 
-    filterBadgeText.innerText = formatTransactionDateShort(currentRealTimeDate);
+    filterDateInputDirect.value = currentFilterDate; 
+    filterBadgeText.innerText = formatTransactionDateShort(currentFilterDate);
 
     filterBadgeWrapperBtn.addEventListener('click', (e) => { 
         e.stopPropagation(); 
-        currentFilterDate = null; 
-        try { filterMonthInputDirect.showPicker(); } catch (err) { filterMonthInputDirect.click(); } 
+        try { filterDateInputDirect.showPicker(); } catch (err) { filterDateInputDirect.click(); } 
     });
 
-    filterMonthInputDirect.addEventListener('change', function() { 
+    filterDateInputDirect.addEventListener('change', function() { 
         if (this.value) { 
-            currentFilterMonth = this.value; 
-            currentFilterDate = null;
-            filterBadgeText.innerText = formatMonthName(currentFilterMonth); 
+            currentFilterDate = this.value; 
+            currentFilterMonth = null;
+            filterBadgeText.innerText = formatTransactionDateShort(currentFilterDate); 
             updateUI(); 
         } 
     });
@@ -1908,6 +1904,14 @@
     }
 
     function updateUI() {
+        // Otomatis update tanggal filter mengikuti hari real-time jika aplikasi dibuka pas lewat tengah malam
+        const todayStr = new Date().toISOString().slice(0, 10);
+        if (!currentFilterDate && !currentFilterMonth) {
+            currentFilterDate = todayStr;
+            filterDateInputDirect.value = todayStr;
+            filterBadgeText.innerText = formatTransactionDateShort(todayStr);
+        }
+
         const historyList = document.getElementById('historyList'); 
         historyList.innerHTML = '';
         
@@ -2122,7 +2126,7 @@
                 btnSubmit.disabled = false; btnText.innerText = 'Tambah Transaksi'; playCashSound();
                 
                 if (type === 'in') { popupTitle.innerText = "Pemasukan Masuk!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (+${formatRupiah(amount)})`; } 
-                else if (type === 'out') { popupTitle.innerText = "Pengeluaran Dicatat!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (-${formatRupiah(amount)})`; }
+                else if (type === 'out') { popupTitle.Badge = "Pengeluaran Dicatat!"; popupTitle.innerText = "Pengeluaran Dicatat!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (-${formatRupiah(amount)})`; }
                 else if (type === 'refund') { popupTitle.innerText = "Pengembalian Dana!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (Pengurangan Pengeluaran)`; }
                 
                 popupNotification.classList.add('active');
