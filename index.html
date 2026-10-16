@@ -1063,9 +1063,72 @@
         localStorage.setItem('venus_last_leave_time', Date.now());
     });
 
-    function playNetflixIntroSound() { try { const ctx = new (window.AudioContext || window.webkitAudioContext)(); if (ctx.state === 'suspended') ctx.resume(); const now = ctx.currentTime; const osc1 = ctx.createOscillator(); const gain1 = ctx.createGain(); osc1.type = 'sawtooth'; osc1.frequency.setValueAtTime(100, now); osc1.frequency.exponentialRampToValueAtTime(32, now + 0.55); gain1.gain.setValueAtTime(0.01, now); gain1.gain.linearRampToValueAtTime(0.75, now + 0.08); gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.85); osc1.connect(gain1); gain1.connect(ctx.destination); osc1.start(now); osc1.stop(now + 0.85); const osc2 = ctx.createOscillator(); const gain2 = ctx.createGain(); osc2.type = 'sine'; osc2.frequency.setValueAtTime(140, now + 0.22); osc2.frequency.exponentialRampToValueAtTime(38, now + 1.6); gain2.gain.setValueAtTime(0.01, now + 0.22); gain2.gain.linearRampToValueAtTime(0.95, now + 0.3); gain2.gain.exponentialRampToValueAtTime(0.0001, now + 1.8); osc2.connect(gain2); gain2.connect(ctx.destination); osc2.start(now + 0.22); osc2.stop(now + 1.8); } catch (e) {} }
-    function playDramaticTransitionSound() { try { const ctx = new (window.AudioContext || window.webkitAudioContext)(); if (ctx.state === 'suspended') ctx.resume(); const now = ctx.currentTime; const osc = ctx.createOscillator(); const gain = ctx.createGain(); osc.type = 'sawtooth'; osc.frequency.setValueAtTime(150, now); osc.frequency.exponentialRampToValueAtTime(800, now + 0.4); gain.gain.setValueAtTime(0.01, now); gain.gain.linearRampToValueAtTime(0.35, now + 0.2); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6); osc.connect(gain); gain.connect(ctx.destination); osc.start(now); osc.stop(now + 0.6); } catch (e) {} }
-    function playCashSound() { try { const ctx = new (window.AudioContext || window.webkitAudioContext)(); if (ctx.state === 'suspended') ctx.resume(); const now = ctx.currentTime; [987.77, 1318.51, 1567.98].forEach((freq, idx) => { const osc = ctx.createOscillator(); const gain = ctx.createGain(); osc.type = 'sine'; osc.frequency.setValueAtTime(freq, now + idx * 0.08); gain.gain.setValueAtTime(0.01, now + idx * 0.08); gain.gain.linearRampToValueAtTime(0.3, now + idx * 0.08 + 0.02); gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.4); osc.connect(gain); gain.connect(ctx.destination); osc.start(now + idx * 0.08); osc.stop(now + idx * 0.08 + 0.4); }); } catch (e) {} }
+    function playNetflixIntroSound() { 
+        try { 
+            const AudioContext = window.AudioContext || window.webkitAudioContext; 
+            if (!AudioContext) return;
+            const ctx = new AudioContext(); 
+            if (ctx.state === 'suspended') ctx.resume(); 
+            const now = ctx.currentTime; 
+            const osc1 = ctx.createOscillator(); 
+            const gain1 = ctx.createGain(); 
+            osc1.type = 'sawtooth'; 
+            osc1.frequency.setValueAtTime(100, now); 
+            osc1.frequency.exponentialRampToValueAtTime(32, now + 0.55); 
+            gain1.gain.setValueAtTime(0.01, now); 
+            gain1.gain.linearRampToValueAtTime(0.75, now + 0.08); 
+            gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.85); 
+            osc1.connect(gain1); 
+            gain1.connect(ctx.destination); 
+            osc1.start(now); 
+            osc1.stop(now + 0.85); 
+        } catch (e) {} 
+    }
+    
+    function playDramaticTransitionSound() { 
+        try { 
+            const AudioContext = window.AudioContext || window.webkitAudioContext; 
+            if (!AudioContext) return;
+            const ctx = new AudioContext(); 
+            if (ctx.state === 'suspended') ctx.resume(); 
+            const now = ctx.currentTime; 
+            const osc = ctx.createOscillator(); 
+            const gain = ctx.createGain(); 
+            osc.type = 'sawtooth'; 
+            osc.frequency.setValueAtTime(150, now); 
+            osc.frequency.exponentialRampToValueAtTime(800, now + 0.4); 
+            gain.gain.setValueAtTime(0.01, now); 
+            gain.gain.linearRampToValueAtTime(0.35, now + 0.2); 
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6); 
+            osc.connect(gain); 
+            gain.connect(ctx.destination); 
+            osc.start(now); 
+            osc.stop(now + 0.6); 
+        } catch (e) {} 
+    }
+
+    function playCashSound() { 
+        try { 
+            const AudioContext = window.AudioContext || window.webkitAudioContext; 
+            if (!AudioContext) return;
+            const ctx = new AudioContext(); 
+            if (ctx.state === 'suspended') ctx.resume(); 
+            const now = ctx.currentTime; 
+            [987.77, 1318.51, 1567.98].forEach((freq, idx) => { 
+                const osc = ctx.createOscillator(); 
+                const gain = ctx.createGain(); 
+                osc.type = 'sine'; 
+                osc.frequency.setValueAtTime(freq, now + idx * 0.08); 
+                gain.gain.setValueAtTime(0.01, now + idx * 0.08); 
+                gain.gain.linearRampToValueAtTime(0.3, now + idx * 0.08 + 0.02); 
+                gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.4); 
+                osc.connect(gain); 
+                gain.connect(ctx.destination); 
+                osc.start(now + idx * 0.08); 
+                osc.stop(now + idx * 0.08 + 0.4); 
+            }); 
+        } catch (e) {} 
+    }
 
     const btnTapHere = document.getElementById('btnTapHere');
     const splashScreenOverlay = document.getElementById('splashScreenOverlay');
@@ -1137,7 +1200,7 @@
         btnTapHere.addEventListener('click', () => {
             playDramaticTransitionSound();
             if (splashScreenOverlay) splashScreenOverlay.classList.add('hidden');
-            setTimeout(() => { if (pinScreenOverlay) pinScreenOverlay.classList.add('active'); }, 200);
+            setTimeout(() => { if (pinScreenOverlay) pinScreenOverlay.classList.add('active'); }, 150);
         });
     }
 
@@ -1221,7 +1284,9 @@
 
     function playSuccessSound() {
         try {
-            const ctx = new (window.AudioContext || window.webkitAudioContext)(); const now = ctx.currentTime;
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (!AudioContext) return;
+            const ctx = new AudioContext(); const now = ctx.currentTime;
             [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
                 const osc = ctx.createOscillator(); const gain = ctx.createGain(); osc.type = 'triangle';
                 osc.frequency.setValueAtTime(freq, now + idx * 0.08); gain.gain.setValueAtTime(0.01, now + idx * 0.08);
@@ -1802,14 +1867,12 @@
         const minutesStr = String(now.getMinutes()).padStart(2, '0');
         const currentTimeStr = `${hoursStr}:${minutesStr}`;
 
-        // Jika tanggal perangkat berubah (lewat tengah malam 00.00 WIB), update tanggal input & filter riwayat secara otomatis
         if (selectedDateValue !== todayStr && !document.getElementById('transactionForm').dataset.userTouchedDate) {
             selectedDateValue = todayStr;
             if(inputDate) inputDate.value = todayStr;
             if(dateDisplayText) dateDisplayText.innerText = formatDateDisplay(todayStr);
         }
 
-        // Jika filter sedang di "Hari Ini", pastikan mengikuti tanggal hari baru secara real-time
         const lastCheckedDay = localStorage.getItem('venus_last_checked_day');
         if (lastCheckedDay !== todayStr) {
             localStorage.setItem('venus_last_checked_day', todayStr);
@@ -1823,7 +1886,6 @@
         if(timeDisplayText) timeDisplayText.innerText = currentTimeStr;
     }
 
-    // Jalankan timer pengecekan real-time setiap 1 detik
     setInterval(refreshRealtimeDateTime, 1000);
 
     if(inputDate) {
