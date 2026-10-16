@@ -1831,6 +1831,7 @@
     timeWrapperBtn.addEventListener('click', (e) => { e.stopPropagation(); try { inputTime.showPicker(); } catch (err) { inputTime.click(); } });
     inputTime.addEventListener('change', function() { if (this.value) { timeDisplayText.innerText = this.value; } });
     
+    // PEMBARUAN REAL-TIME OTOMATIS (TERMASUK PERGANTIAN HARI PADA PUKUL 00.00 WIB)
     function refreshRealtimeDateTime() {
         const now = new Date();
         const todayStr = now.toISOString().slice(0, 10);
@@ -1838,15 +1839,25 @@
         const minutesStr = String(now.getMinutes()).padStart(2, '0');
         const currentTimeStr = `${hoursStr}:${minutesStr}`;
 
-        currentFilterDate = todayStr;
-        if(filterDateInputDirect) filterDateInputDirect.value = todayStr;
-        if(filterBadgeText) filterBadgeText.innerText = formatTransactionDateShort(todayStr);
+        // Jika tanggal sistem berganti (misal lewat tengah malam 00.00 WIB), update filter dan tanggal form secara otomatis
+        if (selectedDateValue !== todayStr && !document.getElementById('transactionForm').dataset.userTouchedDate) {
+            selectedDateValue = todayStr;
+            if(inputDate) inputDate.value = todayStr;
+            if(dateDisplayText) dateDisplayText.innerText = formatDateDisplay(todayStr);
+        }
 
-        selectedDateValue = todayStr;
-        if(inputDate) inputDate.value = todayStr;
-        if(dateDisplayText) dateDisplayText.innerText = formatDateDisplay(todayStr);
         if(inputTime) inputTime.value = currentTimeStr;
         if(timeDisplayText) timeDisplayText.innerText = currentTimeStr;
+    }
+
+    // Jalankan timer pengecekan real-time setiap 1 detik agar pergantian jam & hari 00.00 WIB otomatis ter-update
+    setInterval(refreshRealtimeDateTime, 1000);
+
+    // Tandai jika user mengubah tanggal secara manual agar tidak otomatis tertimpa sistem
+    if(inputDate) {
+        inputDate.addEventListener('change', function() {
+            document.getElementById('transactionForm').dataset.userTouchedDate = "true";
+        });
     }
 
     function formatRupiah(number) { return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(number); }
@@ -2024,7 +2035,7 @@
         e.preventDefault(); 
         const type = document.getElementById('type').value; 
         const method = document.getElementById('paymentMethod').value;
-        const amount = parseFloat(document.getElementById('amount').value.replace(/\./g, '')); 
+        const amount = parseFloat(document.getElementById('amount'].value.replace(/\./g, '')); 
         const description = document.getElementById('description').value; 
         const date = selectedDateValue; 
         const time = timeDisplayText.innerText; 
@@ -2041,15 +2052,14 @@
             setTimeout(() => {
                 transactions.push({ id: Date.now(), type, amount, description, date, time, method, proof: base64Proof }); 
                 
-                // Pastikan filter aktif otomatis menyesuaikan ke tanggal transaksi yang baru diinput agar langsung terlihat di riwayat
                 currentFilterDate = date;
                 if(filterDateInputDirect) filterDateInputDirect.value = date;
                 if(filterBadgeText) filterBadgeText.innerText = formatTransactionDateShort(date);
 
                 updateUI(); 
                 
-                // Reset form secara manual agar elemen custom select dan tanggal real-time terjaga dengan benar
                 transactionForm.reset(); 
+                document.getElementById('transactionForm').removeAttribute('data-user-touched-date');
                 document.getElementById('proofInput').value = '';
                 document.getElementById('type').value = '';
                 document.getElementById('paymentMethod').value = '';
