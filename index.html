@@ -100,8 +100,7 @@
         }
 
         .splash-bottom-section { position: fixed; bottom: 85px; width: 100%; display: flex; justify-content: center; z-index: 50; }
-        .tap-here-btn { background: linear-gradient(135deg, rgba(0, 240, 255, 0.15) 0%, rgba(0, 119, 255, 0.25) 100%); border: 1.5px solid rgba(0, 240, 255, 0.7); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 1.15rem; font-weight: 800; letter-spacing: 3px; padding: 14px 38px; border-radius: 30px; cursor: pointer; box-shadow: 0 0 20px rgba(0, 240, 255, 0.35); text-transform: uppercase; opacity: 0; visibility: hidden; transition: opacity 0.5s ease, transform 0.2s ease; text-decoration: none !important; outline: none !important; -webkit-appearance: none; }
-        .tap-here-btn.show { opacity: 1; visibility: visible; animation: tapPulse 1.5s infinite ease-in-out; }
+        .tap-here-btn { background: linear-gradient(135deg, rgba(0, 240, 255, 0.15) 0%, rgba(0, 119, 255, 0.25) 100%); border: 1.5px solid rgba(0, 240, 255, 0.7); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 1.15rem; font-weight: 800; letter-spacing: 3px; padding: 14px 38px; border-radius: 30px; cursor: pointer; box-shadow: 0 0 20px rgba(0, 240, 255, 0.35); text-transform: uppercase; opacity: 1; visibility: visible; transition: opacity 0.5s ease, transform 0.2s ease; text-decoration: none !important; outline: none !important; -webkit-appearance: none; animation: tapPulse 1.5s infinite ease-in-out; }
         .tap-here-btn:active { transform: scale(0.95); background: rgba(0, 240, 255, 0.35); box-shadow: 0 0 30px rgba(0, 240, 255, 0.8); }
 
         @keyframes tapPulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); } 50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(0, 240, 255, 0.6); } }
@@ -1110,7 +1109,6 @@
         } else {
             setTimeout(() => { 
                 playNetflixIntroSound(); 
-                speakWelcomeGreeting(); 
             }, 600);
         }
 
@@ -1134,41 +1132,6 @@
             }
         }, 1500);
     });
-
-    function speakWelcomeGreeting() {
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance("Welcome To Venus Studio, Tap here to login");
-            utterance.lang = 'en-US'; utterance.rate = 0.95; utterance.pitch = 1.0;
-            
-            utterance.onboundary = function(event) {
-                if (event.name === 'word') {
-                    const spokenWord = utterance.text.substring(event.charIndex, event.charIndex + event.charLength).toLowerCase();
-                    if (spokenWord === 'tap') {
-                        if (btnTapHere && !btnTapHere.classList.contains('show')) {
-                            btnTapHere.classList.add('show');
-                        }
-                    }
-                }
-            };
-
-            utterance.onend = function() { 
-                if (btnTapHere && !btnTapHere.classList.contains('show')) {
-                    btnTapHere.classList.add('show'); 
-                }
-            };
-
-            setTimeout(() => { 
-                if (btnTapHere && !btnTapHere.classList.contains('show')) { 
-                    btnTapHere.classList.add('show'); 
-                } 
-            }, 2500);
-
-            window.speechSynthesis.speak(utterance);
-        } else { 
-            if (btnTapHere) btnTapHere.classList.add('show'); 
-        }
-    }
 
     if (btnTapHere) {
         btnTapHere.addEventListener('click', () => {
@@ -1831,7 +1794,7 @@
     timeWrapperBtn.addEventListener('click', (e) => { e.stopPropagation(); try { inputTime.showPicker(); } catch (err) { inputTime.click(); } });
     inputTime.addEventListener('change', function() { if (this.value) { timeDisplayText.innerText = this.value; } });
     
-    // PEMBARUAN REAL-TIME OTOMATIS (TERMASUK PERGANTIAN HARI PADA PUKUL 00.00 WIB)
+    // PEMBARUAN REAL-TIME OTOMATIS & RIWAYAT HARIAN DINAMIS
     function refreshRealtimeDateTime() {
         const now = new Date();
         const todayStr = now.toISOString().slice(0, 10);
@@ -1839,21 +1802,30 @@
         const minutesStr = String(now.getMinutes()).padStart(2, '0');
         const currentTimeStr = `${hoursStr}:${minutesStr}`;
 
-        // Jika tanggal sistem berganti (misal lewat tengah malam 00.00 WIB), update filter dan tanggal form secara otomatis
+        // Jika tanggal perangkat berubah (lewat tengah malam 00.00 WIB), update tanggal input & filter riwayat secara otomatis
         if (selectedDateValue !== todayStr && !document.getElementById('transactionForm').dataset.userTouchedDate) {
             selectedDateValue = todayStr;
             if(inputDate) inputDate.value = todayStr;
             if(dateDisplayText) dateDisplayText.innerText = formatDateDisplay(todayStr);
         }
 
+        // Jika filter sedang di "Hari Ini", pastikan mengikuti tanggal hari baru secara real-time
+        const lastCheckedDay = localStorage.getItem('venus_last_checked_day');
+        if (lastCheckedDay !== todayStr) {
+            localStorage.setItem('venus_last_checked_day', todayStr);
+            currentFilterDate = todayStr;
+            if(filterDateInputDirect) filterDateInputDirect.value = todayStr;
+            if(filterBadgeText) filterBadgeText.innerText = formatTransactionDateShort(todayStr);
+            updateUI();
+        }
+
         if(inputTime) inputTime.value = currentTimeStr;
         if(timeDisplayText) timeDisplayText.innerText = currentTimeStr;
     }
 
-    // Jalankan timer pengecekan real-time setiap 1 detik agar pergantian jam & hari 00.00 WIB otomatis ter-update
+    // Jalankan timer pengecekan real-time setiap 1 detik
     setInterval(refreshRealtimeDateTime, 1000);
 
-    // Tandai jika user mengubah tanggal secara manual agar tidak otomatis tertimpa sistem
     if(inputDate) {
         inputDate.addEventListener('change', function() {
             document.getElementById('transactionForm').dataset.userTouchedDate = "true";
