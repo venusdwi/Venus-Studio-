@@ -1549,6 +1549,13 @@
 
     function playCashStatusSound() { try { playCashSound(); } catch(e) {} }
 
+    function getLocalIsoDate(date) {
+        const y = date.getFullYear();
+        const m = String(date.getMonth() + 1).padStart(2, '0');
+        const d = String(date.getDate()).padStart(2, '0');
+        return `${y}-${m}-${d}`;
+    }
+
     const accountTitlesList = document.getElementById('accountTitlesList');
     const btnAddAccountModal = document.getElementById('btnAddAccountModal');
     const newPlatformModal = document.getElementById('newPlatformModal');
@@ -1773,7 +1780,7 @@
     
     let transactions = JSON.parse(localStorage.getItem('my_transactions')) || [];
     
-    let currentFilterDate = new Date().toISOString().slice(0, 10); 
+    let currentFilterDate = getLocalIsoDate(new Date()); 
     let currentFilterMonth = null;
 
     const filterBadgeText = document.getElementById('filterBadgeText'); 
@@ -1786,7 +1793,7 @@
 
     btnQuickToday.addEventListener('click', (e) => {
         e.stopPropagation();
-        currentFilterDate = new Date().toISOString().slice(0, 10);
+        currentFilterDate = getLocalIsoDate(new Date());
         currentFilterMonth = null;
         filterDateInputDirect.value = currentFilterDate;
         filterBadgeText.innerText = formatTransactionDateShort(currentFilterDate);
@@ -1814,7 +1821,7 @@
         return `${parseInt(d)} ${shortMonthNames[parseInt(m)-1]} ${y}`;
     }
 
-    let selectedDateValue = new Date().toISOString().slice(0,10); 
+    let selectedDateValue = getLocalIsoDate(new Date()); 
     const inputDate = document.getElementById('inputDate'); 
     const dateWrapperBtn = document.getElementById('dateWrapperBtn'); 
     const dateDisplayText = document.getElementById('dateDisplayText');
@@ -1831,12 +1838,16 @@
     timeWrapperBtn.addEventListener('click', (e) => { e.stopPropagation(); try { inputTime.showPicker(); } catch (err) { inputTime.click(); } });
     inputTime.addEventListener('change', function() { if (this.value) { timeDisplayText.innerText = this.value; } });
     
+    let lastKnownDateStr = "";
+
     function refreshRealtimeDateTime() {
         const now = new Date();
-        const todayStr = now.toISOString().slice(0, 10);
+        const todayStr = getLocalIsoDate(now);
         const hoursStr = String(now.getHours()).padStart(2, '0');
         const minutesStr = String(now.getMinutes()).padStart(2, '0');
         const currentTimeStr = `${hoursStr}:${minutesStr}`;
+        
+        lastKnownDateStr = todayStr;
 
         currentFilterDate = todayStr;
         if(filterDateInputDirect) filterDateInputDirect.value = todayStr;
@@ -1847,6 +1858,31 @@
         if(dateDisplayText) dateDisplayText.innerText = formatDateDisplay(todayStr);
         if(inputTime) inputTime.value = currentTimeStr;
         if(timeDisplayText) timeDisplayText.innerText = currentTimeStr;
+    }
+
+    function runRealtimeClock() {
+        const now = new Date();
+        const todayStr = getLocalIsoDate(now);
+        const hoursStr = String(now.getHours()).padStart(2, '0');
+        const minutesStr = String(now.getMinutes()).padStart(2, '0');
+        const currentTimeStr = `${hoursStr}:${minutesStr}`;
+
+        if(inputTime) inputTime.value = currentTimeStr;
+        if(timeDisplayText) timeDisplayText.innerText = currentTimeStr;
+
+        if (todayStr !== lastKnownDateStr) {
+            lastKnownDateStr = todayStr;
+
+            selectedDateValue = todayStr;
+            if(inputDate) inputDate.value = todayStr;
+            if(dateDisplayText) dateDisplayText.innerText = formatDateDisplay(todayStr);
+
+            currentFilterDate = todayStr;
+            if(filterDateInputDirect) filterDateInputDirect.value = todayStr;
+            if(filterBadgeText) filterBadgeText.innerText = formatTransactionDateShort(todayStr);
+
+            updateUI();
+        }
     }
 
     function formatRupiah(number) { return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(number); }
@@ -2041,14 +2077,12 @@
             setTimeout(() => {
                 transactions.push({ id: Date.now(), type, amount, description, date, time, method, proof: base64Proof }); 
                 
-                // Pastikan filter aktif otomatis menyesuaikan ke tanggal transaksi yang baru diinput agar langsung terlihat di riwayat
                 currentFilterDate = date;
                 if(filterDateInputDirect) filterDateInputDirect.value = date;
                 if(filterBadgeText) filterBadgeText.innerText = formatTransactionDateShort(date);
 
                 updateUI(); 
                 
-                // Reset form secara manual agar elemen custom select dan tanggal real-time terjaga dengan benar
                 transactionForm.reset(); 
                 document.getElementById('proofInput').value = '';
                 document.getElementById('type').value = '';
@@ -2076,7 +2110,9 @@
 
     document.getElementById('popupCloseBtn').addEventListener('click', () => { popupNotification.classList.remove('active'); });
 
+    // Mulai jam dan timer di sini
     refreshRealtimeDateTime();
+    setInterval(runRealtimeClock, 1000);
 
     document.getElementById('btnExportBackup').addEventListener('click', () => {
         if (!transactions || transactions.length === 0) return alert('Belum ada data transaksi untuk di-backup!');
