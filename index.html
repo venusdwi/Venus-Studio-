@@ -157,8 +157,12 @@
         h2.title-cyber, .title-music-box, .title-personal-box, .title-debt-box { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: clamp(1.4rem, 5vw, 1.8rem); letter-spacing: 2px; text-transform: uppercase; background: linear-gradient(135deg, #ffffff 0%, #00f0ff 60%, #38bdf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 20px rgba(0, 240, 255, 0.8); text-align: center; }
         .subtitle-cyber { font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; font-weight: 800; letter-spacing: 2px; color: #7dd3fc; text-transform: uppercase; margin-top: 4px; opacity: 0.95; text-align: center; }
 
-        .cyber-modal-overlay, .music-modal-overlay, .personal-modal-overlay, .debt-modal-overlay, .debt-pin-overlay, .edit-debt-overlay, .view-debt-overlay { position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh; background: rgba(2, 7, 20, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 99999999; display: flex; justify-content: center; align-items: center; padding: 12px; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.35s ease; overflow-x: hidden !important; }
-        .cyber-modal-overlay.active, .music-modal-overlay.active, .personal-modal-overlay.active, .debt-modal-overlay.active, .debt-pin-overlay.active, .edit-debt-overlay.active, .view-debt-overlay.active { opacity: 1; visibility: visible; pointer-events: auto; }
+        .cyber-modal-overlay, .music-modal-overlay, .personal-modal-overlay, .debt-modal-overlay, .debt-pin-overlay, .edit-debt-overlay, .view-debt-overlay, .popup-overlay { position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh; background: rgba(2, 7, 20, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 99999999; display: flex; justify-content: center; align-items: center; padding: 12px; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.35s ease; overflow-x: hidden !important; }
+        .cyber-modal-overlay.active, .music-modal-overlay.active, .personal-modal-overlay.active, .debt-modal-overlay.active, .debt-pin-overlay.active, .edit-debt-overlay.active, .view-debt-overlay.active, .popup-overlay.active { opacity: 1; visibility: visible; pointer-events: auto; }
+
+        /* Khusus z-index untuk popup yang harus di atas */
+        #detailTransactionModal { z-index: 999999999; }
+        #cyberConfirmModal { z-index: 9999999999; }
 
         .music-modal-card, .personal-modal-card, .debt-modal-card, .view-debt-card { background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.75); border-radius: 26px; padding: 22px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); transform: scale(0.9); transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); overflow-x: hidden !important; }
         .cyber-modal-card { background: rgba(3, 14, 38, 0.98); border: none !important; border-radius: 26px; padding: 22px 18px 24px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: none !important; transform: scale(0.9); transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); overflow-x: hidden !important; }
@@ -173,12 +177,6 @@
         
         .track-title-display-box { width: 100% !important; background: transparent !important; border: none !important; border-radius: 0 !important; padding: 4px 10px !important; display: flex !important; align-items: center !important; justify-content: center !important; gap: 8px !important; margin: 14px 0 6px 0 !important; box-shadow: none !important; }
         .track-title-text { color: #ffffff; font-weight: 800; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 0 10px rgba(0, 240, 255, 0.7); }
-
-        .music-progress-container { width: 100% !important; display: flex !important; flex-direction: column !important; gap: 6px !important; margin: 6px 0 !important; padding: 0 14px !important; background: transparent !important; border: none !important; box-shadow: none !important; }
-        .music-progress-bar { -webkit-appearance: none !important; appearance: none !important; width: 100% !important; height: 3px !important; border-radius: 1px !important; background: transparent !important; outline: none !important; cursor: pointer !important; border: none !important; box-shadow: none !important; order: 1 !important; margin-bottom: 2px !important; }
-        .music-progress-bar::-webkit-slider-runnable-track { background: rgba(0, 240, 255, 0.35) !important; height: 3px !important; border: none !important; box-shadow: none !important; }
-        .music-progress-bar::-webkit-slider-thumb { -webkit-appearance: none !important; appearance: none !important; width: 14px !important; height: 14px !important; border-radius: 50% !important; background: #00f0ff !important; box-shadow: 0 0 10px rgba(0, 240, 255, 0.9) !important; cursor: pointer !important; margin-top: -6px !important; }
-        .music-time-info { display: flex !important; justify-content: space-between !important; font-size: 0.75rem !important; color: #7dd3fc !important; font-weight: 700 !important; order: 2 !important; padding: 0 2px !important; }
 
         .music-controls-row { display: flex; align-items: center; justify-content: center; gap: 24px; width: 100%; margin: 6px 0 22px 0; }
         .ctrl-btn { background: rgba(0, 240, 255, 0.1); border: 1.5px solid rgba(0, 240, 255, 0.5); color: #00f0ff; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
@@ -196,12 +194,23 @@
 
         .full-app-content, .personal-app-content, .debt-app-content { display: flex; flex-direction: column; width: 100% !important; max-width: 100% !important; flex-grow: 1; overflow-y: auto; overflow-x: hidden !important; background: transparent !important; border: none !important; padding: 6px 4px 120px 4px !important; text-align: left; gap: 16px; margin-top: 10px; scroll-behavior: smooth; }
 
+        /* PERBAIKAN CSS SLIDER - PRESISI TENGAH */
         .glass-control-panel, .backup-panel { background: transparent !important; border: none !important; box-shadow: none !important; padding: 4px 0 !important; width: 100% !important; max-width: 100% !important; overflow-x: hidden !important; }
         .glass-control-panel { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-shrink: 0; height: 40px; }
         .glass-label-text { font-size: 0.9rem; font-weight: 800; color: #7dd3fc; white-space: nowrap; line-height: 1; display: flex; align-items: center; height: 100%; }
         .glass-slider-wrapper { display: flex; align-items: center; flex-grow: 1; padding: 0 4px; height: 100%; }
-        .glass-range-input { -webkit-appearance: none !important; appearance: none !important; width: 100% !important; height: 3px !important; border-radius: 1px !important; background: rgba(0, 240, 255, 0.35) !important; outline: none !important; border: none !important; margin: 0 !important; padding: 0 !important; }
-        .glass-range-input::-webkit-slider-thumb { -webkit-appearance: none !important; appearance: none !important; width: 15px !important; height: 15px !important; border-radius: 50% !important; background: #00f0ff !important; box-shadow: 0 0 10px rgba(0, 240, 255, 0.9) !important; cursor: pointer !important; margin-top: -6px !important; border: none !important; }
+        
+        .glass-range-input { -webkit-appearance: none !important; appearance: none !important; width: 100% !important; height: 16px !important; background: transparent !important; outline: none !important; border: none !important; margin: 0 !important; padding: 0 !important; cursor: pointer !important; }
+        .glass-range-input::-webkit-slider-runnable-track { width: 100% !important; height: 4px !important; background: rgba(0, 240, 255, 0.35) !important; border-radius: 2px !important; border: none !important; }
+        .glass-range-input::-webkit-slider-thumb { -webkit-appearance: none !important; appearance: none !important; width: 16px !important; height: 16px !important; border-radius: 50% !important; background: #00f0ff !important; box-shadow: 0 0 10px rgba(0, 240, 255, 0.9) !important; cursor: pointer !important; margin-top: -6px !important; border: none !important; }
+        
+        .music-progress-container { width: 100% !important; display: flex !important; flex-direction: column !important; gap: 6px !important; margin: 6px 0 !important; padding: 0 14px !important; background: transparent !important; border: none !important; box-shadow: none !important; }
+        .music-progress-bar { -webkit-appearance: none !important; appearance: none !important; width: 100% !important; height: 16px !important; background: transparent !important; outline: none !important; border: none !important; margin: 0 0 2px 0 !important; padding: 0 !important; cursor: pointer !important; order: 1 !important; }
+        .music-progress-bar::-webkit-slider-runnable-track { width: 100% !important; height: 4px !important; background: rgba(0, 240, 255, 0.35) !important; border-radius: 2px !important; border: none !important; box-shadow: none !important; }
+        .music-progress-bar::-webkit-slider-thumb { -webkit-appearance: none !important; appearance: none !important; width: 16px !important; height: 16px !important; border-radius: 50% !important; background: #00f0ff !important; box-shadow: 0 0 10px rgba(0, 240, 255, 0.9) !important; cursor: pointer !important; margin-top: -6px !important; border: none !important; }
+        
+        .music-time-info { display: flex !important; justify-content: space-between !important; font-size: 0.75rem !important; color: #7dd3fc !important; font-weight: 700 !important; order: 2 !important; padding: 0 2px !important; }
+
         .opacity-value-badge { font-family: 'Rajdhani', sans-serif; font-weight: 800; font-size: 0.95rem; color: #00f0ff; min-width: 42px; text-align: right; white-space: nowrap; line-height: 1; display: flex; align-items: center; justify-content: flex-end; height: 100%; }
 
         .backup-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
@@ -270,7 +279,11 @@
 
         .history-section-wrapper { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; margin-top: 10px; width: 100%; }
         .history-title-wrapper { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; border-radius: 12px; background: rgba(0, 240, 255, 0.06); border: 1.5px solid rgba(0, 240, 255, 0.25); position: relative; width: 100%; gap: 8px; }
-        .history-title { font-size: 1.1rem; color: #fff; font-weight: 900; margin: 0; letter-spacing: 0.5px; white-space: nowrap; }
+        
+        /* TOMBOL RIWAYAT BARU */
+        .history-title-clickable { cursor: pointer; display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; background: rgba(0, 240, 255, 0.15); border-radius: 10px; border: 1px solid rgba(0, 240, 255, 0.4); transition: all 0.2s ease; user-select: none; }
+        .history-title-clickable:active { transform: scale(0.95); background: rgba(0, 240, 255, 0.3); }
+        .history-title-text { font-size: 1.1rem; color: #fff; font-weight: 900; margin: 0; letter-spacing: 0.5px; white-space: nowrap; }
 
         .filter-actions-group { display: flex; align-items: center; gap: 6px; }
         .btn-today-quick { background: rgba(0, 240, 255, 0.15); border: 1px solid rgba(0, 240, 255, 0.5); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 0.78rem; font-weight: 800; padding: 6px 10px; border-radius: 10px; cursor: pointer; text-transform: uppercase; white-space: nowrap; height: 36px; display: inline-flex; align-items: center; justify-content: center; }
@@ -298,8 +311,6 @@
         .amount-out { color: #fb7185; }
         .amount-refund { color: #fbbf24; }
 
-        .popup-overlay { position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; background: rgba(1, 4, 12, 0.85); backdrop-filter: blur(10px); z-index: 99999999; display: flex; justify-content: center; align-items: center; padding: 16px; opacity: 0; pointer-events: none; transition: opacity 0.2s ease-out; overflow-x: hidden !important; }
-        .popup-overlay.active { opacity: 1; pointer-events: auto; }
         .popup-box { background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.8); border-radius: 26px; padding: 32px 24px; width: 100%; max-width: 380px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; box-shadow: 0 0 40px rgba(0, 240, 255, 0.5); }
         .popup-icon { width: 72px; height: 72px; border-radius: 50%; background: rgba(16, 185, 129, 0.25); border: 2px solid var(--pemasukan-green); color: #34d399; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; }
         .popup-title { font-family: 'Orbitron', sans-serif; font-size: 1.7rem; font-weight: 900; color: #fff; }
@@ -733,7 +744,12 @@
 
             <div class="history-section-wrapper">
                 <div class="history-title-wrapper">
-                    <h3 class="history-title">Riwayat</h3>
+                    <div class="history-title-clickable" id="openMonthlyHistoryBtn" title="Lihat Rekap Bulanan">
+                        <svg style="width: 18px; height: 18px; fill: #00f0ff; filter: drop-shadow(0 0 5px rgba(0,240,255,0.6));" viewBox="0 0 24 24">
+                            <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                        </svg>
+                        <h3 class="history-title-text">Riwayat</h3>
+                    </div>
                     <div class="filter-actions-group">
                         <button type="button" class="btn-today-quick" id="btnQuickToday" title="Filter Hari Ini">Hari Ini</button>
                         <div class="filter-badge-wrapper" id="filterBadgeWrapperBtn" title="Ketuk untuk ganti tanggal/bulan/tahun">
@@ -749,6 +765,25 @@
 </div>
 
 <audio id="bgAudioPlayer" crossorigin="anonymous" style="display: none;"></audio>
+
+<!-- MODAL REKAP BULANAN -->
+<div class="popup-overlay" id="monthlyHistoryModalOverlay">
+    <div class="popup-box" style="max-width: 400px; width: 100%; max-height: 90vh; padding: 20px; display: flex; flex-direction: column; align-items: stretch; text-align: left; gap: 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid rgba(0,240,255,0.2); padding-bottom: 12px; flex-shrink: 0;">
+            <button type="button" id="btnBackMonthly" style="display: none; background:none; border:none; color:#00f0ff; font-size:1.8rem; line-height: 1; cursor:pointer; padding-right: 10px;">←</button>
+            <div id="monthlyModalTitle" style="font-family: 'Orbitron', sans-serif; font-size: 1.15rem; font-weight: 900; color: #00f0ff; text-align: center; flex-grow: 1;">REKAP BULANAN</div>
+            <button type="button" id="closeMonthlyModalBtn" style="background:none; border:none; color:#94a3b8; font-size:1.5rem; cursor:pointer; padding-left: 10px;">✕</button>
+        </div>
+        
+        <div id="monthlyListContainer" style="display: flex; flex-direction: column; gap: 10px; overflow-y: auto; overflow-x: hidden !important; flex-grow: 1; padding: 4px 0;">
+            <!-- Daftar bulan akan muncul di sini otomatis -->
+        </div>
+        
+        <div id="monthlyDetailContainer" style="display: none; flex-direction: column; gap: 12px; overflow-y: auto; overflow-x: hidden !important; flex-grow: 1; padding: 4px 0;">
+            <!-- Detail transaksi bulan terpilih -->
+        </div>
+    </div>
+</div>
 
 <div class="popup-overlay" id="detailTransactionModal">
     <div class="popup-box" style="max-width: 380px; text-align: left; align-items: stretch; gap: 16px; max-height: 90vh; overflow-y: auto; overflow-x: hidden !important;">
@@ -822,7 +857,7 @@
     </div>
 </div>
 
-<div class="popup-overlay" id="cyberConfirmModal" style="z-index: 9999999999;">
+<div class="popup-overlay" id="cyberConfirmModal">
     <div class="popup-box" style="max-width: 350px; text-align: center; gap: 16px; border-color: rgba(244, 63, 94, 0.7); box-shadow: 0 0 40px rgba(244, 63, 94, 0.4);">
         <div style="width: 54px; height: 54px; border-radius: 50%; background: rgba(244, 63, 94, 0.15); border: 2px solid #f43f5e; color: #fb7185; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin: 0 auto;">⚠️</div>
         <div style="font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 900; color: #fff;">KONFIRMASI</div>
@@ -1782,6 +1817,7 @@
     
     let currentFilterDate = getLocalIsoDate(new Date()); 
     let currentFilterMonth = null;
+    window.currentActiveMonth = null; // Menyimpan status view bulanan yang sedang dibuka
 
     const filterBadgeText = document.getElementById('filterBadgeText'); 
     const filterDateInputDirect = document.getElementById('filterDateInputDirect'); 
@@ -1907,6 +1943,144 @@
         };
     }
 
+    /* FUNGSI UNTUK MODAL REKAP BULANAN */
+    const openMonthlyHistoryBtn = document.getElementById('openMonthlyHistoryBtn');
+    const monthlyHistoryModalOverlay = document.getElementById('monthlyHistoryModalOverlay');
+    const closeMonthlyModalBtn = document.getElementById('closeMonthlyModalBtn');
+    const btnBackMonthly = document.getElementById('btnBackMonthly');
+    const monthlyListContainer = document.getElementById('monthlyListContainer');
+    const monthlyDetailContainer = document.getElementById('monthlyDetailContainer');
+    const monthlyModalTitle = document.getElementById('monthlyModalTitle');
+
+    openMonthlyHistoryBtn.addEventListener('click', () => {
+        renderMonthlyList();
+        monthlyListContainer.style.display = 'flex';
+        monthlyDetailContainer.style.display = 'none';
+        btnBackMonthly.style.display = 'none';
+        monthlyModalTitle.innerText = 'REKAP BULANAN';
+        monthlyHistoryModalOverlay.classList.add('active');
+    });
+
+    closeMonthlyModalBtn.addEventListener('click', () => {
+        monthlyHistoryModalOverlay.classList.remove('active');
+    });
+
+    btnBackMonthly.addEventListener('click', () => {
+        monthlyListContainer.style.display = 'flex';
+        monthlyDetailContainer.style.display = 'none';
+        btnBackMonthly.style.display = 'none';
+        monthlyModalTitle.innerText = 'REKAP BULANAN';
+        window.currentActiveMonth = null;
+    });
+
+    function renderMonthlyList() {
+        monthlyListContainer.innerHTML = '';
+        
+        // Mulai dari Oktober 2026 sesuai instruksi
+        const startDate = new Date(2026, 9, 1); 
+        const now = new Date();
+        const endDate = new Date(now.getFullYear(), now.getMonth(), 1);
+
+        const monthsData = [];
+        let currentMonth = new Date(startDate);
+        
+        // Buat daftar bulan otomatis dari Oktober 2026 sampai bulan saat ini
+        while (currentMonth <= endDate) {
+            monthsData.push(new Date(currentMonth));
+            currentMonth.setMonth(currentMonth.getMonth() + 1);
+        }
+
+        // Dibalik agar bulan terbaru selalu tampil di paling atas
+        monthsData.reverse().forEach(dateObj => {
+            const y = dateObj.getFullYear();
+            const m = String(dateObj.getMonth() + 1).padStart(2, '0');
+            const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+            const monthName = monthNames[dateObj.getMonth()];
+            const displayTitle = `${monthName} ${y}`;
+            const ymString = `${y}-${m}`;
+
+            // Hitung ringkasan transaksi di bulan tersebut
+            let inBulan = 0, outBulan = 0;
+            transactions.forEach(t => {
+                if(t.date && t.date.startsWith(ymString)) {
+                    if(t.type === 'in') inBulan += t.amount;
+                    else if(t.type === 'out') outBulan += t.amount;
+                    else if(t.type === 'refund') outBulan -= t.amount;
+                }
+            });
+
+            const div = document.createElement('div');
+            div.className = 'history-clickable-title-box';
+            div.style.flexDirection = 'column';
+            div.style.alignItems = 'flex-start';
+            div.style.gap = '8px';
+            div.innerHTML = `
+                <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                    <label style="font-size: 1.15rem; color: #fff; font-weight: 900; margin: 0; cursor: pointer; pointer-events: none; text-shadow: 0 0 10px rgba(0,240,255,0.4);">${displayTitle}</label>
+                    <span style="color: #00f0ff; font-weight: 900; font-size: 1.4rem;">›</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; width: 100%; font-size: 0.9rem; font-weight: 800; margin-top: 4px; padding-top: 8px; border-top: 1px dashed rgba(0,240,255,0.2);">
+                    <span style="color: #34d399;">In: ${formatRupiah(inBulan)}</span>
+                    <span style="color: #fb7185;">Out: ${formatRupiah(outBulan)}</span>
+                </div>
+            `;
+            div.addEventListener('click', () => openMonthlyDetail(ymString, displayTitle));
+            monthlyListContainer.appendChild(div);
+        });
+    }
+
+    function openMonthlyDetail(yearMonthStr, displayTitle) {
+        window.currentActiveMonth = { ym: yearMonthStr, title: displayTitle };
+        monthlyModalTitle.innerText = displayTitle;
+        monthlyListContainer.style.display = 'none';
+        btnBackMonthly.style.display = 'block';
+        monthlyDetailContainer.style.display = 'flex';
+        monthlyDetailContainer.innerHTML = '';
+
+        let filtered = transactions.filter(t => t.date && t.date.startsWith(yearMonthStr));
+        
+        if (filtered.length === 0) {
+            monthlyDetailContainer.innerHTML = '<div style="text-align:center; color:#a5f3fc; font-size:0.95rem; padding:30px 0; font-style: italic;">Tidak ada transaksi di bulan ini</div>';
+            return;
+        }
+
+        filtered.sort((a, b) => {
+            if (b.date !== a.date) return b.date.localeCompare(a.date);
+            if (b.time !== a.time) return b.time.localeCompare(a.time);
+            return b.id - a.id;
+        });
+
+        const ul = document.createElement('ul');
+        ul.className = 'history-list';
+        filtered.forEach(t => {
+            const li = document.createElement('li'); 
+            li.className = `history-item ${t.type}`;
+            const proofBadge = t.proof ? `<span class="item-method-badge" style="background: rgba(0, 240, 255, 0.15); color: #00f0ff; border-color: rgba(0, 240, 255, 0.4);">📸 Bukti</span>` : '';
+            
+            let amountSign = '-';
+            let amountClass = 'amount-out';
+            if (t.type === 'in') { amountSign = '+'; amountClass = 'amount-in'; }
+            else if (t.type === 'refund') { amountSign = '-'; amountClass = 'amount-refund'; }
+
+            li.innerHTML = `<div class="item-info"><span class="item-desc">${t.description} ${t.method ? '<span class="item-method-badge">'+t.method+'</span>' : ''} ${proofBadge}</span><span class="item-date">${formatTransactionDateTime(t.date, t.time)}</span></div><span class="item-amount ${amountClass}">${amountSign} ${formatRupiah(t.amount)}</span>`;
+            li.addEventListener('click', () => {
+                openDetailModal(t.id);
+            });
+            ul.appendChild(li);
+        });
+        monthlyDetailContainer.appendChild(ul);
+    }
+
+    function refreshMonthlyViewLive() {
+        if (monthlyHistoryModalOverlay.classList.contains('active')) {
+            if (btnBackMonthly.style.display === 'block' && window.currentActiveMonth) {
+                openMonthlyDetail(window.currentActiveMonth.ym, window.currentActiveMonth.title);
+            } else {
+                renderMonthlyList();
+            }
+        }
+    }
+
     function updateUI() {
         const historyList = document.getElementById('historyList'); 
         historyList.innerHTML = '';
@@ -1962,6 +2136,9 @@
         document.getElementById('totalPengeluaran').innerText = formatRupiah(totalOut);
         document.getElementById('totalSaldoCash').innerText = formatRupiah(cashBalance);
         document.getElementById('totalSaldoBank').innerText = formatRupiah(bankBalance);
+
+        // Jika modal bulanan sedang terbuka, perbarui isinya secara live
+        refreshMonthlyViewLive();
 
         try { 
             localStorage.setItem('my_transactions', JSON.stringify(transactions)); 
