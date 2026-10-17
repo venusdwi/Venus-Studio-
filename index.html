@@ -70,7 +70,6 @@
             --font-primary: 'Plus Jakarta Sans', sans-serif;
             --bg-gradient: radial-gradient(circle at 50% 50%, #061838 0%, #020817 65%, #01040a 100%);
             
-            /* Variabel Default Cyber Vault (Dark Mode) */
             --cv-bg-modal: rgba(3, 14, 38, 0.98);
             --cv-bg-form: rgba(2, 10, 28, 0.6);
             --cv-bg-input: rgba(2, 12, 32, 0.85);
@@ -175,6 +174,7 @@
         #detailTransactionModal { z-index: 999999999; }
         #cyberConfirmModal { z-index: 9999999999; }
         #themeModalOverlay { z-index: 99999999999; }
+        #imageLightboxModal { z-index: 999999999999; }
 
         .music-modal-card, .personal-modal-card, .debt-modal-card, .view-debt-card { background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.75); border-radius: 26px; padding: 22px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); transform: scale(0.9); transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); overflow-x: hidden !important; }
         
@@ -335,7 +335,6 @@
         .popup-btn { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff; font-family: 'Rajdhani', sans-serif; font-size: 1.25rem; font-weight: 900; letter-spacing: 1.5px; border: 1px solid rgba(255, 255, 255, 0.4); padding: 16px 48px; border-radius: 16px; cursor: pointer; width: 100%; box-shadow: 0 0 20px rgba(16, 185, 129, 0.5); margin-top: 6px; }
         .popup-btn:active { transform: scale(0.97); filter: brightness(1.15); }
 
-        /* Indikator Sinkronisasi Realtime */
         .sync-status-badge { display: flex; align-items: center; justify-content: center; gap: 6px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; color: #34d399; margin: 0 auto 12px auto; width: fit-content; text-transform: uppercase; letter-spacing: 1px; }
         .sync-dot { width: 8px; height: 8px; background: #34d399; border-radius: 50%; box-shadow: 0 0 8px #34d399; animation: syncPulseDot 1.5s infinite ease-in-out; }
         @keyframes syncPulseDot { 0%, 100% { opacity: 0.4; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.2); } }
@@ -975,6 +974,13 @@
     </div>
 </div>
 
+<div class="popup-overlay" id="imageLightboxModal" style="background: rgba(2, 7, 20, 0.95); z-index: 9999999999;">
+    <div style="position: relative; max-width: 92vw; max-height: 92vh; display: flex; flex-direction: column; align-items: center;">
+        <button type="button" id="closeLightboxBtn" style="position: absolute; top: -45px; right: 0; background: rgba(0, 240, 255, 0.2); border: 1.5px solid #00f0ff; color: #00f0ff; width: 38px; height: 38px; border-radius: 50%; font-size: 1.2rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center;">✕</button>
+        <img id="lightboxImage" src="" style="width: 100%; max-height: 85vh; object-fit: contain; border-radius: 14px; border: 2px solid rgba(0, 240, 255, 0.6); box-shadow: 0 0 40px rgba(0, 240, 255, 0.4); background: #020714;" alt="Bukti Full">
+    </div>
+</div>
+
 <div class="container" id="mainAppContainer">
     <button type="button" class="install-app-btn" id="btnInstallApp">⚡ INSTAL APLIKASI</button>
     <div class="header-box">
@@ -1178,14 +1184,8 @@
   window.saveTransactionsToFirebase = function(txData) {
     if (isSyncingFromCloud) return;
     set(ref(db, 'venus_studio/transactions'), txData)
-      .then(() => { 
-        console.log("Cloud Sync: Berhasil simpan transaksi ke Firebase!"); 
-        updateSyncIndicator(true);
-      })
-      .catch((err) => { 
-        console.error("Cloud Sync Transaksi Gagal:", err); 
-        updateSyncIndicator(false);
-      });
+      .then(() => { updateSyncIndicator(true); })
+      .catch((err) => { updateSyncIndicator(false); });
   };
 
   window.initFirebaseSync = function(onDataReceived) {
@@ -1201,15 +1201,12 @@
         updateSyncIndicator(true);
       }
     }, (error) => {
-      console.error("Firebase sync error:", error);
       updateSyncIndicator(false);
     });
   };
 
   window.saveDebtsToFirebase = function(debtData) {
-    set(ref(db, 'venus_studio/debts'), debtData)
-      .then(() => { console.log("Cloud Sync: Berhasil simpan debts ke Firebase!"); })
-      .catch((err) => { console.error("Cloud Sync Debts Gagal:", err); });
+    set(ref(db, 'venus_studio/debts'), debtData).catch((err) => {});
   };
 
   window.initDebtFirebaseSync = function(onDebtReceived) {
@@ -2443,6 +2440,27 @@
     const detailProofContainer = document.getElementById('detailProofContainer');
     const detailProofImage = document.getElementById('detailProofImage'); 
     const editProofInput = document.getElementById('editProofInput');
+    
+    const imageLightboxModal = document.getElementById('imageLightboxModal');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const closeLightboxBtn = document.getElementById('closeLightboxBtn');
+
+    detailProofImage.addEventListener('click', () => {
+        if (detailProofImage.src) {
+            lightboxImage.src = detailProofImage.src;
+            imageLightboxModal.classList.add('active');
+        }
+    });
+
+    closeLightboxBtn.addEventListener('click', () => {
+        imageLightboxModal.classList.remove('active');
+    });
+
+    imageLightboxModal.addEventListener('click', (e) => {
+        if (e.target === imageLightboxModal) {
+            imageLightboxModal.classList.remove('active');
+        }
+    });
 
     function openDetailModal(id) {
         const tx = transactions.find(t => t.id === id); if (!tx) return;
