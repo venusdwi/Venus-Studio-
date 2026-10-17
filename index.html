@@ -930,9 +930,10 @@
         <div class="form-group">
             <label>Bukti Transaksi</label>
             <div id="detailProofContainer" style="display: none; flex-direction: column; gap: 6px;">
-                <img id="detailProofImage" src="" style="width: 100%; max-height: 250px; object-fit: contain; border-radius: 12px; border: 1.5px solid rgba(0,240,255,0.4); background: rgba(0,0,0,0.5); cursor: zoom-in;" alt="Bukti Transaksi" title="Klik untuk memperbesar">
+                <!-- Kotak putih dihapus dan diganti gaya transparan/gelap senada tema aplikasi -->
+                <img id="detailProofImage" src="" style="width: 100%; max-height: 250px; object-fit: contain; border-radius: 12px; border: 1.5px solid var(--cv-border-primary); background: var(--cv-bg-input); cursor: zoom-in;" alt="Bukti Transaksi" title="Klik untuk memperbesar">
             </div>
-            <input type="file" id="editProofInput" accept="image/*" style="padding: 12px; font-size: 0.9rem; background: rgba(2, 12, 32, 0.85); color: #7dd3fc; border: 1.5px dashed rgba(0, 240, 255, 0.45); border-radius: 12px; width: 100%; margin-top: 6px;">
+            <input type="file" id="editProofInput" accept="image/*" style="padding: 12px; font-size: 0.9rem; background: var(--cv-bg-input); color: var(--cv-text-secondary); border: 1.5px dashed var(--cv-border-primary); border-radius: 12px; width: 100%; margin-top: 6px;">
         </div>
 
         <div class="form-group">
