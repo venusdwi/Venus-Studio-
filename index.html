@@ -21,7 +21,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Orbitron:wght@600;800;900&family=Rajdhani:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Orbitron:wght@600;800;900&family=Rajdhani:wght@600;700;800&family=Share+Tech+Mono&family=Cinzel:wght@600;700;900&display=swap" rel="stylesheet">
     
     <style>
         *, *::before, *::after {
@@ -67,6 +67,17 @@
             --text-muted: #a5f3fc;
             --glass-alpha: 0.28;
             --glass-blur: 16px;
+            --font-primary: 'Plus Jakarta Sans', sans-serif;
+            --bg-gradient: radial-gradient(circle at 50% 50%, #061838 0%, #020817 65%, #01040a 100%);
+            
+            /* Variabel Default Cyber Vault (Dark Mode) */
+            --cv-bg-modal: rgba(3, 14, 38, 0.98);
+            --cv-bg-form: rgba(2, 10, 28, 0.6);
+            --cv-bg-input: rgba(2, 12, 32, 0.85);
+            --cv-border-primary: rgba(0, 240, 255, 0.35);
+            --cv-text-primary: #ffffff;
+            --cv-text-secondary: #7dd3fc;
+            --cv-bg-history-item: rgba(2, 12, 32, 0.85);
         }
 
         .splash-screen-overlay {
@@ -139,7 +150,7 @@
         .keypad-btn:active { background: rgba(0, 240, 255, 0.3); border-color: #00f0ff; transform: scale(0.95); }
         .keypad-btn.action-btn { font-size: 1.2rem; color: #7dd3fc; }
 
-        .tech-bg-container { position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh !important; z-index: 0; overflow: hidden !important; pointer-events: none; background: radial-gradient(circle at 50% 50%, #061838 0%, #020817 65%, #01040a 100%); opacity: 0; visibility: hidden; transition: opacity 0.8s ease, visibility 0.8s ease; }
+        .tech-bg-container { position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh !important; z-index: 0; overflow: hidden !important; pointer-events: none; background: var(--bg-gradient); opacity: 0; visibility: hidden; transition: opacity 0.8s ease, visibility 0.8s ease; }
         .tech-bg-container.active { opacity: 1; visibility: visible; }
         #circuitCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
         .cyber-vignette { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: radial-gradient(circle at 50% 50%, transparent 30%, rgba(1, 4, 12, 0.65) 100%); pointer-events: none; }
@@ -152,20 +163,22 @@
         .brand-top-header { display: flex; align-items: center; justify-content: center; pointer-events: none; user-select: none; padding: 2px 10px; background: transparent; border: none; }
         .brand-studio-title { font-family: 'Rajdhani', sans-serif; font-size: 1.05rem; font-weight: 900; letter-spacing: 4px; color: #00f0ff; text-transform: uppercase; text-shadow: 0 0 15px rgba(0, 240, 255, 0.8); }
 
-        .clickable-header-wrapper, .music-player-panel, .personal-data-panel, .debt-tracker-panel { cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px 16px; border-radius: 16px; background: rgba(2, 10, 28, var(--glass-alpha)); backdrop-filter: blur(var(--glass-blur)); -webkit-backdrop-filter: blur(var(--glass-blur)); border: 1.5px solid rgba(0, 240, 255, 0.45); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.2); width: 100%; transition: transform 0.2s ease, filter 0.2s ease, background 0.2s ease; margin-bottom: 12px; }
+        .clickable-header-wrapper, .music-player-panel, .personal-data-panel, .debt-tracker-panel { cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px 16px; border-radius: 16px; background: rgba(2, 10, 28, 0.28); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1.5px solid rgba(0, 240, 255, 0.45); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.2); width: 100%; transition: transform 0.2s ease, filter 0.2s ease, background 0.2s ease; margin-bottom: 12px; }
         .clickable-header-wrapper:active, .music-player-panel:active, .personal-data-panel:active, .debt-tracker-panel:active { transform: scale(0.98); filter: brightness(1.2); background: rgba(0, 240, 255, 0.15); }
-        h2.title-cyber, .title-music-box, .title-personal-box, .title-debt-box { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: clamp(1.4rem, 5vw, 1.8rem); letter-spacing: 2px; text-transform: uppercase; background: linear-gradient(135deg, #ffffff 0%, #00f0ff 60%, #38bdf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 20px rgba(0, 240, 255, 0.8); text-align: center; }
-        .subtitle-cyber { font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; font-weight: 800; letter-spacing: 2px; color: #7dd3fc; text-transform: uppercase; margin-top: 4px; opacity: 0.95; text-align: center; }
+        
+        .main-page-title { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: clamp(1.4rem, 5vw, 1.8rem); letter-spacing: 2px; text-transform: uppercase; background: linear-gradient(135deg, #ffffff 0%, #00f0ff 60%, #38bdf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 20px rgba(0, 240, 255, 0.8); text-align: center; }
+        .main-page-subtitle { font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; font-weight: 800; letter-spacing: 2px; color: #7dd3fc; text-transform: uppercase; margin-top: 4px; opacity: 0.95; text-align: center; }
 
         .cyber-modal-overlay, .music-modal-overlay, .personal-modal-overlay, .debt-modal-overlay, .debt-pin-overlay, .edit-debt-overlay, .view-debt-overlay, .popup-overlay { position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh; background: rgba(2, 7, 20, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 99999999; display: flex; justify-content: center; align-items: center; padding: 12px; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.35s ease; overflow-x: hidden !important; }
         .cyber-modal-overlay.active, .music-modal-overlay.active, .personal-modal-overlay.active, .debt-modal-overlay.active, .debt-pin-overlay.active, .edit-debt-overlay.active, .view-debt-overlay.active, .popup-overlay.active { opacity: 1; visibility: visible; pointer-events: auto; }
 
-        /* Khusus z-index untuk popup yang harus di atas */
         #detailTransactionModal { z-index: 999999999; }
         #cyberConfirmModal { z-index: 9999999999; }
+        #themeModalOverlay { z-index: 99999999999; }
 
         .music-modal-card, .personal-modal-card, .debt-modal-card, .view-debt-card { background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.75); border-radius: 26px; padding: 22px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); transform: scale(0.9); transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); overflow-x: hidden !important; }
-        .cyber-modal-card { background: rgba(3, 14, 38, 0.98); border: none !important; border-radius: 26px; padding: 22px 18px 24px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: none !important; transform: scale(0.9); transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); overflow-x: hidden !important; }
+        
+        .cyber-modal-card { background: var(--cv-bg-modal) !important; border: 2px solid var(--cv-border-primary) !important; border-radius: 26px; padding: 22px 18px 24px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); transform: scale(0.9); transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease, border-color 0.3s ease; overflow-x: hidden !important; }
         .cyber-modal-overlay.active .cyber-modal-card, .music-modal-overlay.active .music-modal-card, .personal-modal-overlay.active .personal-modal-card, .debt-modal-overlay.active .debt-modal-card, .view-debt-overlay.active .view-debt-card { transform: scale(1); }
 
         .close-cyber-modal, .close-music-modal, .close-personal-modal, .close-debt-modal, .close-view-debt { background: rgba(0, 240, 255, 0.12); border: 1.5px solid rgba(0, 240, 255, 0.5); color: #00f0ff; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800; transition: all 0.2s ease; flex-shrink: 0; }
@@ -194,29 +207,17 @@
 
         .full-app-content, .personal-app-content, .debt-app-content { display: flex; flex-direction: column; width: 100% !important; max-width: 100% !important; flex-grow: 1; overflow-y: auto; overflow-x: hidden !important; background: transparent !important; border: none !important; padding: 6px 4px 120px 4px !important; text-align: left; gap: 16px; margin-top: 10px; scroll-behavior: smooth; }
 
-        /* PERBAIKAN CSS SLIDER - PRESISI TENGAH */
-        .glass-control-panel, .backup-panel { background: transparent !important; border: none !important; box-shadow: none !important; padding: 4px 0 !important; width: 100% !important; max-width: 100% !important; overflow-x: hidden !important; }
-        .glass-control-panel { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-shrink: 0; height: 40px; }
-        .glass-label-text { font-size: 0.9rem; font-weight: 800; color: #7dd3fc; white-space: nowrap; line-height: 1; display: flex; align-items: center; height: 100%; }
-        .glass-slider-wrapper { display: flex; align-items: center; flex-grow: 1; padding: 0 4px; height: 100%; }
+        .glass-control-panel, .backup-panel { display: none !important; }
+        .glass-control-panel { display: flex !important; align-items: center; justify-content: space-between; gap: 12px; flex-shrink: 0; height: 40px; margin-bottom: 0 !important; }
+        .glass-label-text { font-size: 0.9rem; font-weight: 800; color: var(--cv-text-secondary); white-space: nowrap; line-height: 1; display: flex; align-items: center; height: 100%; transition: color 0.3s ease; }
+        .glass-slider-wrapper { display: flex; align-items: center; flex-grow: 1; padding: 0 4px; height: 100%; overflow: hidden !important; }
         
         .glass-range-input { -webkit-appearance: none !important; appearance: none !important; width: 100% !important; height: 16px !important; background: transparent !important; outline: none !important; border: none !important; margin: 0 !important; padding: 0 !important; cursor: pointer !important; }
+        .glass-range-input:focus { outline: none !important; box-shadow: none !important; border: none !important; }
         .glass-range-input::-webkit-slider-runnable-track { width: 100% !important; height: 4px !important; background: rgba(0, 240, 255, 0.35) !important; border-radius: 2px !important; border: none !important; }
         .glass-range-input::-webkit-slider-thumb { -webkit-appearance: none !important; appearance: none !important; width: 16px !important; height: 16px !important; border-radius: 50% !important; background: #00f0ff !important; box-shadow: 0 0 10px rgba(0, 240, 255, 0.9) !important; cursor: pointer !important; margin-top: -6px !important; border: none !important; }
         
-        .music-progress-container { width: 100% !important; display: flex !important; flex-direction: column !important; gap: 6px !important; margin: 6px 0 !important; padding: 0 14px !important; background: transparent !important; border: none !important; box-shadow: none !important; }
-        .music-progress-bar { -webkit-appearance: none !important; appearance: none !important; width: 100% !important; height: 16px !important; background: transparent !important; outline: none !important; border: none !important; margin: 0 0 2px 0 !important; padding: 0 !important; cursor: pointer !important; order: 1 !important; }
-        .music-progress-bar::-webkit-slider-runnable-track { width: 100% !important; height: 4px !important; background: rgba(0, 240, 255, 0.35) !important; border-radius: 2px !important; border: none !important; box-shadow: none !important; }
-        .music-progress-bar::-webkit-slider-thumb { -webkit-appearance: none !important; appearance: none !important; width: 16px !important; height: 16px !important; border-radius: 50% !important; background: #00f0ff !important; box-shadow: 0 0 10px rgba(0, 240, 255, 0.9) !important; cursor: pointer !important; margin-top: -6px !important; border: none !important; }
-        
-        .music-time-info { display: flex !important; justify-content: space-between !important; font-size: 0.75rem !important; color: #7dd3fc !important; font-weight: 700 !important; order: 2 !important; padding: 0 2px !important; }
-
-        .opacity-value-badge { font-family: 'Rajdhani', sans-serif; font-weight: 800; font-size: 0.95rem; color: #00f0ff; min-width: 42px; text-align: right; white-space: nowrap; line-height: 1; display: flex; align-items: center; justify-content: flex-end; height: 100%; }
-
-        .backup-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-        .backup-status-tag { font-size: 0.78rem; font-weight: 700; color: #34d399; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.35); padding: 4px 10px; border-radius: 12px; }
-        .backup-actions { display: flex; gap: 10px; width: 100%; }
-        .btn-backup-action { flex: 1; padding: 12px 10px; font-size: 0.9rem; font-weight: 800; border-radius: 12px; border: 1.5px solid rgba(0, 240, 255, 0.35); background: rgba(2, 12, 32, 0.6); color: #00f0ff; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .opacity-value-badge { font-family: 'Rajdhani', sans-serif; font-weight: 800; font-size: 0.95rem; color: var(--cv-text-secondary); min-width: 42px; text-align: right; white-space: nowrap; line-height: 1; display: flex; align-items: center; justify-content: flex-end; height: 100%; transition: color 0.3s ease; }
 
         .dashboard { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; width: 100%; overflow-x: hidden !important; }
         .card-hero { background: rgba(0, 180, 255, calc(var(--glass-alpha) * 0.45 + 0.05)); border: 1px solid rgba(0, 240, 255, 0.5); border-radius: 16px; padding: 18px 14px; text-align: center; }
@@ -234,16 +235,18 @@
         .card-cash { background: rgba(56, 189, 248, calc(var(--glass-alpha) * 0.45 + 0.05)); border: 1px solid rgba(56, 189, 248, 0.55); color: #38bdf8; }
         .card-bank { background: rgba(168, 85, 247, calc(var(--glass-alpha) * 0.45 + 0.05)); border: 1px solid rgba(168, 85, 247, 0.55); color: #c084fc; }
 
-        .cyber-input-form { display: flex !important; flex-direction: column !important; gap: 14px !important; width: 100% !important; background: rgba(2, 10, 28, 0.6) !important; border: 1.5px solid rgba(0, 240, 255, 0.35) !important; border-radius: 16px !important; padding: 16px !important; margin-top: 4px !important; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important; }
+        .cyber-input-form { display: flex !important; flex-direction: column !important; gap: 14px !important; width: 100% !important; background: var(--cv-bg-form) !important; border: 1.5px solid var(--cv-border-primary) !important; border-radius: 16px !important; padding: 16px !important; margin-top: 4px !important; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important; transition: background-color 0.3s ease, border-color 0.3s ease; }
         .form-group { display: flex; flex-direction: column; gap: 6px; width: 100%; }
         .datetime-group { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
-        label { font-size: 0.92rem; font-weight: 800; color: #7dd3fc; letter-spacing: 0.5px; margin-bottom: 2px; }
         
-        input, select, textarea { padding: 15px 16px; border: 1.5px solid rgba(0, 240, 255, 0.45); border-radius: 12px; font-size: 1.05rem; font-weight: 600; outline: none; background: rgba(2, 12, 32, 0.85); color: #ffffff; width: 100%; max-width: 100% !important; }
-        input:focus, select:focus, textarea:focus { border-color: #00f0ff; box-shadow: 0 0 12px rgba(0, 240, 255, 0.4); }
+        .full-app-content label { font-size: 0.92rem; font-weight: 800; color: var(--cv-text-secondary); letter-spacing: 0.5px; margin-bottom: 2px; transition: color 0.3s ease; }
+        
+        .full-app-content input, .full-app-content select, .full-app-content textarea { padding: 15px 16px; border: 1.5px solid var(--cv-border-primary); border-radius: 12px; font-size: 1.05rem; font-weight: 600; outline: none; background: var(--cv-bg-input); color: var(--cv-text-primary); width: 100%; max-width: 100% !important; transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; }
+        .full-app-content input:focus, .full-app-content select:focus, .full-app-content textarea:focus { border-color: var(--cv-border-primary); box-shadow: 0 0 12px rgba(0, 240, 255, 0.4); }
 
-        .custom-select-box { padding: 15px 16px; border: 1.5px solid rgba(0, 240, 255, 0.45); border-radius: 12px; font-size: 1.05rem; font-weight: 800; background: rgba(2, 12, 32, 0.85); color: #64748b; text-align: center; cursor: pointer; transition: all 0.2s ease; width: 100%; }
-        .custom-select-box.selected { color: #ffffff; border-color: #00f0ff; }
+        .full-app-content .custom-select-box { padding: 15px 16px; border: 1.5px solid var(--cv-border-primary); border-radius: 12px; font-size: 1.05rem; font-weight: 800; background: var(--cv-bg-input); color: var(--cv-text-secondary); text-align: center; cursor: pointer; transition: all 0.3s ease; width: 100%; }
+        .full-app-content .custom-select-box.selected { color: var(--cv-text-primary); border-color: var(--cv-border-primary); }
+        
         .custom-option-btn { background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.45); border-radius: 12px; color: #ffffff; font-size: 1.05rem; font-weight: 800; padding: 16px; width: 100%; text-align: center; cursor: pointer; transition: all 0.2s ease; display: block; }
         .custom-option-btn:active { background: rgba(0, 240, 255, 0.25); border-color: #00f0ff; transform: scale(0.98); }
 
@@ -267,10 +270,11 @@
         .history-clickable-title-box { display: flex; align-items: center; justify-content: space-between; background: rgba(0, 240, 255, 0.08); border: 1.5px solid rgba(0, 240, 255, 0.35); padding: 12px 14px; border-radius: 12px; cursor: pointer; margin-top: 4px; transition: all 0.2s ease; width: 100%; }
         .history-clickable-title-box:active { background: rgba(0, 240, 255, 0.25); transform: scale(0.98); }
 
-        .datetime-custom-wrapper { position: relative; display: flex; align-items: center; background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.45); border-radius: 12px; padding: 15px 16px; cursor: pointer; transition: all 0.2s ease; z-index: 10; pointer-events: auto !important; width: 100%; }
-        .datetime-custom-wrapper:active { border-color: #00f0ff; background: rgba(0, 240, 255, 0.15); transform: scale(0.98); }
+        .full-app-content .datetime-custom-wrapper { position: relative; display: flex; align-items: center; background: var(--cv-bg-input); border: 1.5px solid var(--cv-border-primary); border-radius: 12px; padding: 15px 16px; cursor: pointer; transition: all 0.3s ease; z-index: 10; pointer-events: auto !important; width: 100%; }
+        .full-app-content .datetime-custom-wrapper:active { border-color: var(--cv-border-primary); background: rgba(0, 240, 255, 0.15); transform: scale(0.98); }
         .datetime-custom-wrapper input[type="date"], .datetime-custom-wrapper input[type="time"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 15; border: none; background: transparent; }
-        .datetime-display-text { font-size: 1.1rem; font-weight: 600; color: #ffffff; pointer-events: none; width: 100%; }
+        
+        .full-app-content .datetime-display-text { font-size: 1.1rem; font-weight: 600; color: var(--cv-text-primary); pointer-events: none; width: 100%; transition: color 0.3s ease; }
 
         button[type="submit"] { background: linear-gradient(135deg, rgba(0, 153, 255, 0.9) 0%, rgba(0, 85, 255, 0.9) 100%); color: #ffffff; font-size: 1.15rem; font-weight: 900; letter-spacing: 1.5px; border: 1.5px solid rgba(0, 240, 255, 0.7); cursor: pointer; padding: 16px 20px; border-radius: 14px; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; box-shadow: 0 0 20px rgba(0, 119, 255, 0.4); transition: all 0.2s ease; margin-top: 6px; }
         button[type="submit"]:active { transform: scale(0.98); filter: brightness(1.2); }
@@ -278,12 +282,12 @@
         @keyframes spinLoading { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .history-section-wrapper { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; margin-top: 10px; width: 100%; }
-        .history-title-wrapper { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; border-radius: 12px; background: rgba(0, 240, 255, 0.06); border: 1.5px solid rgba(0, 240, 255, 0.25); position: relative; width: 100%; gap: 8px; }
+        .full-app-content .history-title-wrapper { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; border-radius: 12px; background: var(--cv-bg-form); border: 1.5px solid var(--cv-border-primary); position: relative; width: 100%; gap: 8px; transition: background-color 0.3s ease, border-color 0.3s ease; }
         
-        /* TOMBOL RIWAYAT BARU */
         .history-title-clickable { cursor: pointer; display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; background: rgba(0, 240, 255, 0.15); border-radius: 10px; border: 1px solid rgba(0, 240, 255, 0.4); transition: all 0.2s ease; user-select: none; }
         .history-title-clickable:active { transform: scale(0.95); background: rgba(0, 240, 255, 0.3); }
-        .history-title-text { font-size: 1.1rem; color: #fff; font-weight: 900; margin: 0; letter-spacing: 0.5px; white-space: nowrap; }
+        
+        .full-app-content .history-title-text { font-size: 1.1rem; color: var(--cv-text-primary); font-weight: 900; margin: 0; letter-spacing: 0.5px; white-space: nowrap; transition: color 0.3s ease; }
 
         .filter-actions-group { display: flex; align-items: center; gap: 6px; }
         .btn-today-quick { background: rgba(0, 240, 255, 0.15); border: 1px solid rgba(0, 240, 255, 0.5); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 0.78rem; font-weight: 800; padding: 6px 10px; border-radius: 10px; cursor: pointer; text-transform: uppercase; white-space: nowrap; height: 36px; display: inline-flex; align-items: center; justify-content: center; }
@@ -295,14 +299,14 @@
         #filterDateInputDirect { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 10; }
 
         .history-list { list-style: none; display: flex; flex-direction: column; gap: 10px; width: 100%; }
-        .history-item { display: flex; justify-content: space-between; align-items: center; padding: 16px 15px; background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 212, 255, 0.3); border-radius: 14px; border-left: 6px solid #a5f3fc; cursor: pointer; transition: transform 0.15s ease, background 0.15s ease; width: 100%; }
+        .full-app-content .history-item { display: flex; justify-content: space-between; align-items: center; padding: 16px 15px; background: var(--cv-bg-history-item); border: 1.5px solid var(--cv-border-primary); border-radius: 14px; border-left: 6px solid #a5f3fc; cursor: pointer; transition: transform 0.15s ease, background-color 0.3s ease, border-color 0.3s ease; width: 100%; }
         .history-item:active { transform: scale(0.98); background: rgba(0, 240, 255, 0.12); }
         .history-item.in { border-left-color: var(--pemasukan-green); }
         .history-item.out { border-left-color: var(--pengeluaran-red); }
         .history-item.refund { border-left-color: var(--refund-yellow); }
 
         .item-info { display: flex; flex-direction: column; gap: 5px; flex-grow: 1; min-width: 0; }
-        .item-desc { font-weight: 800; font-size: 1.1rem; color: #fff; line-height: 1.4; word-break: break-word; }
+        .full-app-content .item-desc { font-weight: 800; font-size: 1.1rem; color: var(--cv-text-primary); line-height: 1.4; word-break: break-word; transition: color 0.3s ease; }
         .item-date { font-size: 0.85rem; font-weight: 700; color: #38bdf8; display: flex; align-items: center; gap: 6px; }
         .cyber-note-icon { display: inline-flex; align-items: center; justify-content: center; font-size: 0.95rem; filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.85)); }
         .item-method-badge { font-size: 0.75rem; font-weight: 800; color: #fb7185; background: rgba(244, 63, 94, 0.15); border: 1px solid rgba(244, 63, 94, 0.35); padding: 3px 8px; border-radius: 6px; margin-left: 6px; display: inline-block; vertical-align: middle; margin-top: 4px; }
@@ -311,12 +315,159 @@
         .amount-out { color: #fb7185; }
         .amount-refund { color: #fbbf24; }
 
-        .popup-box { background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.8); border-radius: 26px; padding: 32px 24px; width: 100%; max-width: 380px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; box-shadow: 0 0 40px rgba(0, 240, 255, 0.5); }
+        .popup-box { background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.8); border-radius: 26px; padding: 32px 24px; width: 100%; max-width: 380px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; box-shadow: 0 0 40px rgba(0, 240, 255, 0.5); transition: background-color 0.3s ease, border-color 0.3s ease; }
         .popup-icon { width: 72px; height: 72px; border-radius: 50%; background: rgba(16, 185, 129, 0.25); border: 2px solid var(--pemasukan-green); color: #34d399; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; }
-        .popup-title { font-family: 'Orbitron', sans-serif; font-size: 1.7rem; font-weight: 900; color: #fff; }
-        .popup-subtitle { font-size: 1.05rem; color: #a5f3fc; line-height: 1.5; }
+        .popup-title { font-family: 'Orbitron', sans-serif; font-size: 1.7rem; font-weight: 900; color: #fff; transition: color 0.3s ease; }
+        .popup-subtitle { font-size: 1.05rem; color: #a5f3fc; line-height: 1.5; transition: color 0.3s ease; }
         .popup-btn { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff; font-family: 'Rajdhani', sans-serif; font-size: 1.25rem; font-weight: 900; letter-spacing: 1.5px; border: 1px solid rgba(255, 255, 255, 0.4); padding: 16px 48px; border-radius: 16px; cursor: pointer; width: 100%; box-shadow: 0 0 20px rgba(16, 185, 129, 0.5); margin-top: 6px; }
         .popup-btn:active { transform: scale(0.97); filter: brightness(1.15); }
+
+        /* ====================================================
+           LIGHT MODE OVERRIDES MENYELURUH (TERMASUK POPUP & CARD)
+           ==================================================== */
+        .cv-light-mode {
+            --cv-bg-modal: #ffffff !important;
+            --cv-bg-form: #ffffff !important;
+            --cv-bg-input: #f8fafc !important;
+            --cv-border-primary: #cbd5e1 !important;
+            --cv-text-primary: #1e293b !important;
+            --cv-text-secondary: #475569 !important;
+            --cv-bg-history-item: #f8fafc !important;
+        }
+
+        /* Menghilangkan bayangan dan glow pada form dan input saat Light Mode */
+        .cv-light-mode .cyber-input-form {
+            box-shadow: none !important;
+        }
+
+        .cv-light-mode .full-app-content input, 
+        .cv-light-mode .full-app-content select, 
+        .cv-light-mode .full-app-content textarea,
+        .cv-light-mode .full-app-content .custom-select-box,
+        .cv-light-mode .full-app-content .datetime-custom-wrapper {
+            box-shadow: none !important;
+        }
+
+        .cv-light-mode .full-app-content input:focus, 
+        .cv-light-mode .full-app-content select:focus, 
+        .cv-light-mode .full-app-content textarea:focus,
+        .cv-light-mode .full-app-content .datetime-custom-wrapper:active {
+            border-color: #94a3b8 !important;
+            box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.15) !important;
+        }
+
+        .cv-light-mode .card-hero h4 {
+            color: #475569 !important;
+        }
+        
+        .cv-light-mode .card-hero p {
+            color: #0f172a !important;
+            text-shadow: none !important;
+        }
+
+        .cv-light-mode .history-title-clickable {
+            background: #f1f5f9 !important;
+            border-color: #cbd5e1 !important;
+        }
+        
+        .cv-light-mode .history-title-clickable svg {
+            fill: #1e293b !important;
+            filter: none !important;
+        }
+
+        .cv-light-mode .btn-today-quick {
+            background: #f1f5f9 !important;
+            border-color: #cbd5e1 !important;
+            color: #334155 !important;
+        }
+        
+        .cv-light-mode .filter-badge-wrapper {
+            background: #f1f5f9 !important;
+            border-color: #cbd5e1 !important;
+        }
+        
+        .cv-light-mode .filter-badge-text {
+            color: #334155 !important;
+        }
+
+        .cv-light-mode-modal {
+            background: #ffffff !important;
+            border-color: #cbd5e1 !important;
+            color: #1e293b !important;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+        }
+        
+        .cv-light-mode-modal .popup-title {
+            color: #0f172a !important;
+        }
+
+        .cv-light-mode-modal .popup-subtitle {
+            color: #475569 !important;
+        }
+
+        .cv-light-mode-modal .custom-option-btn {
+            background: #f1f5f9 !important;
+            border-color: #cbd5e1 !important;
+            color: #1e293b !important;
+        }
+
+        .cv-light-mode-modal .history-clickable-title-box {
+            background: #f8fafc !important;
+            border-color: #cbd5e1 !important;
+        }
+        
+        .cv-light-mode-modal .history-clickable-title-box label,
+        .cv-light-mode-modal .history-clickable-title-box div {
+            color: #1e293b !important;
+        }
+
+        /* 7 TEMA EKSKLUSIF */
+        body.theme-minimalist:not(.cv-light-mode) .cyber-modal-card { --cv-bg-modal: #0f172a !important; --cv-border-primary: #334155 !important; --cv-text-primary: #f8fafc !important; --cv-bg-input: #1e293b !important; --cv-bg-history-item: #1e293b !important; --cv-bg-form: #1e293b !important; }
+        body.theme-minimalist .cyber-modal-card * { font-family: 'Plus Jakarta Sans', sans-serif !important; text-shadow: none !important; box-shadow: none !important; }
+        body.theme-minimalist .cyber-modal-card .title-cyber, body.theme-minimalist .cyber-modal-card .subtitle-cyber { background: var(--cv-text-primary) !important; -webkit-text-fill-color: var(--cv-text-primary) !important; color: var(--cv-text-primary) !important; }
+        body.theme-minimalist .cyber-modal-card .glass-range-input::-webkit-slider-runnable-track { background: var(--cv-border-primary) !important; }
+        body.theme-minimalist .cyber-modal-card .glass-range-input::-webkit-slider-thumb { background: #94a3b8 !important; }
+        body.theme-minimalist .cyber-modal-card button[type="submit"] { background: #3b82f6 !important; border-color: #2563eb !important; }
+
+        body.theme-neon-purple:not(.cv-light-mode) .cyber-modal-card { --cv-bg-modal: radial-gradient(circle at 50% 50%, #2e0854 0%, #0d0221 65%, #02000a 100%) !important; --cv-border-primary: rgba(217, 70, 239, 0.5) !important; --cv-bg-form: rgba(20, 2, 45, 0.85) !important; --cv-bg-input: rgba(20, 2, 45, 0.85) !important; --cv-bg-history-item: rgba(20, 2, 45, 0.85) !important;}
+        body.theme-neon-purple .cyber-modal-card * { font-family: 'Rajdhani', sans-serif !important; }
+        body.theme-neon-purple .cyber-modal-card .title-cyber { background: linear-gradient(135deg, #ffffff 0%, #d946ef 60%, #a855f7 100%) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; text-shadow: 0 0 20px rgba(217, 70, 239, 0.8) !important; }
+        body.theme-neon-purple .cyber-modal-card .glass-range-input::-webkit-slider-thumb { background: #d946ef !important; box-shadow: 0 0 10px rgba(217, 70, 239, 0.9) !important; }
+        body.theme-neon-purple .cyber-modal-card .custom-select-box.selected { border-color: #d946ef !important; color: var(--cv-text-primary) !important; }
+        body.theme-neon-purple .cyber-modal-card input:focus, body.theme-neon-purple .cyber-modal-card .custom-select-box:active { border-color: #d946ef !important; box-shadow: 0 0 12px rgba(217, 70, 239, 0.4) !important; }
+        body.theme-neon-purple .cyber-modal-card button[type="submit"] { background: linear-gradient(135deg, #a855f7 0%, #d946ef 100%) !important; border-color: #f0abfc !important; box-shadow: 0 0 20px rgba(217, 70, 239, 0.4) !important; }
+
+        body.theme-matrix-green:not(.cv-light-mode) .cyber-modal-card { --cv-bg-modal: radial-gradient(circle at 50% 50%, #02260f 0%, #011306 65%, #000502 100%) !important; --cv-border-primary: rgba(34, 197, 94, 0.5) !important; --cv-bg-form: rgba(1, 19, 6, 0.9) !important; --cv-bg-input: rgba(1, 19, 6, 0.9) !important; --cv-bg-history-item: rgba(1, 19, 6, 0.9) !important; }
+        body.theme-matrix-green .cyber-modal-card * { font-family: 'Share Tech Mono', monospace !important; }
+        body.theme-matrix-green .cyber-modal-card .title-cyber { background: linear-gradient(135deg, #ffffff 0%, #22c55e 60%, #16a34a 100%) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; text-shadow: 0 0 20px rgba(34, 197, 94, 0.8) !important; }
+        body.theme-matrix-green .cyber-modal-card .glass-range-input::-webkit-slider-thumb { background: #22c55e !important; box-shadow: 0 0 10px rgba(34, 197, 94, 0.9) !important; }
+        body.theme-matrix-green .cyber-modal-card .custom-select-box.selected { border-color: #22c55e !important; color: var(--cv-text-primary) !important; }
+        body.theme-matrix-green .cyber-modal-card input:focus, body.theme-matrix-green .cyber-modal-card .custom-select-box:active { border-color: #22c55e !important; box-shadow: 0 0 12px rgba(34, 197, 94, 0.4) !important; }
+        body.theme-matrix-green .cyber-modal-card button[type="submit"] { background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%) !important; border-color: #86efac !important; box-shadow: 0 0 20px rgba(34, 197, 94, 0.4) !important; }
+
+        body.theme-cyberpunk-orange:not(.cv-light-mode) .cyber-modal-card { --cv-bg-modal: radial-gradient(circle at 50% 50%, #3d1502 0%, #170801 65%, #050200 100%) !important; --cv-border-primary: rgba(249, 115, 22, 0.5) !important; --cv-bg-form: rgba(23, 8, 1, 0.9) !important; --cv-bg-input: rgba(23, 8, 1, 0.9) !important; --cv-bg-history-item: rgba(23, 8, 1, 0.9) !important;}
+        body.theme-cyberpunk-orange .cyber-modal-card * { font-family: 'Orbitron', sans-serif !important; }
+        body.theme-cyberpunk-orange .cyber-modal-card .title-cyber { background: linear-gradient(135deg, #ffffff 0%, #f97316 60%, #ea580c 100%) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; text-shadow: 0 0 20px rgba(249, 115, 22, 0.8) !important; }
+        body.theme-cyberpunk-orange .cyber-modal-card .glass-range-input::-webkit-slider-thumb { background: #f97316 !important; box-shadow: 0 0 10px rgba(249, 115, 22, 0.9) !important; }
+        body.theme-cyberpunk-orange .cyber-modal-card .custom-select-box.selected { border-color: #f97316 !important; color: var(--cv-text-primary) !important; }
+        body.theme-cyberpunk-orange .cyber-modal-card input:focus, body.theme-cyberpunk-orange .cyber-modal-card .custom-select-box:active { border-color: #f97316 !important; box-shadow: 0 0 12px rgba(249, 115, 22, 0.4) !important; }
+        body.theme-cyberpunk-orange .cyber-modal-card button[type="submit"] { background: linear-gradient(135deg, #ea580c 0%, #f97316 100%) !important; border-color: #fed7aa !important; box-shadow: 0 0 20px rgba(249, 115, 22, 0.4) !important; }
+
+        body.theme-crimson-blood:not(.cv-light-mode) .cyber-modal-card { --cv-bg-modal: radial-gradient(circle at 50% 50%, #3b0505 0%, #170101 65%, #050000 100%) !important; --cv-border-primary: rgba(239, 68, 68, 0.5) !important; --cv-bg-form: rgba(23, 1, 1, 0.9) !important; --cv-bg-input: rgba(23, 1, 1, 0.9) !important; --cv-bg-history-item: rgba(23, 1, 1, 0.9) !important;}
+        body.theme-crimson-blood .cyber-modal-card * { font-family: 'Rajdhani', sans-serif !important; }
+        body.theme-crimson-blood .cyber-modal-card .title-cyber { background: linear-gradient(135deg, #ffffff 0%, #ef4444 60%, #dc2626 100%) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; text-shadow: 0 0 20px rgba(239, 68, 68, 0.8) !important; }
+        body.theme-crimson-blood .cyber-modal-card .glass-range-input::-webkit-slider-thumb { background: #ef4444 !important; box-shadow: 0 0 10px rgba(239, 68, 68, 0.9) !important; }
+        body.theme-crimson-blood .cyber-modal-card .custom-select-box.selected { border-color: #ef4444 !important; color: var(--cv-text-primary) !important; }
+        body.theme-crimson-blood .cyber-modal-card input:focus, body.theme-crimson-blood .cyber-modal-card .custom-select-box:active { border-color: #ef4444 !important; box-shadow: 0 0 12px rgba(239, 68, 68, 0.4) !important; }
+        body.theme-crimson-blood .cyber-modal-card button[type="submit"] { background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%) !important; border-color: #fecaca !important; box-shadow: 0 0 20px rgba(239, 68, 68, 0.4) !important; }
+
+        body.theme-solar-gold:not(.cv-light-mode) .cyber-modal-card { --cv-bg-modal: radial-gradient(circle at 50% 50%, #332702 0%, #141001 65%, #050400 100%) !important; --cv-border-primary: rgba(234, 179, 8, 0.5) !important; --cv-bg-form: rgba(20, 16, 1, 0.9) !important; --cv-bg-input: rgba(20, 16, 1, 0.9) !important; --cv-bg-history-item: rgba(20, 16, 1, 0.9) !important;}
+        body.theme-solar-gold .cyber-modal-card * { font-family: 'Cinzel', serif !important; }
+        body.theme-solar-gold .cyber-modal-card .title-cyber { background: linear-gradient(135deg, #ffffff 0%, #eab308 60%, #ca8a04 100%) !important; -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; text-shadow: 0 0 20px rgba(234, 179, 8, 0.8) !important; }
+        body.theme-solar-gold .cyber-modal-card .glass-range-input::-webkit-slider-thumb { background: #eab308 !important; box-shadow: 0 0 10px rgba(234, 179, 8, 0.9) !important; }
+        body.theme-solar-gold .cyber-modal-card .custom-select-box.selected { border-color: #eab308 !important; color: var(--cv-text-primary) !important; }
+        body.theme-solar-gold .cyber-modal-card input:focus, body.theme-solar-gold .cyber-modal-card .custom-select-box:active { border-color: #eab308 !important; box-shadow: 0 0 12px rgba(234, 179, 8, 0.4) !important; }
+        body.theme-solar-gold .cyber-modal-card button[type="submit"] { background: linear-gradient(135deg, #ca8a04 0%, #eab308 100%) !important; border-color: #fef08a !important; box-shadow: 0 0 20px rgba(234, 179, 8, 0.4) !important; }
     </style>
 </head>
 <body>
@@ -654,7 +805,7 @@
 </div>
 
 <div class="cyber-modal-overlay" id="cyberModalOverlay">
-    <div class="cyber-modal-card">
+    <div class="cyber-modal-card" id="cyberModalCard">
         <div style="display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; width: 100%; flex-shrink: 0; padding: 2px 0;">
             <div></div>
             <div style="font-family: 'Orbitron', sans-serif; font-size: 1.05rem; font-weight: 900; color: #00f0ff; letter-spacing: 1.5px; text-align: center;">CYBER VAULT SYSTEM</div>
@@ -668,16 +819,10 @@
                 <span class="opacity-value-badge" id="opacityValText">28%</span>
             </div>
 
-            <div class="backup-panel">
-                <div class="backup-header">
-                    <span style="font-size: 0.9rem; font-weight: 800; color: #a5f3fc;">BACKUP KEUANGAN</span>
-                    <span class="backup-status-tag" id="backupStatusText">Cloud-Synced</span>
-                </div>
-                <div class="backup-actions">
-                    <button type="button" class="btn-backup-action" id="btnExportBackup">Unduh Backup</button>
-                    <button type="button" class="btn-backup-action" id="btnImportBackup">Pulihkan Data</button>
-                    <input type="file" id="importFileInput" accept=".json" style="display: none;">
-                </div>
+            <div style="display: flex; justify-content: center; gap: 10px; width: 100%; margin: 4px 0 12px 0;">
+                <button type="button" id="btnOpenThemeModal" style="background: rgba(0, 240, 255, 0.12); border: 1px solid rgba(0, 240, 255, 0.5); color: #00f0ff; border-radius: 20px; padding: 8px 22px; font-size: 0.85rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(0,240,255,0.25); transition: all 0.2s ease; letter-spacing: 1px; width: 100%;">
+                    Custom Theme
+                </button>
             </div>
 
             <div class="dashboard">
@@ -736,7 +881,7 @@
 
                 <div class="form-group">
                     <label for="proofInput">Bukti Transaksi (Opsional)</label>
-                    <input type="file" id="proofInput" accept="image/*" style="padding: 12px 16px; background: rgba(2, 12, 32, 0.85); color: #7dd3fc; border: 1.5px dashed rgba(0, 240, 255, 0.45); border-radius: 12px; font-size: 0.95rem; width: 100%;">
+                    <input type="file" id="proofInput" accept="image/*" style="padding: 12px 16px; background: var(--cv-bg-input); color: var(--cv-text-secondary); border: 1.5px dashed var(--cv-border-primary); border-radius: 12px; font-size: 0.95rem; width: 100%; transition: all 0.3s ease;">
                 </div>
 
                 <button type="submit" id="btnSubmit"><span id="btnText">Tambah Transaksi</span></button>
@@ -745,7 +890,7 @@
             <div class="history-section-wrapper">
                 <div class="history-title-wrapper">
                     <div class="history-title-clickable" id="openMonthlyHistoryBtn" title="Lihat Rekap Bulanan">
-                        <svg style="width: 18px; height: 18px; fill: #00f0ff; filter: drop-shadow(0 0 5px rgba(0,240,255,0.6));" viewBox="0 0 24 24">
+                        <svg style="width: 18px; height: 18px; fill: var(--cv-text-primary); transition: fill 0.3s ease;" viewBox="0 0 24 24">
                             <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
                         </svg>
                         <h3 class="history-title-text">Riwayat</h3>
@@ -766,22 +911,52 @@
 
 <audio id="bgAudioPlayer" crossorigin="anonymous" style="display: none;"></audio>
 
-<!-- MODAL REKAP BULANAN -->
+<div class="popup-overlay" id="themeModalOverlay">
+    <div class="popup-box theme-modal-box" style="max-width: 340px; padding: 22px; max-height: 90vh; overflow-y: auto;">
+        <div class="popup-title" style="font-size: 1.15rem; margin-bottom: 12px;">Custom Theme</div>
+        <div style="font-size: 0.82rem; color: #a5f3fc; margin-bottom: 14px;" id="themeModalDesc">Pilih tema lengkap dengan animasi & font eksklusif:</div>
+        
+        <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
+            <button type="button" class="custom-option-btn theme-btn" data-theme="default" style="border-color: #00f0ff; color: #00f0ff; font-size: 0.95rem; padding: 12px;">
+                Cyber Blue (Default)
+            </button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="light" style="border-color: #cbd5e1; color: #1e293b; background: #ffffff; font-size: 0.95rem; padding: 12px;">
+                ☀️ Mode Terang (Clean Light)
+            </button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="minimalist" style="border-color: #94a3b8; color: #f8fafc; background: #1e293b; font-size: 0.95rem; padding: 12px;">
+                Minimalist Dark (Clean)
+            </button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="neon-purple" style="border-color: #d946ef; color: #f0abfc; background: rgba(217, 70, 239, 0.1); font-size: 0.95rem; padding: 12px;">
+                Neon Synthwave
+            </button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="matrix-green" style="border-color: #22c55e; color: #86efac; background: rgba(34, 197, 94, 0.1); font-size: 0.95rem; padding: 12px;">
+                Matrix Hacker
+            </button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="cyberpunk-orange" style="border-color: #f97316; color: #fed7aa; background: rgba(249, 115, 22, 0.1); font-size: 0.95rem; padding: 12px;">
+                Cyberpunk Orange
+            </button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="crimson-blood" style="border-color: #ef4444; color: #fecaca; background: rgba(239, 68, 68, 0.1); font-size: 0.95rem; padding: 12px;">
+                Crimson Blood
+            </button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="solar-gold" style="border-color: #eab308; color: #fef08a; background: rgba(234, 179, 8, 0.1); font-size: 0.95rem; padding: 12px;">
+                Solar Gold (Mewah)
+            </button>
+        </div>
+
+        <button type="button" class="popup-btn theme-close-btn" style="margin-top: 16px; background: transparent; border: 1px solid #94a3b8; color: #94a3b8; padding: 10px; box-shadow: none;" id="closeThemeModalBtn">Tutup</button>
+    </div>
+</div>
+
 <div class="popup-overlay" id="monthlyHistoryModalOverlay">
-    <div class="popup-box" style="max-width: 400px; width: 100%; max-height: 90vh; padding: 20px; display: flex; flex-direction: column; align-items: stretch; text-align: left; gap: 12px;">
+    <div class="popup-box monthly-modal-box" style="max-width: 400px; width: 100%; max-height: 90vh; padding: 20px; display: flex; flex-direction: column; align-items: stretch; text-align: left; gap: 12px;">
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid rgba(0,240,255,0.2); padding-bottom: 12px; flex-shrink: 0;">
             <button type="button" id="btnBackMonthly" style="display: none; background:none; border:none; color:#00f0ff; font-size:1.8rem; line-height: 1; cursor:pointer; padding-right: 10px;">←</button>
             <div id="monthlyModalTitle" style="font-family: 'Orbitron', sans-serif; font-size: 1.15rem; font-weight: 900; color: #00f0ff; text-align: center; flex-grow: 1;">REKAP BULANAN</div>
             <button type="button" id="closeMonthlyModalBtn" style="background:none; border:none; color:#94a3b8; font-size:1.5rem; cursor:pointer; padding-left: 10px;">✕</button>
         </div>
         
-        <div id="monthlyListContainer" style="display: flex; flex-direction: column; gap: 10px; overflow-y: auto; overflow-x: hidden !important; flex-grow: 1; padding: 4px 0;">
-            <!-- Daftar bulan akan muncul di sini otomatis -->
-        </div>
-        
-        <div id="monthlyDetailContainer" style="display: none; flex-direction: column; gap: 12px; overflow-y: auto; overflow-x: hidden !important; flex-grow: 1; padding: 4px 0;">
-            <!-- Detail transaksi bulan terpilih -->
-        </div>
+        <div id="monthlyListContainer" style="display: flex; flex-direction: column; gap: 10px; overflow-y: auto; overflow-x: hidden !important; flex-grow: 1; padding: 4px 0;"></div>
+        <div id="monthlyDetailContainer" style="display: none; flex-direction: column; gap: 12px; overflow-y: auto; overflow-x: hidden !important; flex-grow: 1; padding: 4px 0;"></div>
     </div>
 </div>
 
@@ -834,17 +1009,17 @@
     <div class="header-box">
         <div class="brand-top-header"><span class="brand-studio-title">VENUS STUDIO</span></div>
         <div class="clickable-header-wrapper" id="toggleAppViewBtn" title="Ketuk untuk membuka menu lengkap">
-            <h2 class="title-cyber">CYBER VAULT</h2><div class="subtitle-cyber">FINANCIAL MONITORING SYSTEM</div>
+            <h2 class="main-page-title">CYBER VAULT</h2><div class="main-page-subtitle">FINANCIAL MONITORING SYSTEM</div>
         </div>
     </div>
     <div class="personal-data-panel" id="openPersonalModalPanel" title="Ketuk untuk membuka Personal Data">
-        <h2 class="title-personal-box">PERSONAL DATA</h2><div class="subtitle-cyber">ACCOUNTS & PASSWORDS MANAGER</div>
+        <h2 class="main-page-title">PERSONAL DATA</h2><div class="main-page-subtitle">ACCOUNTS & PASSWORDS MANAGER</div>
     </div>
     <div class="debt-tracker-panel" id="openDebtModalPanel" title="Ketuk untuk membuka Debt Tracker">
-        <h2 class="title-debt-box">DEBT TRACKER</h2><div class="subtitle-cyber">DEBTS & LIABILITIES MONITOR</div>
+        <h2 class="main-page-title">DEBT TRACKER</h2><div class="main-page-subtitle">DEBTS & LIABILITIES MONITOR</div>
     </div>
     <div class="music-player-panel" id="openMusicModalPanel" title="Ketuk untuk membuka Playlist Music">
-        <h2 class="title-music-box">PLAYLIST MUSIC</h2><div class="subtitle-cyber">CYBER AUDIO PLAYER</div>
+        <h2 class="main-page-title">PLAYLIST MUSIC</h2><div class="main-page-subtitle">CYBER AUDIO PLAYER</div>
     </div>
 </div>
 
@@ -884,7 +1059,7 @@
 </div>
 
 <div class="popup-overlay" id="modalSelectType">
-    <div class="popup-box" style="max-width: 320px; padding: 24px;">
+    <div class="popup-box popup-select-box" style="max-width: 320px; padding: 24px;">
         <div class="popup-title" style="font-size: 1.2rem; margin-bottom: 16px;">JENIS TRANSAKSI</div>
         <button type="button" class="custom-option-btn" onclick="selectType('in', '🟩 PEMASUKAN (+)')">🟩 PEMASUKAN (+)</button>
         <button type="button" class="custom-option-btn" style="margin-top: 10px;" onclick="selectType('out', '🟥 PENGELUARAN (-)')">🟥 PENGELUARAN (-)</button>
@@ -894,7 +1069,7 @@
 </div>
 
 <div class="popup-overlay" id="modalEditSelectType">
-    <div class="popup-box" style="max-width: 320px; padding: 24px;">
+    <div class="popup-box popup-select-box" style="max-width: 320px; padding: 24px;">
         <div class="popup-title" style="font-size: 1.2rem; margin-bottom: 16px;">JENIS TRANSAKSI</div>
         <button type="button" class="custom-option-btn" onclick="selectEditType('in', '🟩 PEMASUKAN (+)')">🟩 PEMASUKAN (+)</button>
         <button type="button" class="custom-option-btn" style="margin-top: 10px;" onclick="selectEditType('out', '🟥 PENGELUARAN (-)')">🟥 PENGELUARAN (-)</button>
@@ -904,7 +1079,7 @@
 </div>
 
 <div class="popup-overlay" id="modalSelectMethod">
-    <div class="popup-box" style="max-width: 320px; padding: 24px;">
+    <div class="popup-box popup-select-box" style="max-width: 320px; padding: 24px;">
         <div class="popup-title" style="font-size: 1.2rem; margin-bottom: 16px;">METODE PEMBAYARAN</div>
         <button type="button" class="custom-option-btn" onclick="selectMethod('CASH', '💵 CASH (Tunai)')">💵 CASH (Tunai)</button>
         <button type="button" class="custom-option-btn" style="margin-top: 10px;" onclick="selectMethod('TRANSFER', '🏦 TRANSFER BANK')">🏦 TRANSFER BANK</button>
@@ -914,7 +1089,7 @@
 </div>
 
 <div class="popup-overlay" id="modalEditSelectMethod">
-    <div class="popup-box" style="max-width: 320px; padding: 24px;">
+    <div class="popup-box popup-select-box" style="max-width: 320px; padding: 24px;">
         <div class="popup-title" style="font-size: 1.2rem; margin-bottom: 16px;">METODE PEMBAYARAN</div>
         <button type="button" class="custom-option-btn" onclick="selectEditMethod('CASH', '💵 CASH (Tunai)')">💵 CASH (Tunai)</button>
         <button type="button" class="custom-option-btn" style="margin-top: 10px;" onclick="selectEditMethod('TRANSFER', '🏦 TRANSFER BANK')">🏦 TRANSFER BANK</button>
@@ -955,9 +1130,13 @@
         draw() {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(0, 240, 255, 0.85)';
+            ctx.fillStyle = document.body.classList.contains('theme-matrix-green') ? 'rgba(34, 197, 94, 0.85)' : 
+                            document.body.classList.contains('theme-neon-purple') ? 'rgba(217, 70, 239, 0.85)' : 
+                            document.body.classList.contains('theme-cyberpunk-orange') ? 'rgba(249, 115, 22, 0.85)' : 
+                            document.body.classList.contains('theme-crimson-blood') ? 'rgba(239, 68, 68, 0.85)' : 
+                            document.body.classList.contains('theme-solar-gold') ? 'rgba(234, 179, 8, 0.85)' : 'rgba(0, 240, 255, 0.85)';
             ctx.shadowBlur = 10;
-            ctx.shadowColor = '#00f0ff';
+            ctx.shadowColor = ctx.fillStyle;
             ctx.fill();
             ctx.shadowBlur = 0;
         }
@@ -989,7 +1168,12 @@
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);
                     const alpha = (1 - (dist / 130)) * 0.55;
-                    ctx.strokeStyle = `rgba(0, 240, 255, ${alpha})`;
+                    const lineColor = document.body.classList.contains('theme-matrix-green') ? `rgba(34, 197, 94, ${alpha})` : 
+                                      document.body.classList.contains('theme-neon-purple') ? `rgba(217, 70, 239, ${alpha})` : 
+                                      document.body.classList.contains('theme-cyberpunk-orange') ? `rgba(249, 115, 22, ${alpha})` : 
+                                      document.body.classList.contains('theme-crimson-blood') ? `rgba(239, 68, 68, ${alpha})` : 
+                                      document.body.classList.contains('theme-solar-gold') ? `rgba(234, 179, 8, ${alpha})` : `rgba(0, 240, 255, ${alpha})`;
+                    ctx.strokeStyle = lineColor;
                     ctx.lineWidth = 1.2;
                     ctx.stroke();
                 }
@@ -1048,6 +1232,144 @@
 </script>
 
 <script>
+    const btnOpenThemeModal = document.getElementById('btnOpenThemeModal');
+    const themeModalOverlay = document.getElementById('themeModalOverlay');
+    const closeThemeModalBtn = document.getElementById('closeThemeModalBtn');
+    const themeBtns = document.querySelectorAll('.theme-btn');
+    const cyberModalCard = id('cyberModalCard');
+
+    function id(elemId) { return document.getElementById(elemId); }
+
+    if(btnOpenThemeModal) {
+        btnOpenThemeModal.addEventListener('click', () => {
+            themeModalOverlay.classList.add('active');
+            updateThemeModalStyle();
+        });
+    }
+
+    if(closeThemeModalBtn) {
+        closeThemeModalBtn.addEventListener('click', () => {
+            themeModalOverlay.classList.remove('active');
+        });
+    }
+
+    function applyTheme(themeName) {
+        document.body.classList.remove(
+            'theme-minimalist', 
+            'theme-neon-purple', 
+            'theme-matrix-green', 
+            'theme-cyberpunk-orange', 
+            'theme-crimson-blood', 
+            'theme-solar-gold'
+        );
+        
+        if (themeName === 'light') {
+            cyberModalCard.classList.add('cv-light-mode');
+            localStorage.setItem('cyber_vault_mode', 'light');
+            localStorage.setItem('cyber_vault_theme', 'light');
+        } else {
+            cyberModalCard.classList.remove('cv-light-mode');
+            localStorage.setItem('cyber_vault_mode', 'dark');
+            if (themeName !== 'default') {
+                document.body.classList.add('theme-' + themeName);
+            }
+            localStorage.setItem('cyber_vault_theme', themeName);
+        }
+        updateThemeModalStyle();
+    }
+
+    function updateThemeModalStyle() {
+        const isLight = cyberModalCard.classList.contains('cv-light-mode');
+        const box = document.querySelector('.theme-modal-box');
+        const desc = document.getElementById('themeModalDesc');
+        const closeBtn = document.getElementById('closeThemeModalBtn');
+        
+        if (isLight) {
+            box.classList.add('cv-light-mode-modal');
+            desc.style.color = '#475569';
+            closeBtn.style.borderColor = '#cbd5e1';
+            closeBtn.style.color = '#475569';
+        } else {
+            box.classList.remove('cv-light-mode-modal');
+            desc.style.color = '#a5f3fc';
+            closeBtn.style.borderColor = '#94a3b8';
+            closeBtn.style.color = '#94a3b8';
+        }
+    }
+
+    themeBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const selectedTheme = e.target.getAttribute('data-theme');
+            applyTheme(selectedTheme);
+            themeModalOverlay.classList.remove('active');
+            try { playSuccessSound(); } catch(err){}
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedTheme = localStorage.getItem('cyber_vault_theme');
+        if (savedTheme === 'light') {
+            applyTheme('light');
+        } else if (savedTheme) {
+            applyTheme(savedTheme);
+        } else {
+            applyTheme('default');
+        }
+
+        initIndexedDB();
+        renderAccountTitles();
+        renderDebts();
+        
+        const savedOpacity = localStorage.getItem('cyber_glass_opacity');
+        if (savedOpacity !== null) {
+            document.documentElement.style.setProperty('--glass-alpha', (savedOpacity / 100).toFixed(2));
+            document.getElementById('glassOpacitySlider').value = savedOpacity;
+            document.getElementById('opacityValText').innerText = savedOpacity + '%';
+        }
+
+        const isLogged = sessionStorage.getItem('venus_is_logged') === 'true';
+        const activeModal = sessionStorage.getItem('venus_active_modal');
+
+        if (isLogged) {
+            splashScreenOverlay.classList.add('hidden');
+            pinScreenOverlay.classList.add('hidden');
+            techBgContainer.classList.add('active');
+            mainAppContainer.classList.add('active');
+            refreshRealtimeDateTime();
+            updateUI();
+
+            if (activeModal === 'cyber') { cyberModalOverlay.classList.add('active'); }
+            else if (activeModal === 'music') { musicModalOverlay.classList.add('active'); }
+            else if (activeModal === 'personal') { personalModalOverlay.classList.add('active'); }
+            else if (activeModal === 'debt') { debtModalOverlay.classList.add('active'); }
+        } else {
+            setTimeout(() => { 
+                playNetflixIntroSound(); 
+                speakWelcomeGreeting(); 
+            }, 600);
+        }
+
+        setTimeout(() => {
+            if (window.loadTransactionsFromFirebase) {
+                window.loadTransactionsFromFirebase((cloudData) => {
+                    if (cloudData && Array.isArray(cloudData)) {
+                        transactions = cloudData;
+                        localStorage.setItem('my_transactions', JSON.stringify(transactions));
+                        updateUI();
+                    }
+                });
+            }
+            if (window.loadDebtsFromFirebase) {
+                window.loadDebtsFromFirebase((cloudDebtData) => {
+                    if (cloudDebtData && Array.isArray(cloudDebtData)) {
+                        localStorage.setItem('venus_debt_tracker_data', JSON.stringify(cloudDebtData));
+                        renderDebts();
+                    }
+                });
+            }
+        }, 1500);
+    });
+
     function showCyberConfirm(message, onConfirm) {
         const modal = document.getElementById('cyberConfirmModal');
         const msgEl = document.getElementById('cyberConfirmMessage');
@@ -1114,61 +1436,6 @@
     const debtPinOverlay = document.getElementById('debtPinOverlay');
     const cyberScannerFlash = document.getElementById('cyberScannerFlash');
     const techBgContainer = document.getElementById('techBgContainer');
-
-    window.addEventListener('DOMContentLoaded', () => {
-        initIndexedDB();
-        renderAccountTitles();
-        renderDebts();
-        
-        const savedOpacity = localStorage.getItem('cyber_glass_opacity');
-        if (savedOpacity !== null) {
-            document.documentElement.style.setProperty('--glass-alpha', (savedOpacity / 100).toFixed(2));
-            document.getElementById('glassOpacitySlider').value = savedOpacity;
-            document.getElementById('opacityValText').innerText = savedOpacity + '%';
-        }
-
-        const isLogged = sessionStorage.getItem('venus_is_logged') === 'true';
-        const activeModal = sessionStorage.getItem('venus_active_modal');
-
-        if (isLogged) {
-            splashScreenOverlay.classList.add('hidden');
-            pinScreenOverlay.classList.add('hidden');
-            techBgContainer.classList.add('active');
-            mainAppContainer.classList.add('active');
-            refreshRealtimeDateTime();
-            updateUI();
-
-            if (activeModal === 'cyber') { cyberModalOverlay.classList.add('active'); }
-            else if (activeModal === 'music') { musicModalOverlay.classList.add('active'); }
-            else if (activeModal === 'personal') { personalModalOverlay.classList.add('active'); }
-            else if (activeModal === 'debt') { debtModalOverlay.classList.add('active'); }
-        } else {
-            setTimeout(() => { 
-                playNetflixIntroSound(); 
-                speakWelcomeGreeting(); 
-            }, 600);
-        }
-
-        setTimeout(() => {
-            if (window.loadTransactionsFromFirebase) {
-                window.loadTransactionsFromFirebase((cloudData) => {
-                    if (cloudData && Array.isArray(cloudData)) {
-                        transactions = cloudData;
-                        localStorage.setItem('my_transactions', JSON.stringify(transactions));
-                        updateUI();
-                    }
-                });
-            }
-            if (window.loadDebtsFromFirebase) {
-                window.loadDebtsFromFirebase((cloudDebtData) => {
-                    if (cloudDebtData && Array.isArray(cloudDebtData)) {
-                        localStorage.setItem('venus_debt_tracker_data', JSON.stringify(cloudDebtData));
-                        renderDebts();
-                    }
-                });
-            }
-        }, 1500);
-    });
 
     function speakWelcomeGreeting() {
         if ('speechSynthesis' in window) {
@@ -1325,7 +1592,11 @@
         document.getElementById('btnSelectType').classList.add('selected');
         document.getElementById('modalSelectType').classList.remove('active');
     }
-    document.getElementById('btnSelectType').addEventListener('click', () => document.getElementById('modalSelectType').classList.add('active'));
+    document.getElementById('btnSelectType').addEventListener('click', () => {
+        const modal = document.getElementById('modalSelectType');
+        modal.classList.add('active');
+        applyPopupLightMode(modal);
+    });
 
     function selectMethod(val, text) {
         document.getElementById('paymentMethod').value = val;
@@ -1333,21 +1604,43 @@
         document.getElementById('btnSelectMethod').classList.add('selected');
         document.getElementById('modalSelectMethod').classList.remove('active');
     }
-    document.getElementById('btnSelectMethod').addEventListener('click', () => document.getElementById('modalSelectMethod').classList.add('active'));
+    document.getElementById('btnSelectMethod').addEventListener('click', () => {
+        const modal = document.getElementById('modalSelectMethod');
+        modal.classList.add('active');
+        applyPopupLightMode(modal);
+    });
 
     function selectEditType(val, text) {
         document.getElementById('editType').value = val;
         document.getElementById('btnEditSelectType').innerText = text;
         document.getElementById('modalEditSelectType').classList.remove('active');
     }
-    document.getElementById('btnEditSelectType').addEventListener('click', () => document.getElementById('modalEditSelectType').classList.add('active'));
+    document.getElementById('btnEditSelectType').addEventListener('click', () => {
+        const modal = document.getElementById('modalEditSelectType');
+        modal.classList.add('active');
+        applyPopupLightMode(modal);
+    });
 
     function selectEditMethod(val, text) {
         document.getElementById('editMethod').value = val;
         document.getElementById('btnEditSelectMethod').innerText = text;
         document.getElementById('modalEditSelectMethod').classList.remove('active');
     }
-    document.getElementById('btnEditSelectMethod').addEventListener('click', () => document.getElementById('modalEditSelectMethod').classList.add('active'));
+    document.getElementById('btnEditSelectMethod').addEventListener('click', () => {
+        const modal = document.getElementById('modalEditSelectMethod');
+        modal.classList.add('active');
+        applyPopupLightMode(modal);
+    });
+
+    function applyPopupLightMode(modalElement) {
+        const isLight = cyberModalCard.classList.contains('cv-light-mode');
+        const box = modalElement.querySelector('.popup-box');
+        if (isLight) {
+            box.classList.add('cv-light-mode-modal');
+        } else {
+            box.classList.remove('cv-light-mode-modal');
+        }
+    }
 
     const debtListContainer = document.getElementById('debtListContainer');
     const totalDebtAmount = document.getElementById('totalDebtAmount');
@@ -1404,7 +1697,9 @@
         }
     }
     document.getElementById('btnSelectPaymentStatus').addEventListener('click', () => {
-        document.getElementById('modalSelectPaymentStatus').classList.add('active');
+        const modal = document.getElementById('modalSelectPaymentStatus');
+        modal.classList.add('active');
+        applyPopupLightMode(modal);
     });
 
     function updateRemainingOnFly() {
@@ -1817,7 +2112,7 @@
     
     let currentFilterDate = getLocalIsoDate(new Date()); 
     let currentFilterMonth = null;
-    window.currentActiveMonth = null; // Menyimpan status view bulanan yang sedang dibuka
+    window.currentActiveMonth = null;
 
     const filterBadgeText = document.getElementById('filterBadgeText'); 
     const filterDateInputDirect = document.getElementById('filterDateInputDirect'); 
@@ -1943,7 +2238,6 @@
         };
     }
 
-    /* FUNGSI UNTUK MODAL REKAP BULANAN */
     const openMonthlyHistoryBtn = document.getElementById('openMonthlyHistoryBtn');
     const monthlyHistoryModalOverlay = document.getElementById('monthlyHistoryModalOverlay');
     const closeMonthlyModalBtn = document.getElementById('closeMonthlyModalBtn');
@@ -1959,6 +2253,7 @@
         btnBackMonthly.style.display = 'none';
         monthlyModalTitle.innerText = 'REKAP BULANAN';
         monthlyHistoryModalOverlay.classList.add('active');
+        applyPopupLightMode(monthlyHistoryModalOverlay);
     });
 
     closeMonthlyModalBtn.addEventListener('click', () => {
@@ -1975,8 +2270,6 @@
 
     function renderMonthlyList() {
         monthlyListContainer.innerHTML = '';
-        
-        // Mulai dari Oktober 2026 sesuai instruksi
         const startDate = new Date(2026, 9, 1); 
         const now = new Date();
         const endDate = new Date(now.getFullYear(), now.getMonth(), 1);
@@ -1984,13 +2277,11 @@
         const monthsData = [];
         let currentMonth = new Date(startDate);
         
-        // Buat daftar bulan otomatis dari Oktober 2026 sampai bulan saat ini
         while (currentMonth <= endDate) {
             monthsData.push(new Date(currentMonth));
             currentMonth.setMonth(currentMonth.getMonth() + 1);
         }
 
-        // Dibalik agar bulan terbaru selalu tampil di paling atas
         monthsData.reverse().forEach(dateObj => {
             const y = dateObj.getFullYear();
             const m = String(dateObj.getMonth() + 1).padStart(2, '0');
@@ -1999,7 +2290,6 @@
             const displayTitle = `${monthName} ${y}`;
             const ymString = `${y}-${m}`;
 
-            // Hitung ringkasan transaksi di bulan tersebut
             let inBulan = 0, outBulan = 0;
             transactions.forEach(t => {
                 if(t.date && t.date.startsWith(ymString)) {
@@ -2016,7 +2306,7 @@
             div.style.gap = '8px';
             div.innerHTML = `
                 <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
-                    <label style="font-size: 1.15rem; color: #fff; font-weight: 900; margin: 0; cursor: pointer; pointer-events: none; text-shadow: 0 0 10px rgba(0,240,255,0.4);">${displayTitle}</label>
+                    <label style="font-size: 1.15rem; color: var(--cv-text-primary); font-weight: 900; margin: 0; cursor: pointer; pointer-events: none;">${displayTitle}</label>
                     <span style="color: #00f0ff; font-weight: 900; font-size: 1.4rem;">›</span>
                 </div>
                 <div style="display: flex; justify-content: space-between; width: 100%; font-size: 0.9rem; font-weight: 800; margin-top: 4px; padding-top: 8px; border-top: 1px dashed rgba(0,240,255,0.2);">
@@ -2137,7 +2427,6 @@
         document.getElementById('totalSaldoCash').innerText = formatRupiah(cashBalance);
         document.getElementById('totalSaldoBank').innerText = formatRupiah(bankBalance);
 
-        // Jika modal bulanan sedang terbuka, perbarui isinya secara live
         refreshMonthlyViewLive();
 
         try { 
@@ -2184,6 +2473,7 @@
             detailProofContainer.style.display = 'none'; 
         }
         editProofInput.value = ''; detailTransactionModal.classList.add('active');
+        applyPopupLightMode(detailTransactionModal);
     }
     closeDetailModalBtn.addEventListener('click', () => { detailTransactionModal.classList.remove('active'); });
 
@@ -2281,26 +2571,15 @@
                 else if (type === 'refund') { popupTitle.innerText = "Pengembalian Dana!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (Pengurangan Pengeluaran)`; }
                 
                 popupNotification.classList.add('active');
+                applyPopupLightMode(popupNotification);
             }, 1000);
         });
     });
 
     document.getElementById('popupCloseBtn').addEventListener('click', () => { popupNotification.classList.remove('active'); });
 
-    // Mulai jam dan timer di sini
     refreshRealtimeDateTime();
     setInterval(runRealtimeClock, 1000);
-
-    document.getElementById('btnExportBackup').addEventListener('click', () => {
-        if (!transactions || transactions.length === 0) return alert('Belum ada data transaksi untuk di-backup!');
-        const dataStr = "data:text/json;charset=utf-8,"+ encodeURIComponent(JSON.stringify(transactions)); const downloadAnchor = document.createElement('a'); downloadAnchor.setAttribute("href", dataStr); const tanggalHariIni = new Date().toISOString().split('T')[0]; downloadAnchor.setAttribute("download", `VenusStudio_Finance_Backup_${tanggalHariIni}.json`); document.body.appendChild(downloadAnchor); downloadAnchor.click(); downloadAnchor.remove();
-    });
-    const importFinanceFileInput = document.getElementById('importFileInput'); document.getElementById('btnImportBackup').addEventListener('click', () => { importFinanceFileInput.click(); });
-    importFinanceFileInput.addEventListener('change', function(e) {
-        const file = e.target.files[0]; if (!file) return; const reader = new FileReader();
-        reader.onload = function(event) { try { const dataPulih = JSON.parse(event.target.result); if (Array.isArray(dataPulih)) { showCyberConfirm('Apakah Anda yakin ingin memulihkan data? Data transaksi saat ini akan tertimpa.', () => { transactions = dataPulih; updateUI(); alert('Data transaksi keuangan berhasil dipulihkan!'); }); } else alert('Format file backup tidak sesuai!'); } catch (err) { alert('Gagal membaca file .json!'); } };
-        reader.readAsText(file); e.target.value = '';
-    });
 </script>
 </body>
 </html>
