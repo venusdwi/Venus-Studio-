@@ -239,7 +239,6 @@
         .form-group { display: flex; flex-direction: column; gap: 6px; width: 100%; }
         .datetime-group { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
         
-        /* Memastikan label dan input di semua tempat (termasuk modal detail transaksi) mengikuti tema */
         .full-app-content label, 
         #detailTransactionModal label,
         .popup-box label { 
@@ -256,7 +255,6 @@
             border-color: var(--cv-border-primary); box-shadow: 0 0 12px rgba(0, 240, 255, 0.4); 
         }
 
-        /* Custom File Upload Styling for Cyber Vault Theme */
         .custom-file-box {
             display: flex;
             align-items: center;
@@ -401,9 +399,6 @@
         .sync-dot { width: 8px; height: 8px; background: #34d399; border-radius: 50%; box-shadow: 0 0 8px #34d399; animation: syncPulseDot 1.5s infinite ease-in-out; }
         @keyframes syncPulseDot { 0%, 100% { opacity: 0.4; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.2); } }
 
-        /* ====================================================
-           LIGHT MODE OVERRIDES MENYELURUH (TERMASUK MODAL DETAIL)
-           ==================================================== */
         .cv-light-mode {
             --cv-bg-modal: #ffffff !important;
             --cv-bg-form: #ffffff !important;
@@ -435,7 +430,6 @@
         .cv-light-mode .card-hero h4 { color: #475569 !important; }
         .cv-light-mode .card-hero p { color: #0f172a !important; text-shadow: none !important; }
 
-        /* 7 TEMA EKSKLUSIF */
         body.theme-minimalist:not(.cv-light-mode) .cyber-modal-card,
         body.theme-minimalist:not(.cv-light-mode) #detailTransactionModal .popup-box { --cv-bg-modal: #0f172a !important; --cv-border-primary: #334155 !important; --cv-text-primary: #f8fafc !important; --cv-bg-input: #1e293b !important; --cv-bg-history-item: #1e293b !important; --cv-bg-form: #1e293b !important; }
 
@@ -954,51 +948,58 @@
     </div>
 </div>
 
+<!-- MODAL DETAIL TRANSAKSI (TOMBOL SILANG & HEADER STICKY) -->
 <div class="popup-overlay" id="detailTransactionModal">
-    <div class="popup-box" style="max-width: 380px; text-align: left; align-items: stretch; gap: 16px; max-height: 90vh; overflow-y: auto; overflow-x: hidden !important;">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
+    <div class="popup-box" style="max-width: 380px; text-align: left; align-items: stretch; gap: 0; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; padding: 18px 20px;">
+        
+        <!-- HEADER TETAP (STICKY) -->
+        <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 14px; border-bottom: 1.5px solid rgba(0,240,255,0.25); flex-shrink: 0; background: var(--cv-bg-modal);">
             <div style="font-family: 'Orbitron', sans-serif; font-size: 1.15rem; font-weight: 900; color: #00f0ff;">DETAIL TRANSAKSI</div>
-            <button type="button" id="closeDetailModalBtn" style="background:none; border:none; color:#94a3b8; font-size:1.5rem; cursor:pointer;">✕</button>
+            <button type="button" id="closeDetailModalBtn" style="background:none; border:none; color:#94a3b8; font-size:1.5rem; cursor:pointer; padding: 4px; line-height: 1;">✕</button>
         </div>
         
-        <input type="hidden" id="editTxId">
-        
-        <div class="form-group">
-            <label>Bukti Transaksi</label>
-            <div id="detailProofContainer" style="display: none; flex-direction: column; gap: 6px; margin-bottom: 8px;">
-                <img id="detailProofImage" src="" style="width: 100%; max-height: 250px; object-fit: contain; border-radius: 12px; border: 1.5px solid var(--cv-border-primary); background: var(--cv-bg-input); cursor: zoom-in;" alt="Bukti Transaksi" title="Klik untuk memperbesar">
+        <!-- KONTEN YANG BISA DI-SCROLL -->
+        <div style="overflow-y: auto; overflow-x: hidden !important; flex-grow: 1; padding-top: 14px; padding-bottom: 10px; display: flex; flex-direction: column; gap: 16px;">
+            <input type="hidden" id="editTxId">
+            
+            <div class="form-group">
+                <label>Bukti Transaksi</label>
+                <div id="detailProofContainer" style="display: none; flex-direction: column; gap: 6px; margin-bottom: 8px;">
+                    <img id="detailProofImage" src="" style="width: 100%; max-height: 250px; object-fit: contain; border-radius: 12px; border: 1.5px solid var(--cv-border-primary); background: var(--cv-bg-input); cursor: zoom-in;" alt="Bukti Transaksi" title="Klik untuk memperbesar">
+                </div>
+                <div class="custom-file-box">
+                    <input type="file" id="editProofInput" accept="image/*" style="display: none;" onchange="updateFileName(this, 'editFileNameDisplay')">
+                    <label for="editProofInput" class="btn-pilih-file">Pilih File</label>
+                    <span id="editFileNameDisplay" class="file-name-text">Tidak ada file dipilih</span>
+                </div>
             </div>
-            <div class="custom-file-box">
-                <input type="file" id="editProofInput" accept="image/*" style="display: none;" onchange="updateFileName(this, 'editFileNameDisplay')">
-                <label for="editProofInput" class="btn-pilih-file">Pilih File</label>
-                <span id="editFileNameDisplay" class="file-name-text">Tidak ada file dipilih</span>
+
+            <div class="form-group">
+                <label>Jenis Transaksi</label>
+                <div class="custom-select-box selected" id="btnEditSelectType">-- Pilih Jenis --</div>
+                <input type="hidden" id="editType">
+            </div>
+            
+            <div class="form-group"><label>Jumlah (Rp)</label><input type="text" id="editAmount" inputmode="numeric"></div>
+            <div class="form-group"><label>Keterangan</label><input type="text" id="editDescription"></div>
+            
+            <div class="datetime-group">
+                <div class="form-group"><label>Tanggal</label><input type="date" id="editDate"></div>
+                <div class="form-group"><label>Jam</label><input type="time" id="editTime"></div>
+            </div>
+            
+            <div class="form-group">
+                <label>Metode Pembayaran</label>
+                <div class="custom-select-box selected" id="btnEditSelectMethod">-- Pilih Metode --</div>
+                <input type="hidden" id="editMethod">
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 6px; width: 100%;">
+                <button type="button" id="btnDeleteTransaction" style="background: rgba(244, 63, 94, 0.2); border: 1.5px solid rgba(244, 63, 94, 0.6); color: #fb7185; flex: 1; padding: 14px; border-radius: 12px; font-weight: 800; cursor:pointer; font-size: 1rem;">Hapus</button>
+                <button type="button" id="btnUpdateTransaction" style="background: linear-gradient(135deg, #00f0ff 0%, #0077ff 100%); border: none; color: #020714; flex: 2; padding: 14px; border-radius: 12px; font-weight: 900; cursor:pointer; font-size: 1rem;">Simpan Perubahan</button>
             </div>
         </div>
 
-        <div class="form-group">
-            <label>Jenis Transaksi</label>
-            <div class="custom-select-box selected" id="btnEditSelectType">-- Pilih Jenis --</div>
-            <input type="hidden" id="editType">
-        </div>
-        
-        <div class="form-group"><label>Jumlah (Rp)</label><input type="text" id="editAmount" inputmode="numeric"></div>
-        <div class="form-group"><label>Keterangan</label><input type="text" id="editDescription"></div>
-        
-        <div class="datetime-group">
-            <div class="form-group"><label>Tanggal</label><input type="date" id="editDate"></div>
-            <div class="form-group"><label>Jam</label><input type="time" id="editTime"></div>
-        </div>
-        
-        <div class="form-group">
-            <label>Metode Pembayaran</label>
-            <div class="custom-select-box selected" id="btnEditSelectMethod">-- Pilih Metode --</div>
-            <input type="hidden" id="editMethod">
-        </div>
-
-        <div style="display: flex; gap: 10px; margin-top: 6px; width: 100%;">
-            <button type="button" id="btnDeleteTransaction" style="background: rgba(244, 63, 94, 0.2); border: 1.5px solid rgba(244, 63, 94, 0.6); color: #fb7185; flex: 1; padding: 14px; border-radius: 12px; font-weight: 800; cursor:pointer; font-size: 1rem;">Hapus</button>
-            <button type="button" id="btnUpdateTransaction" style="background: linear-gradient(135deg, #00f0ff 0%, #0077ff 100%); border: none; color: #020714; flex: 2; padding: 14px; border-radius: 12px; font-weight: 900; cursor:pointer; font-size: 1rem;">Simpan Perubahan</button>
-        </div>
     </div>
 </div>
 
