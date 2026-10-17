@@ -322,6 +322,11 @@
         .popup-btn { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff; font-family: 'Rajdhani', sans-serif; font-size: 1.25rem; font-weight: 900; letter-spacing: 1.5px; border: 1px solid rgba(255, 255, 255, 0.4); padding: 16px 48px; border-radius: 16px; cursor: pointer; width: 100%; box-shadow: 0 0 20px rgba(16, 185, 129, 0.5); margin-top: 6px; }
         .popup-btn:active { transform: scale(0.97); filter: brightness(1.15); }
 
+        /* Indikator Sinkronisasi Realtime */
+        .sync-status-badge { display: flex; align-items: center; justify-content: center; gap: 6px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; color: #34d399; margin: 0 auto 12px auto; width: fit-content; text-transform: uppercase; letter-spacing: 1px; }
+        .sync-dot { width: 8px; height: 8px; background: #34d399; border-radius: 50%; box-shadow: 0 0 8px #34d399; animation: syncPulseDot 1.5s infinite ease-in-out; }
+        @keyframes syncPulseDot { 0%, 100% { opacity: 0.4; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.2); } }
+
         /* ====================================================
            LIGHT MODE OVERRIDES MENYELURUH (TERMASUK POPUP & CARD)
            ==================================================== */
@@ -335,10 +340,7 @@
             --cv-bg-history-item: #f8fafc !important;
         }
 
-        /* Menghilangkan bayangan dan glow pada form dan input saat Light Mode */
-        .cv-light-mode .cyber-input-form {
-            box-shadow: none !important;
-        }
+        .cv-light-mode .cyber-input-form { box-shadow: none !important; }
 
         .cv-light-mode .full-app-content input, 
         .cv-light-mode .full-app-content select, 
@@ -356,70 +358,21 @@
             box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.15) !important;
         }
 
-        .cv-light-mode .card-hero h4 {
-            color: #475569 !important;
-        }
-        
-        .cv-light-mode .card-hero p {
-            color: #0f172a !important;
-            text-shadow: none !important;
-        }
+        .cv-light-mode .card-hero h4 { color: #475569 !important; }
+        .cv-light-mode .card-hero p { color: #0f172a !important; text-shadow: none !important; }
+        .cv-light-mode .history-title-clickable { background: #f1f5f9 !important; border-color: #cbd5e1 !important; }
+        .cv-light-mode .history-title-clickable svg { fill: #1e293b !important; filter: none !important; }
+        .cv-light-mode .btn-today-quick { background: #f1f5f9 !important; border-color: #cbd5e1 !important; color: #334155 !important; }
+        .cv-light-mode .filter-badge-wrapper { background: #f1f5f9 !important; border-color: #cbd5e1 !important; }
+        .cv-light-mode .filter-badge-text { color: #334155 !important; }
 
-        .cv-light-mode .history-title-clickable {
-            background: #f1f5f9 !important;
-            border-color: #cbd5e1 !important;
-        }
-        
-        .cv-light-mode .history-title-clickable svg {
-            fill: #1e293b !important;
-            filter: none !important;
-        }
-
-        .cv-light-mode .btn-today-quick {
-            background: #f1f5f9 !important;
-            border-color: #cbd5e1 !important;
-            color: #334155 !important;
-        }
-        
-        .cv-light-mode .filter-badge-wrapper {
-            background: #f1f5f9 !important;
-            border-color: #cbd5e1 !important;
-        }
-        
-        .cv-light-mode .filter-badge-text {
-            color: #334155 !important;
-        }
-
-        .cv-light-mode-modal {
-            background: #ffffff !important;
-            border-color: #cbd5e1 !important;
-            color: #1e293b !important;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
-        }
-        
-        .cv-light-mode-modal .popup-title {
-            color: #0f172a !important;
-        }
-
-        .cv-light-mode-modal .popup-subtitle {
-            color: #475569 !important;
-        }
-
-        .cv-light-mode-modal .custom-option-btn {
-            background: #f1f5f9 !important;
-            border-color: #cbd5e1 !important;
-            color: #1e293b !important;
-        }
-
-        .cv-light-mode-modal .history-clickable-title-box {
-            background: #f8fafc !important;
-            border-color: #cbd5e1 !important;
-        }
-        
+        .cv-light-mode-modal { background: #ffffff !important; border-color: #cbd5e1 !important; color: #1e293b !important; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important; }
+        .cv-light-mode-modal .popup-title { color: #0f172a !important; }
+        .cv-light-mode-modal .popup-subtitle { color: #475569 !important; }
+        .cv-light-mode-modal .custom-option-btn { background: #f1f5f9 !important; border-color: #cbd5e1 !important; color: #1e293b !important; }
+        .cv-light-mode-modal .history-clickable-title-box { background: #f8fafc !important; border-color: #cbd5e1 !important; }
         .cv-light-mode-modal .history-clickable-title-box label,
-        .cv-light-mode-modal .history-clickable-title-box div {
-            color: #1e293b !important;
-        }
+        .cv-light-mode-modal .history-clickable-title-box div { color: #1e293b !important; }
 
         /* 7 TEMA EKSKLUSIF */
         body.theme-minimalist:not(.cv-light-mode) .cyber-modal-card { --cv-bg-modal: #0f172a !important; --cv-border-primary: #334155 !important; --cv-text-primary: #f8fafc !important; --cv-bg-input: #1e293b !important; --cv-bg-history-item: #1e293b !important; --cv-bg-form: #1e293b !important; }
@@ -813,6 +766,11 @@
         </div>
 
         <div class="full-app-content" id="fullAppContent">
+            <div class="sync-status-badge">
+                <div class="sync-dot"></div>
+                <span id="syncStatusText">Cloud Sync: Terhubung</span>
+            </div>
+
             <div class="glass-control-panel">
                 <span class="glass-label-text">Transparansi Kaca:</span>
                 <div class="glass-slider-wrapper"><input type="range" id="glassOpacitySlider" class="glass-range-input" min="0" max="100" value="28"></div>
@@ -1202,17 +1160,36 @@
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
 
+  let isSyncingFromCloud = false;
+
   window.saveTransactionsToFirebase = function(txData) {
+    if (isSyncingFromCloud) return;
     set(ref(db, 'venus_studio/transactions'), txData)
-      .then(() => { console.log("Cloud Sync: Berhasil simpan transaksi ke Firebase!"); })
-      .catch((err) => { console.error("Cloud Sync Transaksi Gagal:", err); });
+      .then(() => { 
+        console.log("Cloud Sync: Berhasil simpan transaksi ke Firebase!"); 
+        updateSyncIndicator(true);
+      })
+      .catch((err) => { 
+        console.error("Cloud Sync Transaksi Gagal:", err); 
+        updateSyncIndicator(false);
+      });
   };
 
-  window.loadTransactionsFromFirebase = function(callback) {
+  window.initFirebaseSync = function(onDataReceived) {
     const dbRef = ref(db, 'venus_studio/transactions');
     onValue(dbRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) { callback(data); }
+      const cloudData = snapshot.val();
+      if (cloudData && Array.isArray(cloudData)) {
+        isSyncingFromCloud = true;
+        onDataReceived(cloudData);
+        setTimeout(() => { isSyncingFromCloud = false; }, 300);
+        updateSyncIndicator(true);
+      } else {
+        updateSyncIndicator(true);
+      }
+    }, (error) => {
+      console.error("Firebase sync error:", error);
+      updateSyncIndicator(false);
     });
   };
 
@@ -1222,13 +1199,22 @@
       .catch((err) => { console.error("Cloud Sync Debts Gagal:", err); });
   };
 
-  window.loadDebtsFromFirebase = function(callback) {
+  window.initDebtFirebaseSync = function(onDebtReceived) {
     const dbRef = ref(db, 'venus_studio/debts');
     onValue(dbRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data) { callback(data); }
+      const cloudDebtData = snapshot.val();
+      if (cloudDebtData && Array.isArray(cloudDebtData)) {
+        onDebtReceived(cloudDebtData);
+      }
     });
   };
+
+  function updateSyncIndicator(isConnected) {
+    const badge = document.getElementById('syncStatusText');
+    if (badge) {
+      badge.innerText = isConnected ? "Cloud Sync: Terhubung" : "Cloud Sync: Menghubungkan...";
+    }
+  }
 </script>
 
 <script>
@@ -1350,8 +1336,8 @@
         }
 
         setTimeout(() => {
-            if (window.loadTransactionsFromFirebase) {
-                window.loadTransactionsFromFirebase((cloudData) => {
+            if (window.initFirebaseSync) {
+                window.initFirebaseSync((cloudData) => {
                     if (cloudData && Array.isArray(cloudData)) {
                         transactions = cloudData;
                         localStorage.setItem('my_transactions', JSON.stringify(transactions));
@@ -1359,15 +1345,15 @@
                     }
                 });
             }
-            if (window.loadDebtsFromFirebase) {
-                window.loadDebtsFromFirebase((cloudDebtData) => {
+            if (window.initDebtFirebaseSync) {
+                window.initDebtFirebaseSync((cloudDebtData) => {
                     if (cloudDebtData && Array.isArray(cloudDebtData)) {
                         localStorage.setItem('venus_debt_tracker_data', JSON.stringify(cloudDebtData));
                         renderDebts();
                     }
                 });
             }
-        }, 1500);
+        }, 800);
     });
 
     function showCyberConfirm(message, onConfirm) {
