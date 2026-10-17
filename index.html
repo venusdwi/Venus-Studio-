@@ -244,20 +244,60 @@
         .full-app-content input, .full-app-content select, .full-app-content textarea { padding: 15px 16px; border: 1.5px solid var(--cv-border-primary); border-radius: 12px; font-size: 1.05rem; font-weight: 600; outline: none; background: var(--cv-bg-input); color: var(--cv-text-primary); width: 100%; max-width: 100% !important; transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; }
         .full-app-content input:focus, .full-app-content select:focus, .full-app-content textarea:focus { border-color: var(--cv-border-primary); box-shadow: 0 0 12px rgba(0, 240, 255, 0.4); }
 
-        .full-app-content input[type="file"] {
-            background: var(--cv-bg-input) !important;
-            color: var(--cv-text-secondary) !important;
-            border: 1.5px dashed var(--cv-border-primary) !important;
+        /* Custom File Upload Styling for Cyber Vault Theme */
+        .custom-file-box {
+            display: flex;
+            align-items: center;
+            background: var(--cv-bg-input);
+            border: 1.5px dashed var(--cv-border-primary);
+            border-radius: 12px;
+            padding: 10px 14px;
+            gap: 12px;
+            transition: all 0.3s ease;
+            width: 100%;
         }
-        .full-app-content input[type="file"]::-webkit-file-upload-button {
-            background: var(--cv-border-primary) !important;
-            color: var(--cv-text-primary) !important;
-            border: none !important;
-            padding: 8px 12px !important;
-            border-radius: 8px !important;
-            font-weight: 700;
+        .custom-file-box:hover {
+            border-color: #00f0ff;
+            background: rgba(0, 240, 255, 0.03);
+        }
+        .btn-pilih-file {
+            background-color: #0f3d4c;
+            color: #00f0ff;
+            border: 1px solid rgba(0, 240, 255, 0.5);
+            padding: 8px 14px;
+            border-radius: 8px;
             cursor: pointer;
-            margin-right: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            text-align: center;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            display: inline-block;
+            margin: 0;
+        }
+        .btn-pilih-file:hover {
+            background-color: #115e67;
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+        }
+        .file-name-text {
+            font-size: 13px;
+            color: var(--cv-text-secondary);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+        .cv-light-mode .btn-pilih-file {
+            background-color: #e2e8f0;
+            color: #0f172a;
+            border-color: #cbd5e1;
+        }
+        .cv-light-mode .custom-file-box {
+            background-color: #f8fafc;
+            border-color: #cbd5e1;
+        }
+        .cv-light-mode .file-name-text {
+            color: #475569;
         }
 
         .full-app-content .custom-select-box { padding: 15px 16px; border: 1.5px solid var(--cv-border-primary); border-radius: 12px; font-size: 1.05rem; font-weight: 800; background: var(--cv-bg-input); color: var(--cv-text-secondary); text-align: center; cursor: pointer; transition: all 0.3s ease; width: 100%; }
@@ -851,7 +891,11 @@
 
                 <div class="form-group">
                     <label for="proofInput">Bukti Transaksi (Opsional)</label>
-                    <input type="file" id="proofInput" accept="image/*">
+                    <div class="custom-file-box">
+                        <input type="file" id="proofInput" accept="image/*" style="display: none;" onchange="updateFileName(this, 'fileNameDisplay')">
+                        <label for="proofInput" class="btn-pilih-file">Pilih File</label>
+                        <span id="fileNameDisplay" class="file-name-text">Tidak ada file dipilih</span>
+                    </div>
                 </div>
 
                 <button type="submit" id="btnSubmit"><span id="btnText">Tambah Transaksi</span></button>
@@ -941,10 +985,14 @@
         
         <div class="form-group">
             <label>Bukti Transaksi</label>
-            <div id="detailProofContainer" style="display: none; flex-direction: column; gap: 6px;">
+            <div id="detailProofContainer" style="display: none; flex-direction: column; gap: 6px; margin-bottom: 8px;">
                 <img id="detailProofImage" src="" style="width: 100%; max-height: 250px; object-fit: contain; border-radius: 12px; border: 1.5px solid var(--cv-border-primary); background: var(--cv-bg-input); cursor: zoom-in;" alt="Bukti Transaksi" title="Klik untuk memperbesar">
             </div>
-            <input type="file" id="editProofInput" accept="image/*">
+            <div class="custom-file-box">
+                <input type="file" id="editProofInput" accept="image/*" style="display: none;" onchange="updateFileName(this, 'editFileNameDisplay')">
+                <label for="editProofInput" class="btn-pilih-file">Pilih File</label>
+                <span id="editFileNameDisplay" class="file-name-text">Tidak ada file dipilih</span>
+            </div>
         </div>
 
         <div class="form-group">
@@ -1076,6 +1124,19 @@
 </div>
 
 <script>
+    // Fungsi untuk memperbarui nama file yang dipilih pada input file kustom
+    function updateFileName(input, displayId) {
+        const display = document.getElementById(displayId);
+        if (!display) return;
+        if (input.files && input.files.length > 0) {
+            display.textContent = input.files[0].name;
+            display.style.color = "#00f0ff";
+        } else {
+            display.textContent = "Tidak ada file dipilih";
+            display.style.color = "";
+        }
+    }
+
     const canvas = document.getElementById('circuitCanvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
@@ -2489,7 +2550,10 @@
             detailProofImage.src = ''; 
             detailProofContainer.style.display = 'none'; 
         }
-        editProofInput.value = ''; detailTransactionModal.classList.add('active');
+        editProofInput.value = ''; 
+        const editFileNameDisplay = document.getElementById('editFileNameDisplay');
+        if (editFileNameDisplay) editFileNameDisplay.innerText = "Tidak ada file dipilih";
+        detailTransactionModal.classList.add('active');
         applyPopupLightMode(detailTransactionModal);
     }
     closeDetailModalBtn.addEventListener('click', () => { detailTransactionModal.classList.remove('active'); });
@@ -2569,6 +2633,9 @@
                 
                 transactionForm.reset(); 
                 document.getElementById('proofInput').value = '';
+                const fileNameDisplay = document.getElementById('fileNameDisplay');
+                if (fileNameDisplay) fileNameDisplay.innerText = "Tidak ada file dipilih";
+                
                 document.getElementById('type').value = '';
                 document.getElementById('paymentMethod').value = '';
                 
