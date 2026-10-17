@@ -244,6 +244,22 @@
         .full-app-content input, .full-app-content select, .full-app-content textarea { padding: 15px 16px; border: 1.5px solid var(--cv-border-primary); border-radius: 12px; font-size: 1.05rem; font-weight: 600; outline: none; background: var(--cv-bg-input); color: var(--cv-text-primary); width: 100%; max-width: 100% !important; transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; }
         .full-app-content input:focus, .full-app-content select:focus, .full-app-content textarea:focus { border-color: var(--cv-border-primary); box-shadow: 0 0 12px rgba(0, 240, 255, 0.4); }
 
+        .full-app-content input[type="file"] {
+            background: var(--cv-bg-input) !important;
+            color: var(--cv-text-secondary) !important;
+            border: 1.5px dashed var(--cv-border-primary) !important;
+        }
+        .full-app-content input[type="file"]::-webkit-file-upload-button {
+            background: var(--cv-border-primary) !important;
+            color: var(--cv-text-primary) !important;
+            border: none !important;
+            padding: 8px 12px !important;
+            border-radius: 8px !important;
+            font-weight: 700;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
         .full-app-content .custom-select-box { padding: 15px 16px; border: 1.5px solid var(--cv-border-primary); border-radius: 12px; font-size: 1.05rem; font-weight: 800; background: var(--cv-bg-input); color: var(--cv-text-secondary); text-align: center; cursor: pointer; transition: all 0.3s ease; width: 100%; }
         .full-app-content .custom-select-box.selected { color: var(--cv-text-primary); border-color: var(--cv-border-primary); }
         
@@ -254,9 +270,6 @@
         .account-title-card:active { background: rgba(0, 240, 255, 0.2); border-color: #00f0ff; transform: scale(0.98); }
         .account-title-name { font-family: 'Rajdhani', sans-serif; font-size: 1.15rem; font-weight: 800; color: #00f0ff; letter-spacing: 1px; text-transform: uppercase; }
         .account-title-arrow { color: #7dd3fc; font-weight: 900; font-size: 1.25rem; }
-
-        .btn-add-account-action { background: rgba(0, 240, 255, 0.1); border: 1.5px dashed rgba(0, 240, 255, 0.6); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 1rem; font-weight: 800; padding: 16px; border-radius: 14px; cursor: pointer; text-align: center; letter-spacing: 1px; text-transform: uppercase; transition: all 0.2s ease; width: 100%; }
-        .btn-add-account-action:active { background: rgba(0, 240, 255, 0.3); transform: scale(0.98); }
 
         .sub-account-modal, .all-history-modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3, 14, 38, 0.98); z-index: 20; display: none; flex-direction: column; padding: 20px 16px; justify-content: space-between; border-radius: 26px; overflow-y: auto; overflow-x: hidden !important; }
         .sub-account-modal.active, .all-history-modal.active { display: flex !important; }
@@ -839,7 +852,7 @@
 
                 <div class="form-group">
                     <label for="proofInput">Bukti Transaksi (Opsional)</label>
-                    <input type="file" id="proofInput" accept="image/*" style="padding: 12px 16px; background: var(--cv-bg-input); color: var(--cv-text-secondary); border: 1.5px dashed var(--cv-border-primary); border-radius: 12px; font-size: 0.95rem; width: 100%; transition: all 0.3s ease;">
+                    <input type="file" id="proofInput" accept="image/*">
                 </div>
 
                 <button type="submit" id="btnSubmit"><span id="btnText">Tambah Transaksi</span></button>
@@ -930,10 +943,9 @@
         <div class="form-group">
             <label>Bukti Transaksi</label>
             <div id="detailProofContainer" style="display: none; flex-direction: column; gap: 6px;">
-                <!-- Kotak putih dihapus dan diganti gaya transparan/gelap senada tema aplikasi -->
                 <img id="detailProofImage" src="" style="width: 100%; max-height: 250px; object-fit: contain; border-radius: 12px; border: 1.5px solid var(--cv-border-primary); background: var(--cv-bg-input); cursor: zoom-in;" alt="Bukti Transaksi" title="Klik untuk memperbesar">
             </div>
-            <input type="file" id="editProofInput" accept="image/*" style="padding: 12px; font-size: 0.9rem; background: var(--cv-bg-input); color: var(--cv-text-secondary); border: 1.5px dashed var(--cv-border-primary); border-radius: 12px; width: 100%; margin-top: 6px;">
+            <input type="file" id="editProofInput" accept="image/*">
         </div>
 
         <div class="form-group">
