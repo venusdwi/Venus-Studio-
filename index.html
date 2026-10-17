@@ -325,7 +325,12 @@
 
         .full-app-content .datetime-custom-wrapper { position: relative; display: flex; align-items: center; background: var(--cv-bg-input); border: 1.5px solid var(--cv-border-primary); border-radius: 12px; padding: 15px 16px; cursor: pointer; transition: all 0.3s ease; z-index: 10; pointer-events: auto !important; width: 100%; }
         .full-app-content .datetime-custom-wrapper:active { border-color: var(--cv-border-primary); background: rgba(0, 240, 255, 0.15); transform: scale(0.98); }
-        .datetime-custom-wrapper input[type="date"], .datetime-custom-wrapper input[type="time"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 15; border: none; background: transparent; }
+        
+        /* Memperbaiki tampilan elemen date/time agar mengikuti tema gelap dan tidak putih */
+        .full-app-content .datetime-custom-wrapper input[type="date"], 
+        .full-app-content .datetime-custom-wrapper input[type="time"] { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 15; border: none; background: transparent; color-scheme: dark; 
+        }
         
         .full-app-content .datetime-display-text { font-size: 1.1rem; font-weight: 600; color: var(--cv-text-primary); pointer-events: none; width: 100%; transition: color 0.3s ease; }
 
@@ -349,7 +354,7 @@
         .filter-badge-wrapper { position: relative; display: inline-flex; align-items: center; justify-content: center; background: rgba(0, 240, 255, 0.18); border: 1px solid rgba(0, 240, 255, 0.5); padding: 6px 12px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; overflow: hidden; min-height: 36px; }
         .filter-badge-wrapper:active { background: rgba(0, 240, 255, 0.35); transform: scale(0.95); }
         .filter-badge-text { font-size: 0.78rem; font-weight: 800; color: #00f0ff; text-align: center; pointer-events: none; white-space: nowrap; display: block; line-height: 1.2; }
-        #filterDateInputDirect { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 10; }
+        #filterDateInputDirect { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 10; color-scheme: dark; }
 
         .history-list { list-style: none; display: flex; flex-direction: column; gap: 10px; width: 100%; }
         .full-app-content .history-item { display: flex; justify-content: space-between; align-items: center; padding: 16px 15px; background: var(--cv-bg-history-item); border: 1.5px solid var(--cv-border-primary); border-radius: 14px; border-left: 6px solid #a5f3fc; cursor: pointer; transition: transform 0.15s ease, background-color 0.3s ease, border-color 0.3s ease; width: 100%; }
@@ -400,6 +405,7 @@
         .cv-light-mode .full-app-content .custom-select-box,
         .cv-light-mode .full-app-content .datetime-custom-wrapper {
             box-shadow: none !important;
+            color-scheme: light !important;
         }
 
         .cv-light-mode .full-app-content input:focus, 
