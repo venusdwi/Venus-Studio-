@@ -998,7 +998,7 @@
         <div id="cyberConfirmMessage" style="font-size: 0.95rem; color: #a5f3fc; line-height: 1.5;">Apakah Anda yakin ingin menghapus transaksi ini?</div>
         <div style="display: flex; gap: 10px; width: 100%; margin-top: 6px;">
             <button type="button" id="cyberConfirmCancelBtn" style="background: rgba(0, 240, 255, 0.1); border: 1.5px solid rgba(0, 240, 255, 0.4); color: #00f0ff; flex: 1; padding: 14px; border-radius: 12px; font-weight: 800; cursor: pointer;">Batal</button>
-            <button type="button" id="cyberConfirmOkBtn" style="background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%); border: none; color: #fff; flex: 1; padding: 14px; border-radius: 12px; font-weight: 900; cursor: pointer;">Hapus</button>
+            <button type="button" id="cyberConfirmOkBtn" style="background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%); border: none; color: #fff; flex: 1; padding: 14px; border-radius: 900; cursor: pointer;">Hapus</button>
         </div>
     </div>
 </div>
@@ -1224,7 +1224,6 @@
         });
     });
 
-    // Glass opacity slider fix
     const glassOpacitySlider = document.getElementById('glassOpacitySlider');
     const opacityValText = document.getElementById('opacityValText');
 
@@ -1323,28 +1322,46 @@
         } catch (e) {}
     }
 
+    /* FUNGSI EFEK SUARA SUKSES PIN - VOLUME MAKSIMAL DENGAN DYNAMIC COMPRESSOR */
     function playPinSuccessSound() {
         try {
             const ctx = new (window.AudioContext || window.webkitAudioContext)();
             if (ctx.state === 'suspended') ctx.resume();
             const now = ctx.currentTime;
             
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = 'triangle';
-            
-            osc.frequency.setValueAtTime(587.33, now); 
-            osc.frequency.setValueAtTime(880, now + 0.12); 
-            
-            gain.gain.setValueAtTime(0.01, now);
-            gain.gain.linearRampToValueAtTime(0.8, now + 0.04); // Volume diperbesar
-            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
-            
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            
-            osc.start(now);
-            osc.stop(now + 0.45);
+            // Compressor agar sinyal suara kencang tanpa distorsi
+            const compressor = ctx.createDynamicsCompressor();
+            compressor.threshold.setValueAtTime(-10, now);
+            compressor.knee.setValueAtTime(12, now);
+            compressor.ratio.setValueAtTime(12, now);
+            compressor.attack.setValueAtTime(0.002, now);
+            compressor.release.setValueAtTime(0.15, now);
+            compressor.connect(ctx.destination);
+
+            const masterGain = ctx.createGain();
+            masterGain.gain.setValueAtTime(0.01, now);
+            masterGain.gain.linearRampToValueAtTime(1.8, now + 0.03); // Volume boosted kencang
+            masterGain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+            masterGain.connect(compressor);
+
+            // Lapisan Audio 1: Gelombang Triangle
+            const osc1 = ctx.createOscillator();
+            osc1.type = 'triangle';
+            osc1.frequency.setValueAtTime(587.33, now); 
+            osc1.frequency.setValueAtTime(880, now + 0.12); 
+            osc1.connect(masterGain);
+
+            // Lapisan Audio 2: Gelombang Sine untuk tebal bass/harmonik
+            const osc2 = ctx.createOscillator();
+            osc2.type = 'sine';
+            osc2.frequency.setValueAtTime(1174.66, now); 
+            osc2.frequency.setValueAtTime(1760, now + 0.12); 
+            osc2.connect(masterGain);
+
+            osc1.start(now);
+            osc2.start(now);
+            osc1.stop(now + 0.5);
+            osc2.stop(now + 0.5);
         } catch (e) {}
     }
 
@@ -1364,7 +1381,7 @@
                 osc.frequency.setValueAtTime(freq, startTime);
                 
                 gain.gain.setValueAtTime(0.01, startTime);
-                gain.gain.linearRampToValueAtTime(0.8, startTime + 0.04); // Volume diperbesar
+                gain.gain.linearRampToValueAtTime(1.0, startTime + 0.04);
                 gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.4);
                 
                 osc.connect(gain);
@@ -1903,7 +1920,7 @@
         updateUI();
     });
     document.getElementById('filterBadgeWrapperBtn').addEventListener('click', (e) => { e.stopPropagation(); try { filterDateInputDirect.showPicker(); } catch (err) { filterDateInputDirect.click(); } });
-    filterDateInputDirect.addEventListener('change', function() { if (this.value) { currentFilterDate = this.value; filterBadgeText.innerText = formatTransactionDateShort(currentFilterDate); updateUI(); } });
+    filterDateInputDirect.addEventListener('change', function() { if (this.value) { currentFilterDate = this.value; filterBadgeText.innerText = formatTransactionDateShort(this.value); updateUI(); } });
 
     function formatTransactionDateShort(dateStr) {
         if (!dateStr) return '';
