@@ -1176,6 +1176,32 @@
         }, 500);
     });
 
+    function playPinSuccessSound() {
+        try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            if (ctx.state === 'suspended') ctx.resume();
+            const now = ctx.currentTime;
+            
+            // Suara futuristik sukses (dua nada naik)
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            
+            osc.frequency.setValueAtTime(440, now); // Nada A4
+            osc.frequency.setValueAtTime(880, now + 0.15); // Nada A5
+            
+            gain.gain.setValueAtTime(0.01, now);
+            gain.gain.linearRampToValueAtTime(0.4, now + 0.05);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+            
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            
+            osc.start(now);
+            osc.stop(now + 0.5);
+        } catch (e) {}
+    }
+
     function playNetflixIntroSound() { 
         try { 
             const ctx = new (window.AudioContext || window.webkitAudioContext)(); 
@@ -1288,6 +1314,7 @@
     
     function verifyPin() {
         if (enteredPin === CORRECT_PIN) {
+            playPinSuccessSound();
             cyberScannerFlash.classList.add('active'); pinScreenOverlay.classList.add('hidden');
             setTimeout(() => { 
                 techBgContainer.classList.add('active');
@@ -1324,6 +1351,7 @@
 
     function verifyDebtPin() {
         if (enteredDebtPin === CORRECT_PIN) {
+            playPinSuccessSound();
             debtPinOverlay.classList.remove('active');
             debtModalOverlay.classList.add('active');
             sessionStorage.setItem('venus_active_modal', 'debt');
@@ -1865,6 +1893,9 @@
     });
 
     const transactionForm = document.getElementById('transactionForm');
+    const btnSubmit = document.getElementById('btnSubmit');
+    const btnText = document.getElementById('btnText');
+
     transactionForm.addEventListener('submit', function(e) {
         e.preventDefault();
         const type = document.getElementById('type').value;
@@ -1877,21 +1908,32 @@
 
         if (!type || !method || !amount || isNaN(amount) || !description) return alert('Lengkapi data transaksi dengan benar!');
 
-        compressImage(proofFile, function(base64Proof) {
-            transactions.push({ id: Date.now(), type, amount, description, date, time, method, proof: base64Proof });
-            currentFilterDate = date; filterDateInputDirect.value = date; filterBadgeText.innerText = formatTransactionDateShort(date);
-            updateUI(); transactionForm.reset();
-            document.getElementById('proofInput').value = '';
-            document.getElementById('fileNameDisplay').innerText = "Tidak ada file dipilih";
-            document.getElementById('type').value = ''; document.getElementById('paymentMethod').value = '';
-            document.getElementById('btnSelectType').innerText = '-- Pilih Jenis --';
-            document.getElementById('btnSelectMethod').innerText = '-- Pilih Metode --';
-            refreshRealtimeDateTime();
-            document.getElementById('popupNotification').classList.add('active');
-        });
+        // Tampilkan Loading "Memproses" selama 2 detik
+        btnSubmit.disabled = true;
+        btnText.innerHTML = '<span class="btn-spinner"></span>&nbsp;&nbsp;Memproses...';
+
+        setTimeout(() => {
+            compressImage(proofFile, function(base64Proof) {
+                transactions.push({ id: Date.now(), type, amount, description, date, time, method, proof: base64Proof });
+                currentFilterDate = date; filterDateInputDirect.value = date; filterBadgeText.innerText = formatTransactionDateShort(date);
+                updateUI(); transactionForm.reset();
+                document.getElementById('proofInput').value = '';
+                document.getElementById('fileNameDisplay').innerText = "Tidak ada file dipilih";
+                document.getElementById('type').value = ''; document.getElementById('paymentMethod').value = '';
+                document.getElementById('btnSelectType').innerText = '-- Pilih Jenis --';
+                document.getElementById('btnSelectMethod').innerText = '-- Pilih Metode --';
+                refreshRealtimeDateTime();
+                
+                // Kembalikan tombol seperti semula
+                btnSubmit.disabled = false;
+                btnText.innerText = 'Tambah Transaksi';
+
+                document.getElementById('popupNotification').classList.add('active');
+            });
+        }, 2000); // 2 Detik durasi loading
     });
 
-    document.getElementById('popupCloseBtn').addEventListener('click', () => { document.getElementById('popupNotification').classList.add('active'); });
+    document.getElementById('popupCloseBtn').addEventListener('click', () => { document.getElementById('popupNotification').classList.remove('active'); });
 
     refreshRealtimeDateTime();
 </script>
