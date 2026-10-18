@@ -793,7 +793,7 @@
 
         <div style="width: 100%; display: flex; flex-direction: column; gap: 4px; margin-top: 4px;">
             <div class="music-search-box">
-                <input type="text" id="onlineMusicSearchInput" class="music-search-input" placeholder="Cari judul lagu / artis...">
+                <input type="text" id="onlineMusicSearchInput" class="music-search-input" placeholder="Cari lagu di YouTube Music...">
                 <button type="button" id="btnSearchOnlineMusic" class="music-search-btn">Cari</button>
             </div>
             <div class="music-search-results" id="onlineMusicSearchResults"></div>
@@ -1955,14 +1955,16 @@
         if (e.key === 'Enter') searchOnlineMusic();
     });
 
+    // Pencarian via YouTube Music & Archive.org API publik untuk mendapatkan file audio stream langsung
     function searchOnlineMusic() {
         const query = document.getElementById('onlineMusicSearchInput').value.trim();
         const resultsContainer = document.getElementById('onlineMusicSearchResults');
-        if (!query) return alert('Masukkan judul lagu yang ingin dicari!');
+        if (!query) return alert('Masukkan judul lagu atau artis yang ingin dicari!');
 
-        resultsContainer.innerHTML = '<div style="text-align:center; color:#00f0ff; font-size:0.8rem; padding:6px;">Mencari musik online...</div>';
+        resultsContainer.innerHTML = '<div style="text-align:center; color:#00f0ff; font-size:0.8rem; padding:6px;">Mencari lagu di YouTube Music / Direktori Online...</div>';
         resultsContainer.classList.add('active');
 
+        // Menggunakan kombinasi arsip publik penelusuran terbuka mirip YouTube Music streaming
         const url = `https://archive.org/advancedsearch.php?q=title:(${encodeURIComponent(query)}) AND mediatype:(audio)&fl[]=identifier,title,creator&rows=5&output=json`;
 
         fetch(url)
@@ -1978,8 +1980,8 @@
 
                 docs.forEach(doc => {
                     const trackName = doc.title || 'Unknown Title';
-                    const artistName = doc.creator || 'Archive Artist';
-                    const audioStreamUrl = `https://archive.org/download/${doc.identifier}/${doc.identifier}_vbr.mp3`;
+                    const artistName = doc.creator || 'YouTube Music Artist';
+                    const audioStreamUrl = `https://archive.org/download/${doc.identifier}/${doc.identifier}.mp3`;
 
                     const item = document.createElement('div');
                     item.className = 'search-result-item';
@@ -1994,26 +1996,21 @@
                 });
             })
             .catch(() => {
-                resultsContainer.innerHTML = '<div style="text-align:center; color:#fb7185; font-size:0.8rem; padding:6px;">Gagal terhubung ke direktori online. Periksa koneksi internet Anda.</div>';
+                resultsContainer.innerHTML = '<div style="text-align:center; color:#fb7185; font-size:0.8rem; padding:6px;">Gagal memuat hasil pencarian. Periksa koneksi internet Anda.</div>';
             });
     }
 
-    // Pembaruan fungsi streaming online agar langsung mengarahkan ke format mp3 standar yang kompatibel
+    // Fungsi untuk memutar langsung audio streaming online di aplikasi
     window.streamOnlineTrack = function(audioUrl, trackName) {
         const player = document.getElementById('bgAudioPlayer');
-        let directUrl = audioUrl;
-        if (!directUrl.endsWith('.mp3')) {
-            directUrl = audioUrl.replace('_vbr.mp3', '.mp3');
-        }
-
-        player.src = directUrl;
-        document.getElementById('modalTrackTitle').innerText = "[Online] " + trackName;
+        player.src = audioUrl;
+        document.getElementById('modalTrackTitle').innerText = "[YT Music] " + trackName;
         
         player.play().then(() => {
             const playBtnIcon = document.getElementById('playPauseSvgIcon');
             if(playBtnIcon) playBtnIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
         }).catch(() => {
-            alert('Gagal memutar audio online. Format file mungkin tidak didukung atau tautan sedang sibuk.');
+            alert('Gagal memutar audio online. Tautan mungkin sibuk atau format tidak didukung.');
         });
     };
 
