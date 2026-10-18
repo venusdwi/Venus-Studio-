@@ -151,7 +151,7 @@
         #circuitCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
         .cyber-vignette { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: radial-gradient(circle at 50% 50%, transparent 30%, rgba(1, 4, 12, 0.65) 100%); pointer-events: none; }
 
-        .container { position: relative; z-index: 10; width: 100% !important; max-width: 440px !important; overflow-x: hidden !important; margin: 0 auto; background: transparent; border: none; box-shadow: none; padding: 10px 4px; display: none; gap: 12px; opacity: 0; transform: scale(0.92); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .container { position: relative; z-index: 10; width: 100% !important; max-width: 440px !important; overflow-x: hidden !important; margin: 0 auto; background: transparent; border: none; box-shadow: none; padding: 10px 4px; display: none; flex-direction: column; align-items: center; gap: 12px; opacity: 0; transform: scale(0.92); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .container.active { display: flex !important; opacity: 1; transform: scale(1); }
         .install-app-btn { background: linear-gradient(135deg, rgba(0, 240, 255, 0.2) 0%, rgba(0, 119, 255, 0.2) 100%); border: 1px solid rgba(0, 240, 255, 0.6); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 0.9rem; font-weight: 800; padding: 10px 16px; border-radius: 12px; cursor: pointer; display: none; align-items: center; justify-content: center; gap: 6px; margin: 0 auto 14px auto; box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); letter-spacing: 1px; text-transform: uppercase; }
 
@@ -196,7 +196,6 @@
         .cyber-icon { width: 20px; height: 20px; fill: #00f0ff; filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.8)); }
         .ctrl-btn.large .cyber-icon { width: 24px; height: 24px; }
 
-        /* Search Music Online Section */
         .music-search-box { width: 100%; display: flex; gap: 6px; margin-bottom: 6px; }
         .music-search-input { flex-grow: 1; padding: 10px 12px; border: 1.5px solid rgba(0, 240, 255, 0.4); border-radius: 10px; background: rgba(2, 12, 32, 0.9); color: #fff; font-size: 0.9rem; outline: none; }
         .music-search-btn { background: rgba(0, 240, 255, 0.2); border: 1.5px solid #00f0ff; color: #00f0ff; padding: 0 14px; border-radius: 10px; font-weight: 800; cursor: pointer; font-size: 0.85rem; }
@@ -1317,7 +1316,6 @@
         });
     }
 
-    // Fungsi untuk menghapus draft transaksi yang belum selesai
     function clearUnfinishedTransactionDraft() {
         document.getElementById('transactionForm').reset();
         document.getElementById('proofInput').value = '';
@@ -1347,15 +1345,13 @@
         if (el) el.addEventListener('input', saveTransactionDraftOnFly);
     });
 
-    // SISTEM BACKGROUND TIMEOUT 1 MENIT & LOCKSCREEN
-    const LOCK_TIMEOUT_MS = 60 * 1000; // 1 Menit
+    const LOCK_TIMEOUT_MS = 60 * 1000;
 
     function lockAppDueToInactivity() {
         sessionStorage.removeItem('venus_is_logged');
         sessionStorage.setItem('venus_active_modal', 'none');
         clearUnfinishedTransactionDraft();
 
-        // Sembunyikan semua modal & aplikasi utama
         document.getElementById('cyberModalOverlay').classList.remove('active');
         document.getElementById('musicModalOverlay').classList.remove('active');
         document.getElementById('personalModalOverlay').classList.remove('active');
@@ -1363,7 +1359,6 @@
         document.getElementById('mainAppContainer').classList.remove('active');
         document.getElementById('techBgContainer').classList.remove('active');
         
-        // Munculkan layar PIN menggunakan kelas .active
         clearAllPin();
         document.getElementById('pinScreenOverlay').classList.add('active');
     }
