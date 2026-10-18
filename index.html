@@ -334,7 +334,7 @@
             box-shadow: 0 0 50px rgba(0, 240, 255, 0.4) !important;
         }
 
-        /* Grouping & Separator Rekap Bulanan */
+        /* Grouping & Separator Rekap Bulanan - DIJAMIN PAS DI LAYAR HP */
         .monthly-date-header {
             font-family: 'Rajdhani', sans-serif;
             font-size: 0.95rem;
@@ -351,9 +351,12 @@
         }
 
         .monthly-group-divider {
-            height: 1px;
-            background: linear-gradient(90deg, rgba(0,240,255,0.4) 0%, rgba(0,240,255,0.05) 100%);
-            margin: 12px 0 6px 0;
+            height: 1.5px;
+            width: calc(100% - 12px);
+            margin: 14px auto 10px auto;
+            background: linear-gradient(90deg, transparent 0%, rgba(0, 240, 255, 0.5) 50%, transparent 100%);
+            box-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
+            flex-shrink: 0;
         }
 
         .monthly-item-bullet {
