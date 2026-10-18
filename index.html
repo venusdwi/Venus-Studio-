@@ -108,7 +108,8 @@
         }
 
         .splash-bottom-section { position: fixed; bottom: 85px; width: 100%; display: flex; justify-content: center; z-index: 50; }
-        .tap-here-btn { background: linear-gradient(135deg, rgba(0, 240, 255, 0.15) 0%, rgba(0, 119, 255, 0.25) 100%); border: 1.5px solid rgba(0, 240, 255, 0.7); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 1.15rem; font-weight: 800; letter-spacing: 3px; padding: 14px 38px; border-radius: 30px; cursor: pointer; box-shadow: 0 0 20px rgba(0, 240, 255, 0.35); text-transform: uppercase; opacity: 1; visibility: visible; animation: tapPulse 1.5s infinite ease-in-out; text-decoration: none !important; outline: none !important; }
+        .tap-here-btn { background: linear-gradient(135deg, rgba(0, 240, 255, 0.15) 0%, rgba(0, 119, 255, 0.25) 100%); border: 1.5px solid rgba(0, 240, 255, 0.7); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 1.15rem; font-weight: 800; letter-spacing: 3px; padding: 14px 38px; border-radius: 30px; cursor: pointer; box-shadow: 0 0 20px rgba(0, 240, 255, 0.35); text-transform: uppercase; opacity: 0; visibility: hidden; transition: opacity 0.5s ease, transform 0.2s ease; text-decoration: none !important; outline: none !important; }
+        .tap-here-btn.show { opacity: 1; visibility: visible; animation: tapPulse 1.5s infinite ease-in-out; }
         .tap-here-btn:active { transform: scale(0.95); background: rgba(0, 240, 255, 0.35); box-shadow: 0 0 30px rgba(0, 240, 255, 0.8); }
 
         @keyframes tapPulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); } 50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(0, 240, 255, 0.6); } }
@@ -1147,6 +1148,11 @@
             else if (activeModal === 'music') document.getElementById('musicModalOverlay').classList.add('active');
             else if (activeModal === 'personal') document.getElementById('personalModalOverlay').classList.add('active');
             else if (activeModal === 'debt') document.getElementById('debtModalOverlay').classList.add('active');
+        } else {
+            setTimeout(() => { 
+                playNetflixIntroSound(); 
+                speakWelcomeGreeting(); 
+            }, 600);
         }
 
         setTimeout(() => {
@@ -1169,6 +1175,63 @@
             }
         }, 500);
     });
+
+    function playNetflixIntroSound() { 
+        try { 
+            const ctx = new (window.AudioContext || window.webkitAudioContext)(); 
+            if (ctx.state === 'suspended') ctx.resume(); 
+            const now = ctx.currentTime; 
+            const osc1 = ctx.createOscillator(); 
+            const gain1 = ctx.createGain(); 
+            osc1.type = 'sawtooth'; 
+            osc1.frequency.setValueAtTime(100, now); 
+            osc1.frequency.exponentialRampToValueAtTime(32, now + 0.55); 
+            gain1.gain.setValueAtTime(0.01, now); 
+            gain1.gain.linearRampToValueAtTime(0.75, now + 0.08); 
+            gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.85); 
+            osc1.connect(gain1); 
+            gain1.connect(ctx.destination); 
+            osc1.start(now); 
+            osc1.stop(now + 0.85); 
+        } catch (e) {} 
+    }
+
+    function speakWelcomeGreeting() {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance("Welcome To Venus Studio, Tap here to login");
+            utterance.lang = 'en-US'; 
+            utterance.rate = 0.95; 
+            utterance.pitch = 1.0;
+            
+            utterance.onboundary = function(event) {
+                if (event.name === 'word') {
+                    const spokenWord = utterance.text.substring(event.charIndex, event.charIndex + event.charLength).toLowerCase();
+                    if (spokenWord === 'tap') {
+                        if (btnTapHere && !btnTapHere.classList.contains('show')) {
+                            btnTapHere.classList.add('show');
+                        }
+                    }
+                }
+            };
+
+            utterance.onend = function() { 
+                if (btnTapHere && !btnTapHere.classList.contains('show')) {
+                    btnTapHere.classList.add('show'); 
+                }
+            };
+
+            setTimeout(() => { 
+                if (btnTapHere && !btnTapHere.classList.contains('show')) { 
+                    btnTapHere.classList.add('show'); 
+                } 
+            }, 2500);
+
+            window.speechSynthesis.speak(utterance);
+        } else { 
+            if (btnTapHere) btnTapHere.classList.add('show'); 
+        }
+    }
 
     function showCyberConfirm(message, onConfirm) {
         const modal = document.getElementById('cyberConfirmModal');
@@ -1200,6 +1263,7 @@
 
     if (btnTapHere) {
         btnTapHere.addEventListener('click', () => {
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
             if (splashScreenOverlay) splashScreenOverlay.classList.add('hidden');
             setTimeout(() => { if (pinScreenOverlay) pinScreenOverlay.classList.add('active'); }, 200);
         });
@@ -1827,7 +1891,7 @@
         });
     });
 
-    document.getElementById('popupCloseBtn').addEventListener('click', () => { document.getElementById('popupNotification').classList.remove('active'); });
+    document.getElementById('popupCloseBtn').addEventListener('click', () => { document.getElementById('popupNotification').classList.add('active'); });
 
     refreshRealtimeDateTime();
 </script>
