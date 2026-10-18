@@ -177,22 +177,35 @@
         .close-cyber-modal, .close-music-modal, .close-personal-modal, .close-debt-modal, .close-view-debt { background: rgba(0, 240, 255, 0.12); border: 1.5px solid rgba(0, 240, 255, 0.5); color: #00f0ff; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800; transition: all 0.2s ease; flex-shrink: 0; }
         .close-cyber-modal:active, .close-music-modal:active, .close-personal-modal:active, .close-debt-modal:active, .close-view-debt:active { background: rgba(0, 240, 255, 0.35); transform: scale(0.92); }
 
-        .audio-stabilizer-container { width: 100% !important; max-width: 260px !important; height: 68px !important; display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: flex-end !important; margin: 1.4rem auto 0.2rem auto !important; padding: 0 !important; position: relative !important; border: none !important; background: transparent !important; box-shadow: none !important; }
-        .stabilizer-bars-wrapper { display: flex !important; align-items: flex-end !important; justify-content: space-between !important; width: 210px !important; height: 52px !important; border: none !important; border-bottom: 1.5px solid rgba(0, 240, 255, 0.25) !important; background: transparent !important; padding-bottom: 0px !important; box-shadow: none !important; }
+        .audio-stabilizer-container { width: 100% !important; max-width: 260px !important; height: 50px !important; display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: flex-end !important; margin: 0.8rem auto 0.1rem auto !important; padding: 0 !important; position: relative !important; border: none !important; background: transparent !important; box-shadow: none !important; }
+        .stabilizer-bars-wrapper { display: flex !important; align-items: flex-end !important; justify-content: space-between !important; width: 210px !important; height: 40px !important; border: none !important; border-bottom: 1.5px solid rgba(0, 240, 255, 0.25) !important; background: transparent !important; padding-bottom: 0px !important; box-shadow: none !important; }
         .stabilizer-bar { width: 4px; height: 6px; background: #00f0ff; border-radius: 2px; box-shadow: 0 0 6px rgba(0, 240, 255, 0.8); transition: height 0.05s ease; }
         
-        .track-title-display-box { width: 100% !important; background: transparent !important; border: none !important; border-radius: 0 !important; padding: 4px 10px !important; display: flex !important; align-items: center !important; justify-content: center !important; gap: 8px !important; margin: 14px 0 6px 0 !important; box-shadow: none !important; }
-        .track-title-text { color: #ffffff; font-weight: 800; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 0 10px rgba(0, 240, 255, 0.7); }
+        .track-title-display-box { width: 100% !important; background: transparent !important; border: none !important; border-radius: 0 !important; padding: 2px 10px !important; display: flex !important; align-items: center !important; justify-content: center !important; gap: 8px !important; margin: 6px 0 4px 0 !important; box-shadow: none !important; }
+        .track-title-text { color: #ffffff; font-weight: 800; font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 0 10px rgba(0, 240, 255, 0.7); }
 
-        .music-controls-row { display: flex; align-items: center; justify-content: center; gap: 24px; width: 100%; margin: 6px 0 22px 0; }
+        .music-controls-row { display: flex; align-items: center; justify-content: center; gap: 20px; width: 100%; margin: 4px 0 12px 0; }
         .ctrl-btn { background: rgba(0, 240, 255, 0.1); border: 1.5px solid rgba(0, 240, 255, 0.5); color: #00f0ff; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
-        .ctrl-btn.small { width: 52px; height: 52px; font-size: 1.2rem; }
-        .ctrl-btn.large { width: 72px; height: 72px; background: linear-gradient(135deg, rgba(0, 240, 255, 0.25), rgba(0, 119, 255, 0.35)); border: 2px solid #00f0ff; box-shadow: 0 0 20px rgba(0, 240, 255, 0.6); }
+        .ctrl-btn.small { width: 44px; height: 44px; font-size: 1.1rem; }
+        .ctrl-btn.large { width: 60px; height: 60px; background: linear-gradient(135deg, rgba(0, 240, 255, 0.25), rgba(0, 119, 255, 0.35)); border: 2px solid #00f0ff; box-shadow: 0 0 20px rgba(0, 240, 255, 0.6); }
         .ctrl-btn:active { transform: scale(0.92); background: rgba(0, 240, 255, 0.4); }
-        .cyber-icon { width: 22px; height: 22px; fill: #00f0ff; filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.8)); }
-        .ctrl-btn.large .cyber-icon { width: 28px; height: 28px; }
+        .cyber-icon { width: 20px; height: 20px; fill: #00f0ff; filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.8)); }
+        .ctrl-btn.large .cyber-icon { width: 24px; height: 24px; }
 
-        .playlist-wrapper { width: 100%; flex-grow: 1; min-height: 160px; overflow-y: auto; overflow-x: hidden !important; background: rgba(2, 12, 32, 0.7); border: 1.5px solid rgba(0, 240, 255, 0.3); border-radius: 14px; padding: 8px; display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
+        /* Search Music Online Section */
+        .music-search-box { width: 100%; display: flex; gap: 6px; margin-bottom: 6px; }
+        .music-search-input { flex-grow: 1; padding: 10px 12px; border: 1.5px solid rgba(0, 240, 255, 0.4); border-radius: 10px; background: rgba(2, 12, 32, 0.9); color: #fff; font-size: 0.9rem; outline: none; }
+        .music-search-btn { background: rgba(0, 240, 255, 0.2); border: 1.5px solid #00f0ff; color: #00f0ff; padding: 0 14px; border-radius: 10px; font-weight: 800; cursor: pointer; font-size: 0.85rem; }
+        
+        .music-search-results { width: 100%; max-height: 110px; overflow-y: auto; background: rgba(1, 6, 18, 0.95); border: 1px solid rgba(0, 240, 255, 0.3); border-radius: 10px; padding: 6px; display: none; flex-direction: column; gap: 4px; margin-bottom: 6px; text-align: left; }
+        .music-search-results.active { display: flex; }
+        .search-result-item { display: flex; justify-content: space-between; align-items: center; background: rgba(0, 240, 255, 0.05); padding: 6px 10px; border-radius: 8px; font-size: 0.82rem; gap: 8px; border: 1px solid rgba(0,240,255,0.15); }
+        .search-result-title { color: #fff; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-grow: 1; }
+        .search-action-btns { display: flex; gap: 4px; flex-shrink: 0; }
+        .btn-stream-online { background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; color: #34d399; padding: 3px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 800; cursor: pointer; }
+        .btn-add-online { background: rgba(0, 240, 255, 0.2); border: 1px solid #00f0ff; color: #00f0ff; padding: 3px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 800; cursor: pointer; }
+
+        .playlist-wrapper { width: 100%; flex-grow: 1; min-height: 120px; overflow-y: auto; overflow-x: hidden !important; background: rgba(2, 12, 32, 0.7); border: 1.5px solid rgba(0, 240, 255, 0.3); border-radius: 14px; padding: 8px; display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
         .playlist-item { display: flex; align-items: center; justify-content: space-between; background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.22); padding: 10px 12px; border-radius: 10px; cursor: pointer; font-size: 0.9rem; text-align: left; gap: 10px; }
         .playlist-item.active-track { background: rgba(0, 240, 255, 0.2); border-color: #00f0ff; }
         .playlist-delete-btn { color: #fb7185; font-size: 0.8rem; font-weight: 700; cursor: pointer; padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(244, 63, 94, 0.35); background: rgba(244, 63, 94, 0.08); letter-spacing: 0.3px; display: inline-block; text-align: center; }
@@ -777,6 +790,16 @@
             <div style="font-family: 'Orbitron', sans-serif; font-size: 1.05rem; font-weight: 900; color: #00f0ff; letter-spacing: 1.5px; text-align: center;">CYBER AUDIO PLAYER</div>
             <div style="display: flex; justify-content: flex-end;"><button type="button" class="close-music-modal" id="closeMusicModalBtn" style="position: static;">✕</button></div>
         </div>
+
+        <!-- Fitur Pencarian Musik Online -->
+        <div style="width: 100%; display: flex; flex-direction: column; gap: 4px; margin-top: 4px;">
+            <div class="music-search-box">
+                <input type="text" id="onlineMusicSearchInput" class="music-search-input" placeholder="Cari judul lagu online...">
+                <button type="button" id="btnSearchOnlineMusic" class="music-search-btn">Cari</button>
+            </div>
+            <div class="music-search-results" id="onlineMusicSearchResults"></div>
+        </div>
+
         <div class="audio-stabilizer-container" id="audioStabilizerBox">
             <div class="stabilizer-bars-wrapper" id="stabilizerBarsWrapper">
                 <div class="stabilizer-bar"></div><div class="stabilizer-bar"></div><div class="stabilizer-bar"></div><div class="stabilizer-bar"></div><div class="stabilizer-bar"></div><div class="stabilizer-bar"></div><div class="stabilizer-bar"></div><div class="stabilizer-bar"></div><div class="stabilizer-bar"></div><div class="stabilizer-bar"></div><div class="stabilizer-bar"></div><div class="stabilizer-bar"></div><div class="stabilizer-bar"></div><div class="stabilizer-bar"></div><div class="stabilizer-bar"></div><div class="stabilizer-bar"></div><div class="stabilizer-bar"></div><div class="stabilizer-bar"></div><div class="stabilizer-bar"></div><div class="stabilizer-bar"></div><div class="stabilizer-bar"></div><div class="stabilizer-bar"></div><div class="stabilizer-bar"></div><div class="stabilizer-bar"></div>
@@ -796,9 +819,9 @@
             <button type="button" class="ctrl-btn small" id="nextTrackBtn" title="Next"><svg class="cyber-icon" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12h2V6h-2z"/></svg></button>
         </div>
         <div style="display: flex; gap: 8px; width: 100%;">
-            <button type="button" id="modalUploadBtn" style="flex: 2; padding: 12px; font-size: 0.9rem; font-weight: 800; border-radius: 12px; background: linear-gradient(135deg, rgba(0,240,255,0.25), rgba(0,119,255,0.25)); border: 1px solid rgba(0,240,255,0.6); color: #00f0ff; cursor: pointer;">Add music</button>
-            <button type="button" id="btnExportMusic" style="flex: 1; padding: 12px; font-size: 0.78rem; font-weight: 800; border-radius: 12px; background: rgba(16,185,129,0.2); border: 1px solid rgba(16,185,129,0.6); color: #34d399; cursor: pointer;">Backup Musik</button>
-            <button type="button" id="btnImportMusic" style="flex: 1; padding: 12px; font-size: 0.78rem; font-weight: 800; border-radius: 12px; background: rgba(245,158,11,0.2); border: 1px solid rgba(245,158,11,0.6); color: #fbbf24; cursor: pointer;">Pulihkan Musik</button>
+            <button type="button" id="modalUploadBtn" style="flex: 2; padding: 10px; font-size: 0.85rem; font-weight: 800; border-radius: 12px; background: linear-gradient(135deg, rgba(0,240,255,0.25), rgba(0,119,255,0.25)); border: 1px solid rgba(0,240,255,0.6); color: #00f0ff; cursor: pointer;">Add File</button>
+            <button type="button" id="btnExportMusic" style="flex: 1; padding: 10px; font-size: 0.75rem; font-weight: 800; border-radius: 12px; background: rgba(16,185,129,0.2); border: 1px solid rgba(16,185,129,0.6); color: #34d399; cursor: pointer;">Backup</button>
+            <button type="button" id="btnImportMusic" style="flex: 1; padding: 10px; font-size: 0.75rem; font-weight: 800; border-radius: 12px; background: rgba(245,158,11,0.2); border: 1px solid rgba(245,158,11,0.6); color: #fbbf24; cursor: pointer;">Restore</button>
             <input type="file" id="audioFileInput" accept="audio/*" multiple style="display: none;">
             <input type="file" id="importMusicFileInput" accept=".json" style="display: none;">
         </div>
@@ -1910,23 +1933,85 @@
         if (!dbMusic) return; const transaction = dbMusic.transaction(['songs'], 'readwrite'); const store = transaction.objectStore('songs');
         const request = store.add({ name: name, blob: blob, dateAdded: Date.now() });
         request.onsuccess = function(event) {
-            playlist.push({ id: event.target.result, name: name, url: URL.createObjectURL(blob) });
+            playlist.push({ id: event.target.result, name: name, url: URL.createObjectURL(blob), isOnline: false });
             renderPlaylist(); if (currentTrackIndex === -1 && playlist.length > 0) loadTrack(0); if (callback) callback();
         };
     }
     function loadPlaylistFromDB() {
         if (!dbMusic) return; const transaction = dbMusic.transaction(['songs'], 'readonly'); const store = transaction.objectStore('songs');
         store.getAll().onsuccess = function(event) {
-            playlist = event.target.result.map(song => ({ id: song.id, name: song.name, url: URL.createObjectURL(song.blob) }));
+            playlist = event.target.result.map(song => ({ id: song.id, name: song.name, url: URL.createObjectURL(song.blob), isOnline: false }));
             renderPlaylist(); if (playlist.length > 0) loadTrack(0);
         };
     }
+
     document.getElementById('modalUploadBtn').addEventListener('click', () => document.getElementById('audioFileInput').click());
     document.getElementById('audioFileInput').addEventListener('change', function(e) {
         const files = e.target.files; if (!files.length) return;
         for (let i = 0; i < files.length; i++) { saveSongToDB(files[i].name, files[i]); }
         this.value = '';
     });
+
+    // Fitur Pencarian Musik Online menggunakan API Jamendo (Public Audio)
+    document.getElementById('btnSearchOnlineMusic').addEventListener('click', searchOnlineMusic);
+    document.getElementById('onlineMusicSearchInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') searchOnlineMusic();
+    });
+
+    function searchOnlineMusic() {
+        const query = document.getElementById('onlineMusicSearchInput').value.trim();
+        const resultsContainer = document.getElementById('onlineMusicSearchResults');
+        if (!query) return alert('Masukkan judul lagu yang ingin dicari!');
+
+        resultsContainer.innerHTML = '<div style="text-align:center; color:#00f0ff; font-size:0.8rem; padding:6px;">Mencari musik online...</div>';
+        resultsContainer.classList.add('active');
+
+        // Menggunakan Jamendo API publik untuk pencarian musik bebas hak cipta / indie
+        const clientId = '5938da12'; // Public client ID for testing
+        const url = `https://api.jamendo.com/v3.0/tracks/?client_id=${clientId}&format=jsonjson&limit=5&search=${encodeURIComponent(query)}`;
+
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                resultsContainer.innerHTML = '';
+                if (!data.results || data.results.length === 0) {
+                    resultsContainer.innerHTML = '<div style="text-align:center; color:#fb7185; font-size:0.8rem; padding:6px;">Lagu tidak ditemukan.</div>';
+                    return;
+                }
+
+                data.results.forEach(track => {
+                    const item = document.createElement('div');
+                    item.className = 'search-result-item';
+                    item.innerHTML = `
+                        <span class="search-result-title" title="${track.name} - ${track.artist_name}">${track.name} - ${track.artist_name}</span>
+                        <div class="search-action-btns">
+                            <button type="button" class="btn-stream-online" onclick="streamOnlineTrack('${track.audio}', '${track.name.replace(/'/g, "")}')">Putar</button>
+                            <button type="button" class="btn-add-online" onclick="addOnlineTrackToPlaylist('${track.audio}', '${track.name.replace(/'/g, "")} - ${track.artist_name.replace(/'/g, "")}')">+ Playlist</button>
+                        </div>
+                    `;
+                    resultsContainer.appendChild(item);
+                });
+            })
+            .catch(() => {
+                resultsContainer.innerHTML = '<div style="text-align:center; color:#fb7185; font-size:0.8rem; padding:6px;">Gagal terhubung ke server musik.</div>';
+            });
+    }
+
+    window.streamOnlineTrack = function(audioUrl, trackName) {
+        const player = document.getElementById('bgAudioPlayer');
+        player.src = audioUrl;
+        document.getElementById('modalTrackTitle').innerText = "[Online] " + trackName;
+        player.play().catch(() => alert('Gagal memutar audio online.'));
+    };
+
+    window.addOnlineTrackToPlaylist = function(audioUrl, trackName) {
+        playlist.push({ id: 'online_' + Date.now(), name: trackName, url: audioUrl, isOnline: true });
+        renderPlaylist();
+        alert(`"${trackName}" berhasil ditambahkan ke Playlist!`);
+        document.getElementById('onlineMusicSearchResults').classList.remove('active');
+        document.getElementById('onlineMusicSearchInput').value = '';
+    };
+
     function renderPlaylist() {
         const container = document.getElementById('playlistContainer');
         if (playlist.length === 0) { container.innerHTML = '<div style="font-size: 0.85rem; color: #64748b; font-style: italic; padding: 10px; text-align: center;">Daftar lagu kosong.</div>'; return; }
@@ -1948,12 +2033,19 @@
     });
     function deleteTrack(event, index) {
         event.stopPropagation();
-        if (!dbMusic) return;
-        dbMusic.transaction(['songs'], 'readwrite').objectStore('songs').delete(playlist[index].id).onsuccess = () => {
+        const track = playlist[index];
+        if (track.isOnline) {
             playlist.splice(index, 1);
             if (currentTrackIndex === index) { document.getElementById('bgAudioPlayer').pause(); currentTrackIndex = -1; }
             renderPlaylist();
-        };
+        } else {
+            if (!dbMusic) return;
+            dbMusic.transaction(['songs'], 'readwrite').objectStore('songs').delete(track.id).onsuccess = () => {
+                playlist.splice(index, 1);
+                if (currentTrackIndex === index) { document.getElementById('bgAudioPlayer').pause(); currentTrackIndex = -1; }
+                renderPlaylist();
+            };
+        }
     }
 
     let transactions = [];
@@ -2170,7 +2262,6 @@
             filteredTxs = monthTxs.filter(t => t.type === 'out' || t.type === 'refund');
         }
 
-        // Urutkan transaksi secara KRONOLOGIS (dari Tanggal 1 paling atas)
         filteredTxs.sort((a, b) => {
             if (a.date !== b.date) {
                 return a.date.localeCompare(b.date);
@@ -2189,7 +2280,6 @@
         let currentGroupDate = null;
 
         filteredTxs.forEach((t) => {
-            // Jika beda tanggal, buatkan pembatas & Header Tanggal baru
             if (t.date !== currentGroupDate) {
                 if (currentGroupDate !== null) {
                     const divider = document.createElement('div');
@@ -2205,7 +2295,6 @@
                 listContainer.appendChild(dateHeader);
             }
 
-            // Tampilkan item transaksi
             const li = document.createElement('div');
             li.className = `history-item ${t.type}`;
             li.style.marginBottom = '6px';
