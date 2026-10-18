@@ -196,7 +196,6 @@
         .playlist-item { display: flex; align-items: center; justify-content: space-between; background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.22); padding: 10px 12px; border-radius: 10px; cursor: pointer; font-size: 0.9rem; text-align: left; gap: 10px; }
         .playlist-item.active-track { background: rgba(0, 240, 255, 0.2); border-color: #00f0ff; }
         .playlist-delete-btn { color: #fb7185; font-size: 0.8rem; font-weight: 700; cursor: pointer; padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(244, 63, 94, 0.35); background: rgba(244, 63, 94, 0.08); letter-spacing: 0.3px; display: inline-block; text-align: center; }
-        .track-music-icon-svg { width: 16px; height: 16px; fill: #00f0ff; margin-right: 8px; flex-shrink: 0; filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.8)); }
 
         .full-app-content, .personal-app-content, .debt-app-content { display: flex; flex-direction: column; width: 100% !important; max-width: 100% !important; flex-grow: 1; overflow-y: auto; overflow-x: hidden !important; background: transparent !important; border: none !important; padding: 6px 4px 120px 4px !important; text-align: left; gap: 16px; margin-top: 10px; scroll-behavior: smooth; }
 
@@ -321,6 +320,52 @@
         .sync-status-badge { display: flex; align-items: center; justify-content: center; gap: 6px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; color: #34d399; margin: 0 auto 12px auto; width: fit-content; text-transform: uppercase; letter-spacing: 1px; }
         .sync-dot { width: 8px; height: 8px; background: #34d399; border-radius: 50%; box-shadow: 0 0 8px #34d399; animation: syncPulseDot 1.5s infinite ease-in-out; }
         @keyframes syncPulseDot { 0%, 100% { opacity: 0.4; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.2); } }
+
+        /* Tampilan Rekap Bulanan Full Screen */
+        .monthly-modal-box {
+            background: rgba(3, 14, 38, 0.98) !important;
+            border: 2px solid rgba(0, 240, 255, 0.75) !important;
+            border-radius: 26px !important;
+            width: 100% !important;
+            max-width: 410px !important;
+            height: 96vh !important;
+            height: 96dvh !important;
+            padding: 20px 18px !important;
+            box-shadow: 0 0 50px rgba(0, 240, 255, 0.4) !important;
+        }
+
+        /* Grouping & Separator Rekap Bulanan */
+        .monthly-date-header {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #00f0ff;
+            background: rgba(0, 240, 255, 0.12);
+            border-left: 3px solid #00f0ff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-top: 14px;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .monthly-group-divider {
+            height: 1px;
+            background: linear-gradient(90deg, rgba(0,240,255,0.4) 0%, rgba(0,240,255,0.05) 100%);
+            margin: 12px 0 6px 0;
+        }
+
+        .monthly-item-bullet {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #00f0ff;
+            margin-right: 8px;
+            box-shadow: 0 0 6px rgba(0, 240, 255, 0.8);
+            flex-shrink: 0;
+        }
 
         /* Theme Variants */
         .cv-theme-light {
@@ -897,16 +942,17 @@
     </div>
 </div>
 
+<!-- Modal Rekap Bulanan Mode Full Screen -->
 <div class="popup-overlay" id="monthlyHistoryModalOverlay">
-    <div class="popup-box monthly-modal-box" style="max-width: 400px; width: 100%; max-height: 90vh; padding: 20px; display: flex; flex-direction: column; align-items: stretch; text-align: left; gap: 12px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid rgba(0,240,255,0.2); padding-bottom: 12px; flex-shrink: 0;">
-            <button type="button" id="btnBackMonthly" style="display: none; background:none; border:none; color:#00f0ff; font-size:1.8rem; line-height: 1; cursor:pointer; padding-right: 10px;">←</button>
+    <div class="popup-box monthly-modal-box">
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid rgba(0,240,255,0.25); padding-bottom: 12px; flex-shrink: 0; width: 100%;">
+            <button type="button" id="btnBackMonthly" style="display: none; background:none; border:none; color:#00f0ff; font-size:1.6rem; font-weight: 900; line-height: 1; cursor:pointer; padding-right: 10px;">←</button>
             <div id="monthlyModalTitle" style="font-family: 'Orbitron', sans-serif; font-size: 1.15rem; font-weight: 900; color: #00f0ff; text-align: center; flex-grow: 1;">REKAP BULANAN</div>
             <button type="button" id="closeMonthlyModalBtn" style="background:none; border:none; color:#94a3b8; font-size:1.5rem; cursor:pointer; padding-left: 10px;">✕</button>
         </div>
-        <div id="monthlyListContainer" style="display: flex; flex-direction: column; gap: 10px; overflow-y: auto; flex-grow: 1; padding: 4px 0;"></div>
-        <div id="monthlyDetailContainer" style="display: none; flex-direction: column; gap: 12px; overflow-y: auto; flex-grow: 1; padding: 4px 0;">
-            <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
+        <div id="monthlyListContainer" style="display: flex; flex-direction: column; gap: 10px; overflow-y: auto; flex-grow: 1; padding: 8px 0; width: 100%;"></div>
+        <div id="monthlyDetailContainer" style="display: none; flex-direction: column; gap: 12px; overflow-y: auto; flex-grow: 1; padding: 8px 0; width: 100%;">
+            <div style="display: flex; flex-direction: column; gap: 10px; width: 100%; flex-shrink: 0;" id="monthlyHeaderBoxes">
                 <div class="card-hero pemasukan" id="btnFilterPemasukanDetail" style="cursor: pointer; padding: 14px; text-align: left; display: flex; justify-content: space-between; align-items: center;">
                     <div><h4 style="color: #34d399; margin-bottom: 2px; font-size: 0.8rem;">PEMASUKAN</h4><p id="monthlyDetailIn" style="font-size: 1.3rem; color: #34d399;">Rp 0</p></div>
                     <span style="font-size: 1.2rem; font-weight: 900; color: #34d399;">›</span>
@@ -916,7 +962,13 @@
                     <span style="font-size: 1.2rem; font-weight: 900; color: #fb7185;">›</span>
                 </div>
             </div>
-            <div id="monthlyDetailList" style="display: flex; flex-direction: column; gap: 10px; width: 100%; margin-top: 4px;"></div>
+            
+            <div id="monthlyActiveFilterNotice" style="display: none; justify-content: space-between; align-items: center; background: rgba(0, 240, 255, 0.1); border: 1px solid rgba(0, 240, 255, 0.4); padding: 8px 12px; border-radius: 10px; font-size: 0.85rem; font-weight: 800; color: #00f0ff;">
+                <span id="activeFilterNoticeText">Tampilkan Semua</span>
+                <button type="button" id="btnResetMonthlyFilter" style="background: rgba(0, 240, 255, 0.2); border: 1px solid #00f0ff; color: #00f0ff; font-size: 0.75rem; padding: 4px 10px; border-radius: 6px; cursor: pointer;">Tampilkan Semua</button>
+            </div>
+
+            <div id="monthlyDetailList" style="display: flex; flex-direction: column; gap: 6px; width: 100%; margin-top: 4px;"></div>
         </div>
     </div>
 </div>
@@ -1322,14 +1374,12 @@
         } catch (e) {}
     }
 
-    /* FUNGSI EFEK SUARA SUKSES PIN - VOLUME MAKSIMAL DENGAN DYNAMIC COMPRESSOR */
     function playPinSuccessSound() {
         try {
             const ctx = new (window.AudioContext || window.webkitAudioContext)();
             if (ctx.state === 'suspended') ctx.resume();
             const now = ctx.currentTime;
             
-            // Compressor agar sinyal suara kencang tanpa distorsi
             const compressor = ctx.createDynamicsCompressor();
             compressor.threshold.setValueAtTime(-10, now);
             compressor.knee.setValueAtTime(12, now);
@@ -1340,18 +1390,16 @@
 
             const masterGain = ctx.createGain();
             masterGain.gain.setValueAtTime(0.01, now);
-            masterGain.gain.linearRampToValueAtTime(1.8, now + 0.03); // Volume boosted kencang
+            masterGain.gain.linearRampToValueAtTime(1.8, now + 0.03); 
             masterGain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
             masterGain.connect(compressor);
 
-            // Lapisan Audio 1: Gelombang Triangle
             const osc1 = ctx.createOscillator();
             osc1.type = 'triangle';
             osc1.frequency.setValueAtTime(587.33, now); 
             osc1.frequency.setValueAtTime(880, now + 0.12); 
             osc1.connect(masterGain);
 
-            // Lapisan Audio 2: Gelombang Sine untuk tebal bass/harmonik
             const osc2 = ctx.createOscillator();
             osc2.type = 'sine';
             osc2.frequency.setValueAtTime(1174.66, now); 
@@ -1929,6 +1977,13 @@
         return `${parseInt(d)} ${shortMonthNames[parseInt(m)-1]} ${y}`;
     }
 
+    function formatFullDateIndo(dateStr) {
+        if (!dateStr) return '';
+        const [y, m, d] = dateStr.split('-');
+        const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+        return `Tanggal ${String(d).padStart(2, '0')} ${monthNames[parseInt(m)-1]} ${y}`;
+    }
+
     let selectedDateValue = getLocalIsoDate(new Date());
     const inputDate = document.getElementById('inputDate');
     const dateWrapperBtn = document.getElementById('dateWrapperBtn');
@@ -1978,6 +2033,9 @@
         };
     }
 
+    let activeMonthlyYm = null;
+    let activeMonthlyType = 'all'; 
+
     document.getElementById('openMonthlyHistoryBtn').addEventListener('click', () => {
         renderMonthlyList();
         document.getElementById('monthlyListContainer').style.display = 'flex';
@@ -1986,24 +2044,204 @@
         document.getElementById('monthlyModalTitle').innerText = 'REKAP BULANAN';
         document.getElementById('monthlyHistoryModalOverlay').classList.add('active');
     });
-    document.getElementById('closeMonthlyModalBtn').addEventListener('click', () => { document.getElementById('monthlyHistoryModalOverlay').classList.remove('active'); });
+    
+    document.getElementById('closeMonthlyModalBtn').addEventListener('click', () => { 
+        document.getElementById('monthlyHistoryModalOverlay').classList.remove('active'); 
+    });
+
+    document.getElementById('btnBackMonthly').addEventListener('click', () => {
+        renderMonthlyList();
+        document.getElementById('monthlyListContainer').style.display = 'flex';
+        document.getElementById('monthlyDetailContainer').style.display = 'none';
+        document.getElementById('btnBackMonthly').style.display = 'none';
+        document.getElementById('monthlyModalTitle').innerText = 'REKAP BULANAN';
+    });
 
     function renderMonthlyList() {
-        const container = document.getElementById('monthlyListContainer'); container.innerHTML = '';
-        const now = new Date(); const ymString = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
-        let inBulan = 0, outBulan = 0;
+        const container = document.getElementById('monthlyListContainer'); 
+        container.innerHTML = '';
+
+        const monthlyGroups = {};
         transactions.forEach(t => {
-            if (t.date && t.date.startsWith(ymString)) {
-                if (t.type === 'in') inBulan += t.amount;
-                else if (t.type === 'out') outBulan += t.amount;
-                else if (t.type === 'refund') outBulan -= t.amount;
+            if (t.date && t.date.length >= 7) {
+                const ym = t.date.substring(0, 7);
+                if (!monthlyGroups[ym]) {
+                    monthlyGroups[ym] = { in: 0, out: 0 };
+                }
+                if (t.type === 'in') monthlyGroups[ym].in += t.amount;
+                else if (t.type === 'out') monthlyGroups[ym].out += t.amount;
+                else if (t.type === 'refund') monthlyGroups[ym].out -= t.amount;
             }
         });
-        const div = document.createElement('div'); div.className = 'history-clickable-title-box';
-        div.style.flexDirection = 'column'; div.style.alignItems = 'flex-start'; div.style.gap = '8px';
-        div.innerHTML = `<div style="display: flex; justify-content: space-between; width: 100%;"><label style="font-weight:900; color:var(--cv-text-primary);">Bulan Ini (${ymString})</label><span style="color:#00f0ff;">›</span></div><div style="display: flex; justify-content: space-between; width: 100%; font-size:0.9rem; font-weight:800;"><span style="color:#34d399;">In: ${formatRupiah(inBulan)}</span><span style="color:#fb7185;">Out: ${formatRupiah(outBulan)}</span></div>`;
-        container.appendChild(div);
+
+        const sortedYm = Object.keys(monthlyGroups).sort((a, b) => b.localeCompare(a));
+
+        if (sortedYm.length === 0) {
+            container.innerHTML = '<div style="text-align:center; color:#a5f3fc; font-size:0.95rem; padding:20px 0;">Belum ada riwayat transaksi.</div>';
+            return;
+        }
+
+        sortedYm.forEach(ym => {
+            const div = document.createElement('div'); 
+            div.className = 'history-clickable-title-box';
+            div.style.flexDirection = 'column'; 
+            div.style.alignItems = 'flex-start'; 
+            div.style.gap = '8px';
+
+            const [y, m] = ym.split('-');
+            const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+            const monthLabel = `${monthNames[parseInt(m)-1]} ${y}`;
+
+            div.innerHTML = `
+                <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                    <label style="font-weight:900; color:var(--cv-text-primary); font-size: 1.05rem; cursor: pointer;">${monthLabel} (${ym})</label>
+                    <span style="color:#00f0ff; font-weight:900; font-size:1.2rem;">›</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; width: 100%; font-size:0.92rem; font-weight:800;">
+                    <span style="color:#34d399;">In: ${formatRupiah(monthlyGroups[ym].in)}</span>
+                    <span style="color:#fb7185;">Out: ${formatRupiah(monthlyGroups[ym].out)}</span>
+                </div>`;
+            
+            div.addEventListener('click', () => {
+                openMonthlyDetail(ym);
+            });
+            container.appendChild(div);
+        });
     }
+
+    function openMonthlyDetail(ym) {
+        activeMonthlyYm = ym;
+        activeMonthlyType = 'all';
+
+        document.getElementById('monthlyListContainer').style.display = 'none';
+        document.getElementById('monthlyDetailContainer').style.display = 'flex';
+        document.getElementById('btnBackMonthly').style.display = 'block';
+
+        const [y, m] = ym.split('-');
+        const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+        document.getElementById('monthlyModalTitle').innerText = `${monthNames[parseInt(m)-1]} ${y}`;
+
+        renderMonthlyDetailView();
+    }
+
+    function renderMonthlyDetailView() {
+        if (!activeMonthlyYm) return;
+
+        let inTotal = 0, outTotal = 0;
+        const monthTxs = transactions.filter(t => t.date && t.date.startsWith(activeMonthlyYm));
+
+        monthTxs.forEach(t => {
+            if (t.type === 'in') inTotal += t.amount;
+            else if (t.type === 'out') outTotal += t.amount;
+            else if (t.type === 'refund') outTotal -= t.amount;
+        });
+
+        document.getElementById('monthlyDetailIn').innerText = formatRupiah(inTotal);
+        document.getElementById('monthlyDetailOut').innerText = formatRupiah(outTotal);
+
+        const btnInCard = document.getElementById('btnFilterPemasukanDetail');
+        const btnOutCard = document.getElementById('btnFilterPengeluaranDetail');
+        const noticeBox = document.getElementById('monthlyActiveFilterNotice');
+        const noticeText = document.getElementById('activeFilterNoticeText');
+
+        if (activeMonthlyType === 'in') {
+            btnInCard.style.display = 'flex';
+            btnOutCard.style.display = 'none';
+            noticeBox.style.display = 'flex';
+            noticeText.innerText = 'Riwayat Khusus: PEMASUKAN';
+        } else if (activeMonthlyType === 'out') {
+            btnInCard.style.display = 'none';
+            btnOutCard.style.display = 'flex';
+            noticeBox.style.display = 'flex';
+            noticeText.innerText = 'Riwayat Khusus: PENGELUARAN';
+        } else {
+            btnInCard.style.display = 'flex';
+            btnOutCard.style.display = 'flex';
+            noticeBox.style.display = 'none';
+        }
+
+        let filteredTxs = monthTxs;
+        if (activeMonthlyType === 'in') {
+            filteredTxs = monthTxs.filter(t => t.type === 'in');
+        } else if (activeMonthlyType === 'out') {
+            filteredTxs = monthTxs.filter(t => t.type === 'out' || t.type === 'refund');
+        }
+
+        // Urutkan transaksi secara KRONOLOGIS (dari Tanggal 1 paling atas)
+        filteredTxs.sort((a, b) => {
+            if (a.date !== b.date) {
+                return a.date.localeCompare(b.date);
+            }
+            return (a.time || '').localeCompare(b.time || '');
+        });
+
+        const listContainer = document.getElementById('monthlyDetailList');
+        listContainer.innerHTML = '';
+
+        if (filteredTxs.length === 0) {
+            listContainer.innerHTML = '<div style="text-align:center; color:#a5f3fc; font-size:0.9rem; padding:15px 0;">Tidak ada riwayat transaksi.</div>';
+            return;
+        }
+
+        let currentGroupDate = null;
+
+        filteredTxs.forEach((t) => {
+            // Jika beda tanggal, buatkan pembatas & Header Tanggal baru
+            if (t.date !== currentGroupDate) {
+                if (currentGroupDate !== null) {
+                    const divider = document.createElement('div');
+                    divider.className = 'monthly-group-divider';
+                    listContainer.appendChild(divider);
+                }
+
+                currentGroupDate = t.date;
+
+                const dateHeader = document.createElement('div');
+                dateHeader.className = 'monthly-date-header';
+                dateHeader.innerText = formatFullDateIndo(t.date);
+                listContainer.appendChild(dateHeader);
+            }
+
+            // Tampilkan item transaksi
+            const li = document.createElement('div');
+            li.className = `history-item ${t.type}`;
+            li.style.marginBottom = '6px';
+
+            let amountSign = t.type === 'in' ? '+' : '-';
+            let amountClass = t.type === 'in' ? 'amount-in' : (t.type === 'refund' ? 'amount-refund' : 'amount-out');
+
+            li.innerHTML = `
+                <div class="item-info">
+                    <span class="item-desc" style="display: flex; align-items: center;">
+                        <span class="monthly-item-bullet"></span>
+                        <span>${t.description} ${t.method ? '<span class="item-method-badge">'+t.method+'</span>' : ''}</span>
+                    </span>
+                    <span class="item-date" style="padding-left: 16px;">🕒 ${t.time ? t.time.replace(':', '.') : '00.00'} WIB</span>
+                </div>
+                <span class="item-amount ${amountClass}">${amountSign} ${formatRupiah(t.amount)}</span>`;
+
+            li.addEventListener('click', () => {
+                openDetailModal(t.id);
+            });
+
+            listContainer.appendChild(li);
+        });
+    }
+
+    document.getElementById('btnFilterPemasukanDetail').addEventListener('click', () => {
+        activeMonthlyType = 'in';
+        renderMonthlyDetailView();
+    });
+
+    document.getElementById('btnFilterPengeluaranDetail').addEventListener('click', () => {
+        activeMonthlyType = 'out';
+        renderMonthlyDetailView();
+    });
+
+    document.getElementById('btnResetMonthlyFilter').addEventListener('click', () => {
+        activeMonthlyType = 'all';
+        renderMonthlyDetailView();
+    });
 
     function updateUI() {
         const historyList = document.getElementById('historyList'); historyList.innerHTML = '';
@@ -2086,7 +2324,9 @@
             transactions[index].date = document.getElementById('editDate').value;
             transactions[index].time = document.getElementById('editTime').value;
             transactions[index].method = document.getElementById('editMethod').value;
-            updateUI(); detailTransactionModal.classList.remove('active');
+            updateUI(); 
+            if (activeMonthlyYm) renderMonthlyDetailView();
+            detailTransactionModal.classList.remove('active');
         }
     });
 
@@ -2094,7 +2334,9 @@
         const id = parseInt(document.getElementById('editTxId').value);
         showCyberConfirm('Hapus transaksi ini?', () => {
             transactions = transactions.filter(t => t.id !== id);
-            updateUI(); detailTransactionModal.classList.remove('active');
+            updateUI(); 
+            if (activeMonthlyYm) renderMonthlyDetailView();
+            detailTransactionModal.classList.remove('active');
         });
     });
 
