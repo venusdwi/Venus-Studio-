@@ -1182,22 +1182,23 @@
             if (ctx.state === 'suspended') ctx.resume();
             const now = ctx.currentTime;
             
+            // Suara sukses PIN (dua nada naik bersemangat khas sci-fi)
             const osc = ctx.createOscillator();
             const gain = ctx.createGain();
-            osc.type = 'sine';
+            osc.type = 'triangle';
             
-            osc.frequency.setValueAtTime(440, now);
-            osc.frequency.setValueAtTime(880, now + 0.15);
+            osc.frequency.setValueAtTime(587.33, now); // D5
+            osc.frequency.setValueAtTime(880, now + 0.12); // A5
             
             gain.gain.setValueAtTime(0.01, now);
-            gain.gain.linearRampToValueAtTime(0.4, now + 0.05);
-            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+            gain.gain.linearRampToValueAtTime(0.35, now + 0.04);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
             
             osc.connect(gain);
             gain.connect(ctx.destination);
             
             osc.start(now);
-            osc.stop(now + 0.5);
+            osc.stop(now + 0.45);
         } catch (e) {}
     }
 
@@ -1207,7 +1208,6 @@
             if (ctx.state === 'suspended') ctx.resume();
             const now = ctx.currentTime;
             
-            // Suara lonceng/chime sukses transaksi (tiga nada naik yang harmonis)
             const notes = [523.25, 659.25, 783.99]; // C5, E5, G5
             notes.forEach((freq, index) => {
                 const osc = ctx.createOscillator();
@@ -1879,6 +1879,21 @@
     }
 
     const detailTransactionModal = document.getElementById('detailTransactionModal');
+    const imageLightboxModal = document.getElementById('imageLightboxModal');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const detailProofImage = document.getElementById('detailProofImage');
+
+    detailProofImage.addEventListener('click', () => {
+        if (detailProofImage.src) {
+            lightboxImage.src = detailProofImage.src;
+            imageLightboxModal.classList.add('active');
+        }
+    });
+
+    document.getElementById('closeLightboxBtn').addEventListener('click', () => {
+        imageLightboxModal.classList.remove('active');
+    });
+
     function openDetailModal(id) {
         const tx = transactions.find(t => t.id === id); if (!tx) return;
         document.getElementById('editTxId').value = tx.id;
@@ -1892,8 +1907,7 @@
         document.getElementById('btnEditSelectMethod').innerText = tx.method || 'CASH';
 
         const imgContainer = document.getElementById('detailProofContainer');
-        const proofImg = document.getElementById('detailProofImage');
-        if (tx.proof) { proofImg.src = tx.proof; imgContainer.style.display = 'flex'; } else { imgContainer.style.display = 'none'; }
+        if (tx.proof) { detailProofImage.src = tx.proof; imgContainer.style.display = 'flex'; } else { imgContainer.style.display = 'none'; }
         detailTransactionModal.classList.add('active');
     }
     document.getElementById('closeDetailModalBtn').addEventListener('click', () => { detailTransactionModal.classList.remove('active'); });
@@ -1936,7 +1950,6 @@
 
         if (!type || !method || !amount || isNaN(amount) || !description) return alert('Lengkapi data transaksi dengan benar!');
 
-        // Tampilkan Loading "Memproses" selama 2 detik
         btnSubmit.disabled = true;
         btnText.innerHTML = '<span class="btn-spinner"></span>&nbsp;&nbsp;Memproses...';
 
@@ -1952,16 +1965,14 @@
                 document.getElementById('btnSelectMethod').innerText = '-- Pilih Metode --';
                 refreshRealtimeDateTime();
                 
-                // Kembalikan tombol seperti semula
                 btnSubmit.disabled = false;
                 btnText.innerText = 'Tambah Transaksi';
 
-                // Mainkan sound efek sukses notifikasi transaksi
                 playSuccessChimeSound();
 
                 document.getElementById('popupNotification').classList.add('active');
             });
-        }, 2000); // 2 Detik durasi loading
+        }, 2000);
     });
 
     document.getElementById('popupCloseBtn').addEventListener('click', () => { document.getElementById('popupNotification').classList.remove('active'); });
