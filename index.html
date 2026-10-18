@@ -1464,7 +1464,6 @@
                 window.initFirebaseSync((cloudData) => {
                     if (cloudData && Array.isArray(cloudData)) {
                         transactions = cloudData;
-                        try { localStorage.setItem('my_transactions', JSON.stringify(transactions)); } catch(e){}
                         updateUI();
                     }
                 });
@@ -1472,7 +1471,6 @@
             if (window.initDebtFirebaseSync) {
                 window.initDebtFirebaseSync((cloudDebtData) => {
                     if (cloudDebtData && Array.isArray(cloudDebtData)) {
-                        try { localStorage.setItem('venus_debt_tracker_data', JSON.stringify(cloudDebtData)); } catch(e){}
                         renderDebts();
                     }
                 });
@@ -2223,7 +2221,8 @@
     const glassOpacitySlider = document.getElementById('glassOpacitySlider'); const opacityValText = document.getElementById('opacityValText');
     glassOpacitySlider.addEventListener('input', function() { document.documentElement.style.setProperty('--glass-alpha', (this.value / 100).toFixed(2)); opacityValText.innerText = this.value + '%'; localStorage.setItem('cyber_glass_opacity', this.value); });
     
-    let transactions = JSON.parse(localStorage.getItem('my_transactions')) || [];
+    // [PERBAIKAN] Data transaksi kini murni bersumber dan disinkronkan langsung via Firebase Cloud
+    let transactions = [];
     
     let currentFilterDate = getLocalIsoDate(new Date()); 
     let currentFilterMonth = null;
@@ -2351,12 +2350,12 @@
             const img = new Image(); img.src = event.target.result;
             img.onload = function() {
                 const canvas = document.createElement('canvas'); 
-                const MAX_WIDTH = 450; 
+                const MAX_WIDTH = 380; 
                 let width = img.width; let height = img.height;
                 if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
                 canvas.width = width; canvas.height = height; const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0, width, height); 
-                callback(canvas.toDataURL('image/jpeg', 0.45)); 
+                callback(canvas.toDataURL('image/jpeg', 0.35)); 
             }
             img.onerror = function() { callback(null); };
         };
@@ -2672,14 +2671,9 @@
 
         refreshMonthlyViewLive();
 
-        // [PERBAIKAN] Bungkus penyimpanan localStorage dalam try-catch aman agar tidak crash jika penuh
-        try { 
-            localStorage.setItem('my_transactions', JSON.stringify(transactions)); 
-            if (window.saveTransactionsToFirebase) {
-                window.saveTransactionsToFirebase(transactions);
-            }
-        } catch(e) { 
-            console.warn('LocalStorage penuh, data tetap disinkronkan ke Cloud Firebase.'); 
+        // [PERBAIKAN] Data dikirim dan disinkronkan langsung sepenuhnya ke Firebase Cloud Database
+        if (window.saveTransactionsToFirebase) {
+            window.saveTransactionsToFirebase(transactions);
         }
     }
 
@@ -2824,7 +2818,7 @@
                 if (fileNameDisplay) fileNameDisplay.innerText = "Tidak ada file dipilih";
                 
                 document.getElementById('type').value = '';
-                document.getElementById('paymentMethod').value = '';
+                document.getElementById('paymentMethod'.value = '');
                 
                 document.getElementById('btnSelectType').innerText = '-- Pilih Jenis --';
                 document.getElementById('btnSelectType').classList.remove('selected');
@@ -2843,7 +2837,7 @@
                 applyPopupLightMode(popupNotification);
             } catch (err) {
                 console.error("Storage error:", err);
-                alert("Gagal menyimpan transaksi. Ukuran penyimpanan lokal mungkin penuh.");
+                alert("Gagal menyimpan transaksi ke Cloud Firebase.");
             } finally {
                 btnSubmit.disabled = false; 
                 btnText.innerText = 'Tambah Transaksi';
