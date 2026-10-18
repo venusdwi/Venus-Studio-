@@ -10,7 +10,6 @@
     <meta name="apple-mobile-web-app-title" content="VENUS STUDIO">
     
     <link rel="apple-touch-icon" href="logo.png">
-    <link rel="apple-touch-icon-precomposed" href="logo.png">
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" href="logo.png">
 
@@ -67,7 +66,6 @@
             --text-muted: #a5f3fc;
             --glass-alpha: 0.28;
             --glass-blur: 16px;
-            --font-primary: 'Plus Jakarta Sans', sans-serif;
             --bg-gradient: radial-gradient(circle at 50% 50%, #061838 0%, #020817 65%, #01040a 100%);
             
             --cv-bg-modal: rgba(3, 14, 38, 0.98);
@@ -110,8 +108,7 @@
         }
 
         .splash-bottom-section { position: fixed; bottom: 85px; width: 100%; display: flex; justify-content: center; z-index: 50; }
-        .tap-here-btn { background: linear-gradient(135deg, rgba(0, 240, 255, 0.15) 0%, rgba(0, 119, 255, 0.25) 100%); border: 1.5px solid rgba(0, 240, 255, 0.7); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 1.15rem; font-weight: 800; letter-spacing: 3px; padding: 14px 38px; border-radius: 30px; cursor: pointer; box-shadow: 0 0 20px rgba(0, 240, 255, 0.35); text-transform: uppercase; opacity: 0; visibility: hidden; transition: opacity 0.5s ease, transform 0.2s ease; text-decoration: none !important; outline: none !important; -webkit-appearance: none; }
-        .tap-here-btn.show { opacity: 1; visibility: visible; animation: tapPulse 1.5s infinite ease-in-out; }
+        .tap-here-btn { background: linear-gradient(135deg, rgba(0, 240, 255, 0.15) 0%, rgba(0, 119, 255, 0.25) 100%); border: 1.5px solid rgba(0, 240, 255, 0.7); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 1.15rem; font-weight: 800; letter-spacing: 3px; padding: 14px 38px; border-radius: 30px; cursor: pointer; box-shadow: 0 0 20px rgba(0, 240, 255, 0.35); text-transform: uppercase; opacity: 1; visibility: visible; animation: tapPulse 1.5s infinite ease-in-out; text-decoration: none !important; outline: none !important; }
         .tap-here-btn:active { transform: scale(0.95); background: rgba(0, 240, 255, 0.35); box-shadow: 0 0 30px rgba(0, 240, 255, 0.8); }
 
         @keyframes tapPulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); } 50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(0, 240, 255, 0.6); } }
@@ -171,11 +168,6 @@
         .cyber-modal-overlay, .music-modal-overlay, .personal-modal-overlay, .debt-modal-overlay, .debt-pin-overlay, .edit-debt-overlay, .view-debt-overlay, .popup-overlay { position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh; background: rgba(2, 7, 20, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 99999999; display: flex; justify-content: center; align-items: center; padding: 12px; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.35s ease; overflow-x: hidden !important; }
         .cyber-modal-overlay.active, .music-modal-overlay.active, .personal-modal-overlay.active, .debt-modal-overlay.active, .debt-pin-overlay.active, .edit-debt-overlay.active, .view-debt-overlay.active, .popup-overlay.active { opacity: 1; visibility: visible; pointer-events: auto; }
 
-        #detailTransactionModal { z-index: 999999999; }
-        #cyberConfirmModal { z-index: 9999999999; }
-        #themeModalOverlay { z-index: 99999999999; }
-        #imageLightboxModal { z-index: 999999999999; }
-
         .music-modal-card, .personal-modal-card, .debt-modal-card, .view-debt-card { background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.75); border-radius: 26px; padding: 22px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); transform: scale(0.9); transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); overflow-x: hidden !important; }
         
         .cyber-modal-card { background: var(--cv-bg-modal) !important; border: 2px solid var(--cv-border-primary) !important; border-radius: 26px; padding: 22px 18px 24px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); transform: scale(0.9); transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease, border-color 0.3s ease; overflow-x: hidden !important; }
@@ -207,13 +199,11 @@
 
         .full-app-content, .personal-app-content, .debt-app-content { display: flex; flex-direction: column; width: 100% !important; max-width: 100% !important; flex-grow: 1; overflow-y: auto; overflow-x: hidden !important; background: transparent !important; border: none !important; padding: 6px 4px 120px 4px !important; text-align: left; gap: 16px; margin-top: 10px; scroll-behavior: smooth; }
 
-        .glass-control-panel, .backup-panel { display: none !important; }
         .glass-control-panel { display: flex !important; align-items: center; justify-content: space-between; gap: 12px; flex-shrink: 0; height: 40px; margin-bottom: 0 !important; }
         .glass-label-text { font-size: 0.9rem; font-weight: 800; color: var(--cv-text-secondary); white-space: nowrap; line-height: 1; display: flex; align-items: center; height: 100%; transition: color 0.3s ease; }
         .glass-slider-wrapper { display: flex; align-items: center; flex-grow: 1; padding: 0 4px; height: 100%; overflow: hidden !important; }
         
         .glass-range-input { -webkit-appearance: none !important; appearance: none !important; width: 100% !important; height: 16px !important; background: transparent !important; outline: none !important; border: none !important; margin: 0 !important; padding: 0 !important; cursor: pointer !important; }
-        .glass-range-input:focus { outline: none !important; box-shadow: none !important; border: none !important; }
         .glass-range-input::-webkit-slider-runnable-track { width: 100% !important; height: 4px !important; background: rgba(0, 240, 255, 0.35) !important; border-radius: 2px !important; border: none !important; }
         .glass-range-input::-webkit-slider-thumb { -webkit-appearance: none !important; appearance: none !important; width: 16px !important; height: 16px !important; border-radius: 50% !important; background: #00f0ff !important; box-shadow: 0 0 10px rgba(0, 240, 255, 0.9) !important; cursor: pointer !important; margin-top: -6px !important; border: none !important; }
         
@@ -239,11 +229,7 @@
         .form-group { display: flex; flex-direction: column; gap: 6px; width: 100%; }
         .datetime-group { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
         
-        .full-app-content label, 
-        #detailTransactionModal label,
-        .popup-box label,
-        .sub-account-modal label,
-        .edit-debt-overlay label { 
+        .full-app-content label, #detailTransactionModal label, .popup-box label, .sub-account-modal label, .edit-debt-overlay label { 
             font-size: 0.92rem; font-weight: 800; color: var(--cv-text-secondary); letter-spacing: 0.5px; margin-bottom: 2px; transition: color 0.3s ease; 
         }
         
@@ -255,156 +241,81 @@
         .view-debt-overlay input, .view-debt-overlay select, .view-debt-overlay textarea { 
             padding: 15px 16px; border: 1.5px solid var(--cv-border-primary); border-radius: 12px; font-size: 1.05rem; font-weight: 600; outline: none; background: var(--cv-bg-input); color: var(--cv-text-primary); width: 100%; max-width: 100% !important; color-scheme: dark; transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; 
         }
-        .full-app-content input:focus, .full-app-content select:focus, .full-app-content textarea:focus,
-        #detailTransactionModal input:focus, #detailTransactionModal select:focus, #detailTransactionModal textarea:focus,
-        .sub-account-modal input:focus, .sub-account-modal select:focus, .sub-account-modal textarea:focus,
-        .edit-debt-overlay input:focus, .edit-debt-overlay select:focus, .edit-debt-overlay textarea:focus,
-        .view-debt-overlay input:focus, .view-debt-overlay select:focus, .view-debt-overlay textarea:focus { 
-            border-color: var(--cv-border-primary); box-shadow: 0 0 12px rgba(0, 240, 255, 0.4); 
-        }
 
         .custom-file-box {
-            display: flex;
-            align-items: center;
-            background: var(--cv-bg-input);
-            border: 1.5px dashed var(--cv-border-primary);
-            border-radius: 12px;
-            padding: 10px 14px;
-            gap: 12px;
-            transition: all 0.3s ease;
-            width: 100%;
-        }
-        .custom-file-box:hover {
-            border-color: #00f0ff;
-            background: rgba(0, 240, 255, 0.03);
+            display: flex; align-items: center; background: var(--cv-bg-input); border: 1.5px dashed var(--cv-border-primary); border-radius: 12px; padding: 10px 14px; gap: 12px; width: 100%;
         }
         .btn-pilih-file {
-            background-color: #0f3d4c;
-            color: #00f0ff;
-            border: 1px solid rgba(0, 240, 255, 0.5);
-            padding: 8px 14px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 700;
-            text-align: center;
-            transition: all 0.2s ease;
-            white-space: nowrap;
-            display: inline-block;
-            margin: 0;
+            background-color: #0f3d4c; color: #00f0ff; border: 1px solid rgba(0, 240, 255, 0.5); padding: 8px 14px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 700; white-space: nowrap; display: inline-block; margin: 0;
         }
-        .btn-pilih-file:hover {
-            background-color: #115e67;
-            box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
-        }
-        .file-name-text {
-            font-size: 13px;
-            color: var(--cv-text-secondary);
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            font-weight: 600;
-        }
-        .cv-light-mode .btn-pilih-file {
-            background-color: #e2e8f0;
-            color: #0f172a;
-            border-color: #cbd5e1;
-        }
-        .cv-light-mode .custom-file-box {
-            background-color: #f8fafc;
-            border-color: #cbd5e1;
-        }
-        .cv-light-mode .file-name-text {
-            color: #475569;
-        }
+        .file-name-text { font-size: 13px; color: var(--cv-text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
 
-        .full-app-content .custom-select-box,
-        #detailTransactionModal .custom-select-box { 
-            padding: 15px 16px; border: 1.5px solid var(--cv-border-primary); border-radius: 12px; font-size: 1.05rem; font-weight: 800; background: var(--cv-bg-input); color: var(--cv-text-secondary); text-align: center; cursor: pointer; transition: all 0.3s ease; width: 100%; 
+        .full-app-content .custom-select-box, #detailTransactionModal .custom-select-box { 
+            padding: 15px 16px; border: 1.5px solid var(--cv-border-primary); border-radius: 12px; font-size: 1.05rem; font-weight: 800; background: var(--cv-bg-input); color: var(--cv-text-secondary); text-align: center; cursor: pointer; width: 100%; 
         }
-        .full-app-content .custom-select-box.selected,
-        #detailTransactionModal .custom-select-box.selected { 
-            color: var(--cv-text-primary); border-color: var(--cv-border-primary); 
-        }
+        .full-app-content .custom-select-box.selected, #detailTransactionModal .custom-select-box.selected { color: var(--cv-text-primary); }
         
-        .custom-option-btn { background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.45); border-radius: 12px; color: #ffffff; font-size: 1.05rem; font-weight: 800; padding: 16px; width: 100%; text-align: center; cursor: pointer; transition: all 0.2s ease; display: block; }
-        .custom-option-btn:active { background: rgba(0, 240, 255, 0.25); border-color: #00f0ff; transform: scale(0.98); }
+        .custom-option-btn { background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.45); border-radius: 12px; color: #ffffff; font-size: 1.05rem; font-weight: 800; padding: 16px; width: 100%; text-align: center; cursor: pointer; display: block; }
 
-        .account-title-card { background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.4); border-radius: 14px; padding: 16px 18px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: all 0.2s ease; width: 100%; }
-        .account-title-card:active { background: rgba(0, 240, 255, 0.2); border-color: #00f0ff; transform: scale(0.98); }
+        .account-title-card { background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.4); border-radius: 14px; padding: 16px 18px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; width: 100%; }
         .account-title-name { font-family: 'Rajdhani', sans-serif; font-size: 1.15rem; font-weight: 800; color: #00f0ff; letter-spacing: 1px; text-transform: uppercase; }
         .account-title-arrow { color: #7dd3fc; font-weight: 900; font-size: 1.25rem; }
 
-        .btn-add-account-action { background: linear-gradient(135deg, rgba(0, 240, 255, 0.18) 0%, rgba(0, 119, 255, 0.28) 100%); border: 1.5px solid rgba(0, 240, 255, 0.6); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 1.05rem; font-weight: 800; letter-spacing: 1.5px; padding: 14px; border-radius: 14px; cursor: pointer; width: 100%; text-align: center; box-shadow: 0 0 20px rgba(0, 240, 255, 0.25); transition: all 0.2s ease; text-transform: uppercase; }
-        .btn-add-account-action:active { transform: scale(0.98); background: rgba(0, 240, 255, 0.35); box-shadow: 0 0 30px rgba(0, 240, 255, 0.6); }
+        .btn-add-account-action { background: linear-gradient(135deg, rgba(0, 240, 255, 0.18) 0%, rgba(0, 119, 255, 0.28) 100%); border: 1.5px solid rgba(0, 240, 255, 0.6); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 1.05rem; font-weight: 800; letter-spacing: 1.5px; padding: 14px; border-radius: 14px; cursor: pointer; width: 100%; text-align: center; text-transform: uppercase; }
 
         .sub-account-modal, .all-history-modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3, 14, 38, 0.98); z-index: 20; display: none; flex-direction: column; padding: 20px 16px; justify-content: space-between; border-radius: 26px; overflow-y: auto; overflow-x: hidden !important; }
         .sub-account-modal.active, .all-history-modal.active { display: flex !important; }
 
-        .account-history-box { background: rgba(2, 12, 32, 0.9); border: 1px solid rgba(0, 240, 255, 0.3); border-radius: 12px; padding: 10px; margin-top: 6px; max-height: 140px; overflow-y: auto; overflow-x: hidden !important; text-align: left; width: 100%; }
-        .account-history-item { font-size: 0.9rem; color: #ffffff; background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.2); border-radius: 8px; padding: 10px; margin-bottom: 8px; display: flex; flex-direction: column; gap: 4px; cursor: pointer; transition: background 0.15s ease; width: 100%; }
-        .account-history-item:active { background: rgba(0, 240, 255, 0.18); }
+        .account-history-box { background: rgba(2, 12, 32, 0.9); border: 1px solid rgba(0, 240, 255, 0.3); border-radius: 12px; padding: 10px; margin-top: 6px; max-height: 140px; overflow-y: auto; text-align: left; width: 100%; }
+        .account-history-item { font-size: 0.9rem; color: #ffffff; background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.2); border-radius: 8px; padding: 10px; margin-bottom: 8px; display: flex; flex-direction: column; gap: 4px; cursor: pointer; width: 100%; }
         .history-user-info { font-size: 0.98rem; font-weight: 800; color: #ffffff; word-break: break-all; }
         .history-timestamp { font-size: 0.78rem; font-weight: 700; color: #38bdf8; }
 
-        .history-clickable-title-box { display: flex; align-items: center; justify-content: space-between; background: rgba(0, 240, 255, 0.08); border: 1.5px solid rgba(0, 240, 255, 0.35); padding: 12px 14px; border-radius: 12px; cursor: pointer; margin-top: 4px; transition: all 0.2s ease; width: 100%; }
-        .history-clickable-title-box:active { background: rgba(0, 240, 255, 0.25); transform: scale(0.98); }
+        .history-clickable-title-box { display: flex; align-items: center; justify-content: space-between; background: rgba(0, 240, 255, 0.08); border: 1.5px solid rgba(0, 240, 255, 0.35); padding: 12px 14px; border-radius: 12px; cursor: pointer; margin-top: 4px; width: 100%; }
 
-        .full-app-content .datetime-custom-wrapper { position: relative; display: flex; align-items: center; background: var(--cv-bg-input); border: 1.5px solid var(--cv-border-primary); border-radius: 12px; padding: 15px 16px; cursor: pointer; transition: all 0.3s ease; z-index: 10; pointer-events: auto !important; width: 100%; }
-        .full-app-content .datetime-custom-wrapper:active { border-color: var(--cv-border-primary); background: rgba(0, 240, 255, 0.15); transform: scale(0.98); }
-        
-        .full-app-content .datetime-custom-wrapper input[type="date"], 
-        .full-app-content .datetime-custom-wrapper input[type="time"] { 
+        .full-app-content .datetime-custom-wrapper { position: relative; display: flex; align-items: center; background: var(--cv-bg-input); border: 1.5px solid var(--cv-border-primary); border-radius: 12px; padding: 15px 16px; cursor: pointer; z-index: 10; width: 100%; }
+        .full-app-content .datetime-custom-wrapper input[type="date"], .full-app-content .datetime-custom-wrapper input[type="time"] { 
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 15; border: none; background: transparent; color-scheme: dark; 
         }
-        
-        .full-app-content .datetime-display-text { font-size: 1.1rem; font-weight: 600; color: var(--cv-text-primary); pointer-events: none; width: 100%; transition: color 0.3s ease; }
+        .full-app-content .datetime-display-text { font-size: 1.1rem; font-weight: 600; color: var(--cv-text-primary); pointer-events: none; width: 100%; }
 
-        button[type="submit"] { background: linear-gradient(135deg, rgba(0, 153, 255, 0.9) 0%, rgba(0, 85, 255, 0.9) 100%); color: #ffffff; font-size: 1.15rem; font-weight: 900; letter-spacing: 1.5px; border: 1.5px solid rgba(0, 240, 255, 0.7); cursor: pointer; padding: 16px 20px; border-radius: 14px; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; box-shadow: 0 0 20px rgba(0, 119, 255, 0.4); transition: all 0.2s ease; margin-top: 6px; }
-        button[type="submit"]:active { transform: scale(0.98); filter: brightness(1.2); }
+        button[type="submit"] { background: linear-gradient(135deg, rgba(0, 153, 255, 0.9) 0%, rgba(0, 85, 255, 0.9) 100%); color: #ffffff; font-size: 1.15rem; font-weight: 900; letter-spacing: 1.5px; border: 1.5px solid rgba(0, 240, 255, 0.7); cursor: pointer; padding: 16px 20px; border-radius: 14px; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; margin-top: 6px; }
         .btn-spinner { width: 22px; height: 22px; border: 2px solid rgba(255,255,255,0.3); border-top: 2px solid #ffffff; border-radius: 50%; animation: spinLoading 0.8s linear infinite; display: inline-block; flex-shrink: 0; }
         @keyframes spinLoading { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .history-section-wrapper { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; margin-top: 10px; width: 100%; }
-        .full-app-content .history-title-wrapper { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; border-radius: 12px; background: var(--cv-bg-form); border: 1.5px solid var(--cv-border-primary); position: relative; width: 100%; gap: 8px; transition: background-color 0.3s ease, border-color 0.3s ease; }
-        
-        .history-title-clickable { cursor: pointer; display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; background: rgba(0, 240, 255, 0.15); border-radius: 10px; border: 1px solid rgba(0, 240, 255, 0.4); transition: all 0.2s ease; user-select: none; }
-        .history-title-clickable:active { transform: scale(0.95); background: rgba(0, 240, 255, 0.3); }
-        
-        .full-app-content .history-title-text { font-size: 1.1rem; color: var(--cv-text-primary); font-weight: 900; margin: 0; letter-spacing: 0.5px; white-space: nowrap; transition: color 0.3s ease; }
+        .full-app-content .history-title-wrapper { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; border-radius: 12px; background: var(--cv-bg-form); border: 1.5px solid var(--cv-border-primary); position: relative; width: 100%; gap: 8px; }
+        .history-title-clickable { cursor: pointer; display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; background: rgba(0, 240, 255, 0.15); border-radius: 10px; border: 1px solid rgba(0, 240, 255, 0.4); user-select: none; }
+        .full-app-content .history-title-text { font-size: 1.1rem; color: var(--cv-text-primary); font-weight: 900; margin: 0; white-space: nowrap; }
 
         .filter-actions-group { display: flex; align-items: center; gap: 6px; }
         .btn-today-quick { background: rgba(0, 240, 255, 0.15); border: 1px solid rgba(0, 240, 255, 0.5); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 0.78rem; font-weight: 800; padding: 6px 10px; border-radius: 10px; cursor: pointer; text-transform: uppercase; white-space: nowrap; height: 36px; display: inline-flex; align-items: center; justify-content: center; }
-        .btn-today-quick:active { background: rgba(0, 240, 255, 0.35); transform: scale(0.95); }
-
-        .filter-badge-wrapper { position: relative; display: inline-flex; align-items: center; justify-content: center; background: rgba(0, 240, 255, 0.18); border: 1px solid rgba(0, 240, 255, 0.5); padding: 6px 12px; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; overflow: hidden; min-height: 36px; }
-        .filter-badge-wrapper:active { background: rgba(0, 240, 255, 0.35); transform: scale(0.95); }
-        .filter-badge-text { font-size: 0.78rem; font-weight: 800; color: #00f0ff; text-align: center; pointer-events: none; white-space: nowrap; display: block; line-height: 1.2; }
+        
+        .filter-badge-wrapper { position: relative; display: inline-flex; align-items: center; justify-content: center; background: rgba(0, 240, 255, 0.18); border: 1px solid rgba(0, 240, 255, 0.5); padding: 6px 12px; border-radius: 10px; cursor: pointer; min-height: 36px; }
+        .filter-badge-text { font-size: 0.78rem; font-weight: 800; color: #00f0ff; text-align: center; pointer-events: none; white-space: nowrap; display: block; }
         #filterDateInputDirect { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 10; color-scheme: dark; }
 
         .history-list { list-style: none; display: flex; flex-direction: column; gap: 10px; width: 100%; }
-        .full-app-content .history-item { display: flex; justify-content: space-between; align-items: center; padding: 16px 15px; background: var(--cv-bg-history-item); border: 1.5px solid var(--cv-border-primary); border-radius: 14px; border-left: 6px solid #a5f3fc; cursor: pointer; transition: transform 0.15s ease, background-color 0.3s ease, border-color 0.3s ease; width: 100%; }
-        .history-item:active { transform: scale(0.98); background: rgba(0, 240, 255, 0.12); }
+        .full-app-content .history-item { display: flex; justify-content: space-between; align-items: center; padding: 16px 15px; background: var(--cv-bg-history-item); border: 1.5px solid var(--cv-border-primary); border-radius: 14px; border-left: 6px solid #a5f3fc; cursor: pointer; width: 100%; }
         .history-item.in { border-left-color: var(--pemasukan-green); }
         .history-item.out { border-left-color: var(--pengeluaran-red); }
         .history-item.refund { border-left-color: var(--refund-yellow); }
 
         .item-info { display: flex; flex-direction: column; gap: 5px; flex-grow: 1; min-width: 0; }
-        .full-app-content .item-desc { font-weight: 800; font-size: 1.1rem; color: var(--cv-text-primary); line-height: 1.4; word-break: break-word; transition: color 0.3s ease; }
+        .full-app-content .item-desc { font-weight: 800; font-size: 1.1rem; color: var(--cv-text-primary); line-height: 1.4; word-break: break-word; }
         .item-date { font-size: 0.85rem; font-weight: 700; color: #38bdf8; display: flex; align-items: center; gap: 6px; }
-        .cyber-note-icon { display: inline-flex; align-items: center; justify-content: center; font-size: 0.95rem; filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.85)); }
-        .item-method-badge { font-size: 0.75rem; font-weight: 800; color: #fb7185; background: rgba(244, 63, 94, 0.15); border: 1px solid rgba(244, 63, 94, 0.35); padding: 3px 8px; border-radius: 6px; margin-left: 6px; display: inline-block; vertical-align: middle; margin-top: 4px; }
+        .cyber-note-icon { display: inline-flex; align-items: center; justify-content: center; font-size: 0.95rem; }
+        .item-method-badge { font-size: 0.75rem; font-weight: 800; color: #fb7185; background: rgba(244, 63, 94, 0.15); border: 1px solid rgba(244, 63, 94, 0.35); padding: 3px 8px; border-radius: 6px; margin-left: 6px; display: inline-block; vertical-align: middle; }
         .item-amount { font-weight: 900; font-size: 1.15rem; flex-shrink: 0; white-space: nowrap; }
         .amount-in { color: #34d399; }
         .amount-out { color: #fb7185; }
         .amount-refund { color: #fbbf24; }
 
-        .popup-box { background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.8); border-radius: 26px; padding: 32px 24px; width: 100%; max-width: 380px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; box-shadow: 0 0 40px rgba(0, 240, 255, 0.5); transition: background-color 0.3s ease, border-color 0.3s ease; }
+        .popup-box { background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.8); border-radius: 26px; padding: 32px 24px; width: 100%; max-width: 380px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; box-shadow: 0 0 40px rgba(0, 240, 255, 0.5); }
         .popup-icon { width: 72px; height: 72px; border-radius: 50%; background: rgba(16, 185, 129, 0.25); border: 2px solid var(--pemasukan-green); color: #34d399; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; }
-        .popup-title { font-family: 'Orbitron', sans-serif; font-size: 1.7rem; font-weight: 900; color: #fff; transition: color 0.3s ease; }
-        .popup-subtitle { font-size: 1.05rem; color: #a5f3fc; line-height: 1.5; transition: color 0.3s ease; }
+        .popup-title { font-family: 'Orbitron', sans-serif; font-size: 1.7rem; font-weight: 900; color: #fff; }
+        .popup-subtitle { font-size: 1.05rem; color: #a5f3fc; line-height: 1.5; }
         .popup-btn { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff; font-family: 'Rajdhani', sans-serif; font-size: 1.25rem; font-weight: 900; letter-spacing: 1.5px; border: 1px solid rgba(255, 255, 255, 0.4); padding: 16px 48px; border-radius: 16px; cursor: pointer; width: 100%; box-shadow: 0 0 20px rgba(16, 185, 129, 0.5); margin-top: 6px; }
-        .popup-btn:active { transform: scale(0.97); filter: brightness(1.15); }
 
         .sync-status-badge { display: flex; align-items: center; justify-content: center; gap: 6px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; color: #34d399; margin: 0 auto 12px auto; width: fit-content; text-transform: uppercase; letter-spacing: 1px; }
         .sync-dot { width: 8px; height: 8px; background: #34d399; border-radius: 50%; box-shadow: 0 0 8px #34d399; animation: syncPulseDot 1.5s infinite ease-in-out; }
@@ -419,78 +330,6 @@
             --cv-text-secondary: #475569 !important;
             --cv-bg-history-item: #f8fafc !important;
         }
-
-        .cv-light-mode .cyber-input-form { box-shadow: none !important; }
-
-        .cv-light-mode .full-app-content input, 
-        .cv-light-mode .full-app-content select, 
-        .cv-light-mode .full-app-content textarea,
-        .cv-light-mode .full-app-content .custom-select-box,
-        .cv-light-mode .full-app-content .datetime-custom-wrapper,
-        .cv-light-mode #detailTransactionModal input,
-        .cv-light-mode #detailTransactionModal select,
-        .cv-light-mode #detailTransactionModal textarea,
-        .cv-light-mode #detailTransactionModal .custom-select-box,
-        .cv-light-mode .sub-account-modal input,
-        .cv-light-mode .sub-account-modal select,
-        .cv-light-mode .sub-account-modal textarea,
-        .cv-light-mode .edit-debt-overlay input,
-        .cv-light-mode .edit-debt-overlay select,
-        .cv-light-mode .edit-debt-overlay textarea,
-        .cv-light-mode .view-debt-overlay input,
-        .cv-light-mode .view-debt-overlay select,
-        .cv-light-mode .view-debt-overlay textarea {
-            box-shadow: none !important;
-            color-scheme: light !important;
-            background-color: #f8fafc !important;
-            color: #1e293b !important;
-            border-color: #cbd5e1 !important;
-        }
-
-        .cv-light-mode .card-hero h4 { color: #475569 !important; }
-        .cv-light-mode .card-hero p { color: #0f172a !important; text-shadow: none !important; }
-
-        body.theme-minimalist:not(.cv-light-mode) .cyber-modal-card,
-        body.theme-minimalist:not(.cv-light-mode) #detailTransactionModal .popup-box,
-        body.theme-minimalist:not(.cv-light-mode) .sub-account-modal,
-        body.theme-minimalist:not(.cv-light-mode) .all-history-modal,
-        body.theme-minimalist:not(.cv-light-mode) .debt-modal-card,
-        body.theme-minimalist:not(.cv-light-mode) .view-debt-card { --cv-bg-modal: #0f172a !important; --cv-border-primary: #334155 !important; --cv-text-primary: #f8fafc !important; --cv-bg-input: #1e293b !important; --cv-bg-history-item: #1e293b !important; --cv-bg-form: #1e293b !important; }
-
-        body.theme-neon-purple:not(.cv-light-mode) .cyber-modal-card,
-        body.theme-neon-purple:not(.cv-light-mode) #detailTransactionModal .popup-box,
-        body.theme-neon-purple:not(.cv-light-mode) .sub-account-modal,
-        body.theme-neon-purple:not(.cv-light-mode) .all-history-modal,
-        body.theme-neon-purple:not(.cv-light-mode) .debt-modal-card,
-        body.theme-neon-purple:not(.cv-light-mode) .view-debt-card { --cv-bg-modal: radial-gradient(circle at 50% 50%, #2e0854 0%, #0d0221 65%, #02000a 100%) !important; --cv-border-primary: rgba(217, 70, 239, 0.5) !important; --cv-bg-form: rgba(20, 2, 45, 0.85) !important; --cv-bg-input: rgba(20, 2, 45, 0.85) !important; }
-
-        body.theme-matrix-green:not(.cv-light-mode) .cyber-modal-card,
-        body.theme-matrix-green:not(.cv-light-mode) #detailTransactionModal .popup-box,
-        body.theme-matrix-green:not(.cv-light-mode) .sub-account-modal,
-        body.theme-matrix-green:not(.cv-light-mode) .all-history-modal,
-        body.theme-matrix-green:not(.cv-light-mode) .debt-modal-card,
-        body.theme-matrix-green:not(.cv-light-mode) .view-debt-card { --cv-bg-modal: radial-gradient(circle at 50% 50%, #02260f 0%, #011306 65%, #000502 100%) !important; --cv-border-primary: rgba(34, 197, 94, 0.5) !important; --cv-bg-form: rgba(1, 19, 6, 0.9) !important; --cv-bg-input: rgba(1, 19, 6, 0.9) !important; }
-
-        body.theme-cyberpunk-orange:not(.cv-light-mode) .cyber-modal-card,
-        body.theme-cyberpunk-orange:not(.cv-light-mode) #detailTransactionModal .popup-box,
-        body.theme-cyberpunk-orange:not(.cv-light-mode) .sub-account-modal,
-        body.theme-cyberpunk-orange:not(.cv-light-mode) .all-history-modal,
-        body.theme-cyberpunk-orange:not(.cv-light-mode) .debt-modal-card,
-        body.theme-cyberpunk-orange:not(.cv-light-mode) .view-debt-card { --cv-bg-modal: radial-gradient(circle at 50% 50%, #3d1502 0%, #170801 65%, #050200 100%) !important; --cv-border-primary: rgba(249, 115, 22, 0.5) !important; --cv-bg-form: rgba(23, 8, 1, 0.9) !important; --cv-bg-input: rgba(23, 8, 1, 0.9) !important; }
-
-        body.theme-crimson-blood:not(.cv-light-mode) .cyber-modal-card,
-        body.theme-crimson-blood:not(.cv-light-mode) #detailTransactionModal .popup-box,
-        body.theme-crimson-blood:not(.cv-light-mode) .sub-account-modal,
-        body.theme-crimson-blood:not(.cv-light-mode) .all-history-modal,
-        body.theme-crimson-blood:not(.cv-light-mode) .debt-modal-card,
-        body.theme-crimson-blood:not(.cv-light-mode) .view-debt-card { --cv-bg-modal: radial-gradient(circle at 50% 50%, #3b0505 0%, #170101 65%, #050000 100%) !important; --cv-border-primary: rgba(239, 68, 68, 0.5) !important; --cv-bg-form: rgba(23, 1, 1, 0.9) !important; --cv-bg-input: rgba(23, 1, 1, 0.9) !important; }
-
-        body.theme-solar-gold:not(.cv-light-mode) .cyber-modal-card,
-        body.theme-solar-gold:not(.cv-light-mode) #detailTransactionModal .popup-box,
-        body.theme-solar-gold:not(.cv-light-mode) .sub-account-modal,
-        body.theme-solar-gold:not(.cv-light-mode) .all-history-modal,
-        body.theme-solar-gold:not(.cv-light-mode) .debt-modal-card,
-        body.theme-solar-gold:not(.cv-light-mode) .view-debt-card { --cv-bg-modal: radial-gradient(circle at 50% 50%, #332702 0%, #141001 65%, #050400 100%) !important; --cv-border-primary: rgba(234, 179, 8, 0.5) !important; --cv-bg-form: rgba(20, 16, 1, 0.9) !important; --cv-bg-input: rgba(20, 16, 1, 0.9) !important; }
     </style>
 </head>
 <body>
@@ -848,7 +687,7 @@
             </div>
 
             <div style="display: flex; justify-content: center; gap: 10px; width: 100%; margin: 4px 0 12px 0;">
-                <button type="button" id="btnOpenThemeModal" style="background: rgba(0, 240, 255, 0.12); border: 1px solid rgba(0, 240, 255, 0.5); color: #00f0ff; border-radius: 20px; padding: 8px 22px; font-size: 0.85rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(0,240,255,0.25); transition: all 0.2s ease; letter-spacing: 1px; width: 100%;">
+                <button type="button" id="btnOpenThemeModal" style="background: rgba(0, 240, 255, 0.12); border: 1px solid rgba(0, 240, 255, 0.5); color: #00f0ff; border-radius: 20px; padding: 8px 22px; font-size: 0.85rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(0,240,255,0.25); letter-spacing: 1px; width: 100%;">
                     Custom Theme
                 </button>
             </div>
@@ -922,14 +761,14 @@
             <div class="history-section-wrapper">
                 <div class="history-title-wrapper">
                     <div class="history-title-clickable" id="openMonthlyHistoryBtn" title="Lihat Rekap Bulanan">
-                        <svg style="width: 18px; height: 18px; fill: var(--cv-text-primary); transition: fill 0.3s ease;" viewBox="0 0 24 24">
+                        <svg style="width: 18px; height: 18px; fill: var(--cv-text-primary);" viewBox="0 0 24 24">
                             <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
                         </svg>
                         <h3 class="history-title-text">Riwayat</h3>
                     </div>
                     <div class="filter-actions-group">
-                        <button type="button" class="btn-today-quick" id="btnQuickToday" title="Filter Hari Ini">Hari Ini</button>
-                        <div class="filter-badge-wrapper" id="filterBadgeWrapperBtn" title="Ketuk untuk ganti tanggal/bulan/tahun">
+                        <button type="button" class="btn-today-quick" id="btnQuickToday">Hari Ini</button>
+                        <div class="filter-badge-wrapper" id="filterBadgeWrapperBtn">
                             <span class="filter-badge-text" id="filterBadgeText"></span>
                             <input type="date" id="filterDateInputDirect">
                         </div>
@@ -949,30 +788,9 @@
         <div style="font-size: 0.82rem; color: #a5f3fc; margin-bottom: 14px;" id="themeModalDesc">Pilih tema lengkap dengan animasi & font eksklusif:</div>
         
         <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
-            <button type="button" class="custom-option-btn theme-btn" data-theme="default" style="border-color: #00f0ff; color: #00f0ff; font-size: 0.95rem; padding: 12px;">
-                Cyber Blue (Default)
-            </button>
-            <button type="button" class="custom-option-btn theme-btn" data-theme="light" style="border-color: #cbd5e1; color: #1e293b; background: #ffffff; font-size: 0.95rem; padding: 12px;">
-                ☀️ Mode Terang (Clean Light)
-            </button>
-            <button type="button" class="custom-option-btn theme-btn" data-theme="minimalist" style="border-color: #94a3b8; color: #f8fafc; background: #1e293b; font-size: 0.95rem; padding: 12px;">
-                Minimalist Dark (Clean)
-            </button>
-            <button type="button" class="custom-option-btn theme-btn" data-theme="neon-purple" style="border-color: #d946ef; color: #f0abfc; background: rgba(217, 70, 239, 0.1); font-size: 0.95rem; padding: 12px;">
-                Neon Synthwave
-            </button>
-            <button type="button" class="custom-option-btn theme-btn" data-theme="matrix-green" style="border-color: #22c55e; color: #86efac; background: rgba(34, 197, 94, 0.1); font-size: 0.95rem; padding: 12px;">
-                Matrix Hacker
-            </button>
-            <button type="button" class="custom-option-btn theme-btn" data-theme="cyberpunk-orange" style="border-color: #f97316; color: #fed7aa; background: rgba(249, 115, 22, 0.1); font-size: 0.95rem; padding: 12px;">
-                Cyberpunk Orange
-            </button>
-            <button type="button" class="custom-option-btn theme-btn" data-theme="crimson-blood" style="border-color: #ef4444; color: #fecaca; background: rgba(239, 68, 68, 0.1); font-size: 0.95rem; padding: 12px;">
-                Crimson Blood
-            </button>
-            <button type="button" class="custom-option-btn theme-btn" data-theme="solar-gold" style="border-color: #eab308; color: #fef08a; background: rgba(234, 179, 8, 0.1); font-size: 0.95rem; padding: 12px;">
-                Solar Gold (Mewah)
-            </button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="default" style="border-color: #00f0ff; color: #00f0ff; font-size: 0.95rem; padding: 12px;">Cyber Blue (Default)</button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="light" style="border-color: #cbd5e1; color: #1e293b; background: #ffffff; font-size: 0.95rem; padding: 12px;">☀️ Mode Terang (Clean Light)</button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="minimalist" style="border-color: #94a3b8; color: #f8fafc; background: #1e293b; font-size: 0.95rem; padding: 12px;">Minimalist Dark (Clean)</button>
         </div>
 
         <button type="button" class="popup-btn theme-close-btn" style="margin-top: 16px; background: transparent; border: 1px solid #94a3b8; color: #94a3b8; padding: 10px; box-shadow: none;" id="closeThemeModalBtn">Tutup</button>
@@ -986,28 +804,18 @@
             <div id="monthlyModalTitle" style="font-family: 'Orbitron', sans-serif; font-size: 1.15rem; font-weight: 900; color: #00f0ff; text-align: center; flex-grow: 1;">REKAP BULANAN</div>
             <button type="button" id="closeMonthlyModalBtn" style="background:none; border:none; color:#94a3b8; font-size:1.5rem; cursor:pointer; padding-left: 10px;">✕</button>
         </div>
-        
-        <div id="monthlyListContainer" style="display: flex; flex-direction: column; gap: 10px; overflow-y: auto; overflow-x: hidden !important; flex-grow: 1; padding: 4px 0;"></div>
-        
-        <div id="monthlyDetailContainer" style="display: none; flex-direction: column; gap: 12px; overflow-y: auto; overflow-x: hidden !important; flex-grow: 1; padding: 4px 0;">
+        <div id="monthlyListContainer" style="display: flex; flex-direction: column; gap: 10px; overflow-y: auto; flex-grow: 1; padding: 4px 0;"></div>
+        <div id="monthlyDetailContainer" style="display: none; flex-direction: column; gap: 12px; overflow-y: auto; flex-grow: 1; padding: 4px 0;">
             <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
-                <div class="card-hero pemasukan" id="btnFilterPemasukanDetail" style="cursor: pointer; padding: 14px; text-align: left; display: flex; justify-content: space-between; align-items: center; transition: transform 0.15s ease;">
-                    <div>
-                        <h4 style="color: #34d399; margin-bottom: 2px; font-size: 0.8rem;">PEMASUKAN</h4>
-                        <p id="monthlyDetailIn" style="font-size: 1.3rem; color: #34d399; text-shadow: none;">Rp 0</p>
-                    </div>
-                    <span style="font-size: 1.2rem; font-weight: 900; color: #34d399;" id="arrowInIndicator">›</span>
+                <div class="card-hero pemasukan" id="btnFilterPemasukanDetail" style="cursor: pointer; padding: 14px; text-align: left; display: flex; justify-content: space-between; align-items: center;">
+                    <div><h4 style="color: #34d399; margin-bottom: 2px; font-size: 0.8rem;">PEMASUKAN</h4><p id="monthlyDetailIn" style="font-size: 1.3rem; color: #34d399;">Rp 0</p></div>
+                    <span style="font-size: 1.2rem; font-weight: 900; color: #34d399;">›</span>
                 </div>
-                
-                <div class="card-hero pengeluaran" id="btnFilterPengeluaranDetail" style="cursor: pointer; padding: 14px; text-align: left; display: flex; justify-content: space-between; align-items: center; transition: transform 0.15s ease;">
-                    <div>
-                        <h4 style="color: #fb7185; margin-bottom: 2px; font-size: 0.8rem;">PENGELUARAN</h4>
-                        <p id="monthlyDetailOut" style="font-size: 1.3rem; color: #fb7185; text-shadow: none;">Rp 0</p>
-                    </div>
-                    <span style="font-size: 1.2rem; font-weight: 900; color: #fb7185;" id="arrowOutIndicator">›</span>
+                <div class="card-hero pengeluaran" id="btnFilterPengeluaranDetail" style="cursor: pointer; padding: 14px; text-align: left; display: flex; justify-content: space-between; align-items: center;">
+                    <div><h4 style="color: #fb7185; margin-bottom: 2px; font-size: 0.8rem;">PENGELUARAN</h4><p id="monthlyDetailOut" style="font-size: 1.3rem; color: #fb7185;">Rp 0</p></div>
+                    <span style="font-size: 1.2rem; font-weight: 900; color: #fb7185;">›</span>
                 </div>
             </div>
-
             <div id="monthlyDetailList" style="display: flex; flex-direction: column; gap: 10px; width: 100%; margin-top: 4px;"></div>
         </div>
     </div>
@@ -1019,14 +827,12 @@
             <div style="font-family: 'Orbitron', sans-serif; font-size: 1.15rem; font-weight: 900; color: #00f0ff;">DETAIL TRANSAKSI</div>
             <button type="button" id="closeDetailModalBtn" style="background:none; border:none; color:#94a3b8; font-size:1.5rem; cursor:pointer; padding: 4px; line-height: 1;">✕</button>
         </div>
-        
-        <div style="overflow-y: auto; overflow-x: hidden !important; flex-grow: 1; padding-top: 14px; padding-bottom: 10px; display: flex; flex-direction: column; gap: 16px;">
+        <div style="overflow-y: auto; flex-grow: 1; padding-top: 14px; padding-bottom: 10px; display: flex; flex-direction: column; gap: 16px;">
             <input type="hidden" id="editTxId">
-            
             <div class="form-group">
                 <label>Bukti Transaksi</label>
                 <div id="detailProofContainer" style="display: none; flex-direction: column; gap: 6px; margin-bottom: 8px;">
-                    <img id="detailProofImage" src="" style="width: 100%; max-height: 250px; object-fit: contain; border-radius: 12px; border: 1.5px solid var(--cv-border-primary); background: var(--cv-bg-input); cursor: zoom-in;" alt="Bukti Transaksi" title="Klik untuk memperbesar">
+                    <img id="detailProofImage" src="" style="width: 100%; max-height: 250px; object-fit: contain; border-radius: 12px; border: 1.5px solid var(--cv-border-primary); background: var(--cv-bg-input); cursor: zoom-in;" alt="Bukti Transaksi">
                 </div>
                 <div class="custom-file-box">
                     <input type="file" id="editProofInput" accept="image/*" style="display: none;" onchange="updateFileName(this, 'editFileNameDisplay')">
@@ -1034,40 +840,26 @@
                     <span id="editFileNameDisplay" class="file-name-text">Tidak ada file dipilih</span>
                 </div>
             </div>
-
-            <div class="form-group">
-                <label>Jenis Transaksi</label>
-                <div class="custom-select-box selected" id="btnEditSelectType">-- Pilih Jenis --</div>
-                <input type="hidden" id="editType">
-            </div>
-            
+            <div class="form-group"><label>Jenis Transaksi</label><div class="custom-select-box selected" id="btnEditSelectType">-- Pilih Jenis --</div><input type="hidden" id="editType"></div>
             <div class="form-group"><label>Jumlah (Rp)</label><input type="text" id="editAmount" inputmode="numeric"></div>
             <div class="form-group"><label>Keterangan</label><input type="text" id="editDescription"></div>
-            
             <div class="datetime-group">
                 <div class="form-group"><label>Tanggal</label><input type="date" id="editDate"></div>
                 <div class="form-group"><label>Jam</label><input type="time" id="editTime"></div>
             </div>
-            
-            <div class="form-group">
-                <label>Metode Pembayaran</label>
-                <div class="custom-select-box selected" id="btnEditSelectMethod">-- Pilih Metode --</div>
-                <input type="hidden" id="editMethod">
-            </div>
-
+            <div class="form-group"><label>Metode Pembayaran</label><div class="custom-select-box selected" id="btnEditSelectMethod">-- Pilih Metode --</div><input type="hidden" id="editMethod"></div>
             <div style="display: flex; gap: 10px; margin-top: 6px; width: 100%;">
-                <button type="button" id="btnDeleteTransaction" style="background: rgba(244, 63, 94, 0.2); border: 1.5px solid rgba(244, 63, 94, 0.6); color: #fb7185; flex: 1; padding: 14px; border-radius: 12px; font-weight: 800; cursor:pointer; font-size: 1rem;">Hapus</button>
-                <button type="button" id="btnUpdateTransaction" style="background: linear-gradient(135deg, #00f0ff 0%, #0077ff 100%); border: none; color: #020714; flex: 2; padding: 14px; border-radius: 12px; font-weight: 900; cursor:pointer; font-size: 1rem;">Simpan Perubahan</button>
+                <button type="button" id="btnDeleteTransaction" style="background: rgba(244, 63, 94, 0.2); border: 1.5px solid rgba(244, 63, 94, 0.6); color: #fb7185; flex: 1; padding: 14px; border-radius: 12px; font-weight: 800; cursor:pointer;">Hapus</button>
+                <button type="button" id="btnUpdateTransaction" style="background: linear-gradient(135deg, #00f0ff 0%, #0077ff 100%); border: none; color: #020714; flex: 2; padding: 14px; border-radius: 12px; font-weight: 900; cursor:pointer;">Simpan Perubahan</button>
             </div>
         </div>
-
     </div>
 </div>
 
 <div class="popup-overlay" id="imageLightboxModal" style="background: rgba(2, 7, 20, 0.95); z-index: 9999999999;">
     <div style="position: relative; max-width: 92vw; max-height: 92vh; display: flex; flex-direction: column; align-items: center;">
         <button type="button" id="closeLightboxBtn" style="position: absolute; top: -45px; right: 0; background: rgba(0, 240, 255, 0.2); border: 1.5px solid #00f0ff; color: #00f0ff; width: 38px; height: 38px; border-radius: 50%; font-size: 1.2rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center;">✕</button>
-        <img id="lightboxImage" src="" style="width: 100%; max-height: 85vh; object-fit: contain; border-radius: 14px; border: 2px solid rgba(0, 240, 255, 0.6); box-shadow: 0 0 40px rgba(0, 240, 255, 0.4); background: #020714;" alt="Bukti Full">
+        <img id="lightboxImage" src="" style="width: 100%; max-height: 85vh; object-fit: contain; border-radius: 14px; border: 2px solid rgba(0, 240, 255, 0.6); background: #020714;" alt="Bukti Full">
     </div>
 </div>
 
@@ -1075,17 +867,17 @@
     <button type="button" class="install-app-btn" id="btnInstallApp">⚡ INSTAL APLIKASI</button>
     <div class="header-box">
         <div class="brand-top-header"><span class="brand-studio-title">VENUS STUDIO</span></div>
-        <div class="clickable-header-wrapper" id="toggleAppViewBtn" title="Ketuk untuk membuka menu lengkap">
+        <div class="clickable-header-wrapper" id="toggleAppViewBtn">
             <h2 class="main-page-title">CYBER VAULT</h2><div class="main-page-subtitle">FINANCIAL MONITORING SYSTEM</div>
         </div>
     </div>
-    <div class="personal-data-panel" id="openPersonalModalPanel" title="Ketuk untuk membuka Personal Data">
+    <div class="personal-data-panel" id="openPersonalModalPanel">
         <h2 class="main-page-title">PERSONAL DATA</h2><div class="main-page-subtitle">ACCOUNTS & PASSWORDS MANAGER</div>
     </div>
-    <div class="debt-tracker-panel" id="openDebtModalPanel" title="Ketuk untuk membuka Debt Tracker">
+    <div class="debt-tracker-panel" id="openDebtModalPanel">
         <h2 class="main-page-title">DEBT TRACKER</h2><div class="main-page-subtitle">DEBTS & LIABILITIES MONITOR</div>
     </div>
-    <div class="music-player-panel" id="openMusicModalPanel" title="Ketuk untuk membuka Playlist Music">
+    <div class="music-player-panel" id="openMusicModalPanel">
         <h2 class="main-page-title">PLAYLIST MUSIC</h2><div class="main-page-subtitle">CYBER AUDIO PLAYER</div>
     </div>
 </div>
@@ -1100,13 +892,13 @@
 </div>
 
 <div class="popup-overlay" id="cyberConfirmModal">
-    <div class="popup-box" style="max-width: 350px; text-align: center; gap: 16px; border-color: rgba(244, 63, 94, 0.7); box-shadow: 0 0 40px rgba(244, 63, 94, 0.4);">
+    <div class="popup-box" style="max-width: 350px; text-align: center; gap: 16px; border-color: rgba(244, 63, 94, 0.7);">
         <div style="width: 54px; height: 54px; border-radius: 50%; background: rgba(244, 63, 94, 0.15); border: 2px solid #f43f5e; color: #fb7185; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin: 0 auto;">⚠️</div>
         <div style="font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 900; color: #fff;">KONFIRMASI</div>
         <div id="cyberConfirmMessage" style="font-size: 0.95rem; color: #a5f3fc; line-height: 1.5;">Apakah Anda yakin ingin menghapus transaksi ini?</div>
         <div style="display: flex; gap: 10px; width: 100%; margin-top: 6px;">
-            <button type="button" id="cyberConfirmCancelBtn" style="background: rgba(0, 240, 255, 0.1); border: 1.5px solid rgba(0, 240, 255, 0.4); color: #00f0ff; flex: 1; padding: 14px; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 1rem;">Batal</button>
-            <button type="button" id="cyberConfirmOkBtn" style="background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%); border: none; color: #fff; flex: 1; padding: 14px; border-radius: 12px; font-weight: 900; cursor: pointer; font-size: 1rem; box-shadow: 0 0 15px rgba(244, 63, 94, 0.5);">Hapus</button>
+            <button type="button" id="cyberConfirmCancelBtn" style="background: rgba(0, 240, 255, 0.1); border: 1.5px solid rgba(0, 240, 255, 0.4); color: #00f0ff; flex: 1; padding: 14px; border-radius: 12px; font-weight: 800; cursor: pointer;">Batal</button>
+            <button type="button" id="cyberConfirmOkBtn" style="background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%); border: none; color: #fff; flex: 1; padding: 14px; border-radius: 12px; font-weight: 900; cursor: pointer;">Hapus</button>
         </div>
     </div>
 </div>
@@ -1114,13 +906,10 @@
 <div class="popup-overlay" id="newPlatformModal">
     <div class="popup-box" style="max-width: 360px; text-align: left; align-items: stretch; gap: 16px;">
         <div style="font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 900; color: #00f0ff; text-align: center;">TAMBAH PLATFORM BARU</div>
-        <div class="form-group">
-            <label>Nama Platform / Judul Akun</label>
-            <input type="text" id="newPlatformInput" placeholder="Misal: Twitter, Facebook, Netflix">
-        </div>
+        <div class="form-group"><label>Nama Platform / Judul Akun</label><input type="text" id="newPlatformInput" placeholder="Misal: Twitter, Facebook, Netflix"></div>
         <div style="display: flex; gap: 10px; margin-top: 6px; width: 100%;">
-            <button type="button" id="cancelNewPlatformBtn" style="background: rgba(244, 63, 94, 0.2); border: 1.5px solid rgba(244, 63, 94, 0.6); color: #fb7185; flex: 1; padding: 14px; border-radius: 12px; font-weight: 800; cursor:pointer; font-size: 1rem;">Batal</button>
-            <button type="button" id="saveNewPlatformBtn" style="background: linear-gradient(135deg, #00f0ff 0%, #0077ff 100%); border: none; color: #020714; flex: 2; padding: 14px; border-radius: 12px; font-weight: 900; cursor:pointer; font-size: 1rem;">Tambah</button>
+            <button type="button" id="cancelNewPlatformBtn" style="background: rgba(244, 63, 94, 0.2); border: 1.5px solid rgba(244, 63, 94, 0.6); color: #fb7185; flex: 1; padding: 14px; border-radius: 12px; font-weight: 800; cursor:pointer;">Batal</button>
+            <button type="button" id="saveNewPlatformBtn" style="background: linear-gradient(135deg, #00f0ff 0%, #0077ff 100%); border: none; color: #020714; flex: 2; padding: 14px; border-radius: 12px; font-weight: 900; cursor:pointer;">Tambah</button>
         </div>
     </div>
 </div>
@@ -1209,11 +998,7 @@
         draw() {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = document.body.classList.contains('theme-matrix-green') ? 'rgba(34, 197, 94, 0.85)' : 
-                            document.body.classList.contains('theme-neon-purple') ? 'rgba(217, 70, 239, 0.85)' : 
-                            document.body.classList.contains('theme-cyberpunk-orange') ? 'rgba(249, 115, 22, 0.85)' : 
-                            document.body.classList.contains('theme-crimson-blood') ? 'rgba(239, 68, 68, 0.85)' : 
-                            document.body.classList.contains('theme-solar-gold') ? 'rgba(234, 179, 8, 0.85)' : 'rgba(0, 240, 255, 0.85)';
+            ctx.fillStyle = 'rgba(0, 240, 255, 0.85)';
             ctx.shadowBlur = 10;
             ctx.shadowColor = ctx.fillStyle;
             ctx.fill();
@@ -1232,27 +1017,19 @@
 
     function animateParticles() {
         ctx.clearRect(0, 0, width, height);
-
         for (let i = 0; i < particles.length; i++) {
             particles[i].update();
             particles[i].draw();
-
             for (let j = i + 1; j < particles.length; j++) {
                 const dx = particles[i].x - particles[j].x;
                 const dy = particles[i].y - particles[j].y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
-
                 if (dist < 130) {
                     ctx.beginPath();
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);
                     const alpha = (1 - (dist / 130)) * 0.55;
-                    const lineColor = document.body.classList.contains('theme-matrix-green') ? `rgba(34, 197, 94, ${alpha})` : 
-                                      document.body.classList.contains('theme-neon-purple') ? `rgba(217, 70, 239, ${alpha})` : 
-                                      document.body.classList.contains('theme-cyberpunk-orange') ? `rgba(249, 115, 22, ${alpha})` : 
-                                      document.body.classList.contains('theme-crimson-blood') ? `rgba(239, 68, 68, ${alpha})` : 
-                                      document.body.classList.contains('theme-solar-gold') ? `rgba(234, 179, 8, ${alpha})` : `rgba(0, 240, 255, ${alpha})`;
-                    ctx.strokeStyle = lineColor;
+                    ctx.strokeStyle = `rgba(0, 240, 255, ${alpha})`;
                     ctx.lineWidth = 1.2;
                     ctx.stroke();
                 }
@@ -1285,9 +1062,7 @@
 
   window.saveTransactionsToFirebase = function(txData) {
     if (isSyncingFromCloud) return;
-    set(ref(db, 'venus_studio/transactions'), txData)
-      .then(() => { updateSyncIndicator(true); })
-      .catch((err) => { updateSyncIndicator(false); });
+    set(ref(db, 'venus_studio/transactions'), txData).catch(() => {});
   };
 
   window.initFirebaseSync = function(onDataReceived) {
@@ -1298,17 +1073,12 @@
         isSyncingFromCloud = true;
         onDataReceived(cloudData);
         setTimeout(() => { isSyncingFromCloud = false; }, 300);
-        updateSyncIndicator(true);
-      } else {
-        updateSyncIndicator(true);
       }
-    }, (error) => {
-      updateSyncIndicator(false);
-    });
+    }, () => {});
   };
 
   window.saveDebtsToFirebase = function(debtData) {
-    set(ref(db, 'venus_studio/debts'), debtData).catch((err) => {});
+    set(ref(db, 'venus_studio/debts'), debtData).catch(() => {});
   };
 
   window.initDebtFirebaseSync = function(onDebtReceived) {
@@ -1320,13 +1090,6 @@
       }
     });
   };
-
-  function updateSyncIndicator(isConnected) {
-    const badge = document.getElementById('syncStatusText');
-    if (badge) {
-      badge.innerText = isConnected ? "Cloud Sync: Terhubung" : "Cloud Sync: Menghubungkan...";
-    }
-  }
 </script>
 
 <script>
@@ -1334,64 +1097,22 @@
     const themeModalOverlay = document.getElementById('themeModalOverlay');
     const closeThemeModalBtn = document.getElementById('closeThemeModalBtn');
     const themeBtns = document.querySelectorAll('.theme-btn');
-    const cyberModalCard = id('cyberModalCard');
-
-    function id(elemId) { return document.getElementById(elemId); }
+    const cyberModalCard = document.getElementById('cyberModalCard');
 
     if(btnOpenThemeModal) {
-        btnOpenThemeModal.addEventListener('click', () => {
-            themeModalOverlay.classList.add('active');
-            updateThemeModalStyle();
-        });
+        btnOpenThemeModal.addEventListener('click', () => { themeModalOverlay.classList.add('active'); });
     }
-
     if(closeThemeModalBtn) {
-        closeThemeModalBtn.addEventListener('click', () => {
-            themeModalOverlay.classList.remove('active');
-        });
+        closeThemeModalBtn.addEventListener('click', () => { themeModalOverlay.classList.remove('active'); });
     }
 
     function applyTheme(themeName) {
-        document.body.classList.remove(
-            'theme-minimalist', 
-            'theme-neon-purple', 
-            'theme-matrix-green', 
-            'theme-cyberpunk-orange', 
-            'theme-crimson-blood', 
-            'theme-solar-gold'
-        );
-        
         if (themeName === 'light') {
             cyberModalCard.classList.add('cv-light-mode');
-            localStorage.setItem('cyber_vault_mode', 'light');
             localStorage.setItem('cyber_vault_theme', 'light');
         } else {
             cyberModalCard.classList.remove('cv-light-mode');
-            localStorage.setItem('cyber_vault_mode', 'dark');
-            if (themeName !== 'default') {
-                document.body.classList.add('theme-' + themeName);
-            }
-            localStorage.setItem('cyber_vault_theme', themeName);
-        }
-        updateThemeModalStyle();
-    }
-
-    function updateThemeModalStyle() {
-        const isLight = cyberModalCard.classList.contains('cv-light-mode');
-        const box = document.querySelector('.theme-modal-box');
-        const desc = document.getElementById('themeModalDesc');
-        const closeBtn = document.getElementById('closeThemeModalBtn');
-        
-        if (isLight) {
-            box.classList.add('cv-light-mode-modal');
-            desc.style.color = '#475569';
-            closeBtn.style.borderColor = '#cbd5e1';
-            closeBtn.style.color = '#475569';
-        } else {
-            box.classList.remove('cv-light-mode-modal');
-            desc.style.color = '#a5f3fc';
-            closeBtn.style.borderColor = '#94a3b8';
-            closeBtn.style.color = '#94a3b8';
+            localStorage.setItem('cyber_vault_theme', 'default');
         }
     }
 
@@ -1400,51 +1121,32 @@
             const selectedTheme = e.target.getAttribute('data-theme');
             applyTheme(selectedTheme);
             themeModalOverlay.classList.remove('active');
-            try { playSuccessSound(); } catch(err){}
         });
     });
 
     document.addEventListener('DOMContentLoaded', () => {
         const savedTheme = localStorage.getItem('cyber_vault_theme');
-        if (savedTheme === 'light') {
-            applyTheme('light');
-        } else if (savedTheme) {
-            applyTheme(savedTheme);
-        } else {
-            applyTheme('default');
-        }
+        if (savedTheme) applyTheme(savedTheme);
 
         initIndexedDB();
         renderAccountTitles();
         renderDebts();
-        
-        const savedOpacity = localStorage.getItem('cyber_glass_opacity');
-        if (savedOpacity !== null) {
-            document.documentElement.style.setProperty('--glass-alpha', (savedOpacity / 100).toFixed(2));
-            document.getElementById('glassOpacitySlider').value = savedOpacity;
-            document.getElementById('opacityValText').innerText = savedOpacity + '%';
-        }
 
         const isLogged = sessionStorage.getItem('venus_is_logged') === 'true';
         const activeModal = sessionStorage.getItem('venus_active_modal');
 
         if (isLogged) {
-            splashScreenOverlay.classList.add('hidden');
-            pinScreenOverlay.classList.add('hidden');
-            techBgContainer.classList.add('active');
-            mainAppContainer.classList.add('active');
+            document.getElementById('splashScreenOverlay').classList.add('hidden');
+            document.getElementById('pinScreenOverlay').classList.add('hidden');
+            document.getElementById('techBgContainer').classList.add('active');
+            document.getElementById('mainAppContainer').classList.add('active');
             refreshRealtimeDateTime();
             updateUI();
 
-            if (activeModal === 'cyber') { cyberModalOverlay.classList.add('active'); }
-            else if (activeModal === 'music') { musicModalOverlay.classList.add('active'); }
-            else if (activeModal === 'personal') { personalModalOverlay.classList.add('active'); }
-            else if (activeModal === 'debt') { debtModalOverlay.classList.add('active'); }
-        } else {
-            setTimeout(() => { 
-                playNetflixIntroSound(); 
-                speakWelcomeGreeting(); 
-            }, 600);
+            if (activeModal === 'cyber') document.getElementById('cyberModalOverlay').classList.add('active');
+            else if (activeModal === 'music') document.getElementById('musicModalOverlay').classList.add('active');
+            else if (activeModal === 'personal') document.getElementById('personalModalOverlay').classList.add('active');
+            else if (activeModal === 'debt') document.getElementById('debtModalOverlay').classList.add('active');
         }
 
         setTimeout(() => {
@@ -1452,9 +1154,7 @@
                 window.initFirebaseSync((cloudData) => {
                     if (cloudData && Array.isArray(cloudData)) {
                         transactions = cloudData;
-                        try {
-                            localStorage.setItem('my_transactions', JSON.stringify(transactions));
-                        } catch(e) {}
+                        try { localStorage.setItem('my_transactions', JSON.stringify(transactions)); } catch(e) {}
                         updateUI();
                     }
                 });
@@ -1462,70 +1162,29 @@
             if (window.initDebtFirebaseSync) {
                 window.initDebtFirebaseSync((cloudDebtData) => {
                     if (cloudDebtData && Array.isArray(cloudDebtData)) {
-                        try {
-                            localStorage.setItem('venus_debt_tracker_data', JSON.stringify(cloudDebtData));
-                        } catch(e) {}
+                        try { localStorage.setItem('venus_debt_tracker_data', JSON.stringify(cloudDebtData)); } catch(e) {}
                         renderDebts();
                     }
                 });
             }
-        }, 800);
+        }, 500);
     });
 
     function showCyberConfirm(message, onConfirm) {
         const modal = document.getElementById('cyberConfirmModal');
-        const msgEl = document.getElementById('cyberConfirmMessage');
+        document.getElementById('cyberConfirmMessage').innerText = message;
+        modal.classList.add('active');
         const okBtn = document.getElementById('cyberConfirmOkBtn');
         const cancelBtn = document.getElementById('cyberConfirmCancelBtn');
         
-        msgEl.innerText = message;
-        modal.classList.add('active');
-
         const newOkBtn = okBtn.cloneNode(true);
         const newCancelBtn = cancelBtn.cloneNode(true);
         okBtn.parentNode.replaceChild(newOkBtn, okBtn);
         cancelBtn.parentNode.replaceChild(newCancelBtn, cancelBtn);
 
-        newOkBtn.addEventListener('click', () => {
-            modal.classList.remove('active');
-            if (onConfirm) onConfirm();
-        });
-
-        newCancelBtn.addEventListener('click', () => {
-            modal.classList.remove('active');
-        });
+        newOkBtn.addEventListener('click', () => { modal.classList.remove('active'); if (onConfirm) onConfirm(); });
+        newCancelBtn.addEventListener('click', () => { modal.classList.remove('active'); });
     }
-
-    const LOCK_TIMEOUT_MS = 5 * 60 * 1000;
-
-    document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'hidden') {
-            localStorage.setItem('venus_last_leave_time', Date.now());
-        } else if (document.visibilityState === 'visible') {
-            refreshRealtimeDateTime();
-            updateUI();
-
-            const lastLeave = localStorage.getItem('venus_last_leave_time');
-            if (lastLeave) {
-                const elapsed = Date.now() - parseInt(lastLeave, 10);
-                if (elapsed > LOCK_TIMEOUT_MS) {
-                    sessionStorage.removeItem('venus_is_logged');
-                    sessionStorage.removeItem('venus_active_modal');
-                    const transactionForm = document.getElementById('transactionForm');
-                    if (transactionForm) transactionForm.reset();
-                    location.reload();
-                }
-            }
-        }
-    });
-
-    window.addEventListener('pagehide', () => {
-        localStorage.setItem('venus_last_leave_time', Date.now());
-    });
-
-    function playNetflixIntroSound() { try { const ctx = new (window.AudioContext || window.webkitAudioContext)(); if (ctx.state === 'suspended') ctx.resume(); const now = ctx.currentTime; const osc1 = ctx.createOscillator(); const gain1 = ctx.createGain(); osc1.type = 'sawtooth'; osc1.frequency.setValueAtTime(100, now); osc1.frequency.exponentialRampToValueAtTime(32, now + 0.55); gain1.gain.setValueAtTime(0.01, now); gain1.gain.linearRampToValueAtTime(0.75, now + 0.08); gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.85); osc1.connect(gain1); gain1.connect(ctx.destination); osc1.start(now); osc1.stop(now + 0.85); const osc2 = ctx.createOscillator(); const gain2 = ctx.createGain(); osc2.type = 'sine'; osc2.frequency.setValueAtTime(140, now + 0.22); osc2.frequency.exponentialRampToValueAtTime(38, now + 1.6); gain2.gain.setValueAtTime(0.01, now + 0.22); gain2.gain.linearRampToValueAtTime(0.95, now + 0.3); gain2.gain.exponentialRampToValueAtTime(0.0001, now + 1.8); osc2.connect(gain2); gain2.connect(ctx.destination); osc2.start(now + 0.22); osc2.stop(now + 1.8); } catch (e) {} }
-    function playDramaticTransitionSound() { try { const ctx = new (window.AudioContext || window.webkitAudioContext)(); if (ctx.state === 'suspended') ctx.resume(); const now = ctx.currentTime; const osc = ctx.createOscillator(); const gain = ctx.createGain(); osc.type = 'sawtooth'; osc.frequency.setValueAtTime(150, now); osc.frequency.exponentialRampToValueAtTime(800, now + 0.4); gain.gain.setValueAtTime(0.01, now); gain.gain.linearRampToValueAtTime(0.35, now + 0.2); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6); osc.connect(gain); gain.connect(ctx.destination); osc.start(now); osc.stop(now + 0.6); } catch (e) {} }
-    function playCashSound() { try { const ctx = new (window.AudioContext || window.webkitAudioContext)(); if (ctx.state === 'suspended') ctx.resume(); const now = ctx.currentTime; [987.77, 1318.51, 1567.98].forEach((freq, idx) => { const osc = ctx.createOscillator(); const gain = ctx.createGain(); osc.type = 'sine'; osc.frequency.setValueAtTime(freq, now + idx * 0.08); gain.gain.setValueAtTime(0.01, now + idx * 0.08); gain.gain.linearRampToValueAtTime(0.3, now + idx * 0.08 + 0.02); gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.4); osc.connect(gain); gain.connect(ctx.destination); osc.start(now + idx * 0.08); osc.stop(now + idx * 0.08 + 0.4); }); } catch (e) {} }
 
     const btnTapHere = document.getElementById('btnTapHere');
     const splashScreenOverlay = document.getElementById('splashScreenOverlay');
@@ -1539,44 +1198,8 @@
     const cyberScannerFlash = document.getElementById('cyberScannerFlash');
     const techBgContainer = document.getElementById('techBgContainer');
 
-    function speakWelcomeGreeting() {
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance("Welcome To Venus Studio, Tap here to login");
-            utterance.lang = 'en-US'; utterance.rate = 0.95; utterance.pitch = 1.0;
-            
-            utterance.onboundary = function(event) {
-                if (event.name === 'word') {
-                    const spokenWord = utterance.text.substring(event.charIndex, event.charIndex + event.charLength).toLowerCase();
-                    if (spokenWord === 'tap') {
-                        if (btnTapHere && !btnTapHere.classList.contains('show')) {
-                            btnTapHere.classList.add('show');
-                        }
-                    }
-                }
-            };
-
-            utterance.onend = function() { 
-                if (btnTapHere && !btnTapHere.classList.contains('show')) {
-                    btnTapHere.classList.add('show'); 
-                }
-            };
-
-            setTimeout(() => { 
-                if (btnTapHere && !btnTapHere.classList.contains('show')) { 
-                    btnTapHere.classList.add('show'); 
-                } 
-            }, 2500);
-
-            window.speechSynthesis.speak(utterance);
-        } else { 
-            if (btnTapHere) btnTapHere.classList.add('show'); 
-        }
-    }
-
     if (btnTapHere) {
         btnTapHere.addEventListener('click', () => {
-            playDramaticTransitionSound();
             if (splashScreenOverlay) splashScreenOverlay.classList.add('hidden');
             setTimeout(() => { if (pinScreenOverlay) pinScreenOverlay.classList.add('active'); }, 200);
         });
@@ -1601,7 +1224,7 @@
     
     function verifyPin() {
         if (enteredPin === CORRECT_PIN) {
-            playSuccessSound(); cyberScannerFlash.classList.add('active'); pinScreenOverlay.classList.add('hidden');
+            cyberScannerFlash.classList.add('active'); pinScreenOverlay.classList.add('hidden');
             setTimeout(() => { 
                 techBgContainer.classList.add('active');
                 mainAppContainer.classList.add('active'); 
@@ -1618,23 +1241,10 @@
     let enteredDebtPin = "";
     const debtPinBoxes = document.querySelectorAll('[data-debt-pin-index]');
     const debtPinErrorMsg = document.getElementById('debtPinErrorMsg');
-    const openDebtModalPanel = document.getElementById('openDebtModalPanel');
-    const closeDebtModalBtn = document.getElementById('closeDebtModalBtn');
-    const cancelDebtPinBtn = document.getElementById('cancelDebtPinBtn');
-
-    openDebtModalPanel.addEventListener('click', () => {
-        clearDebtPin();
-        debtPinOverlay.classList.add('active');
-    });
-
-    cancelDebtPinBtn.addEventListener('click', () => {
-        debtPinOverlay.classList.remove('active');
-    });
-
-    closeDebtModalBtn.addEventListener('click', () => { 
-        debtModalOverlay.classList.remove('active'); 
-        sessionStorage.setItem('venus_active_modal', 'none'); 
-    });
+    
+    document.getElementById('openDebtModalPanel').addEventListener('click', () => { clearDebtPin(); debtPinOverlay.classList.add('active'); });
+    document.getElementById('cancelDebtPinBtn').addEventListener('click', () => { debtPinOverlay.classList.remove('active'); });
+    document.getElementById('closeDebtModalBtn').addEventListener('click', () => { debtModalOverlay.classList.remove('active'); sessionStorage.setItem('venus_active_modal', 'none'); });
 
     function updateDebtPinDisplay() {
         debtPinBoxes.forEach((box, index) => {
@@ -1650,7 +1260,6 @@
 
     function verifyDebtPin() {
         if (enteredDebtPin === CORRECT_PIN) {
-            playSuccessSound();
             debtPinOverlay.classList.remove('active');
             debtModalOverlay.classList.add('active');
             sessionStorage.setItem('venus_active_modal', 'debt');
@@ -1660,34 +1269,14 @@
         }
     }
 
-    function playSuccessSound() {
-        try {
-            const ctx = new (window.AudioContext || window.webkitAudioContext)(); const now = ctx.currentTime;
-            [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
-                const osc = ctx.createOscillator(); const gain = ctx.createGain(); osc.type = 'triangle';
-                osc.frequency.setValueAtTime(freq, now + idx * 0.08); gain.gain.setValueAtTime(0.01, now + idx * 0.08);
-                gain.gain.exponentialRampToValueAtTime(0.4, now + idx * 0.08 + 0.02); gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.3);
-                osc.connect(gain); gain.connect(ctx.destination); osc.start(now + idx * 0.08); osc.stop(now + idx * 0.08 + 0.3);
-            });
-        } catch (e) {}
-    }
-
-    const toggleAppViewBtn = document.getElementById('toggleAppViewBtn'); const closeCyberModalBtn = document.getElementById('closeCyberModalBtn');
-    const openMusicModalPanel = document.getElementById('openMusicModalPanel'); const closeMusicModalBtn = document.getElementById('closeMusicModalBtn');
-    const openPersonalModalPanel = document.getElementById('openPersonalModalPanel'); const closePersonalModalBtn = document.getElementById('closePersonalModalBtn');
-
-    toggleAppViewBtn.addEventListener('click', (e) => { 
-        e.preventDefault();
-        refreshRealtimeDateTime();
-        updateUI();
-        cyberModalOverlay.classList.add('active'); 
-        sessionStorage.setItem('venus_active_modal', 'cyber'); 
+    document.getElementById('toggleAppViewBtn').addEventListener('click', (e) => { 
+        e.preventDefault(); refreshRealtimeDateTime(); updateUI(); cyberModalOverlay.classList.add('active'); sessionStorage.setItem('venus_active_modal', 'cyber'); 
     });
-    closeCyberModalBtn.addEventListener('click', () => { cyberModalOverlay.classList.remove('active'); sessionStorage.setItem('venus_active_modal', 'none'); });
-    openMusicModalPanel.addEventListener('click', () => { musicModalOverlay.classList.add('active'); sessionStorage.setItem('venus_active_modal', 'music'); });
-    closeMusicModalBtn.addEventListener('click', () => { musicModalOverlay.classList.remove('active'); sessionStorage.setItem('venus_active_modal', 'none'); });
-    openPersonalModalPanel.addEventListener('click', () => { personalModalOverlay.classList.add('active'); sessionStorage.setItem('venus_active_modal', 'personal'); });
-    closePersonalModalBtn.addEventListener('click', () => { personalModalOverlay.classList.remove('active'); sessionStorage.setItem('venus_active_modal', 'none'); });
+    document.getElementById('closeCyberModalBtn').addEventListener('click', () => { cyberModalOverlay.classList.remove('active'); sessionStorage.setItem('venus_active_modal', 'none'); });
+    document.getElementById('openMusicModalPanel').addEventListener('click', () => { musicModalOverlay.classList.add('active'); sessionStorage.setItem('venus_active_modal', 'music'); });
+    document.getElementById('closeMusicModalBtn').addEventListener('click', () => { musicModalOverlay.classList.remove('active'); sessionStorage.setItem('venus_active_modal', 'none'); });
+    document.getElementById('openPersonalModalPanel').addEventListener('click', () => { personalModalOverlay.classList.add('active'); sessionStorage.setItem('venus_active_modal', 'personal'); });
+    document.getElementById('closePersonalModalBtn').addEventListener('click', () => { personalModalOverlay.classList.remove('active'); sessionStorage.setItem('venus_active_modal', 'none'); });
 
     function selectType(val, text) {
         document.getElementById('type').value = val;
@@ -1695,11 +1284,7 @@
         document.getElementById('btnSelectType').classList.add('selected');
         document.getElementById('modalSelectType').classList.remove('active');
     }
-    document.getElementById('btnSelectType').addEventListener('click', () => {
-        const modal = document.getElementById('modalSelectType');
-        modal.classList.add('active');
-        applyPopupLightMode(modal);
-    });
+    document.getElementById('btnSelectType').addEventListener('click', () => { document.getElementById('modalSelectType').classList.add('active'); });
 
     function selectMethod(val, text) {
         document.getElementById('paymentMethod').value = val;
@@ -1707,70 +1292,28 @@
         document.getElementById('btnSelectMethod').classList.add('selected');
         document.getElementById('modalSelectMethod').classList.remove('active');
     }
-    document.getElementById('btnSelectMethod').addEventListener('click', () => {
-        const modal = document.getElementById('modalSelectMethod');
-        modal.classList.add('active');
-        applyPopupLightMode(modal);
-    });
+    document.getElementById('btnSelectMethod').addEventListener('click', () => { document.getElementById('modalSelectMethod').classList.add('active'); });
 
     function selectEditType(val, text) {
         document.getElementById('editType').value = val;
         document.getElementById('btnEditSelectType').innerText = text;
         document.getElementById('modalEditSelectType').classList.remove('active');
     }
-    document.getElementById('btnEditSelectType').addEventListener('click', () => {
-        const modal = document.getElementById('modalEditSelectType');
-        modal.classList.add('active');
-        applyPopupLightMode(modal);
-    });
+    document.getElementById('btnEditSelectType').addEventListener('click', () => { document.getElementById('modalEditSelectType').classList.add('active'); });
 
     function selectEditMethod(val, text) {
         document.getElementById('editMethod').value = val;
         document.getElementById('btnEditSelectMethod').innerText = text;
         document.getElementById('modalEditSelectMethod').classList.remove('active');
     }
-    document.getElementById('btnEditSelectMethod').addEventListener('click', () => {
-        const modal = document.getElementById('modalEditSelectMethod');
-        modal.classList.add('active');
-        applyPopupLightMode(modal);
-    });
-
-    function applyPopupLightMode(modalElement) {
-        const isLight = cyberModalCard.classList.contains('cv-light-mode');
-        const box = modalElement.querySelector('.popup-box');
-        if (isLight) {
-            box.classList.add('cv-light-mode-modal');
-        } else {
-            box.classList.remove('cv-light-mode-modal');
-        }
-    }
+    document.getElementById('btnEditSelectMethod').addEventListener('click', () => { document.getElementById('modalEditSelectMethod').classList.add('active'); });
 
     const debtListContainer = document.getElementById('debtListContainer');
     const totalDebtAmount = document.getElementById('totalDebtAmount');
     const remainingDebtAmount = document.getElementById('remainingDebtAmount');
     const btnAddDebtModal = document.getElementById('btnAddDebtModal');
-    
     const viewDebtModal = document.getElementById('viewDebtModal');
-    const closeViewDebtModalBtn = document.getElementById('closeViewDebtModalBtn');
-    const viewDebtName = document.getElementById('viewDebtName');
-    const viewDebtTotal = document.getElementById('viewDebtTotal');
-    const viewDebtPayInput = document.getElementById('viewDebtPayInput');
-    const viewDebtRemaining = document.getElementById('viewDebtRemaining');
-    const debtPaymentHistoryList = document.getElementById('debtPaymentHistoryList');
-    const btnSaveDebtPayment = document.getElementById('btnSaveDebtPayment');
-    const btnDeleteDebtItemFromView = document.getElementById('btnDeleteDebtItemFromView');
     let currentViewDebtIndex = null;
-
-    const editDebtModal = document.getElementById('editDebtModal');
-    const closeEditDebtModalBtn = document.getElementById('closeEditDebtModalBtn');
-    const editDebtIndex = document.getElementById('editDebtIndex');
-    const editDebtModalTitle = document.getElementById('editDebtModalTitle');
-    const editDebtNameInput = document.getElementById('editDebtNameInput');
-    const editDebtAmountInput = document.getElementById('editDebtAmountInput');
-    const editDebtPaidInput = document.getElementById('editDebtPaidInput');
-    const btnSaveDebtItem = document.getElementById('btnSaveDebtItem');
-    const btnDeleteDebtItem = document.getElementById('btnDeleteDebtItem');
-    const btnDeleteDebtItemRow = document.getElementById('btnDeleteDebtItem');
 
     document.getElementById('editDebtAmountInput').addEventListener('input', function() {
         let rawValue = this.value.replace(/\D/g, '');
@@ -1780,7 +1323,7 @@
         let rawValue = this.value.replace(/\D/g, '');
         this.value = rawValue ? parseInt(rawValue, 10).toLocaleString('id-ID') : '';
     });
-    viewDebtPayInput.addEventListener('input', function() {
+    document.getElementById('viewDebtPayInput').addEventListener('input', function() {
         let rawValue = this.value.replace(/\D/g, '');
         this.value = rawValue ? parseInt(rawValue, 10).toLocaleString('id-ID') : '';
         updateRemainingOnFly();
@@ -1790,29 +1333,24 @@
         document.getElementById('paymentStatusValue').value = val;
         document.getElementById('btnSelectPaymentStatus').innerText = text;
         document.getElementById('modalSelectPaymentStatus').classList.remove('active');
-        
         if (val === 'lunas' && currentViewDebtIndex !== null) {
             let debts = getStoredDebts();
             let debt = debts[currentViewDebtIndex];
             let remaining = Math.max(0, debt.amount - (debt.paid || 0));
-            viewDebtPayInput.value = remaining.toLocaleString('id-ID');
+            document.getElementById('viewDebtPayInput').value = remaining.toLocaleString('id-ID');
             updateRemainingOnFly();
         }
     }
-    document.getElementById('btnSelectPaymentStatus').addEventListener('click', () => {
-        const modal = document.getElementById('modalSelectPaymentStatus');
-        modal.classList.add('active');
-        applyPopupLightMode(modal);
-    });
+    document.getElementById('btnSelectPaymentStatus').addEventListener('click', () => { document.getElementById('modalSelectPaymentStatus').classList.add('active'); });
 
     function updateRemainingOnFly() {
         if (currentViewDebtIndex === null) return;
         let debts = getStoredDebts();
         let debt = debts[currentViewDebtIndex];
         let currentPaid = debt.paid || 0;
-        let payAmount = parseFloat(viewDebtPayInput.value.replace(/\./g, '')) || 0;
+        let payAmount = parseFloat(document.getElementById('viewDebtPayInput').value.replace(/\./g, '')) || 0;
         let newRemaining = Math.max(0, debt.amount - (currentPaid + payAmount));
-        viewDebtRemaining.innerText = formatRupiah(newRemaining);
+        document.getElementById('viewDebtRemaining').innerText = formatRupiah(newRemaining);
     }
 
     function getStoredDebts() {
@@ -1822,39 +1360,26 @@
     }
 
     function saveAndSyncDebts(debts) {
-        try {
-            localStorage.setItem('venus_debt_tracker_data', JSON.stringify(debts));
-        } catch(e) {
-            console.warn('LocalStorage limit reached for debts.');
-        }
-        if (window.saveDebtsToFirebase) {
-            window.saveDebtsToFirebase(debts);
-        }
+        try { localStorage.setItem('venus_debt_tracker_data', JSON.stringify(debts)); } catch(e) {}
+        if (window.saveDebtsToFirebase) window.saveDebtsToFirebase(debts);
     }
 
     function renderDebts() {
         const debts = getStoredDebts();
         debtListContainer.innerHTML = '';
-        let totalDebt = 0;
-        let totalRemaining = 0;
+        let totalDebt = 0; let totalRemaining = 0;
 
         if (debts.length === 0) {
             debtListContainer.innerHTML = '<div style="text-align:center; color:#a5f3fc; font-size:0.95rem; padding:15px 0;">Belum ada catatan hutang</div>';
         } else {
             debts.slice().reverse().forEach((d, revIdx) => {
                 const origIndex = debts.length - 1 - revIdx;
-                const paid = d.paid || 0;
-                const remaining = Math.max(0, d.amount - paid);
-
-                totalDebt += d.amount;
-                totalRemaining += remaining;
+                const paid = d.paid || 0; const remaining = Math.max(0, d.amount - paid);
+                totalDebt += d.amount; totalRemaining += remaining;
 
                 const div = document.createElement('div');
                 div.className = 'account-title-card';
-                div.innerHTML = `
-                    <span class="account-title-name">${d.name}</span>
-                    <span class="account-title-arrow">›</span>
-                `;
+                div.innerHTML = `<span class="account-title-name">${d.name}</span><span class="account-title-arrow">›</span>`;
                 div.addEventListener('click', () => openViewDebtModal(origIndex));
                 debtListContainer.appendChild(div);
             });
@@ -1864,68 +1389,55 @@
     }
 
     btnAddDebtModal.addEventListener('click', () => {
-        editDebtIndex.value = '';
-        editDebtModalTitle.innerText = 'TAMBAH HUTANG';
-        editDebtNameInput.value = '';
-        editDebtAmountInput.value = '';
-        editDebtPaidInput.value = '';
-        btnDeleteDebtItemRow.style.display = 'none';
-        editDebtModal.classList.add('active');
+        document.getElementById('editDebtIndex').value = '';
+        document.getElementById('editDebtModalTitle').innerText = 'TAMBAH HUTANG';
+        document.getElementById('editDebtNameInput').value = '';
+        document.getElementById('editDebtAmountInput').value = '';
+        document.getElementById('editDebtPaidInput').value = '';
+        document.getElementById('editDebtModal').classList.add('active');
     });
 
     function openViewDebtModal(index) {
-        const debts = getStoredDebts();
-        const debt = debts[index];
-        if (!debt) return;
+        const debts = getStoredDebts(); const debt = debts[index]; if (!debt) return;
         currentViewDebtIndex = index;
-        const paid = debt.paid || 0;
-        const remaining = Math.max(0, debt.amount - paid);
+        const paid = debt.paid || 0; const remaining = Math.max(0, debt.amount - paid);
 
-        viewDebtName.innerText = debt.name;
-        viewDebtTotal.innerText = formatRupiah(debt.amount);
-        viewDebtPayInput.value = '';
+        document.getElementById('viewDebtName').innerText = debt.name;
+        document.getElementById('viewDebtTotal').innerText = formatRupiah(debt.amount);
+        document.getElementById('viewDebtPayInput').value = '';
         document.getElementById('paymentStatusValue').value = '';
         document.getElementById('btnSelectPaymentStatus').innerText = '-- Pilih Status Pembayaran --';
-        viewDebtRemaining.innerText = formatRupiah(remaining);
+        document.getElementById('viewDebtRemaining').innerText = formatRupiah(remaining);
         
-        renderDebtPaymentHistory(debt.history || []);
+        const historyList = document.getElementById('debtPaymentHistoryList');
+        if (!debt.history || debt.history.length === 0) {
+            historyList.innerHTML = '<div style="font-size: 0.8rem; color: #64748b; font-style: italic; text-align: center;">Belum ada riwayat pembayaran.</div>';
+        } else {
+            historyList.innerHTML = '';
+            debt.history.slice().reverse().forEach(h => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'account-history-item';
+                itemDiv.innerHTML = `<div class="history-user-info" style="color: #34d399;">Bayar: ${formatRupiah(h.amount)} (${h.status.toUpperCase()})</div><div class="history-timestamp">🕒 ${h.timestamp}</div>`;
+                historyList.appendChild(itemDiv);
+            });
+        }
         viewDebtModal.classList.add('active');
     }
 
-    function renderDebtPaymentHistory(historyArray) {
-        if (!historyArray || historyArray.length === 0) {
-            debtPaymentHistoryList.innerHTML = '<div style="font-size: 0.8rem; color: #64748b; font-style: italic; text-align: center;">Belum ada riwayat pembayaran.</div>';
-            return;
-        }
-        debtPaymentHistoryList.innerHTML = '';
-        historyArray.slice().reverse().forEach(h => {
-            const itemDiv = document.createElement('div');
-            itemDiv.className = 'account-history-item';
-            itemDiv.innerHTML = `
-                <div class="history-user-info" style="color: #34d399;">Bayar: ${formatRupiah(h.amount)} (${h.status.toUpperCase()})</div>
-                <div class="history-timestamp">🕒 ${h.timestamp}</div>
-            `;
-            debtPaymentHistoryList.appendChild(itemDiv);
-        });
-    }
+    document.getElementById('closeViewDebtModalBtn').addEventListener('click', () => { viewDebtModal.classList.remove('active'); });
 
-    closeViewDebtModalBtn.addEventListener('click', () => { viewDebtModal.classList.remove('active'); });
-
-    btnSaveDebtPayment.addEventListener('click', () => {
+    document.getElementById('btnSaveDebtPayment').addEventListener('click', () => {
         if (currentViewDebtIndex === null) return;
-        let debts = getStoredDebts();
-        let debt = debts[currentViewDebtIndex];
-        
-        let payAmount = parseFloat(viewDebtPayInput.value.replace(/\./g, '')) || 0;
+        let debts = getStoredDebts(); let debt = debts[currentViewDebtIndex];
+        let payAmount = parseFloat(document.getElementById('viewDebtPayInput').value.replace(/\./g, '')) || 0;
         let statusVal = document.getElementById('paymentStatusValue').value;
         if (payAmount <= 0) return alert('Masukkan jumlah pembayaran yang valid!');
         if (!statusVal) return alert('Pilih status pembayaran terlebih dahulu!');
 
-        let currentPaid = debt.paid || 0;
-        debt.paid = currentPaid + payAmount;
+        debt.paid = (debt.paid || 0) + payAmount;
         if (debt.paid > debt.amount) debt.paid = debt.amount;
-
         if (!debt.history) debt.history = [];
+        
         const nowTime = new Date();
         const timeStr = `${String(nowTime.getDate()).padStart(2,'0')}/${String(nowTime.getMonth()+1).padStart(2,'0')}/${nowTime.getFullYear()} ${String(nowTime.getHours()).padStart(2,'0')}:${String(nowTime.getMinutes()).padStart(2,'0')}`;
         debt.history.push({ timestamp: timeStr, amount: payAmount, status: statusVal });
@@ -1933,58 +1445,36 @@
         saveAndSyncDebts(debts);
         renderDebts();
         viewDebtModal.classList.remove('active');
-        playCashStatusSound();
     });
 
-    btnDeleteDebtItemFromView.addEventListener('click', () => {
+    document.getElementById('btnDeleteDebtItemFromView').addEventListener('click', () => {
         if (currentViewDebtIndex === null) return;
         showCyberConfirm('Apakah Anda yakin ingin menghapus rincian hutang ini?', () => {
-            let debts = getStoredDebts();
-            debts.splice(currentViewDebtIndex, 1);
-            saveAndSyncDebts(debts);
-            renderDebts();
-            viewDebtModal.classList.remove('active');
+            let debts = getStoredDebts(); debts.splice(currentViewDebtIndex, 1);
+            saveAndSyncDebts(debts); renderDebts(); viewDebtModal.classList.remove('active');
         });
     });
 
-    closeEditDebtModalBtn.addEventListener('click', () => { editDebtModal.classList.remove('active'); });
+    document.getElementById('closeEditDebtModalBtn').addEventListener('click', () => { document.getElementById('editDebtModal').classList.remove('active'); });
 
-    btnSaveDebtItem.addEventListener('click', () => {
-        const indexStr = editDebtIndex.value;
+    document.getElementById('btnSaveDebtItem').addEventListener('click', () => {
+        const indexStr = document.getElementById('editDebtIndex').value;
         let debts = getStoredDebts();
-        const newName = editDebtNameInput.value.trim();
-        const newAmount = parseFloat(editDebtAmountInput.value.replace(/\./g, ''));
-        const newPaid = parseFloat(editDebtPaidInput.value.replace(/\./g, '')) || 0;
+        const newName = document.getElementById('editDebtNameInput').value.trim();
+        const newAmount = parseFloat(document.getElementById('editDebtAmountInput').value.replace(/\./g, ''));
+        const newPaid = parseFloat(document.getElementById('editDebtPaidInput').value.replace(/\./g, '')) || 0;
 
         if (!newName || isNaN(newAmount)) return alert('Nama dan jumlah tidak boleh kosong!');
-        
         if (indexStr === '') {
             debts.push({ id: Date.now(), name: newName, amount: newAmount, paid: newPaid, history: [] });
         } else {
             const index = parseInt(indexStr);
-            debts[index].name = newName;
-            debts[index].amount = newAmount;
-            debts[index].paid = newPaid;
+            debts[index].name = newName; debts[index].amount = newAmount; debts[index].paid = newPaid;
         }
-
         saveAndSyncDebts(debts);
         renderDebts();
-        editDebtModal.classList.remove('active');
-        playCashStatusSound();
+        document.getElementById('editDebtModal').classList.remove('active');
     });
-
-    btnDeleteDebtItem.addEventListener('click', () => {
-        const index = parseInt(editDebtIndex.value);
-        showCyberConfirm('Apakah Anda yakin ingin menghapus rincian hutang ini?', () => {
-            let debts = getStoredDebts();
-            debts.splice(index, 1);
-            saveAndSyncDebts(debts);
-            renderDebts();
-            editDebtModal.classList.remove('active');
-        });
-    });
-
-    function playCashStatusSound() { try { playCashSound(); } catch(e) {} }
 
     function getLocalIsoDate(date) {
         const y = date.getFullYear();
@@ -1994,40 +1484,6 @@
     }
 
     const accountTitlesList = document.getElementById('accountTitlesList');
-    const btnAddAccountModal = document.getElementById('btnAddAccountModal');
-    const newPlatformModal = document.getElementById('newPlatformModal');
-    const newPlatformInput = document.getElementById('newPlatformInput');
-    const saveNewPlatformBtn = document.getElementById('saveNewPlatformBtn');
-    const cancelNewPlatformBtn = document.getElementById('cancelNewPlatformBtn');
-    const subAccountModal = document.getElementById('subAccountModal');
-    const closeSubModalBtn = document.getElementById('closeSubModalBtn');
-    const subAccountForm = document.getElementById('subAccountForm');
-    const subModalHeading = document.getElementById('subModalHeading');
-    const subEditIndex = document.getElementById('subEditIndex');
-    const subAccountUsername = document.getElementById('subAccountUsername');
-    const subAccountPassword = document.getElementById('subAccountPassword');
-    const btnSaveSubAccount = document.getElementById('btnSaveSubAccount');
-    const btnSubText = document.getElementById('btnSubText');
-    const subAccountHistoryList = document.getElementById('subAccountHistoryList');
-    const btnDeleteAccountItem = document.getElementById('btnDeleteAccountItem');
-    const openAllHistoryBtn = document.getElementById('openAllHistoryBtn');
-    const allHistoryModal = document.getElementById('allHistoryModal');
-    const closeAllHistoryModalBtn = document.getElementById('closeAllHistoryModalBtn');
-    const fullHistoryListContainer = document.getElementById('fullHistoryListContainer');
-    const deleteAccountPinModal = document.getElementById('deleteAccountPinModal');
-    const cancelDeletePinBtn = document.getElementById('cancelDeletePinBtn');
-    const deletePinBoxes = document.querySelectorAll('[data-del-index]');
-    const deletePinErrorMsg = document.getElementById('deletePinErrorMsg');
-    let enteredDeletePin = "";
-    const editHistoryItemModal = document.getElementById('editHistoryItemModal');
-    const closeEditHistoryModalBtn = document.getElementById('closeEditHistoryModalBtn');
-    const editHistoryAccIndex = document.getElementById('editHistoryAccIndex');
-    const editHistoryItemIndex = document.getElementById('editHistoryItemIndex');
-    const modalHistoryUsername = document.getElementById('modalHistoryUsername');
-    const modalHistoryPassword = document.getElementById('modalHistoryPassword');
-    const btnSaveHistoryItem = document.getElementById('btnSaveHistoryItem');
-    const btnDeleteHistoryItem = document.getElementById('btnDeleteHistoryItem');
-
     function getStoredAccounts() {
         let data = JSON.parse(localStorage.getItem('venus_password_manager_data'));
         if (!data || !Array.isArray(data)) { data = [{ label: 'Akun Google', username: '', password: '', history: [] }]; try { localStorage.setItem('venus_password_manager_data', JSON.stringify(data)); } catch(e){} }
@@ -2042,101 +1498,60 @@
             accountTitlesList.appendChild(div);
         });
     }
-    function renderSubHistory(accIndex, historyArray) {
-        if (!historyArray || historyArray.length === 0) { subAccountHistoryList.innerHTML = '<div style="font-size: 0.8rem; color: #64748b; font-style: italic; text-align: center;">Belum ada riwayat perubahan.</div>'; return; }
-        subAccountHistoryList.innerHTML = '';
-        historyArray.slice().reverse().forEach((h, revIdx) => {
-            const origIndex = historyArray.length - 1 - revIdx;
-            const itemDiv = document.createElement('div'); itemDiv.className = 'account-history-item';
-            itemDiv.innerHTML = `<div class="history-user-info">User: ${h.username} | Pass: ${h.password}</div><div class="history-timestamp">🕒 ${h.timestamp}</div>`;
-            itemDiv.addEventListener('click', () => openEditHistoryModal(accIndex, origIndex));
-            subAccountHistoryList.appendChild(itemDiv);
-        });
+    function openSubAccountModal(index) {
+        const accounts = getStoredAccounts(); const acc = accounts[index];
+        document.getElementById('subEditIndex').value = index;
+        document.getElementById('subModalHeading').innerText = acc.label;
+        document.getElementById('subAccountUsername').value = '';
+        document.getElementById('subAccountPassword').value = '';
+        
+        const historyBox = document.getElementById('subAccountHistoryList');
+        if (!acc.history || acc.history.length === 0) {
+            historyBox.innerHTML = '<div style="font-size: 0.8rem; color: #64748b; font-style: italic; text-align: center;">Belum ada riwayat perubahan.</div>';
+        } else {
+            historyBox.innerHTML = '';
+            acc.history.slice().reverse().forEach(h => {
+                const itemDiv = document.createElement('div'); itemDiv.className = 'account-history-item';
+                itemDiv.innerHTML = `<div class="history-user-info">User: ${h.username} | Pass: ${h.password}</div><div class="history-timestamp">🕒 ${h.timestamp}</div>`;
+                historyBox.appendChild(itemDiv);
+            });
+        }
+        subAccountModal.classList.add('active');
     }
-    function renderFullHistory(accIndex) {
-        const accounts = getStoredAccounts(); const acc = accounts[accIndex]; const historyArray = acc.history || [];
-        if (historyArray.length === 0) { fullHistoryListContainer.innerHTML = '<div style="font-size: 0.9rem; color: #64748b; font-style: italic; text-align: center; padding: 30px 0;">Belum ada riwayat aktivitas.</div>'; return; }
-        fullHistoryListContainer.innerHTML = '';
-        historyArray.slice().reverse().forEach((h, revIdx) => {
-            const origIndex = historyArray.length - 1 - revIdx;
-            const itemDiv = document.createElement('div'); itemDiv.className = 'account-history-item'; itemDiv.style.padding = '14px';
-            itemDiv.innerHTML = `<div class="history-user-info" style="font-size: 1.05rem;">User: ${h.username}</div><div class="history-user-info" style="font-size: 1.05rem; color: #38bdf8;">Pass: ${h.password}</div><div class="history-timestamp" style="margin-top: 4px;">🕒 ${h.timestamp}</div>`;
-            itemDiv.addEventListener('click', () => { openEditHistoryModal(accIndex, origIndex); });
-            fullHistoryListContainer.appendChild(itemDiv);
-        });
-    }
-
-    function openSubAccountModal(index) { const accounts = getStoredAccounts(); const acc = accounts[index]; subEditIndex.value = index; subModalHeading.innerText = acc.label; subAccountUsername.value = ''; subAccountPassword.value = ''; renderSubHistory(index, acc.history); subAccountModal.classList.add('active'); }
-    closeSubModalBtn.addEventListener('click', () => { subAccountModal.classList.remove('active'); });
-    openAllHistoryBtn.addEventListener('click', () => { const index = parseInt(subEditIndex.value); renderFullHistory(index); allHistoryModal.classList.add('active'); });
-    closeAllHistoryModalBtn.addEventListener('click', () => { allHistoryModal.classList.remove('active'); });
-    btnAddAccountModal.addEventListener('click', () => { newPlatformInput.value = ''; newPlatformModal.classList.add('active'); });
-    cancelNewPlatformBtn.addEventListener('click', () => { newPlatformModal.classList.remove('active'); });
-    saveNewPlatformBtn.addEventListener('click', () => {
-        const platformName = newPlatformInput.value.trim(); if (!platformName) return alert('Nama platform tidak boleh kosong!');
+    document.getElementById('closeSubModalBtn').addEventListener('click', () => { document.getElementById('subAccountModal').classList.remove('active'); });
+    document.getElementById('btnAddAccountModal').addEventListener('click', () => { document.getElementById('newPlatformInput').value = ''; document.getElementById('newPlatformModal').classList.add('active'); });
+    document.getElementById('cancelNewPlatformBtn').addEventListener('click', () => { document.getElementById('newPlatformModal').classList.remove('active'); });
+    document.getElementById('saveNewPlatformBtn').addEventListener('click', () => {
+        const platformName = document.getElementById('newPlatformInput').value.trim(); if (!platformName) return alert('Nama platform tidak boleh kosong!');
         let accounts = getStoredAccounts(); accounts.push({ label: platformName, username: '', password: '', history: [] }); 
         try { localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); } catch(e) {}
-        renderAccountTitles(); newPlatformModal.classList.remove('active'); playSuccessSound();
+        renderAccountTitles(); document.getElementById('newPlatformModal').classList.remove('active');
     });
-    subAccountForm.addEventListener('submit', function(e) {
-        e.preventDefault(); const index = parseInt(subEditIndex.value); let accounts = getStoredAccounts();
-        btnSaveSubAccount.disabled = true; subAccountUsername.disabled = true; subAccountPassword.disabled = true; btnSubText.innerHTML = '<span class="btn-spinner"></span> Menyimpan...';
-        setTimeout(() => {
-            const newU = subAccountUsername.value; const newP = subAccountPassword.value;
-            accounts[index].username = newU; accounts[index].password = newP; if (!accounts[index].history) accounts[index].history = [];
-            const nowTime = new Date(); const timeStr = `${String(nowTime.getDate()).padStart(2,'0')}/${String(nowTime.getMonth()+1).padStart(2,'0')}/${nowTime.getFullYear()} ${String(nowTime.getHours()).padStart(2,'0')}:${String(nowTime.getMinutes()).padStart(2,'0')}`;
-            accounts[index].history.push({ timestamp: timeStr, username: newU, password: newP }); 
-            try { localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); } catch(e) {}
-            renderAccountTitles(); renderSubHistory(index, accounts[index].history); subAccountUsername.value = ''; subAccountPassword.value = '';
-            btnSaveSubAccount.disabled = false; subAccountUsername.disabled = false; subAccountPassword.disabled = false; btnSubText.innerText = 'Simpan'; playSuccessSound();
-        }, 2000);
+    document.getElementById('subAccountForm').addEventListener('submit', function(e) {
+        e.preventDefault(); const index = parseInt(document.getElementById('subEditIndex').value); let accounts = getStoredAccounts();
+        const newU = document.getElementById('subAccountUsername').value; const newP = document.getElementById('subAccountPassword').value;
+        accounts[index].username = newU; accounts[index].password = newP; if (!accounts[index].history) accounts[index].history = [];
+        const nowTime = new Date(); const timeStr = `${String(nowTime.getDate()).padStart(2,'0')}/${String(nowTime.getMonth()+1).padStart(2,'0')}/${nowTime.getFullYear()} ${String(nowTime.getHours()).padStart(2,'0')}:${String(nowTime.getMinutes()).padStart(2,'0')}`;
+        accounts[index].history.push({ timestamp: timeStr, username: newU, password: newP }); 
+        try { localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); } catch(e) {}
+        renderAccountTitles(); openSubAccountModal(index);
     });
-    btnDeleteAccountItem.addEventListener('click', () => { clearDelPin(); deleteAccountPinModal.classList.add('active'); });
-    cancelDeletePinBtn.addEventListener('click', () => { deleteAccountPinModal.classList.remove('active'); });
-    function updateDeletePinDisplay() { deletePinBoxes.forEach((box, index) => { if (index < enteredDeletePin.length) { box.innerText = "●"; box.classList.add('filled'); box.classList.remove('active'); } else if (index === enteredDeletePin.length) { box.innerText = ""; box.classList.remove('filled'); box.classList.add('active'); } else { box.innerText = ""; box.classList.remove('filled', 'active'); } }); if (enteredDeletePin.length === 6) verifyDeletePin(); }
-    function pressDelKey(num) { if (enteredDeletePin.length < 6) { enteredDeletePin += num; deletePinErrorMsg.innerText = ""; updateDeletePinDisplay(); } }
-    function deleteDelPin() { if (enteredDeletePin.length > 0) { enteredDeletePin = enteredDeletePin.slice(0, -1); deletePinErrorMsg.innerText = ""; updateDeletePinDisplay(); } }
-    function clearDelPin() { enteredDeletePin = ""; deletePinErrorMsg.innerText = ""; updateDeletePinDisplay(); }
-    function verifyDeletePin() {
-        if (enteredDeletePin === CORRECT_PIN) {
-            playSuccessSound(); deleteAccountPinModal.classList.remove('active');
-            const index = parseInt(subEditIndex.value); let accounts = getStoredAccounts(); accounts.splice(index, 1);
+    document.getElementById('btnDeleteAccountItem').addEventListener('click', () => {
+        const index = parseInt(document.getElementById('subEditIndex').value);
+        showCyberConfirm('Apakah Anda yakin ingin menghapus akun ini?', () => {
+            let accounts = getStoredAccounts(); accounts.splice(index, 1);
             try { localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); } catch(e) {}
-            renderAccountTitles(); subAccountModal.classList.remove('active'); allHistoryModal.classList.remove('active');
-        } else { deletePinErrorMsg.innerText = "PIN Salah!"; setTimeout(() => { clearDelPin(); }, 300); }
-    }
-    function openEditHistoryModal(accIdx, itemIdx) {
-        const accounts = getStoredAccounts(); const historyItem = accounts[accIdx].history[itemIdx]; if (!historyItem) return;
-        editHistoryAccIndex.value = accIdx; editHistoryItemIndex.value = itemIdx; modalHistoryUsername.value = historyItem.username; modalHistoryPassword.value = historyItem.password; editHistoryItemModal.classList.add('active');
-    }
-    closeEditHistoryModalBtn.addEventListener('click', () => { editHistoryItemModal.classList.remove('active'); });
-    btnSaveHistoryItem.addEventListener('click', () => {
-        const accIdx = parseInt(editHistoryAccIndex.value); const itemIdx = parseInt(editHistoryItemIndex.value); let accounts = getStoredAccounts();
-        if (accounts[accIdx] && accounts[accIdx].history[itemIdx]) {
-            accounts[accIdx].history[itemIdx].username = modalHistoryUsername.value; accounts[accIdx].history[itemIdx].password = modalHistoryPassword.value;
-            try { localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); } catch(e) {}
-            renderSubHistory(accIdx, accounts[accIdx].history); renderFullHistory(accIdx); editHistoryItemModal.classList.remove('active'); playSuccessSound();
-        }
-    });
-    btnDeleteHistoryItem.addEventListener('click', () => {
-        const accIdx = parseInt(editHistoryAccIndex.value); const itemIdx = parseInt(editHistoryItemIndex.value); let accounts = getStoredAccounts();
-        showCyberConfirm('Apakah Anda yakin ingin menghapus riwayat aktivitas ini?', () => {
-            if (accounts[accIdx] && accounts[accIdx].history) { 
-                accounts[accIdx].history.splice(itemIdx, 1); 
-                try { localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); } catch(e) {}
-                renderSubHistory(accIdx, accounts[accIdx].history); 
-                renderFullHistory(accIdx); 
-                editHistoryItemModal.classList.remove('active'); 
-            }
+            renderAccountTitles(); document.getElementById('subAccountModal').classList.remove('active');
         });
     });
     document.getElementById('btnExportPersonal').addEventListener('click', () => {
-        const savedData = localStorage.getItem('venus_password_manager_data'); if (!savedData) return alert('Belum ada data akun yang tersimpan!');
+        const savedData = localStorage.getItem('venus_password_manager_data'); if (!savedData) return alert('Belum ada data akun!');
         const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(savedData); const downloadAnchor = document.createElement('a');
-        downloadAnchor.setAttribute("href", dataStr); downloadAnchor.setAttribute("download", `venus_accounts_data_${new Date().toISOString().slice(0,10)}.json`);
+        downloadAnchor.setAttribute("href", dataStr); downloadAnchor.setAttribute("download", `venus_accounts_data.json`);
         document.body.appendChild(downloadAnchor); downloadAnchor.click(); downloadAnchor.remove();
     });
-    const importPersonalFileInput = document.getElementById('importPersonalFileInput'); document.getElementById('btnImportPersonal').addEventListener('click', () => importPersonalFileInput.click());
+    const importPersonalFileInput = document.getElementById('importPersonalFileInput'); 
+    document.getElementById('btnImportPersonal').addEventListener('click', () => importPersonalFileInput.click());
     importPersonalFileInput.addEventListener('change', function(e) {
         const file = e.target.files[0]; if (!file) return;
         const reader = new FileReader();
@@ -2145,128 +1560,83 @@
                 const parsed = JSON.parse(event.target.result); 
                 if (!Array.isArray(parsed)) throw new Error(); 
                 try { localStorage.setItem('venus_password_manager_data', JSON.stringify(parsed)); } catch(e) {}
-                renderAccountTitles(); 
-                alert('Data Akun & Password berhasil dipulihkan!'); 
-            } catch (err) { alert('File backup data akun tidak valid!'); }
+                renderAccountTitles(); alert('Data Akun berhasil dipulihkan!'); 
+            } catch (err) { alert('File backup tidak valid!'); }
         }; reader.readAsText(file); importPersonalFileInput.value = '';
     });
 
     let dbMusic = null; let playlist = []; let currentTrackIndex = -1;
-    const bgAudioPlayer = document.getElementById('bgAudioPlayer'); const modalTrackTitle = document.getElementById('modalTrackTitle'); const playPauseTrackBtn = document.getElementById('playPauseTrackBtn'); const playPauseSvgIcon = document.getElementById('playPauseSvgIcon'); const prevTrackBtn = document.getElementById('prevTrackBtn'); const nextTrackBtn = document.getElementById('nextTrackBtn'); const musicProgressBar = document.getElementById('musicProgressBar'); const currentTimeLabel = document.getElementById('currentTimeLabel'); const durationLabel = document.getElementById('durationLabel'); const modalUploadBtn = document.getElementById('modalUploadBtn'); const audioFileInput = document.getElementById('audioFileInput'); const playlistContainer = document.getElementById('playlistContainer'); const stabilizerBars = document.querySelectorAll('.stabilizer-bar');
-    let audioCtx = null; let analyser = null; let audioSourceNode = null; let animationId = null;
-
     function initIndexedDB() {
-        const request = indexedDB.open('VenusStudioMusicDB', 1); request.onerror = function(event) { console.log("Database error: " + event.target.errorCode); };
+        const request = indexedDB.open('VenusStudioMusicDB', 1);
         request.onsuccess = function(event) { dbMusic = event.target.result; loadPlaylistFromDB(); };
-        request.onupgradeneeded = function(event) { const dbMusic = event.target.result; if (!dbMusic.objectStoreNames.contains('songs')) { dbMusic.createObjectStore('songs', { keyPath: 'id', autoIncrement: true }); } };
+        request.onupgradeneeded = function(event) { const dbM = event.target.result; if (!dbM.objectStoreNames.contains('songs')) { dbM.createObjectStore('songs', { keyPath: 'id', autoIncrement: true }); } };
     }
     function saveSongToDB(name, blob, callback) {
-        if (!dbMusic) return; const transaction = dbMusic.transaction(['songs'], 'readwrite'); const store = transaction.objectStore('songs'); const request = store.add({ name: name, blob: blob, dateAdded: Date.now() });
-        request.onsuccess = function(event) { const newId = event.target.result; const fileUrl = URL.createObjectURL(blob); playlist.push({ id: newId, name: name, url: fileUrl }); renderPlaylist(); if (currentTrackIndex === -1 && playlist.length > 0) loadTrack(0); if (callback) callback(); };
+        if (!dbMusic) return; const transaction = dbMusic.transaction(['songs'], 'readwrite'); const store = transaction.objectStore('songs');
+        const request = store.add({ name: name, blob: blob, dateAdded: Date.now() });
+        request.onsuccess = function(event) {
+            playlist.push({ id: event.target.result, name: name, url: URL.createObjectURL(blob) });
+            renderPlaylist(); if (currentTrackIndex === -1 && playlist.length > 0) loadTrack(0); if (callback) callback();
+        };
     }
     function loadPlaylistFromDB() {
-        if (!dbMusic) return; const transaction = dbMusic.transaction(['songs'], 'readonly'); const store = transaction.objectStore('songs'); const request = store.getAll();
-        request.onsuccess = function(event) { const songs = event.target.result; playlist = songs.map(song => ({ id: song.id, name: song.name, url: URL.createObjectURL(song.blob) })); renderPlaylist(); if (playlist.length > 0) loadTrack(0); };
+        if (!dbMusic) return; const transaction = dbMusic.transaction(['songs'], 'readonly'); const store = transaction.objectStore('songs');
+        store.getAll().onsuccess = function(event) {
+            playlist = event.target.result.map(song => ({ id: song.id, name: song.name, url: URL.createObjectURL(song.blob) }));
+            renderPlaylist(); if (playlist.length > 0) loadTrack(0);
+        };
     }
-    function removeSongFromDB(id, index) {
-        if (!dbMusic) return; const transaction = dbMusic.transaction(['songs'], 'readwrite'); const store = transaction.objectStore('songs'); store.delete(id);
-        transaction.oncomplete = function() {
+    document.getElementById('modalUploadBtn').addEventListener('click', () => document.getElementById('audioFileInput').click());
+    document.getElementById('audioFileInput').addEventListener('change', function(e) {
+        const files = e.target.files; if (!files.length) return;
+        for (let i = 0; i < files.length; i++) { saveSongToDB(files[i].name, files[i]); }
+        this.value = '';
+    });
+    function renderPlaylist() {
+        const container = document.getElementById('playlistContainer');
+        if (playlist.length === 0) { container.innerHTML = '<div style="font-size: 0.85rem; color: #64748b; font-style: italic; padding: 10px; text-align: center;">Daftar lagu kosong.</div>'; return; }
+        container.innerHTML = '';
+        playlist.forEach((track, index) => {
+            const item = document.createElement('div'); item.className = `playlist-item ${index === currentTrackIndex ? 'active-track' : ''}`;
+            item.innerHTML = `<span style="overflow: hidden; text-overflow: ellipsis;">${track.name}</span><button type="button" class="playlist-delete-btn" onclick="deleteTrack(event, ${index})">Hapus</button>`;
+            item.addEventListener('click', () => loadAndPlayTrack(index));
+            container.appendChild(item);
+        });
+    }
+    function loadTrack(index) { if (index < 0 || index >= playlist.length) return; currentTrackIndex = index; document.getElementById('bgAudioPlayer').src = playlist[index].url; document.getElementById('modalTrackTitle').innerText = playlist[index].name; renderPlaylist(); }
+    function loadAndPlayTrack(index) { loadTrack(index); document.getElementById('bgAudioPlayer').play().catch(() => {}); }
+    document.getElementById('playPauseTrackBtn').addEventListener('click', () => {
+        const player = document.getElementById('bgAudioPlayer');
+        if (playlist.length === 0) return document.getElementById('audioFileInput').click();
+        if (currentTrackIndex === -1) return loadAndPlayTrack(0);
+        if (player.paused) player.play(); else player.pause();
+    });
+    function deleteTrack(event, index) {
+        event.stopPropagation();
+        if (!dbMusic) return;
+        dbMusic.transaction(['songs'], 'readwrite').objectStore('songs').delete(playlist[index].id).onsuccess = () => {
             playlist.splice(index, 1);
-            if (currentTrackIndex === index) { bgAudioPlayer.pause(); bgAudioPlayer.src = ""; modalTrackTitle.innerText = "Belum ada musik dipilih"; playPauseSvgIcon.innerHTML = '<path d="M8 5v14l11-7z"/>'; if (animationId) cancelAnimationFrame(animationId); stabilizerBars.forEach(bar => bar.style.height = '6px'); currentTrackIndex = -1; } else if (currentTrackIndex > index) { currentTrackIndex--; }
+            if (currentTrackIndex === index) { document.getElementById('bgAudioPlayer').pause(); currentTrackIndex = -1; }
             renderPlaylist();
         };
     }
-    document.getElementById('btnExportMusic').addEventListener('click', () => {
-        if (!dbMusic) return; const transaction = dbMusic.transaction(['songs'], 'readonly'); const store = transaction.objectStore('songs'); const request = store.getAll();
-        request.onsuccess = function(event) {
-            const songs = event.target.result; if (songs.length === 0) return alert('Tidak ada lagu untuk dibackup!');
-            let processed = 0; const exportData = [];
-            songs.forEach(song => { const reader = new FileReader(); reader.onload = function(e) { exportData.push({ name: song.name, dataUrl: e.target.result }); processed++; if (processed === songs.length) { const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportData)); const downloadAnchor = document.createElement('a'); downloadAnchor.setAttribute("href", dataStr); downloadAnchor.setAttribute("download", `venus_playlist_backup_${new Date().toISOString().slice(0,10)}.json`); document.body.appendChild(downloadAnchor); downloadAnchor.click(); downloadAnchor.remove(); } }; reader.readAsDataURL(song.blob); });
-        };
-    });
-    const importMusicFileInput = document.getElementById('importMusicFileInput'); document.getElementById('btnImportMusic').addEventListener('click', () => importMusicFileInput.click());
-    importMusicFileInput.addEventListener('change', function(e) {
-        const file = e.target.files[0]; if (!file) return; const reader = new FileReader();
-        reader.onload = function(event) { try { const importedSongs = JSON.parse(event.target.result); if (!Array.isArray(importedSongs)) throw new Error(); let count = 0; importedSongs.forEach(item => { fetch(item.dataUrl).then(res => res.blob()).then(blob => { saveSongToDB(item.name, blob, () => { count++; if (count === importedSongs.length) alert('Playlist musik berhasil dipulihkan!'); }); }); }); } catch (err) { alert('File backup musik tidak valid!'); } }; reader.readAsText(file); importMusicFileInput.value = '';
-    });
-    function initWebAudioAPI() {
-        if (!audioCtx) { const AudioContext = window.AudioContext || window.webkitAudioContext; audioCtx = new AudioContext(); analyser = audioCtx.createAnalyser(); analyser.fftSize = 64; audioSourceNode = audioCtx.createMediaElementSource(bgAudioPlayer); audioSourceNode.connect(analyser); analyser.connect(audioCtx.destination); }
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-    }
-    function renderStabilizerLoop() {
-        if (!analyser) return; const dataArray = new Uint8Array(analyser.frequencyBinCount); analyser.getByteFrequencyData(dataArray);
-        stabilizerBars.forEach((bar, index) => { const dataIndex = Math.floor((index / stabilizerBars.length) * (dataArray.length / 1.5)); const value = dataArray[dataIndex] || 6; const heightPx = Math.max(6, (value / 255) * 46); bar.style.height = heightPx + 'px'; });
-        animationId = requestAnimationFrame(renderStabilizerLoop);
-    }
-    modalUploadBtn.addEventListener('click', () => audioFileInput.click());
-    audioFileInput.addEventListener('change', function(e) {
-        const files = e.target.files; if (!files.length) return;
-        for (let i = 0; i < files.length; i++) { const file = files[i]; const isAlreadyExists = playlist.some(track => track.name === file.name); if (!isAlreadyExists) saveSongToDB(file.name, file); } audioFileInput.value = '';
-    });
-    function renderPlaylist() {
-        if (playlist.length === 0) { playlistContainer.innerHTML = '<div style="font-size: 0.85rem; color: #64748b; font-style: italic; padding: 10px; text-align: center;">Daftar lagu masih kosong.</div>'; return; }
-        playlistContainer.innerHTML = '';
-        playlist.forEach((track, index) => { const item = document.createElement('div'); item.className = `playlist-item ${index === currentTrackIndex ? 'active-track' : ''}`; item.innerHTML = `<div style="display: flex; align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 250px;"><svg class="track-music-icon-svg" viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg><span style="overflow: hidden; text-overflow: ellipsis;">${track.name}</span></div><button type="button" class="playlist-delete-btn" onclick="deleteTrack(event, ${index})">Hapus</button>`; item.addEventListener('click', () => loadAndPlayTrack(index)); playlistContainer.appendChild(item); });
-    }
-    function loadTrack(index) { if (index < 0 || index >= playlist.length) return; currentTrackIndex = index; const track = playlist[index]; bgAudioPlayer.src = track.url; modalTrackTitle.innerText = track.name; renderPlaylist(); }
-    function loadAndPlayTrack(index) { loadTrack(index); initWebAudioAPI(); bgAudioPlayer.play().then(() => { playPauseSvgIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; if (animationId) cancelAnimationFrame(animationId); renderStabilizerLoop(); }).catch(err => console.log(err)); }
-    playPauseTrackBtn.addEventListener('click', () => {
-        if (playlist.length === 0) return audioFileInput.click(); if (currentTrackIndex === -1) return loadAndPlayTrack(0); initWebAudioAPI();
-        if (bgAudioPlayer.paused) { bgAudioPlayer.play(); playPauseSvgIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; if (animationId) cancelAnimationFrame(animationId); renderStabilizerLoop(); } else { bgAudioPlayer.pause(); playPauseSvgIcon.innerHTML = '<path d="M8 5v14l11-7z"/>'; if (animationId) cancelAnimationFrame(animationId); stabilizerBars.forEach(bar => bar.style.height = '6px'); }
-    });
-    prevTrackBtn.addEventListener('click', () => { if (playlist.length === 0) return; let newIndex = currentTrackIndex - 1; if (newIndex < 0) newIndex = playlist.length - 1; loadAndPlayTrack(newIndex); });
-    nextTrackBtn.addEventListener('click', () => { if (playlist.length === 0) return; let newIndex = currentTrackIndex + 1; if (newIndex >= playlist.length) newIndex = 0; loadAndPlayTrack(newIndex); });
-    bgAudioPlayer.addEventListener('timeupdate', () => { if (!isNaN(bgAudioPlayer.duration)) { musicProgressBar.value = (bgAudioPlayer.currentTime / bgAudioPlayer.duration) & 100 ? (bgAudioPlayer.currentTime / bgAudioPlayer.duration) * 100 : (bgAudioPlayer.currentTime / bgAudioPlayer.duration) * 100; currentTimeLabel.innerText = formatTime(bgAudioPlayer.currentTime); durationLabel.innerText = formatTime(bgAudioPlayer.duration); } });
-    musicProgressBar.addEventListener('input', () => { if (!isNaN(bgAudioPlayer.duration)) bgAudioPlayer.currentTime = (musicProgressBar.value / 100) * bgAudioPlayer.duration; });
-    bgAudioPlayer.addEventListener('ended', () => { let nextIdx = currentTrackIndex + 1; if (nextIdx < playlist.length) loadAndPlayTrack(nextIdx); else loadAndPlayTrack(0); });
-    function deleteTrack(event, index) { event.stopPropagation(); removeSongFromDB(playlist[index].id, index); }
-    function formatTime(seconds) { const mins = Math.floor(seconds / 60); const secs = Math.floor(seconds % 60); return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`; }
 
-    const glassOpacitySlider = document.getElementById('glassOpacitySlider'); const opacityValText = document.getElementById('opacityValText');
-    glassOpacitySlider.addEventListener('input', function() { document.documentElement.style.setProperty('--glass-alpha', (this.value / 100).toFixed(2)); opacityValText.innerText = this.value + '%'; localStorage.setItem('cyber_glass_opacity', this.value); });
-    
     let transactions = [];
-    try {
-        transactions = JSON.parse(localStorage.getItem('my_transactions')) || [];
-    } catch(e) {
-        transactions = [];
-    }
-    
-    let currentFilterDate = getLocalIsoDate(new Date()); 
-    let currentFilterMonth = null;
-    window.currentActiveMonth = null;
-    window.currentActiveDetailType = null;
+    try { transactions = JSON.parse(localStorage.getItem('my_transactions')) || []; } catch(e) { transactions = []; }
+    let currentFilterDate = getLocalIsoDate(new Date());
 
-    const filterBadgeText = document.getElementById('filterBadgeText'); 
-    const filterDateInputDirect = document.getElementById('filterDateInputDirect'); 
-    const filterBadgeWrapperBtn = document.getElementById('filterBadgeWrapperBtn');
-    const btnQuickToday = document.getElementById('btnQuickToday');
-
-    filterDateInputDirect.value = currentFilterDate; 
+    const filterBadgeText = document.getElementById('filterBadgeText');
+    const filterDateInputDirect = document.getElementById('filterDateInputDirect');
+    filterDateInputDirect.value = currentFilterDate;
     filterBadgeText.innerText = formatTransactionDateShort(currentFilterDate);
 
-    btnQuickToday.addEventListener('click', (e) => {
-        e.stopPropagation();
-        currentFilterDate = getLocalIsoDate(new Date());
-        currentFilterMonth = null;
-        filterDateInputDirect.value = currentFilterDate;
-        filterBadgeText.innerText = formatTransactionDateShort(currentFilterDate);
+    document.getElementById('btnQuickToday').addEventListener('click', (e) => {
+        e.stopPropagation(); currentFilterDate = getLocalIsoDate(new Date());
+        filterDateInputDirect.value = currentFilterDate; filterBadgeText.innerText = formatTransactionDateShort(currentFilterDate);
         updateUI();
     });
-
-    filterBadgeWrapperBtn.addEventListener('click', (e) => { 
-        e.stopPropagation(); 
-        try { filterDateInputDirect.showPicker(); } catch (err) { filterDateInputDirect.click(); } 
-    });
-
-    filterDateInputDirect.addEventListener('change', function() { 
-        if (this.value) { 
-            currentFilterDate = this.value; 
-            currentFilterMonth = null;
-            filterBadgeText.innerText = formatTransactionDateShort(currentFilterDate); 
-            updateUI(); 
-        } 
-    });
+    document.getElementById('filterBadgeWrapperBtn').addEventListener('click', (e) => { e.stopPropagation(); try { filterDateInputDirect.showPicker(); } catch (err) { filterDateInputDirect.click(); } });
+    filterDateInputDirect.addEventListener('change', function() { if (this.value) { currentFilterDate = this.value; filterBadgeText.innerText = formatTransactionDateShort(currentFilterDate); updateUI(); } });
 
     function formatTransactionDateShort(dateStr) {
         if (!dateStr) return '';
@@ -2275,86 +1645,37 @@
         return `${parseInt(d)} ${shortMonthNames[parseInt(m)-1]} ${y}`;
     }
 
-    let selectedDateValue = getLocalIsoDate(new Date()); 
-    const inputDate = document.getElementById('inputDate'); 
-    const dateWrapperBtn = document.getElementById('dateWrapperBtn'); 
+    let selectedDateValue = getLocalIsoDate(new Date());
+    const inputDate = document.getElementById('inputDate');
+    const dateWrapperBtn = document.getElementById('dateWrapperBtn');
     const dateDisplayText = document.getElementById('dateDisplayText');
     
-    function formatDateDisplay(dateStr) { if (!dateStr) return ''; const [y, m, d] = dateStr.split('-'); return `${d}/${m}/${y}`; }
-    
+    function formatDateDisplay(dateStr) { const [y, m, d] = dateStr.split('-'); return `${d}/${m}/${y}`; }
     dateWrapperBtn.addEventListener('click', (e) => { e.stopPropagation(); try { inputDate.showPicker(); } catch (err) { inputDate.click(); } });
     inputDate.addEventListener('change', function() { if (this.value) { selectedDateValue = this.value; dateDisplayText.innerText = formatDateDisplay(this.value); } });
     
-    const inputTime = document.getElementById('inputTime'); 
-    const timeWrapperBtn = document.getElementById('timeWrapperBtn'); 
+    const inputTime = document.getElementById('inputTime');
+    const timeWrapperBtn = document.getElementById('timeWrapperBtn');
     const timeDisplayText = document.getElementById('timeDisplayText');
-    
     timeWrapperBtn.addEventListener('click', (e) => { e.stopPropagation(); try { inputTime.showPicker(); } catch (err) { inputTime.click(); } });
     inputTime.addEventListener('change', function() { if (this.value) { timeDisplayText.innerText = this.value; } });
-    
-    let lastKnownDateStr = "";
 
     function refreshRealtimeDateTime() {
         const now = new Date();
         const todayStr = getLocalIsoDate(now);
-        const hoursStr = String(now.getHours()).padStart(2, '0');
-        const minutesStr = String(now.getMinutes()).padStart(2, '0');
-        const currentTimeStr = `${hoursStr}:${minutesStr}`;
-        
-        lastKnownDateStr = todayStr;
-
+        const currentTimeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
         currentFilterDate = todayStr;
-        if(filterDateInputDirect) filterDateInputDirect.value = todayStr;
-        if(filterBadgeText) filterBadgeText.innerText = formatTransactionDateShort(todayStr);
-
-        selectedDateValue = todayStr;
-        if(inputDate) inputDate.value = todayStr;
-        if(dateDisplayText) dateDisplayText.innerText = formatDateDisplay(todayStr);
-        if(inputTime) inputTime.value = currentTimeStr;
-        if(timeDisplayText) timeDisplayText.innerText = currentTimeStr;
-    }
-
-    function runRealtimeClock() {
-        const now = new Date();
-        const todayStr = getLocalIsoDate(now);
-        const hoursStr = String(now.getHours()).padStart(2, '0');
-        const minutesStr = String(now.getMinutes()).padStart(2, '0');
-        const currentTimeStr = `${hoursStr}:${minutesStr}`;
-
-        if(inputTime) inputTime.value = currentTimeStr;
-        if(timeDisplayText) timeDisplayText.innerText = currentTimeStr;
-
-        if (todayStr !== lastKnownDateStr) {
-            lastKnownDateStr = todayStr;
-
-            selectedDateValue = todayStr;
-            if(inputDate) inputDate.value = todayStr;
-            if(dateDisplayText) dateDisplayText.innerText = formatDateDisplay(todayStr);
-
-            currentFilterDate = todayStr;
-            if(filterDateInputDirect) filterDateInputDirect.value = todayStr;
-            if(filterBadgeText) filterBadgeText.innerText = formatTransactionDateShort(todayStr);
-
-            updateUI();
-        }
+        filterDateInputDirect.value = todayStr; filterBadgeText.innerText = formatTransactionDateShort(todayStr);
+        selectedDateValue = todayStr; inputDate.value = todayStr; dateDisplayText.innerText = formatDateDisplay(todayStr);
+        inputTime.value = currentTimeStr; timeDisplayText.innerText = currentTimeStr;
     }
 
     function formatRupiah(number) { return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(number); }
     document.getElementById('amount').addEventListener('input', function() { let rawValue = this.value.replace(/\D/g, ''); this.value = rawValue ? parseInt(rawValue, 10).toLocaleString('id-ID') : ''; });
     document.getElementById('editAmount').addEventListener('input', function() { let rawValue = this.value.replace(/\D/g, ''); this.value = rawValue ? parseInt(rawValue, 10).toLocaleString('id-ID') : ''; });
 
-    function formatTransactionDateHeader(dateStr) {
-        if (!dateStr) return '';
-        const [y, m, d] = dateStr.split('-');
-        const shortMonthNames = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agt", "Sept", "Okt", "Nov", "Des"];
-        const monthName = shortMonthNames[parseInt(m)-1] || m;
-        return `${parseInt(d)} ${monthName} ${y}`;
-    }
-
     function formatTransactionDateTime(dateStr, timeStr) {
-        const formattedDate = formatTransactionDateShort(dateStr);
-        const formattedTime = timeStr ? timeStr.replace(':', '.') : '00.00';
-        return `${formattedDate}, ${formattedTime} WIB`;
+        return `${formatTransactionDateShort(dateStr)}, ${timeStr ? timeStr.replace(':', '.') : '00.00'} WIB`;
     }
 
     function compressImage(file, callback) {
@@ -2363,316 +1684,66 @@
         reader.onload = function(event) {
             const img = new Image(); img.src = event.target.result;
             img.onload = function() {
-                const canvas = document.createElement('canvas'); 
-                const MAX_WIDTH = 400; 
+                const canvas = document.createElement('canvas'); const MAX_WIDTH = 400; 
                 let width = img.width; let height = img.height;
                 if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
-                canvas.width = width; canvas.height = height; const ctx = canvas.getContext('2d');
-                ctx.drawImage(img, 0, 0, width, height); 
-                callback(canvas.toDataURL('image/jpeg', 0.4)); 
-            }
+                canvas.width = width; canvas.height = height;
+                canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+                callback(canvas.toDataURL('image/jpeg', 0.4));
+            };
         };
     }
 
-    const openMonthlyHistoryBtn = document.getElementById('openMonthlyHistoryBtn');
-    const monthlyHistoryModalOverlay = document.getElementById('monthlyHistoryModalOverlay');
-    const closeMonthlyModalBtn = document.getElementById('closeMonthlyModalBtn');
-    const btnBackMonthly = document.getElementById('btnBackMonthly');
-    const monthlyListContainer = document.getElementById('monthlyListContainer');
-    const monthlyDetailContainer = document.getElementById('monthlyDetailContainer');
-    const monthlyModalTitle = document.getElementById('monthlyModalTitle');
-    const btnFilterPemasukanDetail = document.getElementById('btnFilterPemasukanDetail');
-    const btnFilterPengeluaranDetail = document.getElementById('btnFilterPengeluaranDetail');
-
-    openMonthlyHistoryBtn.addEventListener('click', () => {
+    document.getElementById('openMonthlyHistoryBtn').addEventListener('click', () => {
         renderMonthlyList();
-        monthlyListContainer.style.display = 'flex';
-        monthlyDetailContainer.style.display = 'none';
-        btnBackMonthly.style.display = 'none';
-        monthlyModalTitle.innerText = 'REKAP BULANAN';
-        monthlyHistoryModalOverlay.classList.add('active');
-        applyPopupLightMode(monthlyHistoryModalOverlay);
+        document.getElementById('monthlyListContainer').style.display = 'flex';
+        document.getElementById('monthlyDetailContainer').style.display = 'none';
+        document.getElementById('btnBackMonthly').style.display = 'none';
+        document.getElementById('monthlyModalTitle').innerText = 'REKAP BULANAN';
+        document.getElementById('monthlyHistoryModalOverlay').classList.add('active');
     });
-
-    closeMonthlyModalBtn.addEventListener('click', () => {
-        monthlyHistoryModalOverlay.classList.remove('active');
-    });
-
-    btnBackMonthly.addEventListener('click', () => {
-        monthlyListContainer.style.display = 'flex';
-        monthlyDetailContainer.style.display = 'none';
-        btnBackMonthly.style.display = 'none';
-        monthlyModalTitle.innerText = 'REKAP BULANAN';
-        window.currentActiveMonth = null;
-        window.currentActiveDetailType = null;
-    });
+    document.getElementById('closeMonthlyModalBtn').addEventListener('click', () => { document.getElementById('monthlyHistoryModalOverlay').classList.remove('active'); });
 
     function renderMonthlyList() {
-        monthlyListContainer.innerHTML = '';
-        const startDate = new Date(2026, 9, 1); 
-        const now = new Date();
-        const endDate = new Date(now.getFullYear(), now.getMonth(), 1);
-
-        const monthsData = [];
-        let currentMonth = new Date(startDate);
-        
-        while (currentMonth <= endDate) {
-            monthsData.push(new Date(currentMonth));
-            currentMonth.setMonth(currentMonth.getMonth() + 1);
-        }
-
-        monthsData.reverse().forEach(dateObj => {
-            const y = dateObj.getFullYear();
-            const m = String(dateObj.getMonth() + 1).padStart(2, '0');
-            const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-            const monthName = monthNames[dateObj.getMonth()];
-            const displayTitle = `${monthName} ${y}`;
-            const ymString = `${y}-${m}`;
-
-            let inBulan = 0, outBulan = 0;
-            transactions.forEach(t => {
-                if(t.date && t.date.startsWith(ymString)) {
-                    if(t.type === 'in') inBulan += t.amount;
-                    else if(t.type === 'out') outBulan += t.amount;
-                    else if(t.type === 'refund') outBulan -= t.amount;
-                }
-            });
-
-            const div = document.createElement('div');
-            div.className = 'history-clickable-title-box';
-            div.style.flexDirection = 'column';
-            div.style.alignItems = 'flex-start';
-            div.style.gap = '8px';
-            div.innerHTML = `
-                <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
-                    <label style="font-size: 1.15rem; color: var(--cv-text-primary); font-weight: 900; margin: 0; cursor: pointer; pointer-events: none;">${displayTitle}</label>
-                    <span style="color: #00f0ff; font-weight: 900; font-size: 1.4rem;">›</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; width: 100%; font-size: 0.9rem; font-weight: 800; margin-top: 4px; padding-top: 8px; border-top: 1px dashed rgba(0,240,255,0.2);">
-                    <span style="color: #34d399;">In: ${formatRupiah(inBulan)}</span>
-                    <span style="color: #fb7185;">Out: ${formatRupiah(outBulan)}</span>
-                </div>
-            `;
-            div.addEventListener('click', () => openMonthlyDetail(ymString, displayTitle));
-            monthlyListContainer.appendChild(div);
-        });
-    }
-
-    function openMonthlyDetail(yearMonthStr, displayTitle) {
-        window.currentActiveMonth = { ym: yearMonthStr, title: displayTitle };
-        window.currentActiveDetailType = null;
-        monthlyModalTitle.innerText = displayTitle;
-        monthlyListContainer.style.display = 'none';
-        btnBackMonthly.style.display = 'block';
-        monthlyDetailContainer.style.display = 'flex';
-        
+        const container = document.getElementById('monthlyListContainer'); container.innerHTML = '';
+        const now = new Date(); const ymString = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
         let inBulan = 0, outBulan = 0;
-        let filtered = transactions.filter(t => t.date && t.date.startsWith(yearMonthStr));
-        
-        filtered.forEach(t => {
-            if(t.type === 'in') inBulan += t.amount;
-            else if(t.type === 'out') outBulan += t.amount;
-            else if(t.type === 'refund') outBulan -= t.amount;
-        });
-
-        document.getElementById('monthlyDetailIn').innerText = formatRupiah(inBulan);
-        document.getElementById('monthlyDetailOut').innerText = formatRupiah(outBulan);
-
-        document.getElementById('monthlyDetailList').innerHTML = '<div style="text-align:center; color:#a5f3fc; font-size:0.95rem; padding:20px 0; font-style: italic;">Ketuk salah satu kotak <b>PEMASUKAN</b> atau <b>PENGELUARAN</b> di atas untuk melihat rincian transaksi.</div>';
-    }
-
-    btnFilterPemasukanDetail.addEventListener('click', () => {
-        window.currentActiveDetailType = 'in';
-        renderActiveDetailTransactions();
-    });
-
-    btnFilterPengeluaranDetail.addEventListener('click', () => {
-        window.currentActiveDetailType = 'out';
-        renderActiveDetailTransactions();
-    });
-
-    function renderActiveDetailTransactions() {
-        if (!window.currentActiveMonth || !window.currentActiveDetailType) return;
-        const yearMonthStr = window.currentActiveMonth.ym;
-        const type = window.currentActiveDetailType;
-
-        const monthlyDetailList = document.getElementById('monthlyDetailList');
-        monthlyDetailList.innerHTML = '';
-
-        let filtered = transactions.filter(t => {
-            if (!t.date || !t.date.startsWith(yearMonthStr)) return false;
-            if (type === 'in') return t.type === 'in';
-            if (type === 'out') return t.type === 'out' || t.type === 'refund';
-            return false;
-        });
-
-        if (filtered.length === 0) {
-            monthlyDetailList.innerHTML = '<div style="text-align:center; color:#a5f3fc; font-size:0.95rem; padding:20px 0; font-style: italic;">Tidak ada transaksi untuk kategori ini.</div>';
-            return;
-        }
-
-        filtered.sort((a, b) => {
-            if (b.date !== a.date) return b.date.localeCompare(a.date);
-            if (b.time !== a.time) return b.time.localeCompare(a.time);
-            return b.id - a.id;
-        });
-
-        let groupedByDate = {};
-        filtered.forEach(t => {
-            if (!groupedByDate[t.date]) groupedByDate[t.date] = [];
-            groupedByDate[t.date].push(t);
-        });
-
-        const containerDiv = document.createElement('div');
-        containerDiv.style.display = 'flex';
-        containerDiv.style.flexDirection = 'column';
-        containerDiv.style.gap = '16px';
-        containerDiv.style.width = '100%';
-
-        Object.keys(groupedByDate).sort().reverse().forEach(dateStr => {
-            const dateGroupList = groupedByDate[dateStr];
-
-            const groupWrapper = document.createElement('div');
-            groupWrapper.style.display = 'flex';
-            groupWrapper.style.flexDirection = 'column';
-            groupWrapper.style.gap = '10px';
-            groupWrapper.style.width = '100%';
-
-            const dateHeader = document.createElement('div');
-            dateHeader.style.display = 'inline-flex';
-            dateHeader.style.alignItems = 'center';
-            dateHeader.style.gap = '8px';
-            dateHeader.style.padding = '8px 14px';
-            dateHeader.style.background = 'rgba(0, 240, 255, 0.15)';
-            dateHeader.style.border = '1.5px solid rgba(0, 240, 255, 0.5)';
-            dateHeader.style.borderRadius = '12px';
-            dateHeader.style.fontFamily = "'Rajdhani', sans-serif";
-            dateHeader.style.fontSize = '1.05rem';
-            dateHeader.style.fontWeight = '900';
-            dateHeader.style.color = '#00f0ff';
-            dateHeader.style.width = 'fit-content';
-            dateHeader.style.letterSpacing = '1px';
-            dateHeader.innerHTML = `📅 ${formatTransactionDateHeader(dateStr)}`;
-            groupWrapper.appendChild(dateHeader);
-
-            const ul = document.createElement('ul');
-            ul.className = 'history-list';
-
-            dateGroupList.forEach((t, index) => {
-                const li = document.createElement('li'); 
-                li.className = `history-item ${t.type}`;
-                
-                if (index > 0) {
-                    li.style.borderTop = '1px dashed rgba(0, 240, 255, 0.25)';
-                    li.style.paddingTop = '16px';
-                }
-
-                const proofBadge = t.proof ? `<span class="item-method-badge" style="background: rgba(0, 240, 255, 0.15); color: #00f0ff; border-color: rgba(0, 240, 255, 0.4);">📸 Bukti</span>` : '';
-                
-                let amountSign = '-';
-                let amountClass = 'amount-out';
-                if (t.type === 'in') { amountSign = '+'; amountClass = 'amount-in'; }
-                else if (t.type === 'refund') { amountSign = '-'; amountClass = 'amount-refund'; }
-
-                let formattedTime = t.time ? t.time.replace(':', '.') : '00.00';
-
-                li.innerHTML = `
-                    <div class="item-info">
-                        <span class="item-desc">${t.description} ${t.method ? '<span class="item-method-badge">'+t.method+'</span>' : ''} ${proofBadge}</span>
-                        <span class="item-date" style="font-size: 0.92rem; font-weight: 800; color: #38bdf8;"><span class="cyber-note-icon">🗒️</span> Pukul ${formattedTime} WIB</span>
-                    </div>
-                    <span class="item-amount ${amountClass}" style="font-size: 1.25rem;">${amountSign} ${formatRupiah(t.amount)}</span>
-                `;
-                li.addEventListener('click', () => {
-                    openDetailModal(t.id);
-                });
-                ul.appendChild(li);
-            });
-
-            groupWrapper.appendChild(ul);
-            containerDiv.appendChild(groupWrapper);
-        });
-
-        monthlyDetailList.appendChild(containerDiv);
-    }
-
-    function refreshMonthlyViewLive() {
-        if (monthlyHistoryModalOverlay.classList.contains('active')) {
-            if (btnBackMonthly.style.display === 'block' && window.currentActiveMonth) {
-                const yearMonthStr = window.currentActiveMonth.ym;
-                let inBulan = 0, outBulan = 0;
-                transactions.forEach(t => {
-                    if(t.date && t.date.startsWith(yearMonthStr)) {
-                        if(t.type === 'in') inBulan += t.amount;
-                        else if(t.type === 'out') outBulan += t.amount;
-                        else if(t.type === 'refund') outBulan -= t.amount;
-                    }
-                });
-                document.getElementById('monthlyDetailIn').innerText = formatRupiah(inBulan);
-                document.getElementById('monthlyDetailOut').innerText = formatRupiah(outBulan);
-                if (window.currentActiveDetailType) {
-                    renderActiveDetailTransactions();
-                }
-            } else {
-                renderMonthlyList();
+        transactions.forEach(t => {
+            if (t.date && t.date.startsWith(ymString)) {
+                if (t.type === 'in') inBulan += t.amount;
+                else if (t.type === 'out') outBulan += t.amount;
+                else if (t.type === 'refund') outBulan -= t.amount;
             }
-        }
+        });
+        const div = document.createElement('div'); div.className = 'history-clickable-title-box';
+        div.style.flexDirection = 'column'; div.style.alignItems = 'flex-start'; div.style.gap = '8px';
+        div.innerHTML = `<div style="display: flex; justify-content: space-between; width: 100%;"><label style="font-weight:900; color:var(--cv-text-primary);">Bulan Ini (${ymString})</label><span style="color:#00f0ff;">›</span></div><div style="display: flex; justify-content: space-between; width: 100%; font-size:0.9rem; font-weight:800;"><span style="color:#34d399;">In: ${formatRupiah(inBulan)}</span><span style="color:#fb7185;">Out: ${formatRupiah(outBulan)}</span></div>`;
+        container.appendChild(div);
     }
 
     function updateUI() {
-        const historyList = document.getElementById('historyList'); 
-        historyList.innerHTML = '';
-        
-        let filtered = transactions;
-        if (currentFilterDate) {
-            filtered = transactions.filter(t => String(t.date).trim() === String(currentFilterDate).trim());
-        } else if (currentFilterMonth) {
-            filtered = transactions.filter(t => t.date && t.date.startsWith(currentFilterMonth));
-        }
+        const historyList = document.getElementById('historyList'); historyList.innerHTML = '';
+        let filtered = currentFilterDate ? transactions.filter(t => String(t.date).trim() === String(currentFilterDate).trim()) : transactions;
 
         if (filtered.length === 0) {
-            historyList.innerHTML = '<li style="text-align:center; color:#a5f3fc; font-size:0.95rem; padding:20px 0;">Tidak ada transaksi pada tanggal ini</li>';
+            historyList.innerHTML = '<li style="text-align:center; color:#a5f3fc; font-size:0.95rem; padding:20px 0;">Tidak ada transaksi</li>';
         } else {
-            filtered.sort((a, b) => {
-                if (b.date !== a.date) return b.date.localeCompare(a.date);
-                if (b.time !== a.time) return b.time.localeCompare(a.time);
-                return b.id - a.id;
-            }).forEach((t, index) => {
-                const li = document.createElement('li'); 
-                li.className = `history-item ${t.type}`;
-
-                if (index > 0) {
-                    li.style.borderTop = '1px dashed rgba(0, 240, 255, 0.25)';
-                    li.style.paddingTop = '16px';
-                }
-
-                const proofBadge = t.proof ? `<span class="item-method-badge" style="background: rgba(0, 240, 255, 0.15); color: #00f0ff; border-color: rgba(0, 240, 255, 0.4);">📸 Ada Bukti</span>` : '';
-                
-                let amountSign = '-';
-                let amountClass = 'amount-out';
-                if (t.type === 'in') { amountSign = '+'; amountClass = 'amount-in'; }
-                else if (t.type === 'refund') { amountSign = '-'; amountClass = 'amount-refund'; }
-
-                li.innerHTML = `<div class="item-info"><span class="item-desc">${t.description} ${t.method ? '<span class="item-method-badge">'+t.method+'</span>' : ''} ${proofBadge}</span><span class="item-date" style="font-size: 0.92rem; font-weight: 800;">${formatTransactionDateTime(t.date, t.time)}</span></div><span class="item-amount ${amountClass}" style="font-size: 1.25rem;">${amountSign} ${formatRupiah(t.amount)}</span>`;
-                li.addEventListener('click', () => openDetailModal(t.id)); historyList.appendChild(li);
+            filtered.sort((a, b) => b.id - a.id).forEach((t) => {
+                const li = document.createElement('li'); li.className = `history-item ${t.type}`;
+                let amountSign = t.type === 'in' ? '+' : '-';
+                let amountClass = t.type === 'in' ? 'amount-in' : (t.type === 'refund' ? 'amount-refund' : 'amount-out');
+                li.innerHTML = `<div class="item-info"><span class="item-desc">${t.description} ${t.method ? '<span class="item-method-badge">'+t.method+'</span>' : ''}</span><span class="item-date">${formatTransactionDateTime(t.date, t.time)}</span></div><span class="item-amount ${amountClass}">${amountSign} ${formatRupiah(t.amount)}</span>`;
+                li.addEventListener('click', () => openDetailModal(t.id));
+                historyList.appendChild(li);
             });
         }
         
-        let totalIn = 0, totalOut = 0;
-        let cashBalance = 0, bankBalance = 0;
-
+        let totalIn = 0, totalOut = 0, cashBalance = 0, bankBalance = 0;
         transactions.forEach(t => { 
             const isCash = (t.method === 'CASH');
-            if (t.type === 'in') {
-                totalIn += t.amount;
-                if (isCash) cashBalance += t.amount; else bankBalance += t.amount;
-            } else if (t.type === 'out') {
-                totalOut += t.amount;
-                if (isCash) cashBalance -= t.amount; else bankBalance -= t.amount;
-            } else if (t.type === 'refund') {
-                totalOut -= t.amount;
-                if (isCash) cashBalance += t.amount; else bankBalance += t.amount;
-            }
+            if (t.type === 'in') { totalIn += t.amount; if (isCash) cashBalance += t.amount; else bankBalance += t.amount; }
+            else if (t.type === 'out') { totalOut += t.amount; if (isCash) cashBalance -= t.amount; else bankBalance -= t.amount; }
+            else if (t.type === 'refund') { totalOut -= t.amount; if (isCash) cashBalance += t.amount; else bankBalance += t.amount; }
         });
 
         document.getElementById('totalSaldo').innerText = formatRupiah(totalIn - totalOut); 
@@ -2681,198 +1752,84 @@
         document.getElementById('totalSaldoCash').innerText = formatRupiah(cashBalance);
         document.getElementById('totalSaldoBank').innerText = formatRupiah(bankBalance);
 
-        refreshMonthlyViewLive();
-
         try { 
             localStorage.setItem('my_transactions', JSON.stringify(transactions)); 
-            if (window.saveTransactionsToFirebase) {
-                window.saveTransactionsToFirebase(transactions);
-            }
-        } catch(e) { 
-            console.warn('Local storage limit exceeded during save.'); 
-        }
+            if (window.saveTransactionsToFirebase) window.saveTransactionsToFirebase(transactions);
+        } catch(e) {}
     }
 
-    const detailTransactionModal = document.getElementById('detailTransactionModal'); const closeDetailModalBtn = document.getElementById('closeDetailModalBtn');
-    const editTxId = document.getElementById('editTxId'); const editType = document.getElementById('editType'); const editAmount = document.getElementById('editAmount'); const editDescription = document.getElementById('editDescription'); const editDate = document.getElementById('editDate'); const editTime = document.getElementById('editTime'); const editMethod = document.getElementById('editMethod'); 
-    const detailProofContainer = document.getElementById('detailProofContainer');
-    const detailProofImage = document.getElementById('detailProofImage'); 
-    const editProofInput = document.getElementById('editProofInput');
-    
-    const imageLightboxModal = document.getElementById('imageLightboxModal');
-    const lightboxImage = document.getElementById('lightboxImage');
-    const closeLightboxBtn = document.getElementById('closeLightboxBtn');
-
-    detailProofImage.addEventListener('click', () => {
-        if (detailProofImage.src) {
-            lightboxImage.src = detailProofImage.src;
-            imageLightboxModal.classList.add('active');
-        }
-    });
-
-    closeLightboxBtn.addEventListener('click', () => {
-        imageLightboxModal.classList.remove('active');
-    });
-
-    imageLightboxModal.addEventListener('click', (e) => {
-        if (e.target === imageLightboxModal) {
-            imageLightboxModal.classList.remove('active');
-        }
-    });
-
+    const detailTransactionModal = document.getElementById('detailTransactionModal');
     function openDetailModal(id) {
         const tx = transactions.find(t => t.id === id); if (!tx) return;
-        editTxId.value = tx.id; 
-        editType.value = tx.type; 
-        let typeText = '🟩 PEMASUKAN (+)';
-        if(tx.type === 'out') typeText = '🟥 PENGELUARAN (-)';
-        if(tx.type === 'refund') typeText = '🟨 PENGEMBALIAN DANA';
-        document.getElementById('btnEditSelectType').innerText = typeText;
-        
-        editAmount.value = tx.amount.toLocaleString('id-ID'); 
-        editDescription.value = tx.description; 
-        editDate.value = tx.date; 
-        editTime.value = tx.time; 
-        
-        editMethod.value = tx.method || 'CASH';
-        let methodText = '💵 CASH (Tunai)';
-        if(editMethod.value === 'TRANSFER') methodText = '🏦 TRANSFER BANK';
-        if(editMethod.value === 'QRIS') methodText = '📱 QRIS (E-Wallet)';
-        document.getElementById('btnEditSelectMethod').innerText = methodText;
+        document.getElementById('editTxId').value = tx.id;
+        document.getElementById('editType').value = tx.type;
+        document.getElementById('btnEditSelectType').innerText = tx.type === 'in' ? '🟩 PEMASUKAN (+)' : '🟥 PENGELUARAN (-)';
+        document.getElementById('editAmount').value = tx.amount.toLocaleString('id-ID');
+        document.getElementById('editDescription').value = tx.description;
+        document.getElementById('editDate').value = tx.date;
+        document.getElementById('editTime').value = tx.time;
+        document.getElementById('editMethod').value = tx.method || 'CASH';
+        document.getElementById('btnEditSelectMethod').innerText = tx.method || 'CASH';
 
-        if (tx.proof) { 
-            detailProofImage.src = tx.proof; 
-            detailProofContainer.style.display = 'flex'; 
-        } else { 
-            detailProofImage.src = ''; 
-            detailProofContainer.style.display = 'none'; 
-        }
-        editProofInput.value = ''; 
-        const editFileNameDisplay = document.getElementById('editFileNameDisplay');
-        if (editFileNameDisplay) editFileNameDisplay.innerText = "Tidak ada file dipilih";
+        const imgContainer = document.getElementById('detailProofContainer');
+        const proofImg = document.getElementById('detailProofImage');
+        if (tx.proof) { proofImg.src = tx.proof; imgContainer.style.display = 'flex'; } else { imgContainer.style.display = 'none'; }
         detailTransactionModal.classList.add('active');
-        applyPopupLightMode(detailTransactionModal);
     }
-    closeDetailModalBtn.addEventListener('click', () => { detailTransactionModal.classList.remove('active'); });
+    document.getElementById('closeDetailModalBtn').addEventListener('click', () => { detailTransactionModal.classList.remove('active'); });
 
     document.getElementById('btnUpdateTransaction').addEventListener('click', () => {
-        const id = parseInt(editTxId.value); const type = editType.value; const amount = parseFloat(editAmount.value.replace(/\./g, '')); const description = editDescription.value; const date = editDate.value; const time = editTime.value; const method = editMethod.value;
-        if (!amount || isNaN(amount) || !description || !date || !time) return alert('Semua kolom wajib diisi dengan benar!');
+        const id = parseInt(document.getElementById('editTxId').value);
         const index = transactions.findIndex(t => t.id === id);
-        const btnUpdateTransaction = document.getElementById('btnUpdateTransaction');
-        
         if (index !== -1) {
-            const editProofFile = document.getElementById('editProofInput').files[0];
-            if (editProofFile) { 
-                btnUpdateTransaction.innerText = "Mengompresi Foto...";
-                btnUpdateTransaction.disabled = true;
-                compressImage(editProofFile, function(base64Proof) { 
-                    transactions[index] = { id, type, amount, description, date, time, method, proof: base64Proof }; 
-                    finalizeUpdate(); 
-                }); 
-            } else { 
-                transactions[index] = { id, type, amount, description, date, time, method, proof: transactions[index].proof }; 
-                finalizeUpdate(); 
-            }
-            
-            function finalizeUpdate() { 
-                updateUI(); 
-                detailTransactionModal.classList.remove('active'); 
-                playCashSound(); 
-                btnUpdateTransaction.innerText = "Simpan Perubahan";
-                btnUpdateTransaction.disabled = false;
-            }
+            transactions[index].type = document.getElementById('editType').value;
+            transactions[index].amount = parseFloat(document.getElementById('editAmount').value.replace(/\./g, ''));
+            transactions[index].description = document.getElementById('editDescription').value;
+            transactions[index].date = document.getElementById('editDate').value;
+            transactions[index].time = document.getElementById('editTime').value;
+            transactions[index].method = document.getElementById('editMethod').value;
+            updateUI(); detailTransactionModal.classList.remove('active');
         }
     });
 
-    document.getElementById('btnDeleteTransaction').addEventListener('click', () => { 
-        const id = parseInt(editTxId.value); 
-        showCyberConfirm('Apakah Anda yakin ingin menghapus transaksi ini?', () => {
-            transactions = transactions.filter(t => t.id !== id); 
-            updateUI(); 
-            detailTransactionModal.classList.remove('active');
-        }); 
+    document.getElementById('btnDeleteTransaction').addEventListener('click', () => {
+        const id = parseInt(document.getElementById('editTxId').value);
+        showCyberConfirm('Hapus transaksi ini?', () => {
+            transactions = transactions.filter(t => t.id !== id);
+            updateUI(); detailTransactionModal.classList.remove('active');
+        });
     });
 
-    const transactionForm = document.getElementById('transactionForm'); 
-    const btnSubmit = document.getElementById('btnSubmit'); 
-    const btnText = document.getElementById('btnText'); 
-    const popupNotification = document.getElementById('popupNotification'); 
-    const popupTitle = document.getElementById('popupTitle'); 
-    const popupSubtitle = document.getElementById('popupSubtitle');
-
+    const transactionForm = document.getElementById('transactionForm');
     transactionForm.addEventListener('submit', function(e) {
-        e.preventDefault(); 
-        const type = document.getElementById('type').value; 
+        e.preventDefault();
+        const type = document.getElementById('type').value;
         const method = document.getElementById('paymentMethod').value;
-        const amount = parseFloat(document.getElementById('amount'].value.replace(/\./g, '')); 
-        const description = document.getElementById('description'].value; 
-        const date = selectedDateValue; 
-        const time = timeDisplayText.innerText; 
+        const amount = parseFloat(document.getElementById('amount').value.replace(/\./g, ''));
+        const description = document.getElementById('description').value;
+        const date = selectedDateValue;
+        const time = timeDisplayText.innerText;
         const proofFile = document.getElementById('proofInput').files[0];
-        
-        if (!type || !method || !amount || isNaN(amount) || !description || !date || !time) {
-            alert('Mohon pastikan Jenis Transaksi dan Metode Pembayaran sudah dipilih dengan lengkap!');
-            return;
-        }
-        
-        btnSubmit.disabled = true; 
-        btnText.innerHTML = '<span class="btn-spinner"></span> Memproses...';
-        
-        try {
-            compressImage(proofFile, function(base64Proof) {
-                try {
-                    transactions.push({ id: Date.now(), type, amount, description, date, time, method, proof: base64Proof }); 
-                    
-                    currentFilterDate = date;
-                    if(filterDateInputDirect) filterDateInputDirect.value = date;
-                    if(filterBadgeText) filterBadgeText.innerText = formatTransactionDateShort(date);
 
-                    updateUI(); 
-                    
-                    transactionForm.reset(); 
-                    document.getElementById('proofInput').value = '';
-                    const fileNameDisplay = document.getElementById('fileNameDisplay');
-                    if (fileNameDisplay) fileNameDisplay.innerText = "Tidak ada file dipilih";
-                    
-                    document.getElementById('type').value = '';
-                    document.getElementById('paymentMethod').value = '';
-                    
-                    document.getElementById('btnSelectType').innerText = '-- Pilih Jenis --';
-                    document.getElementById('btnSelectType').classList.remove('selected');
-                    
-                    document.getElementById('btnSelectMethod').innerText = '-- Pilih Metode --';
-                    document.getElementById('btnSelectMethod').classList.remove('selected');
+        if (!type || !method || !amount || isNaN(amount) || !description) return alert('Lengkapi data transaksi dengan benar!');
 
-                    refreshRealtimeDateTime();
-                    playCashSound();
-                    
-                    if (type === 'in') { popupTitle.innerText = "Pemasukan Masuk!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (+${formatRupiah(amount)})`; } 
-                    else if (type === 'out') { popupTitle.innerText = "Pengeluaran Dicatat!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (-${formatRupiah(amount)})`; }
-                    else if (type === 'refund') { popupTitle.innerText = "Pengembalian Dana!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (Pengurangan Pengeluaran)`; }
-                    
-                    popupNotification.classList.add('active');
-                    applyPopupLightMode(popupNotification);
-                } catch (innerErr) {
-                    console.error("Gagal memproses data transaksi:", innerErr);
-                    alert("Penyimpanan lokal penuh (LocalStorage Quota Exceeded). Silakan kurangi ukuran foto atau hapus beberapa transaksi lama.");
-                } finally {
-                    btnSubmit.disabled = false; 
-                    btnText.innerText = 'Tambah Transaksi'; 
-                }
-            });
-        } catch (err) {
-            console.error("Gagal kompresi file:", err);
-            alert("Gagal memproses file bukti transaksi.");
-            btnSubmit.disabled, btnSubmit.disabled = false; 
-            btnText.innerText = 'Tambah Transaksi';
-        }
+        compressImage(proofFile, function(base64Proof) {
+            transactions.push({ id: Date.now(), type, amount, description, date, time, method, proof: base64Proof });
+            currentFilterDate = date; filterDateInputDirect.value = date; filterBadgeText.innerText = formatTransactionDateShort(date);
+            updateUI(); transactionForm.reset();
+            document.getElementById('proofInput').value = '';
+            document.getElementById('fileNameDisplay').innerText = "Tidak ada file dipilih";
+            document.getElementById('type').value = ''; document.getElementById('paymentMethod').value = '';
+            document.getElementById('btnSelectType').innerText = '-- Pilih Jenis --';
+            document.getElementById('btnSelectMethod').innerText = '-- Pilih Metode --';
+            refreshRealtimeDateTime();
+            document.getElementById('popupNotification').classList.add('active');
+        });
     });
 
-    document.getElementById('popupCloseBtn').addEventListener('click', () => { popupNotification.classList.remove('active'); });
+    document.getElementById('popupCloseBtn').addEventListener('click', () => { document.getElementById('popupNotification').classList.remove('active'); });
 
     refreshRealtimeDateTime();
-    setInterval(runRealtimeClock, 1000);
 </script>
 </body>
 </html>
