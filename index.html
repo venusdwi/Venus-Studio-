@@ -1318,6 +1318,75 @@
         });
     }
 
+    // Fungsi untuk menghapus draft transaksi yang belum selesai (belum ditekan tombol Simpan/tambah)
+    function clearUnfinishedTransactionDraft() {
+        document.getElementById('transactionForm').reset();
+        document.getElementById('proofInput').value = '';
+        const fileNameDisplay = document.getElementById('fileNameDisplay');
+        if (fileNameDisplay) fileNameDisplay.innerText = "Tidak ada file dipilih";
+        document.getElementById('type').value = ''; 
+        document.getElementById('paymentMethod').value = '';
+        document.getElementById('btnSelectType').innerText = '-- Pilih Jenis --';
+        document.getElementById('btnSelectMethod').innerText = '-- Pilih Metode --';
+        localStorage.removeItem('venus_draft_transaction');
+    }
+
+    // Auto-save draft transaksi saat user mengetik/mengisi form
+    function saveTransactionDraftOnFly() {
+        const draft = {
+            type: document.getElementById('type').value,
+            amount: document.getElementById('amount').value,
+            description: document.getElementById('description').value,
+            method: document.getElementById('paymentMethod').value,
+            date: selectedDateValue,
+            time: timeDisplayText.innerText
+        };
+        localStorage.setItem('venus_draft_transaction', JSON.stringify(draft));
+    }
+
+    ['amount', 'description'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', saveTransactionDraftOnFly);
+    });
+
+    // SISTEM BACKGROUND TIMEOUT 1 MENIT & LOCKSCREEN
+    const LOCK_TIMEOUT_MS = 60 * 1000; // 1 Menit
+
+    function lockAppDueToInactivity() {
+        sessionStorage.removeItem('venus_is_logged');
+        sessionStorage.setItem('venus_active_modal', 'none');
+        clearUnfinishedTransactionDraft(); // Hapus transaksi belum selesai otomatis
+
+        // Sembunyikan semua modal & aplikasi utama, kembalikan ke layar splash / PIN
+        document.getElementById('cyberModalOverlay').classList.remove('active');
+        document.getElementById('musicModalOverlay').classList.remove('active');
+        document.getElementById('personalModalOverlay').classList.remove('active');
+        document.getElementById('debtModalOverlay').classList.remove('active');
+        document.getElementById('mainAppContainer').classList.remove('active');
+        document.getElementById('techBgContainer').classList.remove('active');
+        
+        // Munculkan layar PIN
+        clearAllPin();
+        document.getElementById('pinScreenOverlay').classList.add('active');
+    }
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden') {
+            // Ketika aplikasi ditinggal (pindah aplikasi / home screen)
+            localStorage.setItem('venus_bg_timestamp', Date.now().toString());
+        } else if (document.visibilityState === 'visible') {
+            // Ketika aplikasi dibuka kembali
+            const isLogged = sessionStorage.getItem('venus_is_logged') === 'true';
+            if (isLogged) {
+                const bgTime = parseInt(localStorage.getItem('venus_bg_timestamp') || '0', 10);
+                if (bgTime > 0 && (Date.now() - bgTime > LOCK_TIMEOUT_MS)) {
+                    // Jika sudah ditinggal lebih dari 1 menit -> Kunci & minta PIN ke awal
+                    lockAppDueToInactivity();
+                }
+            }
+        }
+    });
+
     document.addEventListener('DOMContentLoaded', () => {
         const savedTheme = localStorage.getItem('cyber_vault_theme');
         if (savedTheme) applyTheme(savedTheme);
@@ -1641,6 +1710,7 @@
         document.getElementById('btnSelectType').innerText = text;
         document.getElementById('btnSelectType').classList.add('selected');
         document.getElementById('modalSelectType').classList.remove('active');
+        saveTransactionDraftOnFly();
     }
     document.getElementById('btnSelectType').addEventListener('click', () => { document.getElementById('modalSelectType').classList.add('active'); });
 
@@ -1649,6 +1719,7 @@
         document.getElementById('btnSelectMethod').innerText = text;
         document.getElementById('btnSelectMethod').classList.add('selected');
         document.getElementById('modalSelectMethod').classList.remove('active');
+        saveTransactionDraftOnFly();
     }
     document.getElementById('btnSelectMethod').addEventListener('click', () => { document.getElementById('modalSelectMethod').classList.add('active'); });
 
@@ -2524,6 +2595,7 @@
         setTimeout(() => {
             compressImage(proofFile, function(base64Proof) {
                 transactions.push({ id: Date.now(), type, amount, description, date, time, method, proof: base64Proof });
+                clearUnfinishedTransactionDraft(); // Bersihkan draft jika sudah berhasil disimpan
                 currentFilterDate = date; filterDateInputDirect.value = date; filterBadgeText.innerText = formatTransactionDateShort(date);
                 updateUI(); transactionForm.reset();
                 document.getElementById('proofInput').value = '';
