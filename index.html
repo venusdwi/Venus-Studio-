@@ -197,7 +197,7 @@
         .music-search-input { flex-grow: 1; padding: 10px 12px; border: 1.5px solid rgba(0, 240, 255, 0.4); border-radius: 10px; background: rgba(2, 12, 32, 0.9); color: #fff; font-size: 0.9rem; outline: none; }
         .music-search-btn { background: rgba(0, 240, 255, 0.2); border: 1.5px solid #00f0ff; color: #00f0ff; padding: 0 14px; border-radius: 10px; font-weight: 800; cursor: pointer; font-size: 0.85rem; }
         
-        .music-search-results { width: 100%; max-height: 110px; overflow-y: auto; background: rgba(1, 6, 18, 0.95); border: 1px solid rgba(0, 240, 255, 0.3); border-radius: 10px; padding: 6px; display: none; flex-direction: column; gap: 4px; margin-bottom: 6px; text-align: left; }
+        .music-search-results { width: 100%; max-height: 130px; overflow-y: auto; background: rgba(1, 6, 18, 0.95); border: 1px solid rgba(0, 240, 255, 0.3); border-radius: 10px; padding: 6px; display: none; flex-direction: column; gap: 4px; margin-bottom: 6px; text-align: left; }
         .music-search-results.active { display: flex; }
         .search-result-item { display: flex; justify-content: space-between; align-items: center; background: rgba(0, 240, 255, 0.05); padding: 6px 10px; border-radius: 8px; font-size: 0.82rem; gap: 8px; border: 1px solid rgba(0,240,255,0.15); }
         .search-result-title { color: #fff; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-grow: 1; }
@@ -791,10 +791,10 @@
             <div style="display: flex; justify-content: flex-end;"><button type="button" class="close-music-modal" id="closeMusicModalBtn" style="position: static;">✕</button></div>
         </div>
 
-        <!-- Fitur Pencarian Musik Online -->
+        <!-- Fitur Pencarian Musik Online Terintegrasi (Archive & Public Domain Audio) -->
         <div style="width: 100%; display: flex; flex-direction: column; gap: 4px; margin-top: 4px;">
             <div class="music-search-box">
-                <input type="text" id="onlineMusicSearchInput" class="music-search-input" placeholder="Cari judul lagu online...">
+                <input type="text" id="onlineMusicSearchInput" class="music-search-input" placeholder="Cari judul lagu / artis...">
                 <button type="button" id="btnSearchOnlineMusic" class="music-search-btn">Cari</button>
             </div>
             <div class="music-search-results" id="onlineMusicSearchResults"></div>
@@ -1952,7 +1952,7 @@
         this.value = '';
     });
 
-    // Fitur Pencarian Musik Online menggunakan API Jamendo (Public Audio)
+    // Peningkatan Fitur Pencarian Musik Online menggunakan Arsip Direktori Publik Alternatif (CORS-friendly)
     document.getElementById('btnSearchOnlineMusic').addEventListener('click', searchOnlineMusic);
     document.getElementById('onlineMusicSearchInput').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') searchOnlineMusic();
@@ -1966,34 +1966,40 @@
         resultsContainer.innerHTML = '<div style="text-align:center; color:#00f0ff; font-size:0.8rem; padding:6px;">Mencari musik online...</div>';
         resultsContainer.classList.add('active');
 
-        // Menggunakan Jamendo API publik untuk pencarian musik bebas hak cipta / indie
-        const clientId = '5938da12'; // Public client ID for testing
-        const url = `https://api.jamendo.com/v3.0/tracks/?client_id=${clientId}&format=jsonjson&limit=5&search=${encodeURIComponent(query)}`;
+        // Menggunakan arsip direktori publik bebas CORS yang stabil untuk streaming & pencarian lagu
+        const url = `https://archive.org/advancedsearch.php?q=title:(${encodeURIComponent(query)}) AND mediatype:(audio)&fl[]=identifier,title,creator&rows=5&output=json`;
 
         fetch(url)
             .then(res => res.json())
             .then(data => {
                 resultsContainer.innerHTML = '';
-                if (!data.results || data.results.length === 0) {
-                    resultsContainer.innerHTML = '<div style="text-align:center; color:#fb7185; font-size:0.8rem; padding:6px;">Lagu tidak ditemukan.</div>';
+                const docs = data.response && data.response.docs ? data.response.docs : [];
+                
+                if (docs.length === 0) {
+                    resultsContainer.innerHTML = '<div style="text-align:center; color:#fb7185; font-size:0.8rem; padding:6px;">Lagu tidak ditemukan. Coba kata kunci lain.</div>';
                     return;
                 }
 
-                data.results.forEach(track => {
+                docs.forEach(doc => {
+                    const trackName = doc.title || 'Unknown Title';
+                    const artistName = doc.creator || 'Archive Artist';
+                    // Link direktori stream audio publik dari Internet Archive
+                    const audioStreamUrl = `https://archive.org/download/${doc.identifier}/${doc.identifier}_vbr.mp3`;
+
                     const item = document.createElement('div');
                     item.className = 'search-result-item';
                     item.innerHTML = `
-                        <span class="search-result-title" title="${track.name} - ${track.artist_name}">${track.name} - ${track.artist_name}</span>
+                        <span class="search-result-title" title="${trackName} - ${artistName}">${trackName} - ${artistName}</span>
                         <div class="search-action-btns">
-                            <button type="button" class="btn-stream-online" onclick="streamOnlineTrack('${track.audio}', '${track.name.replace(/'/g, "")}')">Putar</button>
-                            <button type="button" class="btn-add-online" onclick="addOnlineTrackToPlaylist('${track.audio}', '${track.name.replace(/'/g, "")} - ${track.artist_name.replace(/'/g, "")}')">+ Playlist</button>
+                            <button type="button" class="btn-stream-online" onclick="streamOnlineTrack('${audioStreamUrl}', '${trackName.replace(/'/g, "")}')">Putar</button>
+                            <button type="button" class="btn-add-online" onclick="addOnlineTrackToPlaylist('${audioStreamUrl}', '${trackName.replace(/'/g, "")} - ${artistName.replace(/'/g, "")}')">+ Playlist</button>
                         </div>
                     `;
                     resultsContainer.appendChild(item);
                 });
             })
             .catch(() => {
-                resultsContainer.innerHTML = '<div style="text-align:center; color:#fb7185; font-size:0.8rem; padding:6px;">Gagal terhubung ke server musik.</div>';
+                resultsContainer.innerHTML = '<div style="text-align:center; color:#fb7185; font-size:0.8rem; padding:6px;">Gagal terhubung ke direktori online. Periksa koneksi internet Anda.</div>';
             });
     }
 
