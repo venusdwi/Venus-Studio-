@@ -1182,13 +1182,12 @@
             if (ctx.state === 'suspended') ctx.resume();
             const now = ctx.currentTime;
             
-            // Suara futuristik sukses (dua nada naik)
             const osc = ctx.createOscillator();
             const gain = ctx.createGain();
             osc.type = 'sine';
             
-            osc.frequency.setValueAtTime(440, now); // Nada A4
-            osc.frequency.setValueAtTime(880, now + 0.15); // Nada A5
+            osc.frequency.setValueAtTime(440, now);
+            osc.frequency.setValueAtTime(880, now + 0.15);
             
             gain.gain.setValueAtTime(0.01, now);
             gain.gain.linearRampToValueAtTime(0.4, now + 0.05);
@@ -1199,6 +1198,35 @@
             
             osc.start(now);
             osc.stop(now + 0.5);
+        } catch (e) {}
+    }
+
+    function playSuccessChimeSound() {
+        try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            if (ctx.state === 'suspended') ctx.resume();
+            const now = ctx.currentTime;
+            
+            // Suara lonceng/chime sukses transaksi (tiga nada naik yang harmonis)
+            const notes = [523.25, 659.25, 783.99]; // C5, E5, G5
+            notes.forEach((freq, index) => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'triangle';
+                
+                const startTime = now + (index * 0.08);
+                osc.frequency.setValueAtTime(freq, startTime);
+                
+                gain.gain.setValueAtTime(0.01, startTime);
+                gain.gain.linearRampToValueAtTime(0.3, startTime + 0.04);
+                gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.4);
+                
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                
+                osc.start(startTime);
+                osc.stop(startTime + 0.4);
+            });
         } catch (e) {}
     }
 
@@ -1927,6 +1955,9 @@
                 // Kembalikan tombol seperti semula
                 btnSubmit.disabled = false;
                 btnText.innerText = 'Tambah Transaksi';
+
+                // Mainkan sound efek sukses notifikasi transaksi
+                playSuccessChimeSound();
 
                 document.getElementById('popupNotification').classList.add('active');
             });
