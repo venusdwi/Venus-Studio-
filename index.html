@@ -1046,44 +1046,6 @@
     </div>
 </div>
 
-<audio id="bgAudioPlayer" crossorigin="anonymous" style="display: none;"></audio>
-
-<div class="popup-overlay" id="themeModalOverlay">
-    <div class="popup-box theme-modal-box" style="max-width: 340px; padding: 22px; max-height: 90vh; overflow-y: auto;">
-        <div class="popup-title" style="font-size: 1.15rem; margin-bottom: 12px;">Custom Theme</div>
-        <div style="font-size: 0.82rem; color: #a5f3fc; margin-bottom: 14px;" id="themeModalDesc">Pilih tema lengkap dengan animasi & font eksklusif:</div>
-        
-        <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
-            <button type="button" class="custom-option-btn theme-btn" data-theme="default" style="border-color: #00f0ff; color: #00f0ff; font-size: 0.95rem; padding: 12px;">
-                Cyber Blue (Default)
-            </button>
-            <button type="button" class="custom-option-btn theme-btn" data-theme="light" style="border-color: #cbd5e1; color: #1e293b; background: #ffffff; font-size: 0.95rem; padding: 12px;">
-                ☀️ Mode Terang (Clean Light)
-            </button>
-            <button type="button" class="custom-option-btn theme-btn" data-theme="minimalist" style="border-color: #94a3b8; color: #f8fafc; background: #1e293b; font-size: 0.95rem; padding: 12px;">
-                Minimalist Dark (Clean)
-            </button>
-            <button type="button" class="custom-option-btn theme-btn" data-theme="neon-purple" style="border-color: #d946ef; color: #f0abfc; background: rgba(217, 70, 239, 0.1); font-size: 0.95rem; padding: 12px;">
-                Neon Synthwave
-            </button>
-            <button type="button" class="custom-option-btn theme-btn" data-theme="matrix-green" style="border-color: #22c55e; color: #86efac; background: rgba(34, 197, 94, 0.1); font-size: 0.95rem; padding: 12px;">
-                Matrix Hacker
-            </button>
-            <button type="button" class="custom-option-btn theme-btn" data-theme="cyberpunk-orange" style="border-color: #f97316; color: #fed7aa; background: rgba(249, 115, 22, 0.1); font-size: 0.95rem; padding: 12px;">
-                Cyberpunk Orange
-            </button>
-            <button type="button" class="custom-option-btn theme-btn" data-theme="crimson-blood" style="border-color: #ef4444; color: #fecaca; background: rgba(239, 68, 68, 0.1); font-size: 0.95rem; padding: 12px;">
-                Crimson Blood
-            </button>
-            <button type="button" class="custom-option-btn theme-btn" data-theme="solar-gold" style="border-color: #eab308; color: #fef08a; background: rgba(234, 179, 8, 0.1); font-size: 0.95rem; padding: 12px;">
-                Solar Gold (Mewah)
-            </button>
-        </div>
-
-        <button type="button" class="popup-btn theme-close-btn" style="margin-top: 16px; background: transparent; border: 1px solid #94a3b8; color: #94a3b8; padding: 10px; box-shadow: none;" id="closeThemeModalBtn">Tutup</button>
-    </div>
-</div>
-
 <div class="popup-overlay" id="popupNotification">
     <div class="popup-box">
         <div class="popup-icon" id="popupIcon">✓</div>
@@ -2145,25 +2107,25 @@
         }; reader.readAsText(file); importPersonalFileInput.value = '';
     });
 
-    let db = null; let playlist = []; let currentTrackIndex = -1;
+    let dbMusic = null; let playlist = []; let currentTrackIndex = -1;
     const bgAudioPlayer = document.getElementById('bgAudioPlayer'); const modalTrackTitle = document.getElementById('modalTrackTitle'); const playPauseTrackBtn = document.getElementById('playPauseTrackBtn'); const playPauseSvgIcon = document.getElementById('playPauseSvgIcon'); const prevTrackBtn = document.getElementById('prevTrackBtn'); const nextTrackBtn = document.getElementById('nextTrackBtn'); const musicProgressBar = document.getElementById('musicProgressBar'); const currentTimeLabel = document.getElementById('currentTimeLabel'); const durationLabel = document.getElementById('durationLabel'); const modalUploadBtn = document.getElementById('modalUploadBtn'); const audioFileInput = document.getElementById('audioFileInput'); const playlistContainer = document.getElementById('playlistContainer'); const stabilizerBars = document.querySelectorAll('.stabilizer-bar');
     let audioCtx = null; let analyser = null; let audioSourceNode = null; let animationId = null;
 
     function initIndexedDB() {
         const request = indexedDB.open('VenusStudioMusicDB', 1); request.onerror = function(event) { console.log("Database error: " + event.target.errorCode); };
-        request.onsuccess = function(event) { db = event.target.result; loadPlaylistFromDB(); };
-        request.onupgradeneeded = function(event) { const db = event.target.result; if (!db.objectStoreNames.contains('songs')) { db.createObjectStore('songs', { keyPath: 'id', autoIncrement: true }); } };
+        request.onsuccess = function(event) { dbMusic = event.target.result; loadPlaylistFromDB(); };
+        request.onupgradeneeded = function(event) { const dbMusic = event.target.result; if (!dbMusic.objectStoreNames.contains('songs')) { dbMusic.createObjectStore('songs', { keyPath: 'id', autoIncrement: true }); } };
     }
     function saveSongToDB(name, blob, callback) {
-        if (!db) return; const transaction = db.transaction(['songs'], 'readwrite'); const store = transaction.objectStore('songs'); const request = store.add({ name: name, blob: blob, dateAdded: Date.now() });
+        if (!dbMusic) return; const transaction = dbMusic.transaction(['songs'], 'readwrite'); const store = transaction.objectStore('songs'); const request = store.add({ name: name, blob: blob, dateAdded: Date.now() });
         request.onsuccess = function(event) { const newId = event.target.result; const fileUrl = URL.createObjectURL(blob); playlist.push({ id: newId, name: name, url: fileUrl }); renderPlaylist(); if (currentTrackIndex === -1 && playlist.length > 0) loadTrack(0); if (callback) callback(); };
     }
     function loadPlaylistFromDB() {
-        if (!db) return; const transaction = db.transaction(['songs'], 'readonly'); const store = transaction.objectStore('songs'); const request = store.getAll();
+        if (!dbMusic) return; const transaction = dbMusic.transaction(['songs'], 'readonly'); const store = transaction.objectStore('songs'); const request = store.getAll();
         request.onsuccess = function(event) { const songs = event.target.result; playlist = songs.map(song => ({ id: song.id, name: song.name, url: URL.createObjectURL(song.blob) })); renderPlaylist(); if (playlist.length > 0) loadTrack(0); };
     }
     function removeSongFromDB(id, index) {
-        if (!db) return; const transaction = db.transaction(['songs'], 'readwrite'); const store = transaction.objectStore('songs'); store.delete(id);
+        if (!dbMusic) return; const transaction = dbMusic.transaction(['songs'], 'readwrite'); const store = transaction.objectStore('songs'); store.delete(id);
         transaction.oncomplete = function() {
             playlist.splice(index, 1);
             if (currentTrackIndex === index) { bgAudioPlayer.pause(); bgAudioPlayer.src = ""; modalTrackTitle.innerText = "Belum ada musik dipilih"; playPauseSvgIcon.innerHTML = '<path d="M8 5v14l11-7z"/>'; if (animationId) cancelAnimationFrame(animationId); stabilizerBars.forEach(bar => bar.style.height = '6px'); currentTrackIndex = -1; } else if (currentTrackIndex > index) { currentTrackIndex--; }
@@ -2171,7 +2133,7 @@
         };
     }
     document.getElementById('btnExportMusic').addEventListener('click', () => {
-        if (!db) return; const transaction = db.transaction(['songs'], 'readonly'); const store = transaction.objectStore('songs'); const request = store.getAll();
+        if (!dbMusic) return; const transaction = dbMusic.transaction(['songs'], 'readonly'); const store = transaction.objectStore('songs'); const request = store.getAll();
         request.onsuccess = function(event) {
             const songs = event.target.result; if (songs.length === 0) return alert('Tidak ada lagu untuk dibackup!');
             let processed = 0; const exportData = [];
@@ -2343,6 +2305,12 @@
         const shortMonthNames = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agt", "Sept", "Okt", "Nov", "Des"];
         const monthName = shortMonthNames[parseInt(m)-1] || m;
         return `${parseInt(d)} ${monthName} ${y}`;
+    }
+
+    function formatTransactionDateTime(dateStr, timeStr) {
+        const formattedDate = formatTransactionDateShort(dateStr);
+        const formattedTime = timeStr ? timeStr.replace(':', '.') : '00.00';
+        return `${formattedDate}, ${formattedTime} WIB`;
     }
 
     function compressImage(file, callback) {
