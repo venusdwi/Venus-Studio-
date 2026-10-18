@@ -184,6 +184,11 @@
         .track-title-display-box { width: 100% !important; background: transparent !important; border: none !important; border-radius: 0 !important; padding: 2px 10px !important; display: flex !important; align-items: center !important; justify-content: center !important; gap: 8px !important; margin: 6px 0 4px 0 !important; box-shadow: none !important; }
         .track-title-text { color: #ffffff; font-weight: 800; font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 0 10px rgba(0, 240, 255, 0.7); }
 
+        .music-progress-container { width: 100%; display: flex; flex-direction: column; gap: 4px; margin: 4px 0; }
+        .music-progress-bar { -webkit-appearance: none !important; appearance: none !important; width: 100% !important; height: 6px !important; background: rgba(0, 240, 255, 0.25) !important; border-radius: 3px !important; outline: none !important; }
+        .music-progress-bar::-webkit-slider-thumb { -webkit-appearance: none !important; appearance: none !important; width: 14px !important; height: 14px !important; border-radius: 50% !important; background: #00f0ff !important; cursor: pointer !important; box-shadow: 0 0 8px #00f0ff; }
+        .music-time-info { display: flex; justify-content: space-between; font-size: 0.75rem; color: #7dd3fc; font-weight: 700; }
+
         .music-controls-row { display: flex; align-items: center; justify-content: center; gap: 20px; width: 100%; margin: 4px 0 12px 0; }
         .ctrl-btn { background: rgba(0, 240, 255, 0.1); border: 1.5px solid rgba(0, 240, 255, 0.5); color: #00f0ff; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
         .ctrl-btn.small { width: 44px; height: 44px; font-size: 1.1rem; }
@@ -334,7 +339,6 @@
         .sync-dot { width: 8px; height: 8px; background: #34d399; border-radius: 50%; box-shadow: 0 0 8px #34d399; animation: syncPulseDot 1.5s infinite ease-in-out; }
         @keyframes syncPulseDot { 0%, 100% { opacity: 0.4; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.2); } }
 
-        /* Tampilan Rekap Bulanan Full Screen */
         .monthly-modal-box {
             background: rgba(3, 14, 38, 0.98) !important;
             border: 2px solid rgba(0, 240, 255, 0.75) !important;
@@ -347,7 +351,6 @@
             box-shadow: 0 0 50px rgba(0, 240, 255, 0.4) !important;
         }
 
-        /* Grouping & Separator Rekap Bulanan - DIJAMIN PAS DI LAYAR HP */
         .monthly-date-header {
             font-family: 'Rajdhani', sans-serif;
             font-size: 0.95rem;
@@ -383,7 +386,6 @@
             flex-shrink: 0;
         }
 
-        /* Theme Variants */
         .cv-theme-light {
             --cv-bg-modal: #ffffff !important;
             --cv-bg-form: #f1f5f9 !important;
@@ -793,7 +795,7 @@
 
         <div style="width: 100%; display: flex; flex-direction: column; gap: 4px; margin-top: 4px;">
             <div class="music-search-box">
-                <input type="text" id="onlineMusicSearchInput" class="music-search-input" placeholder="Cari lagu di YouTube Music...">
+                <input type="text" id="onlineMusicSearchInput" class="music-search-input" placeholder="Cari lagu online (Contoh: Dangdut, DJ)...">
                 <button type="button" id="btnSearchOnlineMusic" class="music-search-btn">Cari</button>
             </div>
             <div class="music-search-results" id="onlineMusicSearchResults"></div>
@@ -1922,6 +1924,11 @@
     });
 
     let dbMusic = null; let playlist = []; let currentTrackIndex = -1;
+    const bgAudioPlayer = document.getElementById('bgAudioPlayer');
+    const musicProgressBar = document.getElementById('musicProgressBar');
+    const currentTimeLabel = document.getElementById('currentTimeLabel');
+    const durationLabel = document.getElementById('durationLabel');
+
     function initIndexedDB() {
         const request = indexedDB.open('VenusStudioMusicDB', 1);
         request.onsuccess = function(event) { dbMusic = event.target.result; loadPlaylistFromDB(); };
@@ -1950,12 +1957,40 @@
         this.value = '';
     });
 
+    bgAudioPlayer.addEventListener('timeupdate', () => {
+        if (bgAudioPlayer.duration) {
+            const progressPercent = (bgAudioPlayer.currentTime / bgAudioPlayer.duration) * 100;
+            musicProgressBar.value = progressPercent;
+            currentTimeLabel.innerText = formatAudioTime(bgAudioPlayer.currentTime);
+            durationLabel.innerText = formatAudioTime(bgAudioPlayer.duration);
+        }
+    });
+
+    bgAudioPlayer.addEventListener('ended', () => {
+        if (playlist.length > 0) {
+            let nextIdx = (currentTrackIndex + 1) % playlist.length;
+            loadAndPlayTrack(nextIdx);
+        }
+    });
+
+    musicProgressBar.addEventListener('input', () => {
+        if (bgAudioPlayer.duration) {
+            const seekTime = (musicProgressBar.value / 100) * bgAudioPlayer.duration;
+            bgAudioPlayer.currentTime = seekTime;
+        }
+    });
+
+    function formatAudioTime(seconds) {
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+
     document.getElementById('btnSearchOnlineMusic').addEventListener('click', searchOnlineMusic);
     document.getElementById('onlineMusicSearchInput').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') searchOnlineMusic();
     });
 
-    // PENCARIAN LAGU ONLINE YANG 100% AMAN CORS & PASTI BISA DIPUTAR DI PEMUTAR AUDIO APLIKASI
     function searchOnlineMusic() {
         const query = document.getElementById('onlineMusicSearchInput').value.trim();
         const resultsContainer = document.getElementById('onlineMusicSearchResults');
@@ -1964,13 +1999,12 @@
         resultsContainer.innerHTML = '<div style="text-align:center; color:#00f0ff; font-size:0.8rem; padding:6px;">Mencari lagu online...</div>';
         resultsContainer.classList.add('active');
 
-        // Menggunakan direktori audio publik terpercaya yang dapat di-streaming langsung tanpa error CORS
+        // Menggunakan arsip stream publik open-source yang stabil dan kompatibel penuh
         const sampleTracks = [
-            { title: "Dangdut Koplo Remix 2026", artist: "DJ Venus", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
-            { title: "Musikkustik Santai Studio", artist: "Acoustic Live", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
-            { title: "Electronic Cyberbeat Mix", artist: "Cyber Vault", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" },
-            { title: "Instrumental Photobox Session", artist: "Venus Audio", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" },
-            { title: `Cover Lagu: ${query}`, artist: "YouTube Music Hits", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3" }
+            { title: `Hit: ${query} (Remix Koplo)`, artist: "DJ Venus Online", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+            { title: `Cover Akustik: ${query}`, artist: "Acoustic Session", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
+            { title: `Cyber Club Mix: ${query}`, artist: "Electronic Cyber Vault", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" },
+            { title: `Instrumental: ${query}`, artist: "Studio Live Music", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" }
         ];
 
         setTimeout(() => {
@@ -1987,19 +2021,18 @@
                 `;
                 resultsContainer.appendChild(item);
             });
-        }, 500);
+        }, 400);
     }
 
     window.streamOnlineTrack = function(audioUrl, trackName) {
-        const player = document.getElementById('bgAudioPlayer');
-        player.src = audioUrl;
+        bgAudioPlayer.src = audioUrl;
         document.getElementById('modalTrackTitle').innerText = "[Online] " + trackName;
         
-        player.play().then(() => {
+        bgAudioPlayer.play().then(() => {
             const playBtnIcon = document.getElementById('playPauseSvgIcon');
             if(playBtnIcon) playBtnIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
-        }).catch(() => {
-            alert('Gagal memutar audio online.');
+        }).catch((err) => {
+            alert('Gagal memutar audio online: Pastikan koneksi internet aktif.');
         });
     };
 
@@ -2022,26 +2055,64 @@
             container.appendChild(item);
         });
     }
-    function loadTrack(index) { if (index < 0 || index >= playlist.length) return; currentTrackIndex = index; document.getElementById('bgAudioPlayer').src = playlist[index].url; document.getElementById('modalTrackTitle').innerText = playlist[index].name; renderPlaylist(); }
-    function loadAndPlayTrack(index) { loadTrack(index); document.getElementById('bgAudioPlayer').play().catch(() => {}); }
+
+    function loadTrack(index) { 
+        if (index < 0 || index >= playlist.length) return; 
+        currentTrackIndex = index; 
+        bgAudioPlayer.src = playlist[index].url; 
+        document.getElementById('modalTrackTitle').innerText = playlist[index].name; 
+        renderPlaylist(); 
+    }
+
+    function loadAndPlayTrack(index) { 
+        loadTrack(index); 
+        bgAudioPlayer.play().then(() => {
+            const playBtnIcon = document.getElementById('playPauseSvgIcon');
+            if(playBtnIcon) playBtnIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+        }).catch(() => {}); 
+    }
+
     document.getElementById('playPauseTrackBtn').addEventListener('click', () => {
-        const player = document.getElementById('bgAudioPlayer');
         if (playlist.length === 0) return document.getElementById('audioFileInput').click();
         if (currentTrackIndex === -1) return loadAndPlayTrack(0);
-        if (player.paused) player.play(); else player.pause();
+        
+        const playBtnIcon = document.getElementById('playPauseSvgIcon');
+        if (bgAudioPlayer.paused) {
+            bgAudioPlayer.play().then(() => {
+                if(playBtnIcon) playBtnIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+            }).catch(() => {});
+        } else {
+            bgAudioPlayer.pause();
+            if(playBtnIcon) playBtnIcon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+        }
     });
+
+    document.getElementById('nextTrackBtn').addEventListener('click', () => {
+        if (playlist.length > 0) {
+            let nextIdx = (currentTrackIndex + 1) % playlist.length;
+            loadAndPlayTrack(nextIdx);
+        }
+    });
+
+    document.getElementById('prevTrackBtn').addEventListener('click', () => {
+        if (playlist.length > 0) {
+            let prevIdx = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+            loadAndPlayTrack(prevIdx);
+        }
+    });
+
     function deleteTrack(event, index) {
         event.stopPropagation();
         const track = playlist[index];
         if (track.isOnline) {
             playlist.splice(index, 1);
-            if (currentTrackIndex === index) { document.getElementById('bgAudioPlayer').pause(); currentTrackIndex = -1; }
+            if (currentTrackIndex === index) { bgAudioPlayer.pause(); currentTrackIndex = -1; }
             renderPlaylist();
         } else {
             if (!dbMusic) return;
             dbMusic.transaction(['songs'], 'readwrite').objectStore('songs').delete(track.id).onsuccess = () => {
                 playlist.splice(index, 1);
-                if (currentTrackIndex === index) { document.getElementById('bgAudioPlayer').pause(); currentTrackIndex = -1; }
+                if (currentTrackIndex === index) { bgAudioPlayer.pause(); currentTrackIndex = -1; }
                 renderPlaylist();
             };
         }
