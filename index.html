@@ -1176,13 +1176,38 @@
         }, 500);
     });
 
+    function playTapHereClickSound() {
+        try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            if (ctx.state === 'suspended') ctx.resume();
+            const now = ctx.currentTime;
+            
+            // Efek suara klik tombol "TAP HERE" (suara sci-fi laser/warp pendek bernada tinggi)
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sawtooth';
+            
+            osc.frequency.setValueAtTime(440, now);
+            osc.frequency.exponentialRampToValueAtTime(1200, now + 0.15);
+            
+            gain.gain.setValueAtTime(0.01, now);
+            gain.gain.linearRampToValueAtTime(0.3, now + 0.03);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+            
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            
+            osc.start(now);
+            osc.stop(now + 0.25);
+        } catch (e) {}
+    }
+
     function playPinSuccessSound() {
         try {
             const ctx = new (window.AudioContext || window.webkitAudioContext)();
             if (ctx.state === 'suspended') ctx.resume();
             const now = ctx.currentTime;
             
-            // Suara sukses PIN (dua nada naik bersemangat khas sci-fi)
             const osc = ctx.createOscillator();
             const gain = ctx.createGain();
             osc.type = 'triangle';
@@ -1317,6 +1342,7 @@
 
     if (btnTapHere) {
         btnTapHere.addEventListener('click', () => {
+            playTapHereClickSound(); // Memainkan sound efek saat TAP HERE diklik
             if ('speechSynthesis' in window) window.speechSynthesis.cancel();
             if (splashScreenOverlay) splashScreenOverlay.classList.add('hidden');
             setTimeout(() => { if (pinScreenOverlay) pinScreenOverlay.classList.add('active'); }, 200);
