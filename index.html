@@ -1046,6 +1046,44 @@
     </div>
 </div>
 
+<audio id="bgAudioPlayer" crossorigin="anonymous" style="display: none;"></audio>
+
+<div class="popup-overlay" id="themeModalOverlay">
+    <div class="popup-box theme-modal-box" style="max-width: 340px; padding: 22px; max-height: 90vh; overflow-y: auto;">
+        <div class="popup-title" style="font-size: 1.15rem; margin-bottom: 12px;">Custom Theme</div>
+        <div style="font-size: 0.82rem; color: #a5f3fc; margin-bottom: 14px;" id="themeModalDesc">Pilih tema lengkap dengan animasi & font eksklusif:</div>
+        
+        <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
+            <button type="button" class="custom-option-btn theme-btn" data-theme="default" style="border-color: #00f0ff; color: #00f0ff; font-size: 0.95rem; padding: 12px;">
+                Cyber Blue (Default)
+            </button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="light" style="border-color: #cbd5e1; color: #1e293b; background: #ffffff; font-size: 0.95rem; padding: 12px;">
+                ☀️ Mode Terang (Clean Light)
+            </button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="minimalist" style="border-color: #94a3b8; color: #f8fafc; background: #1e293b; font-size: 0.95rem; padding: 12px;">
+                Minimalist Dark (Clean)
+            </button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="neon-purple" style="border-color: #d946ef; color: #f0abfc; background: rgba(217, 70, 239, 0.1); font-size: 0.95rem; padding: 12px;">
+                Neon Synthwave
+            </button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="matrix-green" style="border-color: #22c55e; color: #86efac; background: rgba(34, 197, 94, 0.1); font-size: 0.95rem; padding: 12px;">
+                Matrix Hacker
+            </button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="cyberpunk-orange" style="border-color: #f97316; color: #fed7aa; background: rgba(249, 115, 22, 0.1); font-size: 0.95rem; padding: 12px;">
+                Cyberpunk Orange
+            </button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="crimson-blood" style="border-color: #ef4444; color: #fecaca; background: rgba(239, 68, 68, 0.1); font-size: 0.95rem; padding: 12px;">
+                Crimson Blood
+            </button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="solar-gold" style="border-color: #eab308; color: #fef08a; background: rgba(234, 179, 8, 0.1); font-size: 0.95rem; padding: 12px;">
+                Solar Gold (Mewah)
+            </button>
+        </div>
+
+        <button type="button" class="popup-btn theme-close-btn" style="margin-top: 16px; background: transparent; border: 1px solid #94a3b8; color: #94a3b8; padding: 10px; box-shadow: none;" id="closeThemeModalBtn">Tutup</button>
+    </div>
+</div>
+
 <div class="popup-overlay" id="popupNotification">
     <div class="popup-box">
         <div class="popup-icon" id="popupIcon">✓</div>
@@ -1408,7 +1446,9 @@
                 window.initFirebaseSync((cloudData) => {
                     if (cloudData && Array.isArray(cloudData)) {
                         transactions = cloudData;
-                        localStorage.setItem('my_transactions', JSON.stringify(transactions));
+                        try {
+                            localStorage.setItem('my_transactions', JSON.stringify(transactions));
+                        } catch(e) {}
                         updateUI();
                     }
                 });
@@ -1416,7 +1456,9 @@
             if (window.initDebtFirebaseSync) {
                 window.initDebtFirebaseSync((cloudDebtData) => {
                     if (cloudDebtData && Array.isArray(cloudDebtData)) {
-                        localStorage.setItem('venus_debt_tracker_data', JSON.stringify(cloudDebtData));
+                        try {
+                            localStorage.setItem('venus_debt_tracker_data', JSON.stringify(cloudDebtData));
+                        } catch(e) {}
                         renderDebts();
                     }
                 });
@@ -1769,12 +1811,16 @@
 
     function getStoredDebts() {
         let data = JSON.parse(localStorage.getItem('venus_debt_tracker_data'));
-        if (!data || !Array.isArray(data)) { data = []; localStorage.setItem('venus_debt_tracker_data', JSON.stringify(data)); }
+        if (!data || !Array.isArray(data)) { data = []; try { localStorage.setItem('venus_debt_tracker_data', JSON.stringify(data)); } catch(e){} }
         return data;
     }
 
     function saveAndSyncDebts(debts) {
-        localStorage.setItem('venus_debt_tracker_data', JSON.stringify(debts));
+        try {
+            localStorage.setItem('venus_debt_tracker_data', JSON.stringify(debts));
+        } catch(e) {
+            console.warn('LocalStorage limit reached for debts.');
+        }
         if (window.saveDebtsToFirebase) {
             window.saveDebtsToFirebase(debts);
         }
@@ -1978,7 +2024,7 @@
 
     function getStoredAccounts() {
         let data = JSON.parse(localStorage.getItem('venus_password_manager_data'));
-        if (!data || !Array.isArray(data)) { data = [{ label: 'Akun Google', username: '', password: '', history: [] }]; localStorage.setItem('venus_password_manager_data', JSON.stringify(data)); }
+        if (!data || !Array.isArray(data)) { data = [{ label: 'Akun Google', username: '', password: '', history: [] }]; try { localStorage.setItem('venus_password_manager_data', JSON.stringify(data)); } catch(e){} }
         return data;
     }
     function renderAccountTitles() {
@@ -2022,7 +2068,8 @@
     cancelNewPlatformBtn.addEventListener('click', () => { newPlatformModal.classList.remove('active'); });
     saveNewPlatformBtn.addEventListener('click', () => {
         const platformName = newPlatformInput.value.trim(); if (!platformName) return alert('Nama platform tidak boleh kosong!');
-        let accounts = getStoredAccounts(); accounts.push({ label: platformName, username: '', password: '', history: [] }); localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts));
+        let accounts = getStoredAccounts(); accounts.push({ label: platformName, username: '', password: '', history: [] }); 
+        try { localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); } catch(e) {}
         renderAccountTitles(); newPlatformModal.classList.remove('active'); playSuccessSound();
     });
     subAccountForm.addEventListener('submit', function(e) {
@@ -2032,7 +2079,8 @@
             const newU = subAccountUsername.value; const newP = subAccountPassword.value;
             accounts[index].username = newU; accounts[index].password = newP; if (!accounts[index].history) accounts[index].history = [];
             const nowTime = new Date(); const timeStr = `${String(nowTime.getDate()).padStart(2,'0')}/${String(nowTime.getMonth()+1).padStart(2,'0')}/${nowTime.getFullYear()} ${String(nowTime.getHours()).padStart(2,'0')}:${String(nowTime.getMinutes()).padStart(2,'0')}`;
-            accounts[index].history.push({ timestamp: timeStr, username: newU, password: newP }); localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts));
+            accounts[index].history.push({ timestamp: timeStr, username: newU, password: newP }); 
+            try { localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); } catch(e) {}
             renderAccountTitles(); renderSubHistory(index, accounts[index].history); subAccountUsername.value = ''; subAccountPassword.value = '';
             btnSaveSubAccount.disabled = false; subAccountUsername.disabled = false; subAccountPassword.disabled = false; btnSubText.innerText = 'Simpan'; playSuccessSound();
         }, 2000);
@@ -2047,7 +2095,8 @@
         if (enteredDeletePin === CORRECT_PIN) {
             playSuccessSound(); deleteAccountPinModal.classList.remove('active');
             const index = parseInt(subEditIndex.value); let accounts = getStoredAccounts(); accounts.splice(index, 1);
-            localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); renderAccountTitles(); subAccountModal.classList.remove('active'); allHistoryModal.classList.remove('active');
+            try { localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); } catch(e) {}
+            renderAccountTitles(); subAccountModal.classList.remove('active'); allHistoryModal.classList.remove('active');
         } else { deletePinErrorMsg.innerText = "PIN Salah!"; setTimeout(() => { clearDelPin(); }, 300); }
     }
     function openEditHistoryModal(accIdx, itemIdx) {
@@ -2059,7 +2108,8 @@
         const accIdx = parseInt(editHistoryAccIndex.value); const itemIdx = parseInt(editHistoryItemIndex.value); let accounts = getStoredAccounts();
         if (accounts[accIdx] && accounts[accIdx].history[itemIdx]) {
             accounts[accIdx].history[itemIdx].username = modalHistoryUsername.value; accounts[accIdx].history[itemIdx].password = modalHistoryPassword.value;
-            localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); renderSubHistory(accIdx, accounts[accIdx].history); renderFullHistory(accIdx); editHistoryItemModal.classList.remove('active'); playSuccessSound();
+            try { localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); } catch(e) {}
+            renderSubHistory(accIdx, accounts[accIdx].history); renderFullHistory(accIdx); editHistoryItemModal.classList.remove('active'); playSuccessSound();
         }
     });
     btnDeleteHistoryItem.addEventListener('click', () => {
@@ -2067,7 +2117,7 @@
         showCyberConfirm('Apakah Anda yakin ingin menghapus riwayat aktivitas ini?', () => {
             if (accounts[accIdx] && accounts[accIdx].history) { 
                 accounts[accIdx].history.splice(itemIdx, 1); 
-                localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); 
+                try { localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); } catch(e) {}
                 renderSubHistory(accIdx, accounts[accIdx].history); 
                 renderFullHistory(accIdx); 
                 editHistoryItemModal.classList.remove('active'); 
@@ -2085,7 +2135,13 @@
         const file = e.target.files[0]; if (!file) return;
         const reader = new FileReader();
         reader.onload = function(event) {
-            try { const parsed = JSON.parse(event.target.result); if (!Array.isArray(parsed)) throw new Error(); localStorage.setItem('venus_password_manager_data', JSON.stringify(parsed)); renderAccountTitles(); alert('Data Akun & Password berhasil dipulihkan!'); } catch (err) { alert('File backup data akun tidak valid!'); }
+            try { 
+                const parsed = JSON.parse(event.target.result); 
+                if (!Array.isArray(parsed)) throw new Error(); 
+                try { localStorage.setItem('venus_password_manager_data', JSON.stringify(parsed)); } catch(e) {}
+                renderAccountTitles(); 
+                alert('Data Akun & Password berhasil dipulihkan!'); 
+            } catch (err) { alert('File backup data akun tidak valid!'); }
         }; reader.readAsText(file); importPersonalFileInput.value = '';
     });
 
@@ -2163,7 +2219,12 @@
     const glassOpacitySlider = document.getElementById('glassOpacitySlider'); const opacityValText = document.getElementById('opacityValText');
     glassOpacitySlider.addEventListener('input', function() { document.documentElement.style.setProperty('--glass-alpha', (this.value / 100).toFixed(2)); opacityValText.innerText = this.value + '%'; localStorage.setItem('cyber_glass_opacity', this.value); });
     
-    let transactions = JSON.parse(localStorage.getItem('my_transactions')) || [];
+    let transactions = [];
+    try {
+        transactions = JSON.parse(localStorage.getItem('my_transactions')) || [];
+    } catch(e) {
+        transactions = [];
+    }
     
     let currentFilterDate = getLocalIsoDate(new Date()); 
     let currentFilterMonth = null;
@@ -2291,12 +2352,12 @@
             const img = new Image(); img.src = event.target.result;
             img.onload = function() {
                 const canvas = document.createElement('canvas'); 
-                const MAX_WIDTH = 600; 
+                const MAX_WIDTH = 400; 
                 let width = img.width; let height = img.height;
                 if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
                 canvas.width = width; canvas.height = height; const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0, width, height); 
-                callback(canvas.toDataURL('image/jpeg', 0.5)); 
+                callback(canvas.toDataURL('image/jpeg', 0.4)); 
             }
         };
     }
@@ -2552,7 +2613,7 @@
         
         let filtered = transactions;
         if (currentFilterDate) {
-            filtered = transactions.filter(t => t.date === currentFilterDate);
+            filtered = transactions.filter(t => String(t.date).trim() === String(currentFilterDate).trim());
         } else if (currentFilterMonth) {
             filtered = transactions.filter(t => t.date && t.date.startsWith(currentFilterMonth));
         }
@@ -2616,7 +2677,7 @@
                 window.saveTransactionsToFirebase(transactions);
             }
         } catch(e) { 
-            console.warn('Local storage limit handled.'); 
+            console.warn('Local storage limit exceeded during save.'); 
         }
     }
 
@@ -2739,49 +2800,61 @@
         const proofFile = document.getElementById('proofInput').files[0];
         
         if (!type || !method || !amount || isNaN(amount) || !description || !date || !time) {
-            return alert('Mohon pastikan Jenis Transaksi dan Metode Pembayaran sudah dipilih dengan lengkap!');
+            alert('Mohon pastikan Jenis Transaksi dan Metode Pembayaran sudah dipilih dengan lengkap!');
+            return;
         }
         
         btnSubmit.disabled = true; 
         btnText.innerHTML = '<span class="btn-spinner"></span> Memproses...';
         
-        compressImage(proofFile, function(base64Proof) {
-            setTimeout(() => {
-                transactions.push({ id: Date.now(), type, amount, description, date, time, method, proof: base64Proof }); 
-                
-                currentFilterDate = date;
-                if(filterDateInputDirect) filterDateInputDirect.value = date;
-                if(filterBadgeText) filterBadgeText.innerText = formatTransactionDateShort(date);
+        try {
+            compressImage(proofFile, function(base64Proof) {
+                try {
+                    transactions.push({ id: Date.now(), type, amount, description, date, time, method, proof: base64Proof }); 
+                    
+                    currentFilterDate = date;
+                    if(filterDateInputDirect) filterDateInputDirect.value = date;
+                    if(filterBadgeText) filterBadgeText.innerText = formatTransactionDateShort(date);
 
-                updateUI(); 
-                
-                transactionForm.reset(); 
-                document.getElementById('proofInput').value = '';
-                const fileNameDisplay = document.getElementById('fileNameDisplay');
-                if (fileNameDisplay) fileNameDisplay.innerText = "Tidak ada file dipilih";
-                
-                document.getElementById('type').value = '';
-                document.getElementById('paymentMethod').value = '';
-                
-                document.getElementById('btnSelectType').innerText = '-- Pilih Jenis --';
-                document.getElementById('btnSelectType').classList.remove('selected');
-                
-                document.getElementById('btnSelectMethod').innerText = '-- Pilih Metode --';
-                document.getElementById('btnSelectMethod').classList.remove('selected');
+                    updateUI(); 
+                    
+                    transactionForm.reset(); 
+                    document.getElementById('proofInput').value = '';
+                    const fileNameDisplay = document.getElementById('fileNameDisplay');
+                    if (fileNameDisplay) fileNameDisplay.innerText = "Tidak ada file dipilih";
+                    
+                    document.getElementById('type').value = '';
+                    document.getElementById('paymentMethod').value = '';
+                    
+                    document.getElementById('btnSelectType').innerText = '-- Pilih Jenis --';
+                    document.getElementById('btnSelectType').classList.remove('selected');
+                    
+                    document.getElementById('btnSelectMethod').innerText = '-- Pilih Metode --';
+                    document.getElementById('btnSelectMethod').classList.remove('selected');
 
-                refreshRealtimeDateTime();
-                btnSubmit.disabled = false; 
-                btnText.innerText = 'Tambah Transaksi'; 
-                playCashSound();
-                
-                if (type === 'in') { popupTitle.innerText = "Pemasukan Masuk!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (+${formatRupiah(amount)})`; } 
-                else if (type === 'out') { popupTitle.innerText = "Pengeluaran Dicatat!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (-${formatRupiah(amount)})`; }
-                else if (type === 'refund') { popupTitle.innerText = "Pengembalian Dana!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (Pengurangan Pengeluaran)`; }
-                
-                popupNotification.classList.add('active');
-                applyPopupLightMode(popupNotification);
-            }, 1000);
-        });
+                    refreshRealtimeDateTime();
+                    playCashSound();
+                    
+                    if (type === 'in') { popupTitle.innerText = "Pemasukan Masuk!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (+${formatRupiah(amount)})`; } 
+                    else if (type === 'out') { popupTitle.innerText = "Pengeluaran Dicatat!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (-${formatRupiah(amount)})`; }
+                    else if (type === 'refund') { popupTitle.innerText = "Pengembalian Dana!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (Pengurangan Pengeluaran)`; }
+                    
+                    popupNotification.classList.add('active');
+                    applyPopupLightMode(popupNotification);
+                } catch (innerErr) {
+                    console.error("Gagal memproses data transaksi:", innerErr);
+                    alert("Penyimpanan lokal penuh (LocalStorage Quota Exceeded). Silakan kurangi ukuran foto atau hapus beberapa transaksi lama.");
+                } finally {
+                    btnSubmit.disabled = false; 
+                    btnText.innerText = 'Tambah Transaksi'; 
+                }
+            });
+        } catch (err) {
+            console.error("Gagal kompresi file:", err);
+            alert("Gagal memproses file bukti transaksi.");
+            btnSubmit.disabled = false; 
+            btnText.innerText = 'Tambah Transaksi';
+        }
     });
 
     document.getElementById('popupCloseBtn').addEventListener('click', () => { popupNotification.classList.remove('active'); });
