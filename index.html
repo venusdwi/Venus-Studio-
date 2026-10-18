@@ -241,17 +241,25 @@
         
         .full-app-content label, 
         #detailTransactionModal label,
-        .popup-box label { 
+        .popup-box label,
+        .sub-account-modal label,
+        .edit-debt-overlay label { 
             font-size: 0.92rem; font-weight: 800; color: var(--cv-text-secondary); letter-spacing: 0.5px; margin-bottom: 2px; transition: color 0.3s ease; 
         }
         
         .full-app-content input, .full-app-content select, .full-app-content textarea,
         #detailTransactionModal input, #detailTransactionModal select, #detailTransactionModal textarea,
-        .popup-box input, .popup-box select, .popup-box textarea { 
+        .popup-box input, .popup-box select, .popup-box textarea,
+        .sub-account-modal input, .sub-account-modal select, .sub-account-modal textarea,
+        .edit-debt-overlay input, .edit-debt-overlay select, .edit-debt-overlay textarea,
+        .view-debt-overlay input, .view-debt-overlay select, .view-debt-overlay textarea { 
             padding: 15px 16px; border: 1.5px solid var(--cv-border-primary); border-radius: 12px; font-size: 1.05rem; font-weight: 600; outline: none; background: var(--cv-bg-input); color: var(--cv-text-primary); width: 100%; max-width: 100% !important; color-scheme: dark; transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; 
         }
         .full-app-content input:focus, .full-app-content select:focus, .full-app-content textarea:focus,
-        #detailTransactionModal input:focus, #detailTransactionModal select:focus, #detailTransactionModal textarea:focus { 
+        #detailTransactionModal input:focus, #detailTransactionModal select:focus, #detailTransactionModal textarea:focus,
+        .sub-account-modal input:focus, .sub-account-modal select:focus, .sub-account-modal textarea:focus,
+        .edit-debt-overlay input:focus, .edit-debt-overlay select:focus, .edit-debt-overlay textarea:focus,
+        .view-debt-overlay input:focus, .view-debt-overlay select:focus, .view-debt-overlay textarea:focus { 
             border-color: var(--cv-border-primary); box-shadow: 0 0 12px rgba(0, 240, 255, 0.4); 
         }
 
@@ -422,7 +430,16 @@
         .cv-light-mode #detailTransactionModal input,
         .cv-light-mode #detailTransactionModal select,
         .cv-light-mode #detailTransactionModal textarea,
-        .cv-light-mode #detailTransactionModal .custom-select-box {
+        .cv-light-mode #detailTransactionModal .custom-select-box,
+        .cv-light-mode .sub-account-modal input,
+        .cv-light-mode .sub-account-modal select,
+        .cv-light-mode .sub-account-modal textarea,
+        .cv-light-mode .edit-debt-overlay input,
+        .cv-light-mode .edit-debt-overlay select,
+        .cv-light-mode .edit-debt-overlay textarea,
+        .cv-light-mode .view-debt-overlay input,
+        .cv-light-mode .view-debt-overlay select,
+        .cv-light-mode .view-debt-overlay textarea {
             box-shadow: none !important;
             color-scheme: light !important;
             background-color: #f8fafc !important;
@@ -434,22 +451,46 @@
         .cv-light-mode .card-hero p { color: #0f172a !important; text-shadow: none !important; }
 
         body.theme-minimalist:not(.cv-light-mode) .cyber-modal-card,
-        body.theme-minimalist:not(.cv-light-mode) #detailTransactionModal .popup-box { --cv-bg-modal: #0f172a !important; --cv-border-primary: #334155 !important; --cv-text-primary: #f8fafc !important; --cv-bg-input: #1e293b !important; --cv-bg-history-item: #1e293b !important; --cv-bg-form: #1e293b !important; }
+        body.theme-minimalist:not(.cv-light-mode) #detailTransactionModal .popup-box,
+        body.theme-minimalist:not(.cv-light-mode) .sub-account-modal,
+        body.theme-minimalist:not(.cv-light-mode) .all-history-modal,
+        body.theme-minimalist:not(.cv-light-mode) .debt-modal-card,
+        body.theme-minimalist:not(.cv-light-mode) .view-debt-card { --cv-bg-modal: #0f172a !important; --cv-border-primary: #334155 !important; --cv-text-primary: #f8fafc !important; --cv-bg-input: #1e293b !important; --cv-bg-history-item: #1e293b !important; --cv-bg-form: #1e293b !important; }
 
         body.theme-neon-purple:not(.cv-light-mode) .cyber-modal-card,
-        body.theme-neon-purple:not(.cv-light-mode) #detailTransactionModal .popup-box { --cv-bg-modal: radial-gradient(circle at 50% 50%, #2e0854 0%, #0d0221 65%, #02000a 100%) !important; --cv-border-primary: rgba(217, 70, 239, 0.5) !important; --cv-bg-form: rgba(20, 2, 45, 0.85) !important; --cv-bg-input: rgba(20, 2, 45, 0.85) !important; }
+        body.theme-neon-purple:not(.cv-light-mode) #detailTransactionModal .popup-box,
+        body.theme-neon-purple:not(.cv-light-mode) .sub-account-modal,
+        body.theme-neon-purple:not(.cv-light-mode) .all-history-modal,
+        body.theme-neon-purple:not(.cv-light-mode) .debt-modal-card,
+        body.theme-neon-purple:not(.cv-light-mode) .view-debt-card { --cv-bg-modal: radial-gradient(circle at 50% 50%, #2e0854 0%, #0d0221 65%, #02000a 100%) !important; --cv-border-primary: rgba(217, 70, 239, 0.5) !important; --cv-bg-form: rgba(20, 2, 45, 0.85) !important; --cv-bg-input: rgba(20, 2, 45, 0.85) !important; }
 
         body.theme-matrix-green:not(.cv-light-mode) .cyber-modal-card,
-        body.theme-matrix-green:not(.cv-light-mode) #detailTransactionModal .popup-box { --cv-bg-modal: radial-gradient(circle at 50% 50%, #02260f 0%, #011306 65%, #000502 100%) !important; --cv-border-primary: rgba(34, 197, 94, 0.5) !important; --cv-bg-form: rgba(1, 19, 6, 0.9) !important; --cv-bg-input: rgba(1, 19, 6, 0.9) !important; }
+        body.theme-matrix-green:not(.cv-light-mode) #detailTransactionModal .popup-box,
+        body.theme-matrix-green:not(.cv-light-mode) .sub-account-modal,
+        body.theme-matrix-green:not(.cv-light-mode) .all-history-modal,
+        body.theme-matrix-green:not(.cv-light-mode) .debt-modal-card,
+        body.theme-matrix-green:not(.cv-light-mode) .view-debt-card { --cv-bg-modal: radial-gradient(circle at 50% 50%, #02260f 0%, #011306 65%, #000502 100%) !important; --cv-border-primary: rgba(34, 197, 94, 0.5) !important; --cv-bg-form: rgba(1, 19, 6, 0.9) !important; --cv-bg-input: rgba(1, 19, 6, 0.9) !important; }
 
         body.theme-cyberpunk-orange:not(.cv-light-mode) .cyber-modal-card,
-        body.theme-cyberpunk-orange:not(.cv-light-mode) #detailTransactionModal .popup-box { --cv-bg-modal: radial-gradient(circle at 50% 50%, #3d1502 0%, #170801 65%, #050200 100%) !important; --cv-border-primary: rgba(249, 115, 22, 0.5) !important; --cv-bg-form: rgba(23, 8, 1, 0.9) !important; --cv-bg-input: rgba(23, 8, 1, 0.9) !important; }
+        body.theme-cyberpunk-orange:not(.cv-light-mode) #detailTransactionModal .popup-box,
+        body.theme-cyberpunk-orange:not(.cv-light-mode) .sub-account-modal,
+        body.theme-cyberpunk-orange:not(.cv-light-mode) .all-history-modal,
+        body.theme-cyberpunk-orange:not(.cv-light-mode) .debt-modal-card,
+        body.theme-cyberpunk-orange:not(.cv-light-mode) .view-debt-card { --cv-bg-modal: radial-gradient(circle at 50% 50%, #3d1502 0%, #170801 65%, #050200 100%) !important; --cv-border-primary: rgba(249, 115, 22, 0.5) !important; --cv-bg-form: rgba(23, 8, 1, 0.9) !important; --cv-bg-input: rgba(23, 8, 1, 0.9) !important; }
 
         body.theme-crimson-blood:not(.cv-light-mode) .cyber-modal-card,
-        body.theme-crimson-blood:not(.cv-light-mode) #detailTransactionModal .popup-box { --cv-bg-modal: radial-gradient(circle at 50% 50%, #3b0505 0%, #170101 65%, #050000 100%) !important; --cv-border-primary: rgba(239, 68, 68, 0.5) !important; --cv-bg-form: rgba(23, 1, 1, 0.9) !important; --cv-bg-input: rgba(23, 1, 1, 0.9) !important; }
+        body.theme-crimson-blood:not(.cv-light-mode) #detailTransactionModal .popup-box,
+        body.theme-crimson-blood:not(.cv-light-mode) .sub-account-modal,
+        body.theme-crimson-blood:not(.cv-light-mode) .all-history-modal,
+        body.theme-crimson-blood:not(.cv-light-mode) .debt-modal-card,
+        body.theme-crimson-blood:not(.cv-light-mode) .view-debt-card { --cv-bg-modal: radial-gradient(circle at 50% 50%, #3b0505 0%, #170101 65%, #050000 100%) !important; --cv-border-primary: rgba(239, 68, 68, 0.5) !important; --cv-bg-form: rgba(23, 1, 1, 0.9) !important; --cv-bg-input: rgba(23, 1, 1, 0.9) !important; }
 
         body.theme-solar-gold:not(.cv-light-mode) .cyber-modal-card,
-        body.theme-solar-gold:not(.cv-light-mode) #detailTransactionModal .popup-box { --cv-bg-modal: radial-gradient(circle at 50% 50%, #332702 0%, #141001 65%, #050400 100%) !important; --cv-border-primary: rgba(234, 179, 8, 0.5) !important; --cv-bg-form: rgba(20, 16, 1, 0.9) !important; --cv-bg-input: rgba(20, 16, 1, 0.9) !important; }
+        body.theme-solar-gold:not(.cv-light-mode) #detailTransactionModal .popup-box,
+        body.theme-solar-gold:not(.cv-light-mode) .sub-account-modal,
+        body.theme-solar-gold:not(.cv-light-mode) .all-history-modal,
+        body.theme-solar-gold:not(.cv-light-mode) .debt-modal-card,
+        body.theme-solar-gold:not(.cv-light-mode) .view-debt-card { --cv-bg-modal: radial-gradient(circle at 50% 50%, #332702 0%, #141001 65%, #050400 100%) !important; --cv-border-primary: rgba(234, 179, 8, 0.5) !important; --cv-bg-form: rgba(20, 16, 1, 0.9) !important; --cv-bg-input: rgba(20, 16, 1, 0.9) !important; }
     </style>
 </head>
 <body>
@@ -2764,8 +2805,8 @@
         e.preventDefault(); 
         const type = document.getElementById('type').value; 
         const method = document.getElementById('paymentMethod').value;
-        const amount = parseFloat(document.getElementById('amount').value.replace(/\./g, '')); 
-        const description = document.getElementById('description').value; 
+        const amount = parseFloat(document.getElementById('amount'].value.replace(/\./g, '')); 
+        const description = document.getElementById('description'].value; 
         const date = selectedDateValue; 
         const time = timeDisplayText.innerText; 
         const proofFile = document.getElementById('proofInput').files[0];
@@ -2823,7 +2864,7 @@
         } catch (err) {
             console.error("Gagal kompresi file:", err);
             alert("Gagal memproses file bukti transaksi.");
-            btnSubmit.disabled = false; 
+            btnSubmit.disabled, btnSubmit.disabled = false; 
             btnText.innerText = 'Tambah Transaksi';
         }
     });
