@@ -346,7 +346,6 @@
         .account-title-name { font-family: 'Rajdhani', sans-serif; font-size: 1.15rem; font-weight: 800; color: #00f0ff; letter-spacing: 1px; text-transform: uppercase; }
         .account-title-arrow { color: #7dd3fc; font-weight: 900; font-size: 1.25rem; }
 
-        /* Kustomisasi Tombol Tambah Akun agar Sesuai Tema Cyber Vault */
         .btn-add-account-action {
             background: linear-gradient(135deg, rgba(0, 240, 255, 0.15) 0%, rgba(0, 119, 255, 0.25) 100%) !important;
             border: 1.5px solid rgba(0, 240, 255, 0.6) !important;
@@ -2793,6 +2792,7 @@
         const time = timeDisplayText.innerText; 
         const proofFile = document.getElementById('proofInput').files[0];
         
+        // VALIDASI SEBELUM TOMBOL DI-DISABLE AGAR TIDAK STUCK
         if (!type || !method || !amount || isNaN(amount) || !description || !date || !time) {
             return alert('Mohon pastikan Jenis Transaksi dan Metode Pembayaran sudah dipilih dengan lengkap!');
         }
