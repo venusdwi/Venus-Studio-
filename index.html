@@ -20,13 +20,13 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700;800&family=Orbitron:wght@600;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Rajdhani:wght@600;700;800&family=Share+Tech+Mono&family=Cinzel:wght@600;700;900&family=Audiowide&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Orbitron:wght@600;800;900&family=Rajdhani:wght@600;700;800&family=Share+Tech+Mono&family=Cinzel:wght@600;700;900&display=swap" rel="stylesheet">
     
     <style>
         *, *::before, *::after {
             box-sizing: border-box !important;
             max-width: 100vw !important;
-            font-family: var(--active-font, 'Chakra Petch', sans-serif);
+            font-family: 'Plus Jakarta Sans', sans-serif;
             margin: 0;
             padding: 0;
             -webkit-tap-highlight-color: transparent;
@@ -40,7 +40,7 @@
         }
 
         body {
-            background-color: var(--body-bg, #020714);
+            background-color: #020714;
             color: #ffffff;
             padding: 16px 12px;
             display: flex;
@@ -67,15 +67,12 @@
             --glass-alpha: 0.28;
             --glass-blur: 16px;
             --bg-gradient: radial-gradient(circle at 50% 50%, #061838 0%, #020817 65%, #01040a 100%);
-            --active-font: 'Chakra Petch', sans-serif;
-            --particle-color: rgba(0, 240, 255, 0.85);
-            --line-color: rgba(0, 240, 255, 0.55);
             
             --cv-bg-modal: rgba(3, 14, 38, 0.98);
             --cv-bg-form: rgba(2, 10, 28, 0.6);
             --cv-bg-input: rgba(2, 12, 32, 0.85);
-            --cv-border-primary: rgba(0, 240, 255, 0.45);
-            --cv-text-primary: #00f0ff;
+            --cv-border-primary: rgba(0, 240, 255, 0.35);
+            --cv-text-primary: #ffffff;
             --cv-text-secondary: #7dd3fc;
             --cv-bg-history-item: rgba(2, 12, 32, 0.85);
         }
@@ -101,7 +98,7 @@
 
         .splash-center-section { text-align: center; display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 400px; z-index: 5; }
         .splash-welcome-top { font-family: 'Rajdhani', sans-serif; font-size: 1.1rem; font-weight: 800; letter-spacing: 5px; color: #7dd3fc; text-transform: uppercase; opacity: 0.85; margin-bottom: 4px; }
-        .splash-title-large { font-family: 'Chakra Petch', sans-serif; font-size: clamp(2.1rem, 8.5vw, 2.9rem); font-weight: 900; text-transform: uppercase; background: linear-gradient(135deg, #ffffff 0%, #00f0ff 65%, #38bdf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; justify-content: center; align-items: center; white-space: nowrap; width: 100%; letter-spacing: -12px; opacity: 0; transform: scale(3.2); filter: blur(18px); animation: netflixIntroMaster 1.6s cubic-bezier(0.15, 0.85, 0.25, 1) forwards; }
+        .splash-title-large { font-family: 'Orbitron', sans-serif; font-size: clamp(2.1rem, 8.5vw, 2.9rem); font-weight: 900; text-transform: uppercase; background: linear-gradient(135deg, #ffffff 0%, #00f0ff 65%, #38bdf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: flex; justify-content: center; align-items: center; white-space: nowrap; width: 100%; letter-spacing: -12px; opacity: 0; transform: scale(3.2); filter: blur(18px); animation: netflixIntroMaster 1.6s cubic-bezier(0.15, 0.85, 0.25, 1) forwards; }
 
         @keyframes netflixIntroMaster {
             0% { opacity: 0; transform: scale(3.5); letter-spacing: -14px; filter: blur(20px); text-shadow: 0 0 40px rgba(0, 240, 255, 1); }
@@ -136,7 +133,7 @@
 
         .pin-card { width: 100%; max-width: 360px; background: rgba(3, 14, 38, 0.95); border: 1.5px solid rgba(0, 240, 255, 0.5); border-radius: 24px; padding: 28px 20px; text-align: center; box-shadow: 0 0 50px rgba(0, 240, 255, 0.3); display: flex; flex-direction: column; align-items: center; gap: 16px; }
         .pin-icon-box { width: 60px; height: 60px; border-radius: 50%; background: rgba(0, 240, 255, 0.1); border: 1px solid var(--accent-cyan); display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: var(--accent-cyan); box-shadow: 0 0 15px rgba(0, 240, 255, 0.4); }
-        .pin-title { font-family: 'Chakra Petch', sans-serif; font-size: 1.35rem; font-weight: 800; letter-spacing: 2px; color: #fff; text-transform: uppercase; }
+        .pin-title { font-family: 'Orbitron', sans-serif; font-size: 1.35rem; font-weight: 800; letter-spacing: 2px; color: #fff; text-transform: uppercase; }
         .pin-subtitle { font-size: 0.88rem; color: #7dd3fc; margin-top: -6px; }
 
         .pin-inputs-container { display: flex; gap: 8px; justify-content: center; margin: 10px 0; }
@@ -161,45 +158,45 @@
 
         .header-box { text-align: center; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 14px; margin-bottom: 4px; }
         .brand-top-header { display: flex; align-items: center; justify-content: center; pointer-events: none; user-select: none; padding: 2px 10px; background: transparent; border: none; }
-        .brand-studio-title { font-size: 1.05rem; font-weight: 900; letter-spacing: 4px; color: var(--cv-text-primary); text-transform: uppercase; text-shadow: 0 0 15px var(--cv-border-primary); }
+        .brand-studio-title { font-family: 'Rajdhani', sans-serif; font-size: 1.05rem; font-weight: 900; letter-spacing: 4px; color: #00f0ff; text-transform: uppercase; text-shadow: 0 0 15px rgba(0, 240, 255, 0.8); }
 
-        .clickable-header-wrapper, .music-player-panel, .personal-data-panel, .debt-tracker-panel { cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px 16px; border-radius: 16px; background: var(--cv-bg-form); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1.5px solid var(--cv-border-primary); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.2); width: 100%; transition: transform 0.2s ease, filter 0.2s ease, background 0.2s ease; margin-bottom: 12px; position: relative; z-index: 20; }
-        .clickable-header-wrapper:active, .music-player-panel:active, .personal-data-panel:active, .debt-tracker-panel:active { transform: scale(0.98); filter: brightness(1.2); }
+        .clickable-header-wrapper, .music-player-panel, .personal-data-panel, .debt-tracker-panel { cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px 16px; border-radius: 16px; background: rgba(2, 10, 28, 0.28); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1.5px solid rgba(0, 240, 255, 0.45); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.2); width: 100%; transition: transform 0.2s ease, filter 0.2s ease, background 0.2s ease; margin-bottom: 12px; position: relative; z-index: 20; }
+        .clickable-header-wrapper:active, .music-player-panel:active, .personal-data-panel:active, .debt-tracker-panel:active { transform: scale(0.98); filter: brightness(1.2); background: rgba(0, 240, 255, 0.15); }
         
-        .main-page-title { font-weight: 900; font-size: clamp(1.4rem, 5vw, 1.8rem); letter-spacing: 2px; text-transform: uppercase; color: var(--cv-text-primary); text-shadow: 0 0 20px var(--cv-border-primary); text-align: center; pointer-events: none; }
-        .main-page-subtitle { font-size: 0.85rem; font-weight: 800; letter-spacing: 2px; color: var(--cv-text-secondary); text-transform: uppercase; margin-top: 4px; opacity: 0.95; text-align: center; pointer-events: none; }
+        .main-page-title { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: clamp(1.4rem, 5vw, 1.8rem); letter-spacing: 2px; text-transform: uppercase; background: linear-gradient(135deg, #ffffff 0%, #00f0ff 60%, #38bdf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 20px rgba(0, 240, 255, 0.8); text-align: center; pointer-events: none; }
+        .main-page-subtitle { font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; font-weight: 800; letter-spacing: 2px; color: #7dd3fc; text-transform: uppercase; margin-top: 4px; opacity: 0.95; text-align: center; pointer-events: none; }
 
         .cyber-modal-overlay, .music-modal-overlay, .personal-modal-overlay, .debt-modal-overlay, .debt-pin-overlay, .edit-debt-overlay, .view-debt-overlay, .popup-overlay { position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh; background: rgba(2, 7, 20, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 99999999; display: flex; justify-content: center; align-items: center; padding: 12px; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.35s ease; overflow-x: hidden !important; }
         .cyber-modal-overlay.active, .music-modal-overlay.active, .personal-modal-overlay.active, .debt-modal-overlay.active, .debt-pin-overlay.active, .edit-debt-overlay.active, .view-debt-overlay.active, .popup-overlay.active { opacity: 1; visibility: visible; pointer-events: auto; }
 
-        .music-modal-card, .personal-modal-card, .debt-modal-card, .view-debt-card { background: var(--cv-bg-modal); border: 2px solid var(--cv-border-primary); border-radius: 26px; padding: 22px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); transform: scale(0.9); transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); overflow-x: hidden !important; }
+        .music-modal-card, .personal-modal-card, .debt-modal-card, .view-debt-card { background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.75); border-radius: 26px; padding: 22px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); transform: scale(0.9); transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); overflow-x: hidden !important; }
         
         .cyber-modal-card { background: var(--cv-bg-modal) !important; border: 2px solid var(--cv-border-primary) !important; border-radius: 26px; padding: 22px 18px 24px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); transform: scale(0.9); transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease, border-color 0.3s ease; overflow-x: hidden !important; }
         .cyber-modal-overlay.active .cyber-modal-card, .music-modal-overlay.active .music-modal-card, .personal-modal-overlay.active .personal-modal-card, .debt-modal-overlay.active .debt-modal-card, .view-debt-overlay.active .view-debt-card { transform: scale(1); }
 
-        .close-cyber-modal, .close-music-modal, .close-personal-modal, .close-debt-modal, .close-view-debt { background: var(--cv-bg-input); border: 1.5px solid var(--cv-border-primary); color: var(--cv-text-primary); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800; transition: all 0.2s ease; flex-shrink: 0; }
-        .close-cyber-modal:active, .close-music-modal:active, .close-personal-modal:active, .close-debt-modal:active, .close-view-debt:active { transform: scale(0.92); }
+        .close-cyber-modal, .close-music-modal, .close-personal-modal, .close-debt-modal, .close-view-debt { background: rgba(0, 240, 255, 0.12); border: 1.5px solid rgba(0, 240, 255, 0.5); color: #00f0ff; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800; transition: all 0.2s ease; flex-shrink: 0; }
+        .close-cyber-modal:active, .close-music-modal:active, .close-personal-modal:active, .close-debt-modal:active, .close-view-debt:active { background: rgba(0, 240, 255, 0.35); transform: scale(0.92); }
 
         .audio-stabilizer-container { width: 100% !important; max-width: 260px !important; height: 68px !important; display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: flex-end !important; margin: 1.4rem auto 0.2rem auto !important; padding: 0 !important; position: relative !important; border: none !important; background: transparent !important; box-shadow: none !important; }
-        .stabilizer-bars-wrapper { display: flex !important; align-items: flex-end !important; justify-content: space-between !important; width: 210px !important; height: 52px !important; border: none !important; border-bottom: 1.5px solid var(--cv-border-primary) !important; background: transparent !important; padding-bottom: 0px !important; box-shadow: none !important; }
-        .stabilizer-bar { width: 4px; height: 6px; background: var(--cv-text-primary); border-radius: 2px; box-shadow: 0 0 6px var(--cv-border-primary); transition: height 0.05s ease; }
+        .stabilizer-bars-wrapper { display: flex !important; align-items: flex-end !important; justify-content: space-between !important; width: 210px !important; height: 52px !important; border: none !important; border-bottom: 1.5px solid rgba(0, 240, 255, 0.25) !important; background: transparent !important; padding-bottom: 0px !important; box-shadow: none !important; }
+        .stabilizer-bar { width: 4px; height: 6px; background: #00f0ff; border-radius: 2px; box-shadow: 0 0 6px rgba(0, 240, 255, 0.8); transition: height 0.05s ease; }
         
         .track-title-display-box { width: 100% !important; background: transparent !important; border: none !important; border-radius: 0 !important; padding: 4px 10px !important; display: flex !important; align-items: center !important; justify-content: center !important; gap: 8px !important; margin: 14px 0 6px 0 !important; box-shadow: none !important; }
-        .track-title-text { color: var(--cv-text-primary); font-weight: 800; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 0 10px var(--cv-border-primary); }
+        .track-title-text { color: #ffffff; font-weight: 800; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-shadow: 0 0 10px rgba(0, 240, 255, 0.7); }
 
         .music-controls-row { display: flex; align-items: center; justify-content: center; gap: 24px; width: 100%; margin: 6px 0 22px 0; }
-        .ctrl-btn { background: var(--cv-bg-input); border: 1.5px solid var(--cv-border-primary); color: var(--cv-text-primary); border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
+        .ctrl-btn { background: rgba(0, 240, 255, 0.1); border: 1.5px solid rgba(0, 240, 255, 0.5); color: #00f0ff; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
         .ctrl-btn.small { width: 52px; height: 52px; font-size: 1.2rem; }
-        .ctrl-btn.large { width: 72px; height: 72px; background: var(--cv-bg-form); border: 2px solid var(--cv-border-primary); box-shadow: 0 0 20px var(--cv-border-primary); }
-        .ctrl-btn:active { transform: scale(0.92); }
-        .cyber-icon { width: 22px; height: 22px; fill: var(--cv-text-primary); filter: drop-shadow(0 0 5px var(--cv-border-primary)); }
+        .ctrl-btn.large { width: 72px; height: 72px; background: linear-gradient(135deg, rgba(0, 240, 255, 0.25), rgba(0, 119, 255, 0.35)); border: 2px solid #00f0ff; box-shadow: 0 0 20px rgba(0, 240, 255, 0.6); }
+        .ctrl-btn:active { transform: scale(0.92); background: rgba(0, 240, 255, 0.4); }
+        .cyber-icon { width: 22px; height: 22px; fill: #00f0ff; filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.8)); }
         .ctrl-btn.large .cyber-icon { width: 28px; height: 28px; }
 
-        .playlist-wrapper { width: 100%; flex-grow: 1; min-height: 160px; overflow-y: auto; overflow-x: hidden !important; background: var(--cv-bg-form); border: 1.5px solid var(--cv-border-primary); border-radius: 14px; padding: 8px; display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
-        .playlist-item { display: flex; align-items: center; justify-content: space-between; background: var(--cv-bg-input); border: 1px solid var(--cv-border-primary); padding: 10px 12px; border-radius: 10px; cursor: pointer; font-size: 0.9int; text-align: left; gap: 10px; color: var(--cv-text-primary); }
-        .playlist-item.active-track { background: var(--cv-border-primary); color: #ffffff; }
+        .playlist-wrapper { width: 100%; flex-grow: 1; min-height: 160px; overflow-y: auto; overflow-x: hidden !important; background: rgba(2, 12, 32, 0.7); border: 1.5px solid rgba(0, 240, 255, 0.3); border-radius: 14px; padding: 8px; display: flex; flex-direction: column; gap: 6px; margin-top: 6px; }
+        .playlist-item { display: flex; align-items: center; justify-content: space-between; background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.22); padding: 10px 12px; border-radius: 10px; cursor: pointer; font-size: 0.9rem; text-align: left; gap: 10px; }
+        .playlist-item.active-track { background: rgba(0, 240, 255, 0.2); border-color: #00f0ff; }
         .playlist-delete-btn { color: #fb7185; font-size: 0.8rem; font-weight: 700; cursor: pointer; padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(244, 63, 94, 0.35); background: rgba(244, 63, 94, 0.08); letter-spacing: 0.3px; display: inline-block; text-align: center; }
-        .track-music-icon-svg { width: 16px; height: 16px; fill: var(--cv-text-primary); margin-right: 8px; flex-shrink: 0; }
+        .track-music-icon-svg { width: 16px; height: 16px; fill: #00f0ff; margin-right: 8px; flex-shrink: 0; filter: drop-shadow(0 0 5px rgba(0, 240, 255, 0.8)); }
 
         .full-app-content, .personal-app-content, .debt-app-content { display: flex; flex-direction: column; width: 100% !important; max-width: 100% !important; flex-grow: 1; overflow-y: auto; overflow-x: hidden !important; background: transparent !important; border: none !important; padding: 6px 4px 120px 4px !important; text-align: left; gap: 16px; margin-top: 10px; scroll-behavior: smooth; }
 
@@ -208,26 +205,26 @@
         .glass-slider-wrapper { display: flex; align-items: center; flex-grow: 1; padding: 0 4px; height: 100%; overflow: hidden !important; }
         
         .glass-range-input { -webkit-appearance: none !important; appearance: none !important; width: 100% !important; height: 16px !important; background: transparent !important; outline: none !important; border: none !important; margin: 0 !important; padding: 0 !important; cursor: pointer !important; }
-        .glass-range-input::-webkit-slider-runnable-track { width: 100% !important; height: 4px !important; background: var(--cv-border-primary) !important; border-radius: 2px !important; border: none !important; }
-        .glass-range-input::-webkit-slider-thumb { -webkit-appearance: none !important; appearance: none !important; width: 16px !important; height: 16px !important; border-radius: 50% !important; background: var(--cv-text-primary) !important; box-shadow: 0 0 10px var(--cv-border-primary) !important; cursor: pointer !important; margin-top: -6px !important; border: none !important; }
+        .glass-range-input::-webkit-slider-runnable-track { width: 100% !important; height: 4px !important; background: rgba(0, 240, 255, 0.35) !important; border-radius: 2px !important; border: none !important; }
+        .glass-range-input::-webkit-slider-thumb { -webkit-appearance: none !important; appearance: none !important; width: 16px !important; height: 16px !important; border-radius: 50% !important; background: #00f0ff !important; box-shadow: 0 0 10px rgba(0, 240, 255, 0.9) !important; cursor: pointer !important; margin-top: -6px !important; border: none !important; }
         
-        .opacity-value-badge { font-weight: 800; font-size: 0.95rem; color: var(--cv-text-secondary); min-width: 42px; text-align: right; white-space: nowrap; line-height: 1; display: flex; align-items: center; justify-content: flex-end; height: 100%; transition: color 0.3s ease; }
+        .opacity-value-badge { font-family: 'Rajdhani', sans-serif; font-weight: 800; font-size: 0.95rem; color: var(--cv-text-secondary); min-width: 42px; text-align: right; white-space: nowrap; line-height: 1; display: flex; align-items: center; justify-content: flex-end; height: 100%; transition: color 0.3s ease; }
 
         .dashboard { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; width: 100%; overflow-x: hidden !important; }
-        .card-hero { background: var(--cv-bg-form); border: 1.5px solid var(--cv-border-primary); border-radius: 16px; padding: 18px 14px; text-align: center; }
-        .card-hero h4 { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--cv-text-secondary); font-weight: 800; margin-bottom: 6px; }
-        .card-hero p { font-size: clamp(1.5rem, 5vw, 1.9rem); font-weight: 900; color: var(--cv-text-primary); text-shadow: 0 2px 14px var(--cv-border-primary); word-break: break-word; }
+        .card-hero { background: rgba(0, 180, 255, calc(var(--glass-alpha) * 0.45 + 0.05)); border: 1px solid rgba(0, 240, 255, 0.5); border-radius: 16px; padding: 18px 14px; text-align: center; }
+        .card-hero h4 { font-size: 0.82rem; text-transform: uppercase; letter-spacing: 1.5px; color: #7dd3fc; font-weight: 800; margin-bottom: 6px; }
+        .card-hero p { font-size: clamp(1.6rem, 5.5vw, 2rem); font-weight: 900; color: #ffffff; text-shadow: 0 2px 14px rgba(0, 240, 255, 0.8); }
         
         .sub-dashboard { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
-        .card-sub { padding: 16px 12px; border-radius: 14px; text-align: center; border: 1.5px solid var(--cv-border-primary); background: var(--cv-bg-form); }
-        .card-sub h4 { font-size: 0.78rem; text-transform: uppercase; font-weight: 800; margin-bottom: 6px; color: var(--cv-text-secondary); }
-        .card-sub p { font-size: clamp(0.95rem, 3.8vw, 1.15rem); font-weight: 800; color: var(--cv-text-primary); word-break: break-word; }
+        .card-sub { padding: 16px 12px; border-radius: 14px; text-align: center; }
+        .card-sub h4 { font-size: 0.78rem; text-transform: uppercase; font-weight: 800; margin-bottom: 6px; }
+        .card-sub p { font-size: clamp(0.95rem, 4vw, 1.15rem); font-weight: 800; }
         
-        .pemasukan { border-color: rgba(16, 185, 129, 0.7) !important; color: #34d399 !important; }
-        .pengeluaran { border-color: rgba(244, 63, 94, 0.7) !important; color: #fb7185 !important; }
+        .pemasukan { background: rgba(16, 185, 129, calc(var(--glass-alpha) * 0.45 + 0.05)); border: 1px solid rgba(16, 185, 129, 0.55); color: #34d399; }
+        .pengeluaran { background: rgba(244, 63, 94, calc(var(--glass-alpha) * 0.45 + 0.05)); border: 1px solid rgba(244, 63, 94, 0.55); color: #fb7185; }
         
-        .card-cash { border-color: rgba(56, 189, 248, 0.7) !important; }
-        .card-bank { border-color: rgba(192, 132, 252, 0.7) !important; }
+        .card-cash { background: rgba(56, 189, 248, calc(var(--glass-alpha) * 0.45 + 0.05)); border: 1px solid rgba(56, 189, 248, 0.55); color: #38bdf8; }
+        .card-bank { background: rgba(168, 85, 247, calc(var(--glass-alpha) * 0.45 + 0.05)); border: 1px solid rgba(168, 85, 247, 0.55); color: #c084fc; }
 
         .cyber-input-form { display: flex !important; flex-direction: column !important; gap: 14px !important; width: 100% !important; background: var(--cv-bg-form) !important; border: 1.5px solid var(--cv-border-primary) !important; border-radius: 16px !important; padding: 16px !important; margin-top: 4px !important; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important; transition: background-color 0.3s ease, border-color 0.3s ease; }
         .form-group { display: flex; flex-direction: column; gap: 6px; width: 100%; }
@@ -250,7 +247,7 @@
             display: flex; align-items: center; background: var(--cv-bg-input); border: 1.5px dashed var(--cv-border-primary); border-radius: 12px; padding: 10px 14px; gap: 12px; width: 100%;
         }
         .btn-pilih-file {
-            background-color: var(--cv-bg-form); color: var(--cv-text-primary); border: 1px solid var(--cv-border-primary); padding: 8px 14px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 700; white-space: nowrap; display: inline-block; margin: 0;
+            background-color: #0f3d4c; color: #00f0ff; border: 1px solid rgba(0, 240, 255, 0.5); padding: 8px 14px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 700; white-space: nowrap; display: inline-block; margin: 0;
         }
         .file-name-text { font-size: 13px; color: var(--cv-text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; }
 
@@ -259,23 +256,23 @@
         }
         .full-app-content .custom-select-box.selected, #detailTransactionModal .custom-select-box.selected { color: var(--cv-text-primary); }
         
-        .custom-option-btn { background: var(--cv-bg-input); border: 1.5px solid var(--cv-border-primary); border-radius: 12px; color: var(--cv-text-primary); font-size: 1.05rem; font-weight: 800; padding: 16px; width: 100%; text-align: center; cursor: pointer; display: block; }
+        .custom-option-btn { background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.45); border-radius: 12px; color: #ffffff; font-size: 1.05rem; font-weight: 800; padding: 16px; width: 100%; text-align: center; cursor: pointer; display: block; }
 
-        .account-title-card { background: var(--cv-bg-form); border: 1.5px solid var(--cv-border-primary); border-radius: 14px; padding: 16px 18px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; width: 100%; }
-        .account-title-name { font-size: 1.15rem; font-weight: 800; color: var(--cv-text-primary); letter-spacing: 1px; text-transform: uppercase; }
-        .account-title-arrow { color: var(--cv-text-secondary); font-weight: 900; font-size: 1.25rem; }
+        .account-title-card { background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.4); border-radius: 14px; padding: 16px 18px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; width: 100%; }
+        .account-title-name { font-family: 'Rajdhani', sans-serif; font-size: 1.15rem; font-weight: 800; color: #00f0ff; letter-spacing: 1px; text-transform: uppercase; }
+        .account-title-arrow { color: #7dd3fc; font-weight: 900; font-size: 1.25rem; }
 
-        .btn-add-account-action { background: var(--cv-bg-form); border: 1.5px solid var(--cv-border-primary); color: var(--cv-text-primary); font-size: 1.05rem; font-weight: 800; letter-spacing: 1.5px; padding: 14px; border-radius: 14px; cursor: pointer; width: 100%; text-align: center; text-transform: uppercase; box-shadow: 0 0 15px var(--cv-border-primary); }
+        .btn-add-account-action { background: linear-gradient(135deg, rgba(0, 240, 255, 0.18) 0%, rgba(0, 119, 255, 0.28) 100%); border: 1.5px solid rgba(0, 240, 255, 0.6); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 1.05rem; font-weight: 800; letter-spacing: 1.5px; padding: 14px; border-radius: 14px; cursor: pointer; width: 100%; text-align: center; text-transform: uppercase; }
 
-        .sub-account-modal, .all-history-modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--cv-bg-modal); z-index: 20; display: none; flex-direction: column; padding: 20px 16px; justify-content: space-between; border-radius: 26px; overflow-y: auto; overflow-x: hidden !important; }
+        .sub-account-modal, .all-history-modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3, 14, 38, 0.98); z-index: 20; display: none; flex-direction: column; padding: 20px 16px; justify-content: space-between; border-radius: 26px; overflow-y: auto; overflow-x: hidden !important; }
         .sub-account-modal.active, .all-history-modal.active { display: flex !important; }
 
-        .account-history-box { background: var(--cv-bg-form); border: 1px solid var(--cv-border-primary); border-radius: 12px; padding: 10px; margin-top: 6px; max-height: 140px; overflow-y: auto; text-align: left; width: 100%; }
-        .account-history-item { font-size: 0.9rem; color: var(--cv-text-primary); background: var(--cv-bg-input); border: 1px solid var(--cv-border-primary); border-radius: 8px; padding: 10px; margin-bottom: 8px; display: flex; flex-direction: column; gap: 4px; cursor: pointer; width: 100%; }
-        .history-user-info { font-size: 0.98rem; font-weight: 800; color: var(--cv-text-primary); word-break: break-all; }
-        .history-timestamp { font-size: 0.78rem; font-weight: 700; color: var(--cv-text-secondary); }
+        .account-history-box { background: rgba(2, 12, 32, 0.9); border: 1px solid rgba(0, 240, 255, 0.3); border-radius: 12px; padding: 10px; margin-top: 6px; max-height: 140px; overflow-y: auto; text-align: left; width: 100%; }
+        .account-history-item { font-size: 0.9rem; color: #ffffff; background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.2); border-radius: 8px; padding: 10px; margin-bottom: 8px; display: flex; flex-direction: column; gap: 4px; cursor: pointer; width: 100%; }
+        .history-user-info { font-size: 0.98rem; font-weight: 800; color: #ffffff; word-break: break-all; }
+        .history-timestamp { font-size: 0.78rem; font-weight: 700; color: #38bdf8; }
 
-        .history-clickable-title-box { display: flex; align-items: center; justify-content: space-between; background: var(--cv-bg-form); border: 1.5px solid var(--cv-border-primary); padding: 12px 14px; border-radius: 12px; cursor: pointer; margin-top: 4px; width: 100%; }
+        .history-clickable-title-box { display: flex; align-items: center; justify-content: space-between; background: rgba(0, 240, 255, 0.08); border: 1.5px solid rgba(0, 240, 255, 0.35); padding: 12px 14px; border-radius: 12px; cursor: pointer; margin-top: 4px; width: 100%; }
 
         .full-app-content .datetime-custom-wrapper { position: relative; display: flex; align-items: center; background: var(--cv-bg-input); border: 1.5px solid var(--cv-border-primary); border-radius: 12px; padding: 15px 16px; cursor: pointer; z-index: 10; width: 100%; }
         .full-app-content .datetime-custom-wrapper input[type="date"], .full-app-content .datetime-custom-wrapper input[type="time"] { 
@@ -283,20 +280,20 @@
         }
         .full-app-content .datetime-display-text { font-size: 1.1rem; font-weight: 600; color: var(--cv-text-primary); pointer-events: none; width: 100%; }
 
-        button[type="submit"] { background: var(--cv-bg-form); color: var(--cv-text-primary); font-size: 1.15rem; font-weight: 900; letter-spacing: 1.5px; border: 1.5px solid var(--cv-border-primary); cursor: pointer; padding: 16px 20px; border-radius: 14px; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; margin-top: 6px; box-shadow: 0 0 15px var(--cv-border-primary); }
+        button[type="submit"] { background: linear-gradient(135deg, rgba(0, 153, 255, 0.9) 0%, rgba(0, 85, 255, 0.9) 100%); color: #ffffff; font-size: 1.15rem; font-weight: 900; letter-spacing: 1.5px; border: 1.5px solid rgba(0, 240, 255, 0.7); cursor: pointer; padding: 16px 20px; border-radius: 14px; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; margin-top: 6px; }
         .btn-spinner { width: 22px; height: 22px; border: 2px solid rgba(255,255,255,0.3); border-top: 2px solid #ffffff; border-radius: 50%; animation: spinLoading 0.8s linear infinite; display: inline-block; flex-shrink: 0; }
         @keyframes spinLoading { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .history-section-wrapper { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; margin-top: 10px; width: 100%; }
         .full-app-content .history-title-wrapper { display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; border-radius: 12px; background: var(--cv-bg-form); border: 1.5px solid var(--cv-border-primary); position: relative; width: 100%; gap: 8px; }
-        .history-title-clickable { cursor: pointer; display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; background: var(--cv-bg-input); border-radius: 10px; border: 1px solid var(--cv-border-primary); user-select: none; }
+        .history-title-clickable { cursor: pointer; display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; background: rgba(0, 240, 255, 0.15); border-radius: 10px; border: 1px solid rgba(0, 240, 255, 0.4); user-select: none; }
         .full-app-content .history-title-text { font-size: 1.1rem; color: var(--cv-text-primary); font-weight: 900; margin: 0; white-space: nowrap; }
 
         .filter-actions-group { display: flex; align-items: center; gap: 6px; }
-        .btn-today-quick { background: var(--cv-bg-input); border: 1px solid var(--cv-border-primary); color: var(--cv-text-primary); font-size: 0.78rem; font-weight: 800; padding: 6px 10px; border-radius: 10px; cursor: pointer; text-transform: uppercase; white-space: nowrap; height: 36px; display: inline-flex; align-items: center; justify-content: center; }
+        .btn-today-quick { background: rgba(0, 240, 255, 0.15); border: 1px solid rgba(0, 240, 255, 0.5); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 0.78rem; font-weight: 800; padding: 6px 10px; border-radius: 10px; cursor: pointer; text-transform: uppercase; white-space: nowrap; height: 36px; display: inline-flex; align-items: center; justify-content: center; }
         
-        .filter-badge-wrapper { position: relative; display: inline-flex; align-items: center; justify-content: center; background: var(--cv-bg-input); border: 1px solid var(--cv-border-primary); padding: 6px 12px; border-radius: 10px; cursor: pointer; min-height: 36px; }
-        .filter-badge-text { font-size: 0.78rem; font-weight: 800; color: var(--cv-text-primary); text-align: center; pointer-events: none; white-space: nowrap; display: block; }
+        .filter-badge-wrapper { position: relative; display: inline-flex; align-items: center; justify-content: center; background: rgba(0, 240, 255, 0.18); border: 1px solid rgba(0, 240, 255, 0.5); padding: 6px 12px; border-radius: 10px; cursor: pointer; min-height: 36px; }
+        .filter-badge-text { font-size: 0.78rem; font-weight: 800; color: #00f0ff; text-align: center; pointer-events: none; white-space: nowrap; display: block; }
         #filterDateInputDirect { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 10; color-scheme: dark; }
 
         .history-list { list-style: none; display: flex; flex-direction: column; gap: 10px; width: 100%; }
@@ -307,188 +304,123 @@
 
         .item-info { display: flex; flex-direction: column; gap: 5px; flex-grow: 1; min-width: 0; }
         .full-app-content .item-desc { font-weight: 800; font-size: 1.1rem; color: var(--cv-text-primary); line-height: 1.4; word-break: break-word; }
-        .item-date { font-size: 0.85rem; font-weight: 700; color: var(--cv-text-secondary); display: flex; align-items: center; gap: 6px; }
+        .item-date { font-size: 0.85rem; font-weight: 700; color: #38bdf8; display: flex; align-items: center; gap: 6px; }
         .cyber-note-icon { display: inline-flex; align-items: center; justify-content: center; font-size: 0.95rem; }
-        .item-method-badge { font-size: 0.75rem; font-weight: 800; color: var(--cv-text-primary); background: var(--cv-bg-input); border: 1px solid var(--cv-border-primary); padding: 3px 8px; border-radius: 6px; margin-left: 6px; display: inline-block; vertical-align: middle; }
+        .item-method-badge { font-size: 0.75rem; font-weight: 800; color: #fb7185; background: rgba(244, 63, 94, 0.15); border: 1px solid rgba(244, 63, 94, 0.35); padding: 3px 8px; border-radius: 6px; margin-left: 6px; display: inline-block; vertical-align: middle; }
         .item-amount { font-weight: 900; font-size: 1.15rem; flex-shrink: 0; white-space: nowrap; }
         .amount-in { color: #34d399; }
         .amount-out { color: #fb7185; }
         .amount-refund { color: #fbbf24; }
 
-        .popup-box { background: var(--cv-bg-modal); border: 2px solid var(--cv-border-primary); border-radius: 26px; padding: 32px 24px; width: 100%; max-width: 380px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; box-shadow: 0 0 40px var(--cv-border-primary); }
+        .popup-box { background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.8); border-radius: 26px; padding: 32px 24px; width: 100%; max-width: 380px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; box-shadow: 0 0 40px rgba(0, 240, 255, 0.5); }
         .popup-icon { width: 72px; height: 72px; border-radius: 50%; background: rgba(16, 185, 129, 0.25); border: 2px solid var(--pemasukan-green); color: #34d399; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; }
-        .popup-title { font-size: 1.7rem; font-weight: 900; color: var(--cv-text-primary); }
-        .popup-subtitle { font-size: 1.05rem; color: var(--cv-text-secondary); line-height: 1.5; }
-        .popup-btn { background: var(--cv-bg-form); color: var(--cv-text-primary); font-size: 1.25rem; font-weight: 900; letter-spacing: 1.5px; border: 1.5px solid var(--cv-border-primary); padding: 16px 48px; border-radius: 16px; cursor: pointer; width: 100%; box-shadow: 0 0 20px var(--cv-border-primary); margin-top: 6px; }
+        .popup-title { font-family: 'Orbitron', sans-serif; font-size: 1.7rem; font-weight: 900; color: #fff; }
+        .popup-subtitle { font-size: 1.05rem; color: #a5f3fc; line-height: 1.5; }
+        .popup-btn { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff; font-family: 'Rajdhani', sans-serif; font-size: 1.25rem; font-weight: 900; letter-spacing: 1.5px; border: 1px solid rgba(255, 255, 255, 0.4); padding: 16px 48px; border-radius: 16px; cursor: pointer; width: 100%; box-shadow: 0 0 20px rgba(16, 185, 129, 0.5); margin-top: 6px; }
 
-        .sync-status-badge { display: flex; align-items: center; justify-content: center; gap: 6px; background: var(--cv-bg-form); border: 1px solid var(--cv-border-primary); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; color: var(--cv-text-primary); margin: 0 auto 12px auto; width: fit-content; text-transform: uppercase; letter-spacing: 1px; }
+        .sync-status-badge { display: flex; align-items: center; justify-content: center; gap: 6px; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 800; color: #34d399; margin: 0 auto 12px auto; width: fit-content; text-transform: uppercase; letter-spacing: 1px; }
         .sync-dot { width: 8px; height: 8px; background: #34d399; border-radius: 50%; box-shadow: 0 0 8px #34d399; animation: syncPulseDot 1.5s infinite ease-in-out; }
         @keyframes syncPulseDot { 0%, 100% { opacity: 0.4; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.2); } }
 
-        /* 11 Unique Themes with Custom Fonts & Background Colors */
-        .cv-theme-default {
-            --body-bg: #020714;
-            --bg-gradient: radial-gradient(circle at 50% 50%, #061838 0%, #020817 65%, #01040a 100%);
-            --active-font: 'Chakra Petch', sans-serif;
-            --particle-color: rgba(0, 240, 255, 0.85);
-            --line-color: rgba(0, 240, 255, 0.55);
-            --cv-bg-modal: rgba(3, 14, 38, 0.98);
-            --cv-bg-form: rgba(2, 10, 28, 0.6);
-            --cv-bg-input: rgba(2, 12, 32, 0.85);
-            --cv-border-primary: rgba(0, 240, 255, 0.45);
-            --cv-text-primary: #00f0ff;
-            --cv-text-secondary: #7dd3fc;
-            --cv-bg-history-item: rgba(2, 12, 32, 0.85);
-        }
-
+        /* Theme Variants */
         .cv-theme-light {
-            --body-bg: #f8fafc;
-            --bg-gradient: radial-gradient(circle at 50% 50%, #e2e8f0 0%, #cbd5e1 65%, #94a3b8 100%);
-            --active-font: 'Plus Jakarta Sans', sans-serif;
-            --particle-color: rgba(15, 23, 42, 0.65);
-            --line-color: rgba(15, 23, 42, 0.35);
-            --cv-bg-modal: #ffffff;
-            --cv-bg-form: #f1f5f9;
-            --cv-bg-input: #ffffff;
-            --cv-border-primary: #94a3b8;
-            --cv-text-primary: #0f172a;
-            --cv-text-secondary: #334155;
-            --cv-bg-history-item: #ffffff;
+            --cv-bg-modal: #ffffff !important;
+            --cv-bg-form: #f1f5f9 !important;
+            --cv-bg-input: #ffffff !important;
+            --cv-border-primary: #cbd5e1 !important;
+            --cv-text-primary: #0f172a !important;
+            --cv-text-secondary: #475569 !important;
+            --cv-bg-history-item: #ffffff !important;
         }
 
         .cv-theme-emerald {
-            --body-bg: #021a14;
-            --bg-gradient: radial-gradient(circle at 50% 50%, #033827 0%, #021f17 65%, #010d0a 100%);
-            --active-font: 'Chakra Petch', sans-serif;
-            --particle-color: rgba(16, 185, 129, 0.85);
-            --line-color: rgba(16, 185, 129, 0.55);
-            --cv-bg-modal: rgba(2, 26, 20, 0.98);
-            --cv-bg-form: rgba(2, 40, 28, 0.6);
-            --cv-bg-input: rgba(1, 30, 20, 0.9);
-            --cv-border-primary: rgba(16, 185, 129, 0.6);
-            --cv-text-primary: #34d399;
-            --cv-text-secondary: #6ee7b7;
-            --cv-bg-history-item: rgba(1, 30, 20, 0.85);
+            --cv-bg-modal: rgba(2, 26, 20, 0.98) !important;
+            --cv-bg-form: rgba(2, 40, 28, 0.6) !important;
+            --cv-bg-input: rgba(1, 30, 20, 0.9) !important;
+            --cv-border-primary: rgba(16, 185, 129, 0.45) !important;
+            --cv-text-primary: #ffffff !important;
+            --cv-text-secondary: #6ee7b7 !important;
+            --cv-bg-history-item: rgba(1, 30, 20, 0.85) !important;
         }
 
         .cv-theme-purple {
-            --body-bg: #140426;
-            --bg-gradient: radial-gradient(circle at 50% 50%, #300a59 0%, #1a0533 65%, #0b0217 100%);
-            --active-font: 'Audiowide', cursive;
-            --particle-color: rgba(192, 132, 252, 0.85);
-            --line-color: rgba(192, 132, 252, 0.55);
-            --cv-bg-modal: rgba(20, 4, 38, 0.98);
-            --cv-bg-form: rgba(30, 6, 56, 0.6);
-            --cv-bg-input: rgba(15, 2, 30, 0.9);
-            --cv-border-primary: rgba(192, 132, 252, 0.6);
-            --cv-text-primary: #c084fc;
-            --cv-text-secondary: #e879f9;
-            --cv-bg-history-item: rgba(15, 2, 30, 0.85);
+            --cv-bg-modal: rgba(20, 4, 38, 0.98) !important;
+            --cv-bg-form: rgba(30, 6, 56, 0.6) !important;
+            --cv-bg-input: rgba(15, 2, 30, 0.9) !important;
+            --cv-border-primary: rgba(192, 132, 252, 0.45) !important;
+            --cv-text-primary: #ffffff !important;
+            --cv-text-secondary: #e879f9 !important;
+            --cv-bg-history-item: rgba(15, 2, 30, 0.85) !important;
         }
 
         .cv-theme-amber {
-            --body-bg: #1e1002;
-            --bg-gradient: radial-gradient(circle at 50% 50%, #522d05 0%, #291702 65%, #120a01 100%);
-            --active-font: 'Cinzel', serif;
-            --particle-color: rgba(251, 191, 36, 0.85);
-            --line-color: rgba(251, 191, 36, 0.55);
-            --cv-bg-modal: rgba(30, 16, 2, 0.98);
-            --cv-bg-form: rgba(45, 24, 2, 0.6);
-            --cv-bg-input: rgba(20, 10, 1, 0.9);
-            --cv-border-primary: rgba(251, 191, 36, 0.6);
-            --cv-text-primary: #fbbf24;
-            --cv-text-secondary: #fcd34d;
-            --cv-bg-history-item: rgba(20, 10, 1, 0.85);
+            --cv-bg-modal: rgba(30, 16, 2, 0.98) !important;
+            --cv-bg-form: rgba(45, 24, 2, 0.6) !important;
+            --cv-bg-input: rgba(20, 10, 1, 0.9) !important;
+            --cv-border-primary: rgba(251, 191, 36, 0.45) !important;
+            --cv-text-primary: #ffffff !important;
+            --cv-text-secondary: #fcd34d !important;
+            --cv-bg-history-item: rgba(20, 10, 1, 0.85) !important;
         }
 
         .cv-theme-crimson {
-            --body-bg: #26040c;
-            --bg-gradient: radial-gradient(circle at 50% 50%, #59091e 0%, #330511 65%, #170208 100%);
-            --active-font: 'Rajdhani', sans-serif;
-            --particle-color: rgba(244, 63, 94, 0.85);
-            --line-color: rgba(244, 63, 94, 0.55);
-            --cv-bg-modal: rgba(38, 4, 12, 0.98);
-            --cv-bg-form: rgba(56, 6, 18, 0.6);
-            --cv-bg-input: rgba(25, 2, 8, 0.9);
-            --cv-border-primary: rgba(244, 63, 94, 0.6);
-            --cv-text-primary: #fb7185;
-            --cv-text-secondary: #fda4af;
-            --cv-bg-history-item: rgba(25, 2, 8, 0.85);
+            --cv-bg-modal: rgba(38, 4, 12, 0.98) !important;
+            --cv-bg-form: rgba(56, 6, 18, 0.6) !important;
+            --cv-bg-input: rgba(25, 2, 8, 0.9) !important;
+            --cv-border-primary: rgba(244, 63, 94, 0.45) !important;
+            --cv-text-primary: #ffffff !important;
+            --cv-text-secondary: #fda4af !important;
+            --cv-bg-history-item: rgba(25, 2, 8, 0.85) !important;
         }
 
         .cv-theme-matrix {
-            --body-bg: #020f02;
-            --bg-gradient: radial-gradient(circle at 50% 50%, #063806 0%, #021f02 65%, #010a01 100%);
-            --active-font: 'Share Tech Mono', monospace;
-            --particle-color: rgba(74, 222, 128, 0.9);
-            --line-color: rgba(74, 222, 128, 0.6);
-            --cv-bg-modal: rgba(2, 15, 2, 0.98);
-            --cv-bg-form: rgba(4, 25, 4, 0.6);
-            --cv-bg-input: rgba(1, 10, 1, 0.9);
-            --cv-border-primary: rgba(74, 222, 128, 0.7);
-            --cv-text-primary: #4ade80;
-            --cv-text-secondary: #86efac;
-            --cv-bg-history-item: rgba(1, 10, 1, 0.85);
+            --cv-bg-modal: rgba(2, 15, 2, 0.98) !important;
+            --cv-bg-form: rgba(4, 25, 4, 0.6) !important;
+            --cv-bg-input: rgba(1, 10, 1, 0.9) !important;
+            --cv-border-primary: rgba(74, 222, 128, 0.5) !important;
+            --cv-text-primary: #4ade80 !important;
+            --cv-text-secondary: #86efac !important;
+            --cv-bg-history-item: rgba(1, 10, 1, 0.85) !important;
         }
 
         .cv-theme-sunset {
-            --body-bg: #230a19;
-            --bg-gradient: radial-gradient(circle at 50% 50%, #591741 0%, #330d25 65%, #170410 100%);
-            --active-font: 'Syncopate', sans-serif;
-            --particle-color: rgba(244, 114, 182, 0.85);
-            --line-color: rgba(244, 114, 182, 0.55);
-            --cv-bg-modal: rgba(35, 10, 25, 0.98);
-            --cv-bg-form: rgba(50, 15, 35, 0.6);
-            --cv-bg-input: rgba(20, 5, 15, 0.9);
-            --cv-border-primary: rgba(244, 114, 182, 0.6);
-            --cv-text-primary: #f472b6;
-            --cv-text-secondary: #f472b6;
-            --cv-bg-history-item: rgba(20, 5, 15, 0.85);
+            --cv-bg-modal: rgba(35, 10, 25, 0.98) !important;
+            --cv-bg-form: rgba(50, 15, 35, 0.6) !important;
+            --cv-bg-input: rgba(20, 5, 15, 0.9) !important;
+            --cv-border-primary: rgba(244, 114, 182, 0.45) !important;
+            --cv-text-primary: #ffffff !important;
+            --cv-text-secondary: #f472b6 !important;
+            --cv-bg-history-item: rgba(20, 5, 15, 0.85) !important;
         }
 
         .cv-theme-midnight {
-            --body-bg: #010205;
-            --bg-gradient: radial-gradient(circle at 50% 50%, #0a1124 0%, #040812 65%, #010205 100%);
-            --active-font: 'Plus Jakarta Sans', sans-serif;
-            --particle-color: rgba(56, 189, 248, 0.85);
-            --line-color: rgba(56, 189, 248, 0.55);
-            --cv-bg-modal: rgba(1, 2, 5, 0.98);
-            --cv-bg-form: rgba(3, 6, 15, 0.6);
-            --cv-bg-input: rgba(1, 2, 5, 0.9);
-            --cv-border-primary: rgba(56, 189, 248, 0.5);
-            --cv-text-primary: #38bdf8;
-            --cv-text-secondary: #94a3b8;
-            --cv-bg-history-item: rgba(1, 2, 5, 0.85);
+            --cv-bg-modal: rgba(1, 2, 5, 0.98) !important;
+            --cv-bg-form: rgba(3, 6, 15, 0.6) !important;
+            --cv-bg-input: rgba(1, 2, 5, 0.9) !important;
+            --cv-border-primary: rgba(56, 189, 248, 0.4) !important;
+            --cv-text-primary: #e2e8f0 !important;
+            --cv-text-secondary: #94a3b8 !important;
+            --cv-bg-history-item: rgba(1, 2, 5, 0.85) !important;
         }
 
         .cv-theme-cyberpunk {
-            --body-bg: #1a1a01;
-            --bg-gradient: radial-gradient(circle at 50% 50%, #474703 0%, #262602 65%, #0d0d00 100%);
-            --active-font: 'Orbitron', sans-serif;
-            --particle-color: rgba(250, 204, 21, 0.9);
-            --line-color: rgba(250, 204, 21, 0.6);
-            --cv-bg-modal: rgba(25, 25, 2, 0.98);
-            --cv-bg-form: rgba(40, 40, 3, 0.6);
-            --cv-bg-input: rgba(15, 15, 1, 0.9);
-            --cv-border-primary: rgba(250, 204, 21, 0.7);
-            --cv-text-primary: #facc15;
-            --cv-text-secondary: #fef08a;
-            --cv-bg-history-item: rgba(15, 15, 1, 0.85);
+            --cv-bg-modal: rgba(25, 25, 2, 0.98) !important;
+            --cv-bg-form: rgba(40, 40, 3, 0.6) !important;
+            --cv-bg-input: rgba(15, 15, 1, 0.9) !important;
+            --cv-border-primary: rgba(250, 204, 21, 0.6) !important;
+            --cv-text-primary: #facc15 !important;
+            --cv-text-secondary: #fef08a !important;
+            --cv-bg-history-item: rgba(15, 15, 1, 0.85) !important;
         }
 
         .cv-theme-ocean {
-            --body-bg: #021626;
-            --bg-gradient: radial-gradient(circle at 50% 50%, #053b63 0%, #022038 65%, #010d17 100%);
-            --active-font: 'Rajdhani', sans-serif;
-            --particle-color: rgba(14, 165, 233, 0.85);
-            --line-color: rgba(14, 165, 233, 0.55);
-            --cv-bg-modal: rgba(2, 22, 38, 0.98);
-            --cv-bg-form: rgba(3, 35, 58, 0.6);
-            --cv-bg-input: rgba(1, 15, 25, 0.9);
-            --cv-border-primary: rgba(14, 165, 233, 0.6);
-            --cv-text-primary: #38bdf8;
-            --cv-text-secondary: #38bdf8;
-            --cv-bg-history-item: rgba(1, 15, 25, 0.85);
+            --cv-bg-modal: rgba(2, 22, 38, 0.98) !important;
+            --cv-bg-form: rgba(3, 35, 58, 0.6) !important;
+            --cv-bg-input: rgba(1, 15, 25, 0.9) !important;
+            --cv-border-primary: rgba(14, 165, 233, 0.5) !important;
+            --cv-text-primary: #ffffff !important;
+            --cv-text-secondary: #38bdf8 !important;
+            --cv-bg-history-item: rgba(1, 15, 25, 0.85) !important;
         }
     </style>
 </head>
@@ -588,10 +520,10 @@
 </div>
 
 <div class="personal-modal-overlay" id="personalModalOverlay">
-    <div class="personal-modal-card" id="personalModalCard">
+    <div class="personal-modal-card">
         <div style="display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; width: 100%; flex-shrink: 0; padding: 2px 0;">
             <div></div>
-            <div style="font-size: 1.15rem; font-weight: 900; color: var(--cv-text-primary); letter-spacing: 1.5px; text-align: center;">PERSONAL DATA</div>
+            <div style="font-family: 'Orbitron', sans-serif; font-size: 1.15rem; font-weight: 900; color: #00f0ff; letter-spacing: 1.5px; text-align: center;">PERSONAL DATA</div>
             <div style="display: flex; justify-content: flex-end;">
                 <button type="button" class="close-personal-modal" id="closePersonalModalBtn" style="position: static;">✕</button>
             </div>
@@ -608,9 +540,9 @@
         </div>
 
         <div class="sub-account-modal" id="subAccountModal">
-            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--cv-border-primary); padding-bottom: 10px;">
-                <div id="subModalHeading" style="font-size: 1.05rem; font-weight: 900; color: var(--cv-text-primary); text-transform: uppercase;">EDIT AKUN</div>
-                <button type="button" id="closeSubModalBtn" style="background:none; border:none; color:var(--cv-text-primary); font-size:1.4rem; font-weight:900; cursor:pointer;">✕</button>
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,240,255,0.2); padding-bottom: 10px;">
+                <div id="subModalHeading" style="font-family: 'Orbitron', sans-serif; font-size: 1.05rem; font-weight: 900; color: #00f0ff; text-transform: uppercase;">EDIT AKUN</div>
+                <button type="button" id="closeSubModalBtn" style="background:none; border:none; color:#00f0ff; font-size:1.4rem; font-weight:900; cursor:pointer;">✕</button>
             </div>
             <form id="subAccountForm" style="display: flex; flex-direction: column; gap: 14px; flex-grow: 1; margin-top: 10px;">
                 <input type="hidden" id="subEditIndex">
@@ -619,8 +551,8 @@
                 <button type="submit" id="btnSaveSubAccount"><span id="btnSubText">Simpan</span></button>
                 <div class="form-group" style="margin-top: 4px;">
                     <div class="history-clickable-title-box" id="openAllHistoryBtn">
-                        <label style="font-size: 0.92rem; color: var(--cv-text-primary); font-weight: 800; margin: 0; cursor: pointer;">Aktivitas Riwayat Akun</label>
-                        <span style="color: var(--cv-text-primary); font-weight: 900; font-size: 1.1rem;">›</span>
+                        <label style="font-size: 0.92rem; color: #38bdf8; font-weight: 800; margin: 0; cursor: pointer;">Aktivitas Riwayat Akun</label>
+                        <span style="color: #00f0ff; font-weight: 900; font-size: 1.1rem;">›</span>
                     </div>
                     <div class="account-history-box" id="subAccountHistoryList"></div>
                 </div>
@@ -629,9 +561,9 @@
         </div>
 
         <div class="all-history-modal" id="allHistoryModal">
-            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--cv-border-primary); padding-bottom: 10px;">
-                <div style="font-size: 1.05rem; font-weight: 900; color: var(--cv-text-primary); text-transform: uppercase;">SEMUA RIWAYAT AKTIVITAS</div>
-                <button type="button" id="closeAllHistoryModalBtn" style="background:none; border:none; color:var(--cv-text-primary); font-size:1.4rem; font-weight:900; cursor:pointer;">✕</button>
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,240,255,0.2); padding-bottom: 10px;">
+                <div style="font-family: 'Orbitron', sans-serif; font-size: 1.05rem; font-weight: 900; color: #00f0ff; text-transform: uppercase;">SEMUA RIWAYAT AKTIVITAS</div>
+                <button type="button" id="closeAllHistoryModalBtn" style="background:none; border:none; color:#00f0ff; font-size:1.4rem; font-weight:900; cursor:pointer;">✕</button>
             </div>
             <div style="display: flex; flex-direction: column; gap: 10px; width: 100%; flex-grow: 1; overflow-y: auto; margin-top: 12px;" id="fullHistoryListContainer"></div>
         </div>
@@ -639,10 +571,10 @@
 </div>
 
 <div class="debt-modal-overlay" id="debtModalOverlay">
-    <div class="debt-modal-card" id="debtModalCard">
+    <div class="debt-modal-card">
         <div style="display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; width: 100%; flex-shrink: 0; padding: 2px 0;">
             <div></div>
-            <div style="font-size: 1.15rem; font-weight: 900; color: var(--cv-text-primary); letter-spacing: 1.5px; text-align: center;">DEBT TRACKER</div>
+            <div style="font-family: 'Orbitron', sans-serif; font-size: 1.15rem; font-weight: 900; color: #00f0ff; letter-spacing: 1.5px; text-align: center;">DEBT TRACKER</div>
             <div style="display: flex; justify-content: flex-end;">
                 <button type="button" class="close-debt-modal" id="closeDebtModalBtn" style="position: static;">✕</button>
             </div>
@@ -667,19 +599,19 @@
 </div>
 
 <div class="view-debt-overlay" id="viewDebtModal">
-    <div class="view-debt-card" id="viewDebtCard">
+    <div class="view-debt-card">
         <div style="display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; width: 100%; flex-shrink: 0; padding: 2px 0;">
             <div></div>
-            <div style="font-size: 1.15rem; font-weight: 900; color: var(--cv-text-primary); letter-spacing: 1.5px; text-align: center;">DETAIL HUTANG</div>
+            <div style="font-family: 'Orbitron', sans-serif; font-size: 1.15rem; font-weight: 900; color: #00f0ff; letter-spacing: 1.5px; text-align: center;">DETAIL HUTANG</div>
             <div style="display: flex; justify-content: flex-end;">
                 <button type="button" class="close-view-debt" id="closeViewDebtModalBtn" style="position: static;">✕</button>
             </div>
         </div>
 
         <div style="display: flex; flex-direction: column; width: 100%; flex-grow: 1; overflow-y: auto; text-align: left; gap: 14px; margin-top: 10px; padding-bottom: 20px;">
-            <div style="background: var(--cv-bg-form); border: 1.5px solid var(--cv-border-primary); border-radius: 14px; padding: 14px; width: 100%;">
-                <span style="font-size: 0.78rem; font-weight: 800; color: var(--cv-text-secondary); text-transform: uppercase;">Pemberi Hutang / Keterangan</span>
-                <div id="viewDebtName" style="font-size: 1.15rem; font-weight: 900; color: var(--cv-text-primary); margin-top: 4px;">-</div>
+            <div style="background: rgba(0, 240, 255, 0.05); border: 1.5px solid rgba(0, 240, 255, 0.3); border-radius: 14px; padding: 14px; width: 100%;">
+                <span style="font-size: 0.78rem; font-weight: 800; color: #7dd3fc; text-transform: uppercase;">Pemberi Hutang / Keterangan</span>
+                <div id="viewDebtName" style="font-size: 1.15rem; font-weight: 900; color: #fff; margin-top: 4px;">-</div>
             </div>
 
             <div class="card-hero" style="background: rgba(244, 63, 94, 0.15); border-color: rgba(244, 63, 94, 0.5); padding: 16px 14px; text-align: center;">
@@ -687,13 +619,13 @@
                 <p id="viewDebtTotal" style="color: #fb7185; font-size: 1.8rem; font-weight: 900;">Rp 0</p>
             </div>
 
-            <div class="form-group" style="background: var(--cv-bg-form); border: 1.5px solid var(--cv-border-primary); border-radius: 14px; padding: 14px; gap: 8px;">
+            <div class="form-group" style="background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.4); border-radius: 14px; padding: 14px; gap: 8px;">
                 <label style="font-size: 0.88rem; color: #34d399;">Jumlah Hutang Yang Di Bayar (Rp)</label>
                 <input type="text" id="viewDebtPayInput" placeholder="Contoh: 50.000" inputmode="numeric" style="padding: 12px 14px; font-size: 1.05rem;">
             </div>
 
-            <div class="form-group" style="background: var(--cv-bg-form); border: 1.5px solid var(--cv-border-primary); border-radius: 14px; padding: 14px; gap: 8px;">
-                <label style="font-size: 0.88rem; color: var(--cv-text-primary);">Status Pembayaran Hutang</label>
+            <div class="form-group" style="background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.4); border-radius: 14px; padding: 14px; gap: 8px;">
+                <label style="font-size: 0.88rem; color: #00f0ff;">Status Pembayaran Hutang</label>
                 <div class="custom-select-box selected" id="btnSelectPaymentStatus" style="font-size: 1rem; padding: 12px 14px;">-- Pilih Status Pembayaran --</div>
                 <input type="hidden" id="paymentStatusValue">
             </div>
@@ -703,8 +635,8 @@
                 <p id="viewDebtRemaining" style="color: #fbbf24; font-size: 1.4rem; font-weight: 900;">Rp 0</p>
             </div>
 
-            <div class="form-group" style="background: var(--cv-bg-form); border: 1.5px solid var(--cv-border-primary); border-radius: 14px; padding: 14px; gap: 8px;">
-                <label style="font-size: 0.88rem; color: var(--cv-text-secondary);">Riwayat Pembayaran / Cicilan</label>
+            <div class="form-group" style="background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.4); border-radius: 14px; padding: 14px; gap: 8px;">
+                <label style="font-size: 0.88rem; color: #38bdf8;">Riwayat Pembayaran / Cicilan</label>
                 <div class="account-history-box" id="debtPaymentHistoryList" style="max-height: 120px;">
                     <div style="font-size: 0.8rem; color: #64748b; font-style: italic; text-align: center;">Belum ada riwayat pembayaran.</div>
                 </div>
@@ -713,7 +645,7 @@
 
         <div style="display: flex; gap: 10px; width: 100%; flex-shrink: 0; padding-top: 10px;">
             <button type="button" id="btnDeleteDebtItemFromView" style="background: rgba(244, 63, 94, 0.2); border: 1.5px solid rgba(244, 63, 94, 0.6); color: #fb7185; flex: 1; padding: 14px; border-radius: 12px; font-weight: 800; cursor:pointer;">Hapus</button>
-            <button type="button" id="btnSaveDebtPayment" style="background: var(--cv-bg-form); border: 1.5px solid var(--cv-border-primary); color: var(--cv-text-primary); flex: 2; padding: 14px; border-radius: 12px; font-weight: 900; cursor:pointer;">Simpan Pembayaran</button>
+            <button type="button" id="btnSaveDebtPayment" style="background: linear-gradient(135deg, #00f0ff 0%, #0077ff 100%); border: none; color: #020714; flex: 2; padding: 14px; border-radius: 12px; font-weight: 900; cursor:pointer;">Simpan Pembayaran</button>
         </div>
     </div>
 </div>
@@ -721,8 +653,8 @@
 <div class="edit-debt-overlay" id="editDebtModal">
     <div class="popup-box" style="max-width: 360px; text-align: left; align-items: stretch; gap: 14px;">
         <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div style="font-size: 1.1rem; font-weight: 900; color: var(--cv-text-primary);" id="editDebtModalTitle">TAMBAH HUTANG</div>
-            <button type="button" id="closeEditDebtModalBtn" style="background:none; border:none; color:var(--cv-text-secondary); font-size:1.5rem; cursor:pointer;">✕</button>
+            <div style="font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 900; color: #00f0ff;" id="editDebtModalTitle">TAMBAH HUTANG</div>
+            <button type="button" id="closeEditDebtModalBtn" style="background:none; border:none; color:#94a3b8; font-size:1.5rem; cursor:pointer;">✕</button>
         </div>
         <input type="hidden" id="editDebtIndex">
         <div class="form-group">
@@ -739,7 +671,7 @@
         </div>
         <div style="display: flex; gap: 10px; margin-top: 4px;" id="debtActionButtonsRow">
             <button type="button" id="btnDeleteDebtItem" style="background: rgba(244, 63, 94, 0.2); border: 1.5px solid rgba(244, 63, 94, 0.6); color: #fb7185; flex: 1; padding: 14px; border-radius: 12px; font-weight: 800; cursor:pointer; display:none;">Hapus</button>
-            <button type="button" id="btnSaveDebtItem" style="background: var(--cv-bg-form); border: 1.5px solid var(--cv-border-primary); color: var(--cv-text-primary); flex: 2; padding: 14px; border-radius: 12px; font-weight: 900; cursor:pointer;">Simpan</button>
+            <button type="button" id="btnSaveDebtItem" style="background: linear-gradient(135deg, #00f0ff 0%, #0077ff 100%); border: none; color: #020714; flex: 2; padding: 14px; border-radius: 12px; font-weight: 900; cursor:pointer;">Simpan</button>
         </div>
     </div>
 </div>
@@ -749,15 +681,15 @@
         <div class="popup-title" style="font-size: 1.2rem; margin-bottom: 16px;">STATUS PEMBAYARAN</div>
         <button type="button" class="custom-option-btn" onclick="selectPaymentStatus('cicil', '💳 CICIL (Sebagian)')">💳 CICIL (Sebagian)</button>
         <button type="button" class="custom-option-btn" style="margin-top: 10px; color: #34d399; border-color: rgba(16,185,129,0.5);" onclick="selectPaymentStatus('lunas', '✅ LUNAS (Bayar Semua Sisa)')">✅ LUNAS (Bayar Semua Sisa)</button>
-        <button type="button" class="popup-btn" style="margin-top: 20px; background: transparent; border: 1px solid var(--cv-border-primary); color: var(--cv-text-primary); padding: 12px; box-shadow: none;" onclick="document.getElementById('modalSelectPaymentStatus').classList.remove('active')">Batal</button>
+        <button type="button" class="popup-btn" style="margin-top: 20px; background: transparent; border: 1px solid #00f0ff; color: #00f0ff; padding: 12px; box-shadow: none;" onclick="document.getElementById('modalSelectPaymentStatus').classList.remove('active')">Batal</button>
     </div>
 </div>
 
 <div class="popup-overlay" id="deleteAccountPinModal">
     <div class="popup-box" style="max-width: 340px; text-align: center; gap: 16px; border-color: rgba(244, 63, 94, 0.7); box-shadow: 0 0 40px rgba(244, 63, 94, 0.4);">
         <div style="width: 54px; height: 54px; border-radius: 50%; background: rgba(244, 63, 94, 0.15); border: 2px solid #f43f5e; color: #fb7185; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin: 0 auto;">🔒</div>
-        <div style="font-size: 1.1rem; font-weight: 900; color: var(--cv-text-primary);">VERIFIKASI PIN</div>
-        <div style="font-size: 0.88rem; color: var(--cv-text-secondary);">Masukkan 6-Digit PIN Akses untuk konfirmasi hapus akun:</div>
+        <div style="font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 900; color: #fff;">VERIFIKASI PIN</div>
+        <div style="font-size: 0.88rem; color: #a5f3fc;">Masukkan 6-Digit PIN Akses untuk konfirmasi hapus akun:</div>
         <div class="pin-inputs-container" id="deletePinInputsContainer" style="margin: 4px 0;">
             <div class="pin-box active" data-del-index="0"></div><div class="pin-box" data-del-index="1"></div>
             <div class="pin-box" data-del-index="2"></div><div class="pin-box" data-del-index="3"></div>
@@ -770,31 +702,31 @@
             <button type="button" class="keypad-btn" onclick="pressDelKey('7')">7</button><button type="button" class="keypad-btn" onclick="pressDelKey('8')">8</button><button type="button" class="keypad-btn" onclick="pressDelKey('9')">9</button>
             <button type="button" class="keypad-btn action-btn" onclick="clearDelPin()">C</button><button type="button" class="keypad-btn" onclick="pressDelKey('0')">0</button><button type="button" class="keypad-btn action-btn" onclick="deleteDelPin()">⌫</button>
         </div>
-        <button type="button" id="cancelDeletePinBtn" style="background: var(--cv-bg-form); border: 1.5px solid var(--cv-border-primary); color: var(--cv-text-primary); width: 100%; padding: 12px; border-radius: 12px; font-weight: 800; cursor: pointer; margin-top: 4px;">Batal</button>
+        <button type="button" id="cancelDeletePinBtn" style="background: rgba(0, 240, 255, 0.1); border: 1.5px solid rgba(0, 240, 255, 0.4); color: #00f0ff; width: 100%; padding: 12px; border-radius: 12px; font-weight: 800; cursor: pointer; margin-top: 4px;">Batal</button>
     </div>
 </div>
 
 <div class="popup-overlay" id="editHistoryItemModal">
     <div class="popup-box" style="max-width: 365px; text-align: left; align-items: stretch; gap: 16px;">
         <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div style="font-size: 1.1rem; font-weight: 900; color: var(--cv-text-primary);">EDIT RIWAYAT AKTIVITAS</div>
-            <button type="button" id="closeEditHistoryModalBtn" style="background:none; border:none; color:var(--cv-text-secondary); font-size:1.5rem; cursor:pointer;">✕</button>
+            <div style="font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 900; color: #00f0ff;">EDIT RIWAYAT AKTIVITAS</div>
+            <button type="button" id="closeEditHistoryModalBtn" style="background:none; border:none; color:#94a3b8; font-size:1.5rem; cursor:pointer;">✕</button>
         </div>
         <input type="hidden" id="editHistoryAccIndex"><input type="hidden" id="editHistoryItemIndex">
         <div class="form-group"><label>Username / Email</label><input type="text" id="modalHistoryUsername"></div>
         <div class="form-group"><label>Password / Kata Sandi</label><input type="text" id="modalHistoryPassword"></div>
         <div style="display: flex; gap: 10px; margin-top: 6px; width: 100%;">
             <button type="button" id="btnDeleteHistoryItem" style="background: rgba(244, 63, 94, 0.2); border: 1.5px solid rgba(244, 63, 94, 0.6); color: #fb7185; flex: 1; padding: 14px; border-radius: 12px; font-weight: 800; cursor:pointer;">Hapus</button>
-            <button type="button" id="btnSaveHistoryItem" style="background: var(--cv-bg-form); border: 1.5px solid var(--cv-border-primary); color: var(--cv-text-primary); flex: 2; padding: 14px; border-radius: 12px; font-weight: 900; cursor:pointer;">Simpan</button>
+            <button type="button" id="btnSaveHistoryItem" style="background: linear-gradient(135deg, #00f0ff 0%, #0077ff 100%); border: none; color: #020714; flex: 2; padding: 14px; border-radius: 12px; font-weight: 900; cursor:pointer;">Simpan</button>
         </div>
     </div>
 </div>
 
 <div class="music-modal-overlay" id="musicModalOverlay">
-    <div class="music-modal-card" id="musicModalCard">
+    <div class="music-modal-card">
         <div style="display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; width: 100%; flex-shrink: 0; padding: 2px 0;">
             <div></div>
-            <div style="font-size: 1.05rem; font-weight: 900; color: var(--cv-text-primary); letter-spacing: 1.5px; text-align: center;">CYBER AUDIO PLAYER</div>
+            <div style="font-family: 'Orbitron', sans-serif; font-size: 1.05rem; font-weight: 900; color: #00f0ff; letter-spacing: 1.5px; text-align: center;">CYBER AUDIO PLAYER</div>
             <div style="display: flex; justify-content: flex-end;"><button type="button" class="close-music-modal" id="closeMusicModalBtn" style="position: static;">✕</button></div>
         </div>
         <div class="audio-stabilizer-container" id="audioStabilizerBox">
@@ -816,7 +748,7 @@
             <button type="button" class="ctrl-btn small" id="nextTrackBtn" title="Next"><svg class="cyber-icon" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12h2V6h-2z"/></svg></button>
         </div>
         <div style="display: flex; gap: 8px; width: 100%;">
-            <button type="button" id="modalUploadBtn" style="flex: 2; padding: 12px; font-size: 0.9rem; font-weight: 800; border-radius: 12px; background: var(--cv-bg-form); border: 1px solid var(--cv-border-primary); color: var(--cv-text-primary); cursor: pointer;">Add music</button>
+            <button type="button" id="modalUploadBtn" style="flex: 2; padding: 12px; font-size: 0.9rem; font-weight: 800; border-radius: 12px; background: linear-gradient(135deg, rgba(0,240,255,0.25), rgba(0,119,255,0.25)); border: 1px solid rgba(0,240,255,0.6); color: #00f0ff; cursor: pointer;">Add music</button>
             <button type="button" id="btnExportMusic" style="flex: 1; padding: 12px; font-size: 0.78rem; font-weight: 800; border-radius: 12px; background: rgba(16,185,129,0.2); border: 1px solid rgba(16,185,129,0.6); color: #34d399; cursor: pointer;">Backup Musik</button>
             <button type="button" id="btnImportMusic" style="flex: 1; padding: 12px; font-size: 0.78rem; font-weight: 800; border-radius: 12px; background: rgba(245,158,11,0.2); border: 1px solid rgba(245,158,11,0.6); color: #fbbf24; cursor: pointer;">Pulihkan Musik</button>
             <input type="file" id="audioFileInput" accept="audio/*" multiple style="display: none;">
@@ -830,7 +762,7 @@
     <div class="cyber-modal-card" id="cyberModalCard">
         <div style="display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; width: 100%; flex-shrink: 0; padding: 2px 0;">
             <div></div>
-            <div style="font-size: 1.05rem; font-weight: 900; color: var(--cv-text-primary); letter-spacing: 1.5px; text-align: center;">CYBER VAULT SYSTEM</div>
+            <div style="font-family: 'Orbitron', sans-serif; font-size: 1.05rem; font-weight: 900; color: #00f0ff; letter-spacing: 1.5px; text-align: center;">CYBER VAULT SYSTEM</div>
             <div style="display: flex; justify-content: flex-end;"><button type="button" class="close-cyber-modal" id="closeCyberModalBtn" style="position: static;">✕</button></div>
         </div>
 
@@ -847,7 +779,7 @@
             </div>
 
             <div style="display: flex; justify-content: center; gap: 10px; width: 100%; margin: 4px 0 12px 0;">
-                <button type="button" id="btnOpenThemeModal" style="background: var(--cv-bg-form); border: 1px solid var(--cv-border-primary); color: var(--cv-text-primary); border-radius: 20px; padding: 8px 22px; font-size: 0.85rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px var(--cv-border-primary); letter-spacing: 1px; width: 100%;">
+                <button type="button" id="btnOpenThemeModal" style="background: rgba(0, 240, 255, 0.12); border: 1px solid rgba(0, 240, 255, 0.5); color: #00f0ff; border-radius: 20px; padding: 8px 22px; font-size: 0.85rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(0,240,255,0.25); letter-spacing: 1px; width: 100%;">
                     Custom Theme
                 </button>
             </div>
@@ -861,8 +793,8 @@
                 </div>
 
                 <div class="sub-dashboard">
-                    <div class="card-sub card-sub pemasukan"><h4>PEMASUKAN</h4><p id="totalPemasukan">Rp 0</p></div>
-                    <div class="card-sub card-sub pengeluaran"><h4>PENGELUARAN</h4><p id="totalPengeluaran">Rp 0</p></div>
+                    <div class="card-sub pemasukan"><h4>PEMASUKAN</h4><p id="totalPemasukan">Rp 0</p></div>
+                    <div class="card-sub pengeluaran"><h4>PENGELUARAN</h4><p id="totalPengeluaran">Rp 0</p></div>
                 </div>
             </div>
 
@@ -945,32 +877,32 @@
 <div class="popup-overlay" id="themeModalOverlay">
     <div class="popup-box theme-modal-box" style="max-width: 360px; padding: 22px; max-height: 90vh; overflow-y: auto;">
         <div class="popup-title" style="font-size: 1.15rem; margin-bottom: 12px;">Custom Theme</div>
-        <div style="font-size: 0.82rem; color: var(--cv-text-secondary); margin-bottom: 14px;" id="themeModalDesc">Pilih tema eksklusif dengan font & latar belakang unik:</div>
+        <div style="font-size: 0.82rem; color: #a5f3fc; margin-bottom: 14px;" id="themeModalDesc">Pilih tema futuristik eksklusif pilihan Anda:</div>
         
         <div style="display: flex; flex-direction: column; gap: 8px; width: 100%;">
             <button type="button" class="custom-option-btn theme-btn" data-theme="default" style="border-color: #00f0ff; color: #00f0ff; font-size: 0.9rem; padding: 11px;">🌐 Cyber Blue (Default)</button>
-            <button type="button" class="custom-option-btn theme-btn" data-theme="light" style="border-color: #cbd5e1; color: #1e293b; background: #ffffff; font-size: 0.9rem; padding: 11px;">☀️ Clean Light (Jakarta Sans)</button>
-            <button type="button" class="custom-option-btn theme-btn" data-theme="emerald" style="border-color: #10b981; color: #34d399; font-size: 0.9rem; padding: 11px;">💎 Emerald Neon (Chakra Petch)</button>
-            <button type="button" class="custom-option-btn theme-btn" data-theme="purple" style="border-color: #c084fc; color: #c084fc; font-size: 0.9rem; padding: 11px;">🔮 Cosmic Purple (Audiowide)</button>
-            <button type="button" class="custom-option-btn theme-btn" data-theme="amber" style="border-color: #fbbf24; color: #fbbf24; font-size: 0.9rem; padding: 11px;">⚡ Amber Gold (Cinzel)</button>
-            <button type="button" class="custom-option-btn theme-btn" data-theme="crimson" style="border-color: #f43f5e; color: #fb7185; font-size: 0.9rem; padding: 11px;">🔥 Crimson Red (Rajdhani)</button>
-            <button type="button" class="custom-option-btn theme-btn" data-theme="matrix" style="border-color: #4ade80; color: #4ade80; font-size: 0.9rem; padding: 11px;">💻 Matrix Green (Share Tech Mono)</button>
-            <button type="button" class="custom-option-btn theme-btn" data-theme="sunset" style="border-color: #f472b6; color: #f472b6; font-size: 0.9rem; padding: 11px;">🌅 Neon Sunset (Syncopate)</button>
-            <button type="button" class="custom-option-btn theme-btn" data-theme="midnight" style="border-color: #38bdf8; color: #38bdf8; font-size: 0.9rem; padding: 11px;">🌙 Midnight Obsidian (Sans)</button>
-            <button type="button" class="custom-option-btn theme-btn" data-theme="cyberpunk" style="border-color: #facc15; color: #facc15; font-size: 0.9rem; padding: 11px;">⚡ Cyberpunk 2077 (Orbitron)</button>
-            <button type="button" class="custom-option-btn theme-btn" data-theme="ocean" style="border-color: #0ea5e9; color: #38bdf8; font-size: 0.9rem; padding: 11px;">🌊 Deep Ocean (Rajdhani)</button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="light" style="border-color: #cbd5e1; color: #1e293b; background: #ffffff; font-size: 0.9rem; padding: 11px;">☀️ Clean Light Mode</button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="emerald" style="border-color: #10b981; color: #34d399; font-size: 0.9rem; padding: 11px;">💎 Emerald Neon (Green)</button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="purple" style="border-color: #c084fc; color: #c084fc; font-size: 0.9rem; padding: 11px;">🔮 Cosmic Purple (Violet)</button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="amber" style="border-color: #fbbf24; color: #fbbf24; font-size: 0.9rem; padding: 11px;">⚡ Amber Gold (Yellow)</button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="crimson" style="border-color: #f43f5e; color: #fb7185; font-size: 0.9rem; padding: 11px;">🔥 Crimson Red (Ruby)</button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="matrix" style="border-color: #4ade80; color: #4ade80; font-size: 0.9rem; padding: 11px;">💻 Matrix Green (Terminal)</button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="sunset" style="border-color: #f472b6; color: #f472b6; font-size: 0.9rem; padding: 11px;">🌅 Neon Sunset (Pink)</button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="midnight" style="border-color: #38bdf8; color: #38bdf8; font-size: 0.9rem; padding: 11px;">🌙 Midnight Obsidian (Dark)</button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="cyberpunk" style="border-color: #facc15; color: #facc15; font-size: 0.9rem; padding: 11px;">⚡ Cyberpunk 2077 (Gold)</button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="ocean" style="border-color: #0ea5e9; color: #38bdf8; font-size: 0.9rem; padding: 11px;">🌊 Deep Ocean (Blue)</button>
         </div>
 
-        <button type="button" class="popup-btn theme-close-btn" style="margin-top: 16px; background: transparent; border: 1px solid var(--cv-border-primary); color: var(--cv-text-primary); padding: 10px; box-shadow: none;" id="closeThemeModalBtn">Tutup</button>
+        <button type="button" class="popup-btn theme-close-btn" style="margin-top: 16px; background: transparent; border: 1px solid #94a3b8; color: #94a3b8; padding: 10px; box-shadow: none;" id="closeThemeModalBtn">Tutup</button>
     </div>
 </div>
 
 <div class="popup-overlay" id="monthlyHistoryModalOverlay">
     <div class="popup-box monthly-modal-box" style="max-width: 400px; width: 100%; max-height: 90vh; padding: 20px; display: flex; flex-direction: column; align-items: stretch; text-align: left; gap: 12px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid var(--cv-border-primary); padding-bottom: 12px; flex-shrink: 0;">
-            <button type="button" id="btnBackMonthly" style="display: none; background:none; border:none; color:var(--cv-text-primary); font-size:1.8rem; line-height: 1; cursor:pointer; padding-right: 10px;">←</button>
-            <div id="monthlyModalTitle" style="font-size: 1.15rem; font-weight: 900; color: var(--cv-text-primary); text-align: center; flex-grow: 1;">REKAP BULANAN</div>
-            <button type="button" id="closeMonthlyModalBtn" style="background:none; border:none; color:var(--cv-text-secondary); font-size:1.5rem; cursor:pointer; padding-left: 10px;">✕</button>
+        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid rgba(0,240,255,0.2); padding-bottom: 12px; flex-shrink: 0;">
+            <button type="button" id="btnBackMonthly" style="display: none; background:none; border:none; color:#00f0ff; font-size:1.8rem; line-height: 1; cursor:pointer; padding-right: 10px;">←</button>
+            <div id="monthlyModalTitle" style="font-family: 'Orbitron', sans-serif; font-size: 1.15rem; font-weight: 900; color: #00f0ff; text-align: center; flex-grow: 1;">REKAP BULANAN</div>
+            <button type="button" id="closeMonthlyModalBtn" style="background:none; border:none; color:#94a3b8; font-size:1.5rem; cursor:pointer; padding-left: 10px;">✕</button>
         </div>
         <div id="monthlyListContainer" style="display: flex; flex-direction: column; gap: 10px; overflow-y: auto; flex-grow: 1; padding: 4px 0;"></div>
         <div id="monthlyDetailContainer" style="display: none; flex-direction: column; gap: 12px; overflow-y: auto; flex-grow: 1; padding: 4px 0;">
@@ -991,9 +923,9 @@
 
 <div class="popup-overlay" id="detailTransactionModal">
     <div class="popup-box" style="max-width: 380px; text-align: left; align-items: stretch; gap: 0; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; padding: 18px 20px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 14px; border-bottom: 1.5px solid var(--cv-border-primary); flex-shrink: 0; background: var(--cv-bg-modal);">
-            <div style="font-size: 1.15rem; font-weight: 900; color: var(--cv-text-primary);">DETAIL TRANSAKSI</div>
-            <button type="button" id="closeDetailModalBtn" style="background:none; border:none; color:var(--cv-text-secondary); font-size:1.5rem; cursor:pointer; padding: 4px; line-height: 1;">✕</button>
+        <div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 14px; border-bottom: 1.5px solid rgba(0,240,255,0.25); flex-shrink: 0; background: var(--cv-bg-modal);">
+            <div style="font-family: 'Orbitron', sans-serif; font-size: 1.15rem; font-weight: 900; color: #00f0ff;">DETAIL TRANSAKSI</div>
+            <button type="button" id="closeDetailModalBtn" style="background:none; border:none; color:#94a3b8; font-size:1.5rem; cursor:pointer; padding: 4px; line-height: 1;">✕</button>
         </div>
         <div style="overflow-y: auto; flex-grow: 1; padding-top: 14px; padding-bottom: 10px; display: flex; flex-direction: column; gap: 16px;">
             <input type="hidden" id="editTxId">
@@ -1018,7 +950,7 @@
             <div class="form-group"><label>Metode Pembayaran</label><div class="custom-select-box selected" id="btnEditSelectMethod">-- Pilih Metode --</div><input type="hidden" id="editMethod"></div>
             <div style="display: flex; gap: 10px; margin-top: 6px; width: 100%;">
                 <button type="button" id="btnDeleteTransaction" style="background: rgba(244, 63, 94, 0.2); border: 1.5px solid rgba(244, 63, 94, 0.6); color: #fb7185; flex: 1; padding: 14px; border-radius: 12px; font-weight: 800; cursor:pointer;">Hapus</button>
-                <button type="button" id="btnUpdateTransaction" style="background: var(--cv-bg-form); border: 1.5px solid var(--cv-border-primary); color: var(--cv-text-primary); flex: 2; padding: 14px; border-radius: 12px; font-weight: 900; cursor:pointer;">Simpan Perubahan</button>
+                <button type="button" id="btnUpdateTransaction" style="background: linear-gradient(135deg, #00f0ff 0%, #0077ff 100%); border: none; color: #020714; flex: 2; padding: 14px; border-radius: 12px; font-weight: 900; cursor:pointer;">Simpan Perubahan</button>
             </div>
         </div>
     </div>
@@ -1026,8 +958,8 @@
 
 <div class="popup-overlay" id="imageLightboxModal" style="background: rgba(2, 7, 20, 0.95); z-index: 9999999999;">
     <div style="position: relative; max-width: 92vw; max-height: 92vh; display: flex; flex-direction: column; align-items: center;">
-        <button type="button" id="closeLightboxBtn" style="position: absolute; top: -45px; right: 0; background: var(--cv-bg-form); border: 1.5px solid var(--cv-border-primary); color: var(--cv-text-primary); width: 38px; height: 38px; border-radius: 50%; font-size: 1.2rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center;">✕</button>
-        <img id="lightboxImage" src="" style="width: 100%; max-height: 85vh; object-fit: contain; border-radius: 14px; border: 2px solid var(--cv-border-primary); background: #020714;" alt="Bukti Full">
+        <button type="button" id="closeLightboxBtn" style="position: absolute; top: -45px; right: 0; background: rgba(0, 240, 255, 0.2); border: 1.5px solid #00f0ff; color: #00f0ff; width: 38px; height: 38px; border-radius: 50%; font-size: 1.2rem; font-weight: 900; cursor: pointer; display: flex; align-items: center; justify-content: center;">✕</button>
+        <img id="lightboxImage" src="" style="width: 100%; max-height: 85vh; object-fit: contain; border-radius: 14px; border: 2px solid rgba(0, 240, 255, 0.6); background: #020714;" alt="Bukti Full">
     </div>
 </div>
 
@@ -1062,10 +994,10 @@
 <div class="popup-overlay" id="cyberConfirmModal">
     <div class="popup-box" style="max-width: 350px; text-align: center; gap: 16px; border-color: rgba(244, 63, 94, 0.7);">
         <div style="width: 54px; height: 54px; border-radius: 50%; background: rgba(244, 63, 94, 0.15); border: 2px solid #f43f5e; color: #fb7185; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin: 0 auto;">⚠️</div>
-        <div style="font-size: 1.1rem; font-weight: 900; color: var(--cv-text-primary);">KONFIRMASI</div>
-        <div id="cyberConfirmMessage" style="font-size: 0.95rem; color: var(--cv-text-secondary); line-height: 1.5;">Apakah Anda yakin ingin menghapus transaksi ini?</div>
+        <div style="font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 900; color: #fff;">KONFIRMASI</div>
+        <div id="cyberConfirmMessage" style="font-size: 0.95rem; color: #a5f3fc; line-height: 1.5;">Apakah Anda yakin ingin menghapus transaksi ini?</div>
         <div style="display: flex; gap: 10px; width: 100%; margin-top: 6px;">
-            <button type="button" id="cyberConfirmCancelBtn" style="background: var(--cv-bg-form); border: 1.5px solid var(--cv-border-primary); color: var(--cv-text-primary); flex: 1; padding: 14px; border-radius: 12px; font-weight: 800; cursor: pointer;">Batal</button>
+            <button type="button" id="cyberConfirmCancelBtn" style="background: rgba(0, 240, 255, 0.1); border: 1.5px solid rgba(0, 240, 255, 0.4); color: #00f0ff; flex: 1; padding: 14px; border-radius: 12px; font-weight: 800; cursor: pointer;">Batal</button>
             <button type="button" id="cyberConfirmOkBtn" style="background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%); border: none; color: #fff; flex: 1; padding: 14px; border-radius: 12px; font-weight: 900; cursor: pointer;">Hapus</button>
         </div>
     </div>
@@ -1073,11 +1005,11 @@
 
 <div class="popup-overlay" id="newPlatformModal">
     <div class="popup-box" style="max-width: 360px; text-align: left; align-items: stretch; gap: 16px;">
-        <div style="font-size: 1.1rem; font-weight: 900; color: var(--cv-text-primary); text-align: center;">TAMBAH PLATFORM BARU</div>
+        <div style="font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 900; color: #00f0ff; text-align: center;">TAMBAH PLATFORM BARU</div>
         <div class="form-group"><label>Nama Platform / Judul Akun</label><input type="text" id="newPlatformInput" placeholder="Misal: Twitter, Facebook, Netflix"></div>
         <div style="display: flex; gap: 10px; margin-top: 6px; width: 100%;">
             <button type="button" id="cancelNewPlatformBtn" style="background: rgba(244, 63, 94, 0.2); border: 1.5px solid rgba(244, 63, 94, 0.6); color: #fb7185; flex: 1; padding: 14px; border-radius: 12px; font-weight: 800; cursor:pointer;">Batal</button>
-            <button type="button" id="saveNewPlatformBtn" style="background: var(--cv-bg-form); border: 1.5px solid var(--cv-border-primary); color: var(--cv-text-primary); flex: 2; padding: 14px; border-radius: 12px; font-weight: 900; cursor:pointer;">Tambah</button>
+            <button type="button" id="saveNewPlatformBtn" style="background: linear-gradient(135deg, #00f0ff 0%, #0077ff 100%); border: none; color: #020714; flex: 2; padding: 14px; border-radius: 12px; font-weight: 900; cursor:pointer;">Tambah</button>
         </div>
     </div>
 </div>
@@ -1088,7 +1020,7 @@
         <button type="button" class="custom-option-btn" onclick="selectType('in', '🟩 PEMASUKAN (+)')">🟩 PEMASUKAN (+)</button>
         <button type="button" class="custom-option-btn" style="margin-top: 10px;" onclick="selectType('out', '🟥 PENGELUARAN (-)')">🟥 PENGELUARAN (-)</button>
         <button type="button" class="custom-option-btn" style="margin-top: 10px; color: #fbbf24; border-color: rgba(251,191,36,0.5);" onclick="selectType('refund', '🟨 PENGEMBALIAN DANA')">🟨 PENGEMBALIAN DANA</button>
-        <button type="button" class="popup-btn" style="margin-top: 20px; background: transparent; border: 1px solid var(--cv-border-primary); color: var(--cv-text-primary); padding: 12px; box-shadow: none;" onclick="document.getElementById('modalSelectType').classList.remove('active')">Batal</button>
+        <button type="button" class="popup-btn" style="margin-top: 20px; background: transparent; border: 1px solid #00f0ff; color: #00f0ff; padding: 12px; box-shadow: none;" onclick="document.getElementById('modalSelectType').classList.remove('active')">Batal</button>
     </div>
 </div>
 
@@ -1098,7 +1030,7 @@
         <button type="button" class="custom-option-btn" onclick="selectEditType('in', '🟩 PEMASUKAN (+)')">🟩 PEMASUKAN (+)</button>
         <button type="button" class="custom-option-btn" style="margin-top: 10px;" onclick="selectEditType('out', '🟥 PENGELUARAN (-)')">🟥 PENGELUARAN (-)</button>
         <button type="button" class="custom-option-btn" style="margin-top: 10px; color: #fbbf24; border-color: rgba(251,191,36,0.5);" onclick="selectEditType('refund', '🟨 PENGEMBALIAN DANA')">🟨 PENGEMBALIAN DANA</button>
-        <button type="button" class="popup-btn" style="margin-top: 20px; background: transparent; border: 1px solid var(--cv-border-primary); color: var(--cv-text-primary); padding: 12px; box-shadow: none;" onclick="document.getElementById('modalEditSelectType').classList.remove('active')">Batal</button>
+        <button type="button" class="popup-btn" style="margin-top: 20px; background: transparent; border: 1px solid #00f0ff; color: #00f0ff; padding: 12px; box-shadow: none;" onclick="document.getElementById('modalEditSelectType').classList.remove('active')">Batal</button>
     </div>
 </div>
 
@@ -1108,7 +1040,7 @@
         <button type="button" class="custom-option-btn" onclick="selectMethod('CASH', '💵 CASH (Tunai)')">💵 CASH (Tunai)</button>
         <button type="button" class="custom-option-btn" style="margin-top: 10px;" onclick="selectMethod('TRANSFER', '🏦 TRANSFER BANK')">🏦 TRANSFER BANK</button>
         <button type="button" class="custom-option-btn" style="margin-top: 10px;" onclick="selectMethod('QRIS', '📱 QRIS (E-Wallet)')">📱 QRIS (E-Wallet)</button>
-        <button type="button" class="popup-btn" style="margin-top: 20px; background: transparent; border: 1px solid var(--cv-border-primary); color: var(--cv-text-primary); padding: 12px; box-shadow: none;" onclick="document.getElementById('modalSelectMethod').classList.remove('active')">Batal</button>
+        <button type="button" class="popup-btn" style="margin-top: 20px; background: transparent; border: 1px solid #00f0ff; color: #00f0ff; padding: 12px; box-shadow: none;" onclick="document.getElementById('modalSelectMethod').classList.remove('active')">Batal</button>
     </div>
 </div>
 
@@ -1118,7 +1050,7 @@
         <button type="button" class="custom-option-btn" onclick="selectEditMethod('CASH', '💵 CASH (Tunai)')">💵 CASH (Tunai)</button>
         <button type="button" class="custom-option-btn" style="margin-top: 10px;" onclick="selectEditMethod('TRANSFER', '🏦 TRANSFER BANK')">🏦 TRANSFER BANK</button>
         <button type="button" class="custom-option-btn" style="margin-top: 10px;" onclick="selectEditMethod('QRIS', '📱 QRIS (E-Wallet)')">📱 QRIS (E-Wallet)</button>
-        <button type="button" class="popup-btn" style="margin-top: 20px; background: transparent; border: 1px solid var(--cv-border-primary); color: var(--cv-text-primary); padding: 12px; box-shadow: none;" onclick="document.getElementById('modalEditSelectMethod').classList.remove('active')">Batal</button>
+        <button type="button" class="popup-btn" style="margin-top: 20px; background: transparent; border: 1px solid #00f0ff; color: #00f0ff; padding: 12px; box-shadow: none;" onclick="document.getElementById('modalEditSelectMethod').classList.remove('active')">Batal</button>
     </div>
 </div>
 
@@ -1128,7 +1060,7 @@
         if (!display) return;
         if (input.files && input.files.length > 0) {
             display.textContent = input.files[0].name;
-            display.style.color = "var(--cv-text-primary)";
+            display.style.color = "#00f0ff";
         } else {
             display.textContent = "Tidak ada file dipilih";
             display.style.color = "";
@@ -1166,8 +1098,7 @@
         draw() {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            const computedParticleColor = getComputedStyle(document.documentElement).getPropertyValue('--particle-color').trim() || 'rgba(0, 240, 255, 0.85)';
-            ctx.fillStyle = computedParticleColor;
+            ctx.fillStyle = 'rgba(0, 240, 255, 0.85)';
             ctx.shadowBlur = 10;
             ctx.shadowColor = ctx.fillStyle;
             ctx.fill();
@@ -1186,7 +1117,6 @@
 
     function animateParticles() {
         ctx.clearRect(0, 0, width, height);
-        const computedLineColor = getComputedStyle(document.documentElement).getPropertyValue('--line-color').trim() || 'rgba(0, 240, 255, 0.55)';
         for (let i = 0; i < particles.length; i++) {
             particles[i].update();
             particles[i].draw();
@@ -1199,7 +1129,7 @@
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);
                     const alpha = (1 - (dist / 130)) * 0.55;
-                    ctx.strokeStyle = computedLineColor.replace(/[\d.]+\)$/g, `${alpha})`);
+                    ctx.strokeStyle = `rgba(0, 240, 255, ${alpha})`;
                     ctx.lineWidth = 1.2;
                     ctx.stroke();
                 }
@@ -1268,10 +1198,6 @@
     const closeThemeModalBtn = document.getElementById('closeThemeModalBtn');
     const themeBtns = document.querySelectorAll('.theme-btn');
     const cyberModalCard = document.getElementById('cyberModalCard');
-    const personalModalCard = document.getElementById('personalModalCard');
-    const debtModalCard = document.getElementById('debtModalCard');
-    const viewDebtCard = document.getElementById('viewDebtCard');
-    const musicModalCard = document.getElementById('musicModalCard');
 
     if(btnOpenThemeModal) {
         btnOpenThemeModal.addEventListener('click', () => { themeModalOverlay.classList.add('active'); });
@@ -1280,26 +1206,14 @@
         closeThemeModalBtn.addEventListener('click', () => { themeModalOverlay.classList.remove('active'); });
     }
 
-    const themeClasses = ['cv-theme-default', 'cv-theme-light', 'cv-theme-emerald', 'cv-theme-purple', 'cv-theme-amber', 'cv-theme-crimson', 'cv-theme-matrix', 'cv-theme-sunset', 'cv-theme-midnight', 'cv-theme-cyberpunk', 'cv-theme-ocean'];
+    const themeClasses = ['cv-theme-light', 'cv-theme-emerald', 'cv-theme-purple', 'cv-theme-amber', 'cv-theme-crimson', 'cv-theme-matrix', 'cv-theme-sunset', 'cv-theme-midnight', 'cv-theme-cyberpunk', 'cv-theme-ocean'];
 
     function applyTheme(themeName) {
-        const targetTheme = themeName || 'default';
-        themeClasses.forEach(cls => {
-            cyberModalCard.classList.remove(cls);
-            personalModalCard.classList.remove(cls);
-            debtModalCard.classList.remove(cls);
-            viewDebtCard.classList.remove(cls);
-            musicModalCard.classList.remove(cls);
-        });
-        
-        const fullClassName = `cv-theme-${targetTheme}`;
-        cyberModalCard.classList.add(fullClassName);
-        personalModalCard.classList.add(fullClassName);
-        debtModalCard.classList.add(fullClassName);
-        viewDebtCard.classList.add(fullClassName);
-        musicModalCard.classList.add(fullClassName);
-
-        localStorage.setItem('cyber_vault_theme', targetTheme);
+        themeClasses.forEach(cls => cyberModalCard.classList.remove(cls));
+        if (themeName && themeName !== 'default') {
+            cyberModalCard.classList.add(`cv-theme-${themeName}`);
+        }
+        localStorage.setItem('cyber_vault_theme', themeName);
     }
 
     themeBtns.forEach(btn => {
@@ -1310,6 +1224,7 @@
         });
     });
 
+    // Glass opacity slider fix
     const glassOpacitySlider = document.getElementById('glassOpacitySlider');
     const opacityValText = document.getElementById('opacityValText');
 
@@ -1327,8 +1242,8 @@
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        const savedTheme = localStorage.getItem('cyber_vault_theme') || 'default';
-        applyTheme(savedTheme);
+        const savedTheme = localStorage.getItem('cyber_vault_theme');
+        if (savedTheme) applyTheme(savedTheme);
 
         const savedOpacity = localStorage.getItem('cyber_vault_glass_opacity');
         if (savedOpacity) {
@@ -1722,7 +1637,7 @@
         let totalDebt = 0; let totalRemaining = 0;
 
         if (debts.length === 0) {
-            debtListContainer.innerHTML = '<div style="text-align:center; color:var(--cv-text-secondary); font-size:0.95rem; padding:15px 0;">Belum ada catatan hutang</div>';
+            debtListContainer.innerHTML = '<div style="text-align:center; color:#a5f3fc; font-size:0.95rem; padding:15px 0;">Belum ada catatan hutang</div>';
         } else {
             debts.slice().reverse().forEach((d, revIdx) => {
                 const origIndex = debts.length - 1 - revIdx;
@@ -2069,7 +1984,7 @@
         });
         const div = document.createElement('div'); div.className = 'history-clickable-title-box';
         div.style.flexDirection = 'column'; div.style.alignItems = 'flex-start'; div.style.gap = '8px';
-        div.innerHTML = `<div style="display: flex; justify-content: space-between; width: 100%;"><label style="font-weight:900; color:var(--cv-text-primary);">Bulan Ini (${ymString})</label><span style="color:var(--cv-text-primary);">›</span></div><div style="display: flex; justify-content: space-between; width: 100%; font-size:0.9rem; font-weight:800;"><span style="color:#34d399;">In: ${formatRupiah(inBulan)}</span><span style="color:#fb7185;">Out: ${formatRupiah(outBulan)}</span></div>`;
+        div.innerHTML = `<div style="display: flex; justify-content: space-between; width: 100%;"><label style="font-weight:900; color:var(--cv-text-primary);">Bulan Ini (${ymString})</label><span style="color:#00f0ff;">›</span></div><div style="display: flex; justify-content: space-between; width: 100%; font-size:0.9rem; font-weight:800;"><span style="color:#34d399;">In: ${formatRupiah(inBulan)}</span><span style="color:#fb7185;">Out: ${formatRupiah(outBulan)}</span></div>`;
         container.appendChild(div);
     }
 
@@ -2078,7 +1993,7 @@
         let filtered = currentFilterDate ? transactions.filter(t => String(t.date).trim() === String(currentFilterDate).trim()) : transactions;
 
         if (filtered.length === 0) {
-            historyList.innerHTML = '<li style="text-align:center; color:var(--cv-text-secondary); font-size:0.95rem; padding:20px 0;">Tidak ada transaksi</li>';
+            historyList.innerHTML = '<li style="text-align:center; color:#a5f3fc; font-size:0.95rem; padding:20px 0;">Tidak ada transaksi</li>';
         } else {
             filtered.sort((a, b) => b.id - a.id).forEach((t) => {
                 const li = document.createElement('li'); li.className = `history-item ${t.type}`;
