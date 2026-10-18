@@ -774,7 +774,7 @@
 
             <div class="glass-control-panel">
                 <span class="glass-label-text">Transparansi Kaca:</span>
-                <div class="glass-slider-wrapper"><input type="range" id="glassOpacitySlider" class="glass-range-input" min="5" max="95" value="28"></div>
+                <div class="glass-slider-wrapper"><input type="range" id="glassOpacitySlider" class="glass-range-input" min="0" max="100" value="28"></div>
                 <span class="opacity-value-badge" id="opacityValText">28%</span>
             </div>
 
@@ -1337,7 +1337,7 @@
             osc.frequency.setValueAtTime(880, now + 0.12); 
             
             gain.gain.setValueAtTime(0.01, now);
-            gain.gain.linearRampToValueAtTime(0.35, now + 0.04);
+            gain.gain.linearRampToValueAtTime(0.8, now + 0.04); // Volume diperbesar
             gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
             
             osc.connect(gain);
@@ -1364,7 +1364,7 @@
                 osc.frequency.setValueAtTime(freq, startTime);
                 
                 gain.gain.setValueAtTime(0.01, startTime);
-                gain.gain.linearRampToValueAtTime(0.3, startTime + 0.04);
+                gain.gain.linearRampToValueAtTime(0.8, startTime + 0.04); // Volume diperbesar
                 gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.4);
                 
                 osc.connect(gain);
