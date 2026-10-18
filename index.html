@@ -114,9 +114,8 @@
 
         @keyframes tapPulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); } 50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(0, 240, 255, 0.6); } }
 
-        .pin-screen-overlay { position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh; background: #020714; z-index: 9999990; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 20px; overflow-x: hidden !important; }
-        .pin-screen-overlay.active { display: flex !important; }
-        .pin-screen-overlay.hidden { opacity: 0; transform: scale(1.05); pointer-events: none; }
+        .pin-screen-overlay { position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh; background: #020714; z-index: 9999990; display: none; opacity: 0; visibility: hidden; flex-direction: column; justify-content: center; align-items: center; padding: 20px; overflow-x: hidden !important; transition: opacity 0.3s ease, visibility 0.3s ease; }
+        .pin-screen-overlay.active { display: flex !important; opacity: 1 !important; visibility: visible !important; }
 
         .cyber-scanner-flash { position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh; background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.2) 0%, rgba(2, 7, 20, 0.98) 85%), linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px); background-size: 100% 100%, 20px 20px, 20px 20px; z-index: 99999995; opacity: 0; visibility: hidden; pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; transition: opacity 0.25s ease; overflow-x: hidden !important; }
         .cyber-scanner-flash.active { opacity: 1; visibility: visible; animation: hackerTerminalSeq 1.1s forwards cubic-bezier(0.1, 0.9, 0.2, 1); }
@@ -153,7 +152,7 @@
         .cyber-vignette { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: radial-gradient(circle at 50% 50%, transparent 30%, rgba(1, 4, 12, 0.65) 100%); pointer-events: none; }
 
         .container { position: relative; z-index: 10; width: 100% !important; max-width: 440px !important; overflow-x: hidden !important; margin: 0 auto; background: transparent; border: none; box-shadow: none; padding: 10px 4px; display: none; gap: 12px; opacity: 0; transform: scale(0.92); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-        .container.active { display: flex !important; flex-direction: column; opacity: 1; transform: scale(1); }
+        .container.active { display: flex !important; opacity: 1; transform: scale(1); }
         .install-app-btn { background: linear-gradient(135deg, rgba(0, 240, 255, 0.2) 0%, rgba(0, 119, 255, 0.2) 100%); border: 1px solid rgba(0, 240, 255, 0.6); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 0.9rem; font-weight: 800; padding: 10px 16px; border-radius: 12px; cursor: pointer; display: none; align-items: center; justify-content: center; gap: 6px; margin: 0 auto 14px auto; box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); letter-spacing: 1px; text-transform: uppercase; }
 
         .header-box { text-align: center; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 14px; margin-bottom: 4px; }
@@ -1318,7 +1317,7 @@
         });
     }
 
-    // Fungsi untuk menghapus draft transaksi yang belum selesai (belum ditekan tombol Simpan/tambah)
+    // Fungsi untuk menghapus draft transaksi yang belum selesai
     function clearUnfinishedTransactionDraft() {
         document.getElementById('transactionForm').reset();
         document.getElementById('proofInput').value = '';
@@ -1331,7 +1330,6 @@
         localStorage.removeItem('venus_draft_transaction');
     }
 
-    // Auto-save draft transaksi saat user mengetik/mengisi form
     function saveTransactionDraftOnFly() {
         const draft = {
             type: document.getElementById('type').value,
@@ -1355,9 +1353,9 @@
     function lockAppDueToInactivity() {
         sessionStorage.removeItem('venus_is_logged');
         sessionStorage.setItem('venus_active_modal', 'none');
-        clearUnfinishedTransactionDraft(); // Hapus transaksi belum selesai otomatis
+        clearUnfinishedTransactionDraft();
 
-        // Sembunyikan semua modal & aplikasi utama, kembalikan ke layar splash / PIN
+        // Sembunyikan semua modal & aplikasi utama
         document.getElementById('cyberModalOverlay').classList.remove('active');
         document.getElementById('musicModalOverlay').classList.remove('active');
         document.getElementById('personalModalOverlay').classList.remove('active');
@@ -1365,22 +1363,19 @@
         document.getElementById('mainAppContainer').classList.remove('active');
         document.getElementById('techBgContainer').classList.remove('active');
         
-        // Munculkan layar PIN
+        // Munculkan layar PIN menggunakan kelas .active
         clearAllPin();
         document.getElementById('pinScreenOverlay').classList.add('active');
     }
 
     document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'hidden') {
-            // Ketika aplikasi ditinggal (pindah aplikasi / home screen)
             localStorage.setItem('venus_bg_timestamp', Date.now().toString());
         } else if (document.visibilityState === 'visible') {
-            // Ketika aplikasi dibuka kembali
             const isLogged = sessionStorage.getItem('venus_is_logged') === 'true';
             if (isLogged) {
                 const bgTime = parseInt(localStorage.getItem('venus_bg_timestamp') || '0', 10);
                 if (bgTime > 0 && (Date.now() - bgTime > LOCK_TIMEOUT_MS)) {
-                    // Jika sudah ditinggal lebih dari 1 menit -> Kunci & minta PIN ke awal
                     lockAppDueToInactivity();
                 }
             }
@@ -1406,7 +1401,7 @@
 
         if (isLogged) {
             document.getElementById('splashScreenOverlay').classList.add('hidden');
-            document.getElementById('pinScreenOverlay').classList.add('hidden');
+            document.getElementById('pinScreenOverlay').classList.remove('active');
             document.getElementById('techBgContainer').classList.add('active');
             document.getElementById('mainAppContainer').classList.add('active');
             refreshRealtimeDateTime();
@@ -1650,7 +1645,7 @@
     function verifyPin() {
         if (enteredPin === CORRECT_PIN) {
             playPinSuccessSound();
-            cyberScannerFlash.classList.add('active'); pinScreenOverlay.classList.add('hidden');
+            cyberScannerFlash.classList.add('active'); pinScreenOverlay.classList.remove('active');
             setTimeout(() => { 
                 techBgContainer.classList.add('active');
                 mainAppContainer.classList.add('active'); 
@@ -2070,7 +2065,6 @@
         resultsContainer.innerHTML = '<div style="text-align:center; color:#00f0ff; font-size:0.8rem; padding:6px;">Mencari lagu online...</div>';
         resultsContainer.classList.add('active');
 
-        // Menggunakan arsip stream publik open-source yang stabil dan kompatibel penuh
         const sampleTracks = [
             { title: `Hit: ${query} (Remix Koplo)`, artist: "DJ Venus Online", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
             { title: `Cover Akustik: ${query}`, artist: "Acoustic Session", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
@@ -2329,7 +2323,7 @@
             const monthLabel = `${monthNames[parseInt(m)-1]} ${y}`;
 
             div.innerHTML = `
-                <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                <div style="display: flex; justify-content: space-width; width: 100%; align-items: center;">
                     <label style="font-weight:900; color:var(--cv-text-primary); font-size: 1.05rem; cursor: pointer;">${monthLabel} (${ym})</label>
                     <span style="color:#00f0ff; font-weight:900; font-size:1.2rem;">›</span>
                 </div>
@@ -2595,7 +2589,7 @@
         setTimeout(() => {
             compressImage(proofFile, function(base64Proof) {
                 transactions.push({ id: Date.now(), type, amount, description, date, time, method, proof: base64Proof });
-                clearUnfinishedTransactionDraft(); // Bersihkan draft jika sudah berhasil disimpan
+                clearUnfinishedTransactionDraft();
                 currentFilterDate = date; filterDateInputDirect.value = date; filterBadgeText.innerText = formatTransactionDateShort(date);
                 updateUI(); transactionForm.reset();
                 document.getElementById('proofInput').value = '';
