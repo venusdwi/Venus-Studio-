@@ -2352,7 +2352,9 @@
                 ctx.drawImage(img, 0, 0, width, height); 
                 callback(canvas.toDataURL('image/jpeg', 0.5)); 
             }
+            img.onerror = function() { callback(null); };
         };
+        reader.onerror = function() { callback(null); };
     }
 
     const openMonthlyHistoryBtn = document.getElementById('openMonthlyHistoryBtn');
@@ -2792,51 +2794,56 @@
         const time = timeDisplayText.innerText; 
         const proofFile = document.getElementById('proofInput').files[0];
         
-        // VALIDASI SEBELUM TOMBOL DI-DISABLE AGAR TIDAK STUCK
         if (!type || !method || !amount || isNaN(amount) || !description || !date || !time) {
             return alert('Mohon pastikan Jenis Transaksi dan Metode Pembayaran sudah dipilih dengan lengkap!');
         }
         
         btnSubmit.disabled = true; 
         btnText.innerHTML = '<span class="btn-spinner"></span> Memproses...';
-        
-        compressImage(proofFile, function(base64Proof) {
-            setTimeout(() => {
-                transactions.push({ id: Date.now(), type, amount, description, date, time, method, proof: base64Proof }); 
-                
-                currentFilterDate = date;
-                if(filterDateInputDirect) filterDateInputDirect.value = date;
-                if(filterBadgeText) filterBadgeText.innerText = formatTransactionDateShort(date);
 
-                updateUI(); 
-                
-                transactionForm.reset(); 
-                document.getElementById('proofInput').value = '';
-                const fileNameDisplay = document.getElementById('fileNameDisplay');
-                if (fileNameDisplay) fileNameDisplay.innerText = "Tidak ada file dipilih";
-                
-                document.getElementById('type').value = '';
-                document.getElementById('paymentMethod').value = '';
-                
-                document.getElementById('btnSelectType').innerText = '-- Pilih Jenis --';
-                document.getElementById('btnSelectType').classList.remove('selected');
-                
-                document.getElementById('btnSelectMethod').innerText = '-- Pilih Metode --';
-                document.getElementById('btnSelectMethod').classList.remove('selected');
+        function saveTransactionRecord(base64Proof) {
+            transactions.push({ id: Date.now(), type, amount, description, date, time, method, proof: base64Proof }); 
+            
+            currentFilterDate = date;
+            if(filterDateInputDirect) filterDateInputDirect.value = date;
+            if(filterBadgeText) filterBadgeText.innerText = formatTransactionDateShort(date);
 
-                refreshRealtimeDateTime();
-                btnSubmit.disabled = false; 
-                btnText.innerText = 'Tambah Transaksi'; 
-                playCashSound();
-                
-                if (type === 'in') { popupTitle.innerText = "Pemasukan Masuk!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (+${formatRupiah(amount)})`; } 
-                else if (type === 'out') { popupTitle.innerText = "Pengeluaran Dicatat!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (-${formatRupiah(amount)})`; }
-                else if (type === 'refund') { popupTitle.innerText = "Pengembalian Dana!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (Pengurangan Pengeluaran)`; }
-                
-                popupNotification.classList.add('active');
-                applyPopupLightMode(popupNotification);
-            }, 1000);
-        });
+            updateUI(); 
+            
+            transactionForm.reset(); 
+            document.getElementById('proofInput').value = '';
+            const fileNameDisplay = document.getElementById('fileNameDisplay');
+            if (fileNameDisplay) fileNameDisplay.innerText = "Tidak ada file dipilih";
+            
+            document.getElementById('type').value = '';
+            document.getElementById('paymentMethod').value = '';
+            
+            document.getElementById('btnSelectType').innerText = '-- Pilih Jenis --';
+            document.getElementById('btnSelectType').classList.remove('selected');
+            
+            document.getElementById('btnSelectMethod').innerText = '-- Pilih Metode --';
+            document.getElementById('btnSelectMethod').classList.remove('selected');
+
+            refreshRealtimeDateTime();
+            btnSubmit.disabled = false; 
+            btnText.innerText = 'Tambah Transaksi'; 
+            playCashSound();
+            
+            if (type === 'in') { popupTitle.innerText = "Pemasukan Masuk!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (+${formatRupiah(amount)})`; } 
+            else if (type === 'out') { popupTitle.innerText = "Pengeluaran Dicatat!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (-${formatRupiah(amount)})`; }
+            else if (type === 'refund') { popupTitle.innerText = "Pengembalian Dana!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (Pengurangan Pengeluaran)`; }
+            
+            popupNotification.classList.add('active');
+            applyPopupLightMode(popupNotification);
+        }
+
+        if (proofFile) {
+            compressImage(proofFile, function(base64Proof) {
+                saveTransactionRecord(base64Proof);
+            });
+        } else {
+            saveTransactionRecord(null);
+        }
     });
 
     document.getElementById('popupCloseBtn').addEventListener('click', () => { popupNotification.classList.remove('active'); });
