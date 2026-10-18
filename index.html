@@ -322,14 +322,105 @@
         .sync-dot { width: 8px; height: 8px; background: #34d399; border-radius: 50%; box-shadow: 0 0 8px #34d399; animation: syncPulseDot 1.5s infinite ease-in-out; }
         @keyframes syncPulseDot { 0%, 100% { opacity: 0.4; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.2); } }
 
-        .cv-light-mode {
+        /* Theme Variants */
+        .cv-theme-light {
             --cv-bg-modal: #ffffff !important;
-            --cv-bg-form: #ffffff !important;
-            --cv-bg-input: #f8fafc !important;
+            --cv-bg-form: #f1f5f9 !important;
+            --cv-bg-input: #ffffff !important;
             --cv-border-primary: #cbd5e1 !important;
-            --cv-text-primary: #1e293b !important;
+            --cv-text-primary: #0f172a !important;
             --cv-text-secondary: #475569 !important;
-            --cv-bg-history-item: #f8fafc !important;
+            --cv-bg-history-item: #ffffff !important;
+        }
+
+        .cv-theme-emerald {
+            --cv-bg-modal: rgba(2, 26, 20, 0.98) !important;
+            --cv-bg-form: rgba(2, 40, 28, 0.6) !important;
+            --cv-bg-input: rgba(1, 30, 20, 0.9) !important;
+            --cv-border-primary: rgba(16, 185, 129, 0.45) !important;
+            --cv-text-primary: #ffffff !important;
+            --cv-text-secondary: #6ee7b7 !important;
+            --cv-bg-history-item: rgba(1, 30, 20, 0.85) !important;
+        }
+
+        .cv-theme-purple {
+            --cv-bg-modal: rgba(20, 4, 38, 0.98) !important;
+            --cv-bg-form: rgba(30, 6, 56, 0.6) !important;
+            --cv-bg-input: rgba(15, 2, 30, 0.9) !important;
+            --cv-border-primary: rgba(192, 132, 252, 0.45) !important;
+            --cv-text-primary: #ffffff !important;
+            --cv-text-secondary: #e879f9 !important;
+            --cv-bg-history-item: rgba(15, 2, 30, 0.85) !important;
+        }
+
+        .cv-theme-amber {
+            --cv-bg-modal: rgba(30, 16, 2, 0.98) !important;
+            --cv-bg-form: rgba(45, 24, 2, 0.6) !important;
+            --cv-bg-input: rgba(20, 10, 1, 0.9) !important;
+            --cv-border-primary: rgba(251, 191, 36, 0.45) !important;
+            --cv-text-primary: #ffffff !important;
+            --cv-text-secondary: #fcd34d !important;
+            --cv-bg-history-item: rgba(20, 10, 1, 0.85) !important;
+        }
+
+        .cv-theme-crimson {
+            --cv-bg-modal: rgba(38, 4, 12, 0.98) !important;
+            --cv-bg-form: rgba(56, 6, 18, 0.6) !important;
+            --cv-bg-input: rgba(25, 2, 8, 0.9) !important;
+            --cv-border-primary: rgba(244, 63, 94, 0.45) !important;
+            --cv-text-primary: #ffffff !important;
+            --cv-text-secondary: #fda4af !important;
+            --cv-bg-history-item: rgba(25, 2, 8, 0.85) !important;
+        }
+
+        .cv-theme-matrix {
+            --cv-bg-modal: rgba(2, 15, 2, 0.98) !important;
+            --cv-bg-form: rgba(4, 25, 4, 0.6) !important;
+            --cv-bg-input: rgba(1, 10, 1, 0.9) !important;
+            --cv-border-primary: rgba(74, 222, 128, 0.5) !important;
+            --cv-text-primary: #4ade80 !important;
+            --cv-text-secondary: #86efac !important;
+            --cv-bg-history-item: rgba(1, 10, 1, 0.85) !important;
+        }
+
+        .cv-theme-sunset {
+            --cv-bg-modal: rgba(35, 10, 25, 0.98) !important;
+            --cv-bg-form: rgba(50, 15, 35, 0.6) !important;
+            --cv-bg-input: rgba(20, 5, 15, 0.9) !important;
+            --cv-border-primary: rgba(244, 114, 182, 0.45) !important;
+            --cv-text-primary: #ffffff !important;
+            --cv-text-secondary: #f472b6 !important;
+            --cv-bg-history-item: rgba(20, 5, 15, 0.85) !important;
+        }
+
+        .cv-theme-midnight {
+            --cv-bg-modal: rgba(1, 2, 5, 0.98) !important;
+            --cv-bg-form: rgba(3, 6, 15, 0.6) !important;
+            --cv-bg-input: rgba(1, 2, 5, 0.9) !important;
+            --cv-border-primary: rgba(56, 189, 248, 0.4) !important;
+            --cv-text-primary: #e2e8f0 !important;
+            --cv-text-secondary: #94a3b8 !important;
+            --cv-bg-history-item: rgba(1, 2, 5, 0.85) !important;
+        }
+
+        .cv-theme-cyberpunk {
+            --cv-bg-modal: rgba(25, 25, 2, 0.98) !important;
+            --cv-bg-form: rgba(40, 40, 3, 0.6) !important;
+            --cv-bg-input: rgba(15, 15, 1, 0.9) !important;
+            --cv-border-primary: rgba(250, 204, 21, 0.6) !important;
+            --cv-text-primary: #facc15 !important;
+            --cv-text-secondary: #fef08a !important;
+            --cv-bg-history-item: rgba(15, 15, 1, 0.85) !important;
+        }
+
+        .cv-theme-ocean {
+            --cv-bg-modal: rgba(2, 22, 38, 0.98) !important;
+            --cv-bg-form: rgba(3, 35, 58, 0.6) !important;
+            --cv-bg-input: rgba(1, 15, 25, 0.9) !important;
+            --cv-border-primary: rgba(14, 165, 233, 0.5) !important;
+            --cv-text-primary: #ffffff !important;
+            --cv-text-secondary: #38bdf8 !important;
+            --cv-bg-history-item: rgba(1, 15, 25, 0.85) !important;
         }
     </style>
 </head>
@@ -683,7 +774,7 @@
 
             <div class="glass-control-panel">
                 <span class="glass-label-text">Transparansi Kaca:</span>
-                <div class="glass-slider-wrapper"><input type="range" id="glassOpacitySlider" class="glass-range-input" min="0" max="100" value="28"></div>
+                <div class="glass-slider-wrapper"><input type="range" id="glassOpacitySlider" class="glass-range-input" min="5" max="95" value="28"></div>
                 <span class="opacity-value-badge" id="opacityValText">28%</span>
             </div>
 
@@ -784,14 +875,22 @@
 <audio id="bgAudioPlayer" crossorigin="anonymous" style="display: none;"></audio>
 
 <div class="popup-overlay" id="themeModalOverlay">
-    <div class="popup-box theme-modal-box" style="max-width: 340px; padding: 22px; max-height: 90vh; overflow-y: auto;">
+    <div class="popup-box theme-modal-box" style="max-width: 360px; padding: 22px; max-height: 90vh; overflow-y: auto;">
         <div class="popup-title" style="font-size: 1.15rem; margin-bottom: 12px;">Custom Theme</div>
-        <div style="font-size: 0.82rem; color: #a5f3fc; margin-bottom: 14px;" id="themeModalDesc">Pilih tema lengkap dengan animasi & font eksklusif:</div>
+        <div style="font-size: 0.82rem; color: #a5f3fc; margin-bottom: 14px;" id="themeModalDesc">Pilih tema futuristik eksklusif pilihan Anda:</div>
         
-        <div style="display: flex; flex-direction: column; gap: 10px; width: 100%;">
-            <button type="button" class="custom-option-btn theme-btn" data-theme="default" style="border-color: #00f0ff; color: #00f0ff; font-size: 0.95rem; padding: 12px;">Cyber Blue (Default)</button>
-            <button type="button" class="custom-option-btn theme-btn" data-theme="light" style="border-color: #cbd5e1; color: #1e293b; background: #ffffff; font-size: 0.95rem; padding: 12px;">☀️ Mode Terang (Clean Light)</button>
-            <button type="button" class="custom-option-btn theme-btn" data-theme="minimalist" style="border-color: #94a3b8; color: #f8fafc; background: #1e293b; font-size: 0.95rem; padding: 12px;">Minimalist Dark (Clean)</button>
+        <div style="display: flex; flex-direction: column; gap: 8px; width: 100%;">
+            <button type="button" class="custom-option-btn theme-btn" data-theme="default" style="border-color: #00f0ff; color: #00f0ff; font-size: 0.9rem; padding: 11px;">🌐 Cyber Blue (Default)</button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="light" style="border-color: #cbd5e1; color: #1e293b; background: #ffffff; font-size: 0.9rem; padding: 11px;">☀️ Clean Light Mode</button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="emerald" style="border-color: #10b981; color: #34d399; font-size: 0.9rem; padding: 11px;">💎 Emerald Neon (Green)</button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="purple" style="border-color: #c084fc; color: #c084fc; font-size: 0.9rem; padding: 11px;">🔮 Cosmic Purple (Violet)</button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="amber" style="border-color: #fbbf24; color: #fbbf24; font-size: 0.9rem; padding: 11px;">⚡ Amber Gold (Yellow)</button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="crimson" style="border-color: #f43f5e; color: #fb7185; font-size: 0.9rem; padding: 11px;">🔥 Crimson Red (Ruby)</button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="matrix" style="border-color: #4ade80; color: #4ade80; font-size: 0.9rem; padding: 11px;">💻 Matrix Green (Terminal)</button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="sunset" style="border-color: #f472b6; color: #f472b6; font-size: 0.9rem; padding: 11px;">🌅 Neon Sunset (Pink)</button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="midnight" style="border-color: #38bdf8; color: #38bdf8; font-size: 0.9rem; padding: 11px;">🌙 Midnight Obsidian (Dark)</button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="cyberpunk" style="border-color: #facc15; color: #facc15; font-size: 0.9rem; padding: 11px;">⚡ Cyberpunk 2077 (Gold)</button>
+            <button type="button" class="custom-option-btn theme-btn" data-theme="ocean" style="border-color: #0ea5e9; color: #38bdf8; font-size: 0.9rem; padding: 11px;">🌊 Deep Ocean (Blue)</button>
         </div>
 
         <button type="button" class="popup-btn theme-close-btn" style="margin-top: 16px; background: transparent; border: 1px solid #94a3b8; color: #94a3b8; padding: 10px; box-shadow: none;" id="closeThemeModalBtn">Tutup</button>
@@ -1107,14 +1206,14 @@
         closeThemeModalBtn.addEventListener('click', () => { themeModalOverlay.classList.remove('active'); });
     }
 
+    const themeClasses = ['cv-theme-light', 'cv-theme-emerald', 'cv-theme-purple', 'cv-theme-amber', 'cv-theme-crimson', 'cv-theme-matrix', 'cv-theme-sunset', 'cv-theme-midnight', 'cv-theme-cyberpunk', 'cv-theme-ocean'];
+
     function applyTheme(themeName) {
-        if (themeName === 'light') {
-            cyberModalCard.classList.add('cv-light-mode');
-            localStorage.setItem('cyber_vault_theme', 'light');
-        } else {
-            cyberModalCard.classList.remove('cv-light-mode');
-            localStorage.setItem('cyber_vault_theme', 'default');
+        themeClasses.forEach(cls => cyberModalCard.classList.remove(cls));
+        if (themeName && themeName !== 'default') {
+            cyberModalCard.classList.add(`cv-theme-${themeName}`);
         }
+        localStorage.setItem('cyber_vault_theme', themeName);
     }
 
     themeBtns.forEach(btn => {
@@ -1125,9 +1224,32 @@
         });
     });
 
+    // Glass opacity slider fix
+    const glassOpacitySlider = document.getElementById('glassOpacitySlider');
+    const opacityValText = document.getElementById('opacityValText');
+
+    function applyGlassOpacity(val) {
+        const root = document.documentElement;
+        root.style.setProperty('--glass-alpha', (val / 100).toFixed(2));
+        if (opacityValText) opacityValText.innerText = val + '%';
+        localStorage.setItem('cyber_vault_glass_opacity', val);
+    }
+
+    if (glassOpacitySlider) {
+        glassOpacitySlider.addEventListener('input', (e) => {
+            applyGlassOpacity(e.target.value);
+        });
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
         const savedTheme = localStorage.getItem('cyber_vault_theme');
         if (savedTheme) applyTheme(savedTheme);
+
+        const savedOpacity = localStorage.getItem('cyber_vault_glass_opacity');
+        if (savedOpacity) {
+            glassOpacitySlider.value = savedOpacity;
+            applyGlassOpacity(savedOpacity);
+        }
 
         initIndexedDB();
         renderAccountTitles();
@@ -1182,7 +1304,6 @@
             if (ctx.state === 'suspended') ctx.resume();
             const now = ctx.currentTime;
             
-            // Efek suara klik tombol "TAP HERE" (suara sci-fi laser/warp pendek bernada tinggi)
             const osc = ctx.createOscillator();
             const gain = ctx.createGain();
             osc.type = 'sawtooth';
@@ -1212,8 +1333,8 @@
             const gain = ctx.createGain();
             osc.type = 'triangle';
             
-            osc.frequency.setValueAtTime(587.33, now); // D5
-            osc.frequency.setValueAtTime(880, now + 0.12); // A5
+            osc.frequency.setValueAtTime(587.33, now); 
+            osc.frequency.setValueAtTime(880, now + 0.12); 
             
             gain.gain.setValueAtTime(0.01, now);
             gain.gain.linearRampToValueAtTime(0.35, now + 0.04);
@@ -1233,7 +1354,7 @@
             if (ctx.state === 'suspended') ctx.resume();
             const now = ctx.currentTime;
             
-            const notes = [523.25, 659.25, 783.99]; // C5, E5, G5
+            const notes = [523.25, 659.25, 783.99]; 
             notes.forEach((freq, index) => {
                 const osc = ctx.createOscillator();
                 const gain = ctx.createGain();
@@ -1342,7 +1463,7 @@
 
     if (btnTapHere) {
         btnTapHere.addEventListener('click', () => {
-            playTapHereClickSound(); // Memainkan sound efek saat TAP HERE diklik
+            playTapHereClickSound(); 
             if ('speechSynthesis' in window) window.speechSynthesis.cancel();
             if (splashScreenOverlay) splashScreenOverlay.classList.add('hidden');
             setTimeout(() => { if (pinScreenOverlay) pinScreenOverlay.classList.add('active'); }, 200);
