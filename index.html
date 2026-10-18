@@ -79,25 +79,6 @@
             --cv-bg-history-item: rgba(2, 12, 32, 0.85);
         }
 
-        #subAccountUsername, #subAccountPassword {
-            padding: 16px 18px !important;
-            font-size: 1.1rem !important;
-            font-weight: 700 !important;
-            border-radius: 14px !important;
-            border: 1.5px solid var(--cv-border-primary) !important;
-            background: var(--cv-bg-input) !important;
-            color: var(--cv-text-primary) !important;
-            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.4) !important;
-            transition: all 0.3s ease !important;
-            width: 100% !important;
-        }
-
-        #subAccountUsername:focus, #subAccountPassword:focus {
-            border-color: #00f0ff !important;
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.5), inset 0 2px 5px rgba(0, 0, 0, 0.4) !important;
-            outline: none !important;
-        }
-
         .splash-screen-overlay {
             position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh;
             background: linear-gradient(rgba(2, 7, 20, 0.95), rgba(2, 7, 20, 0.99)), #020714; z-index: 99999999;
@@ -346,32 +327,6 @@
         .account-title-name { font-family: 'Rajdhani', sans-serif; font-size: 1.15rem; font-weight: 800; color: #00f0ff; letter-spacing: 1px; text-transform: uppercase; }
         .account-title-arrow { color: #7dd3fc; font-weight: 900; font-size: 1.25rem; }
 
-        .btn-add-account-action {
-            background: linear-gradient(135deg, rgba(0, 240, 255, 0.15) 0%, rgba(0, 119, 255, 0.25) 100%) !important;
-            border: 1.5px solid rgba(0, 240, 255, 0.6) !important;
-            color: #00f0ff !important;
-            font-family: 'Rajdhani', sans-serif !important;
-            font-size: 1.1rem !important;
-            font-weight: 800 !important;
-            letter-spacing: 1.5px !important;
-            text-transform: uppercase !important;
-            padding: 16px !important;
-            border-radius: 14px !important;
-            cursor: pointer !important;
-            width: 100% !important;
-            text-align: center !important;
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.25) !important;
-            transition: all 0.2s ease !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-        }
-        .btn-add-account-action:active {
-            transform: scale(0.98) !important;
-            background: rgba(0, 240, 255, 0.3) !important;
-            box-shadow: 0 0 25px rgba(0, 240, 255, 0.5) !important;
-        }
-
         .sub-account-modal, .all-history-modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3, 14, 38, 0.98); z-index: 20; display: none; flex-direction: column; padding: 20px 16px; justify-content: space-between; border-radius: 26px; overflow-y: auto; overflow-x: hidden !important; }
         .sub-account-modal.active, .all-history-modal.active { display: flex !important; }
 
@@ -614,20 +569,12 @@
                 <div id="subModalHeading" style="font-family: 'Orbitron', sans-serif; font-size: 1.05rem; font-weight: 900; color: #00f0ff; text-transform: uppercase;">EDIT AKUN</div>
                 <button type="button" id="closeSubModalBtn" style="background:none; border:none; color:#00f0ff; font-size:1.4rem; font-weight:900; cursor:pointer;">✕</button>
             </div>
-            
-            <form id="subAccountForm" style="display: flex; flex-direction: column; gap: 16px; flex-grow: 1; margin-top: 12px;">
+            <form id="subAccountForm" style="display: flex; flex-direction: column; gap: 14px; flex-grow: 1; margin-top: 10px;">
                 <input type="hidden" id="subEditIndex">
-                <div class="form-group" style="gap: 8px;">
-                    <label style="font-size: 0.95rem; font-weight: 800; color: #7dd3fc; letter-spacing: 0.5px;">Nama Akun / Username / Email</label>
-                    <input type="text" id="subAccountUsername" placeholder="Masukkan username atau email" required>
-                </div>
-                <div class="form-group" style="gap: 8px;">
-                    <label style="font-size: 0.95rem; font-weight: 800; color: #7dd3fc; letter-spacing: 0.5px;">Password / Kata Sandi</label>
-                    <input type="text" id="subAccountPassword" placeholder="Masukkan kata sandi" required>
-                </div>
-                <button type="submit" id="btnSaveSubAccount" style="margin-top: 4px; padding: 16px;"><span id="btnSubText">Simpan</span></button>
-                
-                <div class="form-group" style="margin-top: 6px;">
+                <div class="form-group"><label>Nama Akun / Username / Email</label><input type="text" id="subAccountUsername" required></div>
+                <div class="form-group"><label>Password / Kata Sandi</label><input type="text" id="subAccountPassword" required></div>
+                <button type="submit" id="btnSaveSubAccount"><span id="btnSubText">Simpan</span></button>
+                <div class="form-group" style="margin-top: 4px;">
                     <div class="history-clickable-title-box" id="openAllHistoryBtn">
                         <label style="font-size: 0.92rem; color: #38bdf8; font-weight: 800; margin: 0; cursor: pointer;">Aktivitas Riwayat Akun</label>
                         <span style="color: #00f0ff; font-weight: 900; font-size: 1.1rem;">›</span>
@@ -635,7 +582,6 @@
                     <div class="account-history-box" id="subAccountHistoryList"></div>
                 </div>
             </form>
-            
             <button type="button" id="btnDeleteAccountItem" style="background: rgba(244,63,94,0.15); border: 1.5px solid rgba(244,63,94,0.5); font-weight: 800; padding: 12px; border-radius: 12px; cursor: pointer; color: #fb7185; margin-top: 10px; font-size: 0.95rem; width: 100%;">Hapus Akun Ini</button>
         </div>
 
@@ -1100,8 +1046,6 @@
     </div>
 </div>
 
-<audio id="bgAudioPlayer" crossorigin="anonymous" style="display: none;"></audio>
-
 <div class="popup-overlay" id="popupNotification">
     <div class="popup-box">
         <div class="popup-icon" id="popupIcon">✓</div>
@@ -1464,6 +1408,7 @@
                 window.initFirebaseSync((cloudData) => {
                     if (cloudData && Array.isArray(cloudData)) {
                         transactions = cloudData;
+                        localStorage.setItem('my_transactions', JSON.stringify(transactions));
                         updateUI();
                     }
                 });
@@ -1471,6 +1416,7 @@
             if (window.initDebtFirebaseSync) {
                 window.initDebtFirebaseSync((cloudDebtData) => {
                     if (cloudDebtData && Array.isArray(cloudDebtData)) {
+                        localStorage.setItem('venus_debt_tracker_data', JSON.stringify(cloudDebtData));
                         renderDebts();
                     }
                 });
@@ -1823,12 +1769,12 @@
 
     function getStoredDebts() {
         let data = JSON.parse(localStorage.getItem('venus_debt_tracker_data'));
-        if (!data || !Array.isArray(data)) { data = []; try { localStorage.setItem('venus_debt_tracker_data', JSON.stringify(data)); } catch(e){} }
+        if (!data || !Array.isArray(data)) { data = []; localStorage.setItem('venus_debt_tracker_data', JSON.stringify(data)); }
         return data;
     }
 
     function saveAndSyncDebts(debts) {
-        try { localStorage.setItem('venus_debt_tracker_data', JSON.stringify(debts)); } catch(e){}
+        localStorage.setItem('venus_debt_tracker_data', JSON.stringify(debts));
         if (window.saveDebtsToFirebase) {
             window.saveDebtsToFirebase(debts);
         }
@@ -2032,7 +1978,7 @@
 
     function getStoredAccounts() {
         let data = JSON.parse(localStorage.getItem('venus_password_manager_data'));
-        if (!data || !Array.isArray(data)) { data = [{ label: 'Akun Google', username: '', password: '', history: [] }]; try { localStorage.setItem('venus_password_manager_data', JSON.stringify(data)); } catch(e){} }
+        if (!data || !Array.isArray(data)) { data = [{ label: 'Akun Google', username: '', password: '', history: [] }]; localStorage.setItem('venus_password_manager_data', JSON.stringify(data)); }
         return data;
     }
     function renderAccountTitles() {
@@ -2076,8 +2022,7 @@
     cancelNewPlatformBtn.addEventListener('click', () => { newPlatformModal.classList.remove('active'); });
     saveNewPlatformBtn.addEventListener('click', () => {
         const platformName = newPlatformInput.value.trim(); if (!platformName) return alert('Nama platform tidak boleh kosong!');
-        let accounts = getStoredAccounts(); accounts.push({ label: platformName, username: '', password: '', history: [] }); 
-        try { localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); } catch(e){}
+        let accounts = getStoredAccounts(); accounts.push({ label: platformName, username: '', password: '', history: [] }); localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts));
         renderAccountTitles(); newPlatformModal.classList.remove('active'); playSuccessSound();
     });
     subAccountForm.addEventListener('submit', function(e) {
@@ -2087,8 +2032,7 @@
             const newU = subAccountUsername.value; const newP = subAccountPassword.value;
             accounts[index].username = newU; accounts[index].password = newP; if (!accounts[index].history) accounts[index].history = [];
             const nowTime = new Date(); const timeStr = `${String(nowTime.getDate()).padStart(2,'0')}/${String(nowTime.getMonth()+1).padStart(2,'0')}/${nowTime.getFullYear()} ${String(nowTime.getHours()).padStart(2,'0')}:${String(nowTime.getMinutes()).padStart(2,'0')}`;
-            accounts[index].history.push({ timestamp: timeStr, username: newU, password: newP }); 
-            try { localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); } catch(e){}
+            accounts[index].history.push({ timestamp: timeStr, username: newU, password: newP }); localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts));
             renderAccountTitles(); renderSubHistory(index, accounts[index].history); subAccountUsername.value = ''; subAccountPassword.value = '';
             btnSaveSubAccount.disabled = false; subAccountUsername.disabled = false; subAccountPassword.disabled = false; btnSubText.innerText = 'Simpan'; playSuccessSound();
         }, 2000);
@@ -2103,8 +2047,7 @@
         if (enteredDeletePin === CORRECT_PIN) {
             playSuccessSound(); deleteAccountPinModal.classList.remove('active');
             const index = parseInt(subEditIndex.value); let accounts = getStoredAccounts(); accounts.splice(index, 1);
-            try { localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); } catch(e){} 
-            renderAccountTitles(); subAccountModal.classList.remove('active'); allHistoryModal.classList.remove('active');
+            localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); renderAccountTitles(); subAccountModal.classList.remove('active'); allHistoryModal.classList.remove('active');
         } else { deletePinErrorMsg.innerText = "PIN Salah!"; setTimeout(() => { clearDelPin(); }, 300); }
     }
     function openEditHistoryModal(accIdx, itemIdx) {
@@ -2116,8 +2059,7 @@
         const accIdx = parseInt(editHistoryAccIndex.value); const itemIdx = parseInt(editHistoryItemIndex.value); let accounts = getStoredAccounts();
         if (accounts[accIdx] && accounts[accIdx].history[itemIdx]) {
             accounts[accIdx].history[itemIdx].username = modalHistoryUsername.value; accounts[accIdx].history[itemIdx].password = modalHistoryPassword.value;
-            try { localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); } catch(e){}
-            renderSubHistory(accIdx, accounts[accIdx].history); renderFullHistory(accIdx); editHistoryItemModal.classList.remove('active'); playSuccessSound();
+            localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); renderSubHistory(accIdx, accounts[accIdx].history); renderFullHistory(accIdx); editHistoryItemModal.classList.remove('active'); playSuccessSound();
         }
     });
     btnDeleteHistoryItem.addEventListener('click', () => {
@@ -2125,7 +2067,7 @@
         showCyberConfirm('Apakah Anda yakin ingin menghapus riwayat aktivitas ini?', () => {
             if (accounts[accIdx] && accounts[accIdx].history) { 
                 accounts[accIdx].history.splice(itemIdx, 1); 
-                try { localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); } catch(e){} 
+                localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); 
                 renderSubHistory(accIdx, accounts[accIdx].history); 
                 renderFullHistory(accIdx); 
                 editHistoryItemModal.classList.remove('active'); 
@@ -2143,7 +2085,7 @@
         const file = e.target.files[0]; if (!file) return;
         const reader = new FileReader();
         reader.onload = function(event) {
-            try { const parsed = JSON.parse(event.target.result); if (!Array.isArray(parsed)) throw new Error(); try { localStorage.setItem('venus_password_manager_data', JSON.stringify(parsed)); } catch(e){} renderAccountTitles(); alert('Data Akun & Password berhasil dipulihkan!'); } catch (err) { alert('File backup data akun tidak valid!'); }
+            try { const parsed = JSON.parse(event.target.result); if (!Array.isArray(parsed)) throw new Error(); localStorage.setItem('venus_password_manager_data', JSON.stringify(parsed)); renderAccountTitles(); alert('Data Akun & Password berhasil dipulihkan!'); } catch (err) { alert('File backup data akun tidak valid!'); }
         }; reader.readAsText(file); importPersonalFileInput.value = '';
     });
 
@@ -2221,8 +2163,7 @@
     const glassOpacitySlider = document.getElementById('glassOpacitySlider'); const opacityValText = document.getElementById('opacityValText');
     glassOpacitySlider.addEventListener('input', function() { document.documentElement.style.setProperty('--glass-alpha', (this.value / 100).toFixed(2)); opacityValText.innerText = this.value + '%'; localStorage.setItem('cyber_glass_opacity', this.value); });
     
-    // [PERBAIKAN] Data transaksi kini murni bersumber dan disinkronkan langsung via Firebase Cloud
-    let transactions = [];
+    let transactions = JSON.parse(localStorage.getItem('my_transactions')) || [];
     
     let currentFilterDate = getLocalIsoDate(new Date()); 
     let currentFilterMonth = null;
@@ -2350,16 +2291,14 @@
             const img = new Image(); img.src = event.target.result;
             img.onload = function() {
                 const canvas = document.createElement('canvas'); 
-                const MAX_WIDTH = 380; 
+                const MAX_WIDTH = 600; 
                 let width = img.width; let height = img.height;
                 if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
                 canvas.width = width; canvas.height = height; const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0, width, height); 
-                callback(canvas.toDataURL('image/jpeg', 0.35)); 
+                callback(canvas.toDataURL('image/jpeg', 0.5)); 
             }
-            img.onerror = function() { callback(null); };
         };
-        reader.onerror = function() { callback(null); };
     }
 
     const openMonthlyHistoryBtn = document.getElementById('openMonthlyHistoryBtn');
@@ -2671,9 +2610,13 @@
 
         refreshMonthlyViewLive();
 
-        // [PERBAIKAN] Data dikirim dan disinkronkan langsung sepenuhnya ke Firebase Cloud Database
-        if (window.saveTransactionsToFirebase) {
-            window.saveTransactionsToFirebase(transactions);
+        try { 
+            localStorage.setItem('my_transactions', JSON.stringify(transactions)); 
+            if (window.saveTransactionsToFirebase) {
+                window.saveTransactionsToFirebase(transactions);
+            }
+        } catch(e) { 
+            console.warn('Local storage limit handled.'); 
         }
     }
 
@@ -2801,9 +2744,9 @@
         
         btnSubmit.disabled = true; 
         btnText.innerHTML = '<span class="btn-spinner"></span> Memproses...';
-
-        function saveTransactionRecord(base64Proof) {
-            try {
+        
+        compressImage(proofFile, function(base64Proof) {
+            setTimeout(() => {
                 transactions.push({ id: Date.now(), type, amount, description, date, time, method, proof: base64Proof }); 
                 
                 currentFilterDate = date;
@@ -2818,7 +2761,7 @@
                 if (fileNameDisplay) fileNameDisplay.innerText = "Tidak ada file dipilih";
                 
                 document.getElementById('type').value = '';
-                document.getElementById('paymentMethod'.value = '');
+                document.getElementById('paymentMethod').value = '';
                 
                 document.getElementById('btnSelectType').innerText = '-- Pilih Jenis --';
                 document.getElementById('btnSelectType').classList.remove('selected');
@@ -2827,6 +2770,8 @@
                 document.getElementById('btnSelectMethod').classList.remove('selected');
 
                 refreshRealtimeDateTime();
+                btnSubmit.disabled = false; 
+                btnText.innerText = 'Tambah Transaksi'; 
                 playCashSound();
                 
                 if (type === 'in') { popupTitle.innerText = "Pemasukan Masuk!"; popupSubtitle.innerText = `Berhasil mencatat ${description} (+${formatRupiah(amount)})`; } 
@@ -2835,22 +2780,8 @@
                 
                 popupNotification.classList.add('active');
                 applyPopupLightMode(popupNotification);
-            } catch (err) {
-                console.error("Storage error:", err);
-                alert("Gagal menyimpan transaksi ke Cloud Firebase.");
-            } finally {
-                btnSubmit.disabled = false; 
-                btnText.innerText = 'Tambah Transaksi';
-            }
-        }
-
-        if (proofFile) {
-            compressImage(proofFile, function(base64Proof) {
-                saveTransactionRecord(base64Proof);
-            });
-        } else {
-            saveTransactionRecord(null);
-        }
+            }, 1000);
+        });
     });
 
     document.getElementById('popupCloseBtn').addEventListener('click', () => { popupNotification.classList.remove('active'); });
