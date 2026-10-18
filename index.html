@@ -791,7 +791,6 @@
             <div style="display: flex; justify-content: flex-end;"><button type="button" class="close-music-modal" id="closeMusicModalBtn" style="position: static;">✕</button></div>
         </div>
 
-        <!-- Fitur Pencarian Musik Online Terintegrasi (Archive & Public Domain Audio) -->
         <div style="width: 100%; display: flex; flex-direction: column; gap: 4px; margin-top: 4px;">
             <div class="music-search-box">
                 <input type="text" id="onlineMusicSearchInput" class="music-search-input" placeholder="Cari judul lagu / artis...">
@@ -968,7 +967,6 @@
     </div>
 </div>
 
-<!-- Modal Rekap Bulanan Mode Full Screen -->
 <div class="popup-overlay" id="monthlyHistoryModalOverlay">
     <div class="popup-box monthly-modal-box">
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid rgba(0,240,255,0.25); padding-bottom: 12px; flex-shrink: 0; width: 100%;">
@@ -1952,7 +1950,6 @@
         this.value = '';
     });
 
-    // Peningkatan Fitur Pencarian Musik Online menggunakan Arsip Direktori Publik Alternatif (CORS-friendly)
     document.getElementById('btnSearchOnlineMusic').addEventListener('click', searchOnlineMusic);
     document.getElementById('onlineMusicSearchInput').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') searchOnlineMusic();
@@ -1966,7 +1963,6 @@
         resultsContainer.innerHTML = '<div style="text-align:center; color:#00f0ff; font-size:0.8rem; padding:6px;">Mencari musik online...</div>';
         resultsContainer.classList.add('active');
 
-        // Menggunakan arsip direktori publik bebas CORS yang stabil untuk streaming & pencarian lagu
         const url = `https://archive.org/advancedsearch.php?q=title:(${encodeURIComponent(query)}) AND mediatype:(audio)&fl[]=identifier,title,creator&rows=5&output=json`;
 
         fetch(url)
@@ -1983,7 +1979,6 @@
                 docs.forEach(doc => {
                     const trackName = doc.title || 'Unknown Title';
                     const artistName = doc.creator || 'Archive Artist';
-                    // Link direktori stream audio publik dari Internet Archive
                     const audioStreamUrl = `https://archive.org/download/${doc.identifier}/${doc.identifier}_vbr.mp3`;
 
                     const item = document.createElement('div');
@@ -2003,11 +1998,23 @@
             });
     }
 
+    // Pembaruan fungsi streaming online agar langsung mengarahkan ke format mp3 standar yang kompatibel
     window.streamOnlineTrack = function(audioUrl, trackName) {
         const player = document.getElementById('bgAudioPlayer');
-        player.src = audioUrl;
+        let directUrl = audioUrl;
+        if (!directUrl.endsWith('.mp3')) {
+            directUrl = audioUrl.replace('_vbr.mp3', '.mp3');
+        }
+
+        player.src = directUrl;
         document.getElementById('modalTrackTitle').innerText = "[Online] " + trackName;
-        player.play().catch(() => alert('Gagal memutar audio online.'));
+        
+        player.play().then(() => {
+            const playBtnIcon = document.getElementById('playPauseSvgIcon');
+            if(playBtnIcon) playBtnIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+        }).catch(() => {
+            alert('Gagal memutar audio online. Format file mungkin tidak didukung atau tautan sedang sibuk.');
+        });
     };
 
     window.addOnlineTrackToPlaylist = function(audioUrl, trackName) {
