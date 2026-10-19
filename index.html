@@ -32,7 +32,6 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* PERBAIKAN: Menutup latar abu-abu sepenuhnya dengan warna dasar #020714 */
         html {
             background-color: #020714 !important;
             color-scheme: dark;
@@ -163,7 +162,6 @@
         .keypad-btn:active { background: rgba(0, 240, 255, 0.3); border-color: #00f0ff; transform: scale(0.95); }
         .keypad-btn.action-btn { font-size: 1.2rem; color: #7dd3fc; }
 
-        /* PERBAIKAN: Mengunci background agar stabil, tidak goyang, dan merata bebas celah abu */
         .tech-bg-container { 
             position: fixed !important; 
             top: 0 !important; 
@@ -200,7 +198,10 @@
 
         .container { 
             position: relative; z-index: 10; width: 100% !important; max-width: 440px !important; overflow-x: hidden !important; margin: 0 auto; 
-            background: transparent; border: none; box-shadow: none; padding: 20px 4px 16px 4px; display: none; flex-direction: column; align-items: center; gap: 12px; 
+            background: transparent; border: none; box-shadow: none; 
+            /* PERBAIKAN: Menggeser konten utama ke bawah sejauh 1 baris/safe area agar tidak terhalang poni kamera */
+            padding: calc(env(safe-area-inset-top, 24px) + 24px) 4px 16px 4px; 
+            display: none; flex-direction: column; align-items: center; gap: 12px; 
             opacity: 0; transform: scale(0.96) translateZ(0); transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); overscroll-behavior-y: none; 
         }
         .container.active { display: flex !important; opacity: 1; transform: scale(1) translateZ(0); }
