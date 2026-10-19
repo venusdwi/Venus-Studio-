@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     
+    <!-- PERBAIKAN: Menyelaraskan warna status bar agar menyatu penuh dengan background gelap -->
     <meta name="theme-color" content="#020714">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -32,7 +33,12 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* PERBAIKAN: Memastikan html dan body mencakup seluruh layar tanpa celah warna abu-abu */
+        /* PERBAIKAN: Memastikan html dan body mencakup seluruh layar secara mutlak tanpa celah abu-abu */
+        html {
+            background-color: #020714 !important;
+            color-scheme: dark;
+        }
+
         html, body {
             width: 100% !important;
             max-width: 100vw !important;
@@ -48,7 +54,7 @@
         }
 
         body {
-            padding: env(safe-area-inset-top, 16px) 12px env(safe-area-inset-bottom, 16px) 12px;
+            padding: env(safe-area-inset-top, 0px) 12px env(safe-area-inset-bottom, 16px) 12px;
             display: flex;
             justify-content: center;
             align-items: flex-start;
@@ -84,7 +90,7 @@
         .splash-screen-overlay {
             position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh;
             background: linear-gradient(rgba(2, 7, 20, 0.95), rgba(2, 7, 20, 0.99)), #020714; z-index: 99999999;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; overflow: hidden !important; transition: opacity 0.5s ease, visibility 0.5s ease;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; overflow: hidden !important; transition: opacity 0.4s ease, visibility 0.4s ease;
         }
         .splash-screen-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; display: none !important; }
         .splash-pulse-line { position: absolute; top: 0; left: 0; width: 100% !important; height: 100% !important; pointer-events: none; z-index: 1; background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.15) 0%, transparent 60%); animation: pulseGlowMove 4s infinite ease-in-out; }
@@ -112,24 +118,24 @@
         }
 
         .splash-bottom-section { position: fixed; bottom: 85px; width: 100%; display: flex; justify-content: center; z-index: 50; }
-        .tap-here-btn { background: linear-gradient(135deg, rgba(0, 240, 255, 0.15) 0%, rgba(0, 119, 255, 0.25) 100%); border: 1.5px solid rgba(0, 240, 255, 0.7); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 1.15rem; font-weight: 800; letter-spacing: 3px; padding: 14px 38px; border-radius: 30px; cursor: pointer; box-shadow: 0 0 20px rgba(0, 240, 255, 0.35); text-transform: uppercase; opacity: 0; visibility: hidden; transition: opacity 0.5s ease, transform 0.2s ease; text-decoration: none !important; outline: none !important; }
+        .tap-here-btn { background: linear-gradient(135deg, rgba(0, 240, 255, 0.15) 0%, rgba(0, 119, 255, 0.25) 100%); border: 1.5px solid rgba(0, 240, 255, 0.7); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 1.15rem; font-weight: 800; letter-spacing: 3px; padding: 14px 38px; border-radius: 30px; cursor: pointer; box-shadow: 0 0 20px rgba(0, 240, 255, 0.35); text-transform: uppercase; opacity: 0; visibility: hidden; transition: opacity 0.4s ease, transform 0.2s ease; text-decoration: none !important; outline: none !important; }
         .tap-here-btn.show { opacity: 1; visibility: visible; animation: tapPulse 1.5s infinite ease-in-out; }
         .tap-here-btn:active { transform: scale(0.95); background: rgba(0, 240, 255, 0.35); box-shadow: 0 0 30px rgba(0, 240, 255, 0.8); }
 
         @keyframes tapPulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); } 50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(0, 240, 255, 0.6); } }
 
-        .pin-screen-overlay { position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh; background: #020714; z-index: 9999990; display: none; opacity: 0; visibility: hidden; flex-direction: column; justify-content: center; align-items: center; padding: 20px; overflow-x: hidden !important; transition: opacity 0.3s ease, visibility 0.3s ease; overscroll-behavior-y: none; }
+        .pin-screen-overlay { position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh; background: #020714; z-index: 9999990; display: none; opacity: 0; visibility: hidden; flex-direction: column; justify-content: center; align-items: center; padding: 20px; overflow-x: hidden !important; transition: opacity 0.25s ease, visibility 0.25s ease; overscroll-behavior-y: none; }
         .pin-screen-overlay.active { display: flex !important; opacity: 1 !important; visibility: visible !important; }
 
-        .cyber-scanner-flash { position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh; background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.2) 0%, rgba(2, 7, 20, 0.98) 85%), linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px); background-size: 100% 100%, 20px 20px, 20px 20px; z-index: 99999995; opacity: 0; visibility: hidden; pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; transition: opacity 0.25s ease; overflow-x: hidden !important; }
-        .cyber-scanner-flash.active { opacity: 1; visibility: visible; animation: hackerTerminalSeq 1.1s forwards cubic-bezier(0.1, 0.9, 0.2, 1); }
+        .cyber-scanner-flash { position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh; background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.2) 0%, rgba(2, 7, 20, 0.98) 85%), linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px); background-size: 100% 100%, 20px 20px, 20px 20px; z-index: 99999995; opacity: 0; visibility: hidden; pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; transition: opacity 0.2s ease; overflow-x: hidden !important; }
+        .cyber-scanner-flash.active { opacity: 1; visibility: visible; animation: hackerTerminalSeq 0.9s forwards cubic-bezier(0.1, 0.9, 0.2, 1); }
 
         .hacker-terminal-box { background: rgba(2, 12, 32, 0.92); border: 1.5px solid #00f0ff; border-radius: 14px; padding: 20px 24px; max-width: 340px; width: 100%; box-shadow: 0 0 40px rgba(0, 240, 255, 0.5), inset 0 0 15px rgba(0, 240, 255, 0.25); font-family: 'Rajdhani', sans-serif; text-align: left; display: flex; flex-direction: column; gap: 8px; }
-        .hacker-line { font-size: 0.95rem; font-weight: 800; color: #34d399; letter-spacing: 1.5px; text-shadow: 0 0 8px rgba(52, 211, 153, 0.8); opacity: 0; transform: translateY(6px); animation: hackerLineFadeIn 0.25s forwards ease; }
-        .hacker-line:nth-child(1) { animation-delay: 0.1s; color: #00f0ff; text-shadow: 0 0 8px rgba(0, 240, 255, 0.8); }
-        .hacker-line:nth-child(2) { animation-delay: 0.3s; }
-        .hacker-line:nth-child(3) { animation-delay: 0.5s; color: #38bdf8; text-shadow: 0 0 8px rgba(56, 189, 248, 0.8); }
-        .hacker-line:nth-child(4) { animation-delay: 0.7s; color: #10b981; }
+        .hacker-line { font-size: 0.95rem; font-weight: 800; color: #34d399; letter-spacing: 1.5px; text-shadow: 0 0 8px rgba(52, 211, 153, 0.8); opacity: 0; transform: translateY(6px); animation: hackerLineFadeIn 0.2s forwards ease; }
+        .hacker-line:nth-child(1) { animation-delay: 0.05s; color: #00f0ff; text-shadow: 0 0 8px rgba(0, 240, 255, 0.8); }
+        .hacker-line:nth-child(2) { animation-delay: 0.2s; }
+        .hacker-line:nth-child(3) { animation-delay: 0.35s; color: #38bdf8; text-shadow: 0 0 8px rgba(56, 189, 248, 0.8); }
+        .hacker-line:nth-child(4) { animation-delay: 0.5s; color: #10b981; }
 
         @keyframes hackerLineFadeIn { to { opacity: 1; transform: translateY(0); } }
         @keyframes hackerTerminalSeq { 0% { opacity: 0; filter: brightness(0.5); } 20% { opacity: 1; filter: brightness(1.3); } 85% { opacity: 1; filter: brightness(1); } 100% { opacity: 0; visibility: hidden; transform: scale(1.02); } }
@@ -146,11 +152,11 @@
         .pin-error-msg { color: #fb7185; font-size: 0.85rem; font-weight: 700; min-height: 18px; }
 
         .on-screen-keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; max-width: 280px; margin-top: 5px; }
-        .keypad-btn { background: rgba(0, 240, 255, 0.06); border: 1px solid rgba(0, 240, 255, 0.25); color: #ffffff; font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; font-weight: 700; padding: 12px 0; border-radius: 14px; cursor: pointer; transition: all 0.15s ease; user-select: none; display: flex; align-items: center; justify-content: center; }
+        .keypad-btn { background: rgba(0, 240, 255, 0.06); border: 1px solid rgba(0, 240, 255, 0.25); color: #ffffff; font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; font-weight: 700; padding: 12px 0; border-radius: 14px; cursor: pointer; transition: all 0.1s ease; user-select: none; display: flex; align-items: center; justify-content: center; }
         .keypad-btn:active { background: rgba(0, 240, 255, 0.3); border-color: #00f0ff; transform: scale(0.95); }
         .keypad-btn.action-btn { font-size: 1.2rem; color: #7dd3fc; }
 
-        /* PERBAIKAN: Background Full Layar Dinamis Menutupi Seluruh Layar & Area Transisi */
+        /* PERBAIKAN: Background Full Layar Dioptimalkan agar Smooth Tanpa Jeda */
         .tech-bg-container { 
             position: fixed !important; 
             top: 0 !important; 
@@ -167,7 +173,7 @@
             background: #020714 !important; 
             opacity: 0; 
             visibility: hidden; 
-            transition: opacity 0.8s ease, visibility 0.8s ease; 
+            transition: opacity 0.3s ease, visibility 0.3s ease; 
         }
         .tech-bg-container.active { opacity: 1; visibility: visible; }
         
@@ -183,7 +189,7 @@
         }
         .cyber-vignette { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: radial-gradient(circle at 50% 50%, transparent 30%, rgba(1, 4, 12, 0.65) 100%); pointer-events: none; }
 
-        .container { position: relative; z-index: 10; width: 100% !important; max-width: 440px !important; overflow-x: hidden !important; margin: 0 auto; background: transparent; border: none; box-shadow: none; padding: 10px 4px; display: none; flex-direction: column; align-items: center; gap: 12px; opacity: 0; transform: scale(0.92); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); overscroll-behavior-y: none; }
+        .container { position: relative; z-index: 10; width: 100% !important; max-width: 440px !important; overflow-x: hidden !important; margin: 0 auto; background: transparent; border: none; box-shadow: none; padding: 10px 4px; display: none; flex-direction: column; align-items: center; gap: 12px; opacity: 0; transform: scale(0.96); transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); overscroll-behavior-y: none; }
         .container.active { display: flex !important; opacity: 1; transform: scale(1); }
         .install-app-btn { background: linear-gradient(135deg, rgba(0, 240, 255, 0.2) 0%, rgba(0, 119, 255, 0.2) 100%); border: 1px solid rgba(0, 240, 255, 0.6); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 0.9rem; font-weight: 800; padding: 10px 16px; border-radius: 12px; cursor: pointer; display: none; align-items: center; justify-content: center; gap: 6px; margin: 0 auto 14px auto; box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); letter-spacing: 1px; text-transform: uppercase; }
 
@@ -191,21 +197,21 @@
         .brand-top-header { display: flex; align-items: center; justify-content: center; pointer-events: none; user-select: none; padding: 2px 10px; background: transparent; border: none; }
         .brand-studio-title { font-family: 'Rajdhani', sans-serif; font-size: 1.05rem; font-weight: 900; letter-spacing: 4px; color: #00f0ff; text-transform: uppercase; text-shadow: 0 0 15px rgba(0, 240, 255, 0.8); }
 
-        .clickable-header-wrapper, .music-player-panel, .personal-data-panel, .debt-tracker-panel { cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px 16px; border-radius: 16px; background: rgba(2, 10, 28, 0.28); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1.5px solid rgba(0, 240, 255, 0.45); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.2); width: 100%; transition: transform 0.2s ease, filter 0.2s ease, background 0.2s ease; margin-bottom: 12px; position: relative; z-index: 20; }
+        .clickable-header-wrapper, .music-player-panel, .personal-data-panel, .debt-tracker-panel { cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px 16px; border-radius: 16px; background: rgba(2, 10, 28, 0.28); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1.5px solid rgba(0, 240, 255, 0.45); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.2); width: 100%; transition: transform 0.15s ease, filter 0.15s ease, background 0.15s ease; margin-bottom: 12px; position: relative; z-index: 20; }
         .clickable-header-wrapper:active, .music-player-panel:active, .personal-data-panel:active, .debt-tracker-panel:active { transform: scale(0.98); filter: brightness(1.2); background: rgba(0, 240, 255, 0.15); }
         
         .main-page-title { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: clamp(1.4rem, 5vw, 1.8rem); letter-spacing: 2px; text-transform: uppercase; background: linear-gradient(135deg, #ffffff 0%, #00f0ff 60%, #38bdf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 20px rgba(0, 240, 255, 0.8); text-align: center; pointer-events: none; }
         .main-page-subtitle { font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; font-weight: 800; letter-spacing: 2px; color: #7dd3fc; text-transform: uppercase; margin-top: 4px; opacity: 0.95; text-align: center; pointer-events: none; }
 
-        .cyber-modal-overlay, .music-modal-overlay, .personal-modal-overlay, .debt-modal-overlay, .debt-pin-overlay, .edit-debt-overlay, .view-debt-overlay, .popup-overlay { position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh; background: rgba(2, 7, 20, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 99999999; display: flex; justify-content: center; align-items: center; padding: 12px; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.35s ease; overflow-x: hidden !important; overscroll-behavior-y: none; }
+        .cyber-modal-overlay, .music-modal-overlay, .personal-modal-overlay, .debt-modal-overlay, .debt-pin-overlay, .edit-debt-overlay, .view-debt-overlay, .popup-overlay { position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh; background: rgba(2, 7, 20, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 99999999; display: flex; justify-content: center; align-items: center; padding: 12px; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.25s ease; overflow-x: hidden !important; overscroll-behavior-y: none; }
         .cyber-modal-overlay.active, .music-modal-overlay.active, .personal-modal-overlay.active, .debt-modal-overlay.active, .debt-pin-overlay.active, .edit-debt-overlay.active, .view-debt-overlay.active, .popup-overlay.active { opacity: 1; visibility: visible; pointer-events: auto; }
 
-        .music-modal-card, .personal-modal-card, .debt-modal-card, .view-debt-card { background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.75); border-radius: 26px; padding: 22px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); transform: scale(0.9); transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); overflow-x: hidden !important; overscroll-behavior-y: none; }
+        .music-modal-card, .personal-modal-card, .debt-modal-card, .view-debt-card { background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.75); border-radius: 26px; padding: 22px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); transform: scale(0.95); transition: transform 0.25s cubic-bezier(0.34, 1.2, 0.64, 1); overflow-x: hidden !important; overscroll-behavior-y: none; }
         
-        .cyber-modal-card { background: var(--cv-bg-modal) !important; border: 2px solid var(--cv-border-primary) !important; border-radius: 26px; padding: 22px 18px 24px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); transform: scale(0.9); transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease, border-color 0.3s ease; overflow-x: hidden !important; overscroll-behavior-y: none; }
+        .cyber-modal-card { background: var(--cv-bg-modal) !important; border: 2px solid var(--cv-border-primary) !important; border-radius: 26px; padding: 22px 18px 24px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); transform: scale(0.95); transition: transform 0.25s cubic-bezier(0.34, 1.2, 0.64, 1), background-color 0.2s ease, border-color 0.2s ease; overflow-x: hidden !important; overscroll-behavior-y: none; }
         .cyber-modal-overlay.active .cyber-modal-card, .music-modal-overlay.active .music-modal-card, .personal-modal-overlay.active .personal-modal-card, .debt-modal-overlay.active .debt-modal-card, .view-debt-overlay.active .view-debt-card { transform: scale(1); }
 
-        .close-cyber-modal, .close-music-modal, .close-personal-modal, .close-debt-modal, .close-view-debt { background: rgba(0, 240, 255, 0.12); border: 1.5px solid rgba(0, 240, 255, 0.5); color: #00f0ff; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800; transition: all 0.2s ease; flex-shrink: 0; }
+        .close-cyber-modal, .close-music-modal, .close-personal-modal, .close-debt-modal, .close-view-debt { background: rgba(0, 240, 255, 0.12); border: 1.5px solid rgba(0, 240, 255, 0.5); color: #00f0ff; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800; transition: all 0.15s ease; flex-shrink: 0; }
         .close-cyber-modal:active, .close-music-modal:active, .close-personal-modal:active, .close-debt-modal:active, .close-view-debt:active { background: rgba(0, 240, 255, 0.35); transform: scale(0.92); }
 
         .audio-stabilizer-container { width: 100% !important; max-width: 260px !important; height: 50px !important; display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: flex-end !important; margin: 0.8rem auto 0.1rem auto !important; padding: 0 !important; position: relative !important; border: none !important; background: transparent !important; box-shadow: none !important; }
@@ -221,7 +227,7 @@
         .music-time-info { display: flex; justify-content: space-between; font-size: 0.75rem; color: #7dd3fc; font-weight: 700; }
 
         .music-controls-row { display: flex; align-items: center; justify-content: center; gap: 20px; width: 100%; margin: 4px 0 12px 0; }
-        .ctrl-btn { background: rgba(0, 240, 255, 0.1); border: 1.5px solid rgba(0, 240, 255, 0.5); color: #00f0ff; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
+        .ctrl-btn { background: rgba(0, 240, 255, 0.1); border: 1.5px solid rgba(0, 240, 255, 0.5); color: #00f0ff; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s ease; }
         .ctrl-btn.small { width: 44px; height: 44px; font-size: 1.1rem; }
         .ctrl-btn.large { width: 60px; height: 60px; background: linear-gradient(135deg, rgba(0, 240, 255, 0.25), rgba(0, 119, 255, 0.35)); border: 2px solid #00f0ff; box-shadow: 0 0 20px rgba(0, 240, 255, 0.6); }
         .ctrl-btn:active { transform: scale(0.92); background: rgba(0, 240, 255, 0.4); }
@@ -248,14 +254,14 @@
         .full-app-content, .personal-app-content, .debt-app-content { display: flex; flex-direction: column; width: 100% !important; max-width: 100% !important; flex-grow: 1; overflow-y: auto; overflow-x: hidden !important; background: transparent !important; border: none !important; padding: 6px 4px 120px 4px !important; text-align: left; gap: 16px; margin-top: 10px; scroll-behavior: smooth; overscroll-behavior-y: none; }
 
         .glass-control-panel { display: flex !important; align-items: center; justify-content: space-between; gap: 12px; flex-shrink: 0; height: 40px; margin-bottom: 0 !important; }
-        .glass-label-text { font-size: 0.9rem; font-weight: 800; color: var(--cv-text-secondary); white-space: nowrap; line-height: 1; display: flex; align-items: center; height: 100%; transition: color 0.3s ease; }
+        .glass-label-text { font-size: 0.9rem; font-weight: 800; color: var(--cv-text-secondary); white-space: nowrap; line-height: 1; display: flex; align-items: center; height: 100%; transition: color 0.2s ease; }
         .glass-slider-wrapper { display: flex; align-items: center; flex-grow: 1; padding: 0 4px; height: 100%; overflow: hidden !important; }
         
         .glass-range-input { -webkit-appearance: none !important; appearance: none !important; width: 100% !important; height: 16px !important; background: transparent !important; outline: none !important; border: none !important; margin: 0 !important; padding: 0 !important; cursor: pointer !important; }
         .glass-range-input::-webkit-slider-runnable-track { width: 100% !important; height: 4px !important; background: rgba(0, 240, 255, 0.35) !important; border-radius: 2px !important; border: none !important; }
         .glass-range-input::-webkit-slider-thumb { -webkit-appearance: none !important; appearance: none !important; width: 16px !important; height: 16px !important; border-radius: 50% !important; background: #00f0ff !important; box-shadow: 0 0 10px rgba(0, 240, 255, 0.9) !important; cursor: pointer !important; margin-top: -6px !important; border: none !important; }
         
-        .opacity-value-badge { font-family: 'Rajdhani', sans-serif; font-weight: 800; font-size: 0.95rem; color: var(--cv-text-secondary); min-width: 42px; text-align: right; white-space: nowrap; line-height: 1; display: flex; align-items: center; justify-content: flex-end; height: 100%; transition: color 0.3s ease; }
+        .opacity-value-badge { font-family: 'Rajdhani', sans-serif; font-weight: 800; font-size: 0.95rem; color: var(--cv-text-secondary); min-width: 42px; text-align: right; white-space: nowrap; line-height: 1; display: flex; align-items: center; justify-content: flex-end; height: 100%; transition: color 0.2s ease; }
 
         .dashboard { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; width: 100%; overflow-x: hidden !important; }
         .card-hero { background: rgba(0, 180, 255, calc(var(--glass-alpha) * 0.45 + 0.05)); border: 1px solid rgba(0, 240, 255, 0.5); border-radius: 16px; padding: 18px 14px; text-align: center; }
@@ -273,12 +279,12 @@
         .card-cash { background: rgba(56, 189, 248, calc(var(--glass-alpha) * 0.45 + 0.05)); border: 1px solid rgba(56, 189, 248, 0.55); color: #38bdf8; }
         .card-bank { background: rgba(168, 85, 247, calc(var(--glass-alpha) * 0.45 + 0.05)); border: 1px solid rgba(168, 85, 247, 0.55); color: #c084fc; }
 
-        .cyber-input-form { display: flex !important; flex-direction: column !important; gap: 14px !important; width: 100% !important; background: var(--cv-bg-form) !important; border: 1.5px solid var(--cv-border-primary) !important; border-radius: 16px !important; padding: 16px !important; margin-top: 4px !important; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important; transition: background-color 0.3s ease, border-color 0.3s ease; }
+        .cyber-input-form { display: flex !important; flex-direction: column !important; gap: 14px !important; width: 100% !important; background: var(--cv-bg-form) !important; border: 1.5px solid var(--cv-border-primary) !important; border-radius: 16px !important; padding: 16px !important; margin-top: 4px !important; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important; transition: background-color 0.2s ease, border-color 0.2s ease; }
         .form-group { display: flex; flex-direction: column; gap: 6px; width: 100%; }
         .datetime-group { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
         
         .full-app-content label, #detailTransactionModal label, .popup-box label, .sub-account-modal label, .edit-debt-overlay label { 
-            font-size: 0.92rem; font-weight: 800; color: var(--cv-text-secondary); letter-spacing: 0.5px; margin-bottom: 2px; transition: color 0.3s ease; 
+            font-size: 0.92rem; font-weight: 800; color: var(--cv-text-secondary); letter-spacing: 0.5px; margin-bottom: 2px; transition: color 0.2s ease; 
         }
         
         .full-app-content input, .full-app-content select, .full-app-content textarea,
@@ -287,7 +293,7 @@
         .sub-account-modal input, .sub-account-modal select, .sub-account-modal textarea,
         .edit-debt-overlay input, .edit-debt-overlay select, .edit-debt-overlay textarea,
         .view-debt-overlay input, .view-debt-overlay select, .view-debt-overlay textarea { 
-            padding: 15px 16px; border: 1.5px solid var(--cv-border-primary); border-radius: 12px; font-size: 1.05rem; font-weight: 600; outline: none; background: var(--cv-bg-input); color: var(--cv-text-primary); width: 100%; max-width: 100% !important; color-scheme: dark; transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; 
+            padding: 15px 16px; border: 1.5px solid var(--cv-border-primary); border-radius: 12px; font-size: 1.05rem; font-weight: 600; outline: none; background: var(--cv-bg-input); color: var(--cv-text-primary); width: 100%; max-width: 100% !important; color-scheme: dark; transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease; 
         }
 
         .custom-file-box {
@@ -315,7 +321,7 @@
         .sub-account-modal.active, .all-history-modal.active { display: flex !important; }
 
         .account-history-box { background: transparent; border: none; padding: 0; margin-top: 6px; min-height: 180px; max-height: 280px; overflow-y: auto; text-align: left; width: 100%; display: flex; flex-direction: column; gap: 10px; overscroll-behavior-y: none; }
-        .account-history-item { font-size: 0.9rem; color: #ffffff; background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.35); border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; cursor: pointer; width: 100%; transition: border-color 0.2s ease, background 0.2s ease; }
+        .account-history-item { font-size: 0.9rem; color: #ffffff; background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.35); border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; cursor: pointer; width: 100%; transition: border-color 0.15s ease, background 0.15s ease; }
         .account-history-item:active { border-color: #00f0ff; background: rgba(0, 240, 255, 0.12); }
         .history-user-info { font-size: 0.98rem; font-weight: 800; color: #ffffff; word-break: break-all; display: flex; flex-direction: column; gap: 4px; }
         .history-timestamp { font-size: 0.78rem; font-weight: 700; color: #38bdf8; margin-top: 2px; }
@@ -329,7 +335,7 @@
         .full-app-content .datetime-display-text { font-size: 1.1rem; font-weight: 600; color: var(--cv-text-primary); pointer-events: none; width: 100%; }
 
         button[type="submit"] { background: linear-gradient(135deg, rgba(0, 153, 255, 0.9) 0%, rgba(0, 85, 255, 0.9) 100%); color: #ffffff; font-size: 1.15rem; font-weight: 900; letter-spacing: 1.5px; border: 1.5px solid rgba(0, 240, 255, 0.7); cursor: pointer; padding: 16px 20px; border-radius: 14px; width: 100%; display: flex; align-items: center; justify-content: center; text-align: center; margin-top: 6px; }
-        .btn-spinner { width: 22px; height: 22px; border: 2px solid rgba(255,255,255,0.3); border-top: 2px solid #ffffff; border-radius: 50%; animation: spinLoading 0.8s linear infinite; display: inline-block; flex-shrink: 0; }
+        .btn-spinner { width: 22px; height: 22px; border: 2px solid rgba(255,255,255,0.3); border-top: 2px solid #ffffff; border-radius: 50%; animation: spinLoading 0.6s linear infinite; display: inline-block; flex-shrink: 0; }
         @keyframes spinLoading { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         .history-section-wrapper { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; margin-top: 10px; width: 100%; }
@@ -1443,7 +1449,7 @@
             setTimeout(() => { 
                 playNetflixIntroSound(); 
                 speakWelcomeGreeting(); 
-            }, 600);
+            }, 500);
         }
 
         setTimeout(() => {
@@ -1464,7 +1470,7 @@
                     }
                 });
             }
-        }, 500);
+        }, 400);
     });
 
     function playTapHereClickSound() {
@@ -1478,17 +1484,17 @@
             osc.type = 'sawtooth';
             
             osc.frequency.setValueAtTime(440, now);
-            osc.frequency.exponentialRampToValueAtTime(1200, now + 0.15);
+            osc.frequency.exponentialRampToValueAtTime(1200, now + 0.12);
             
             gain.gain.setValueAtTime(0.01, now);
-            gain.gain.linearRampToValueAtTime(0.3, now + 0.03);
-            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+            gain.gain.linearRampToValueAtTime(0.3, now + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
             
             osc.connect(gain);
             gain.connect(ctx.destination);
             
             osc.start(now);
-            osc.stop(now + 0.25);
+            osc.stop(now + 0.2);
         } catch (e) {}
     }
 
@@ -1509,25 +1515,25 @@
             const masterGain = ctx.createGain();
             masterGain.gain.setValueAtTime(0.01, now);
             masterGain.gain.linearRampToValueAtTime(1.8, now + 0.03); 
-            masterGain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+            masterGain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
             masterGain.connect(compressor);
 
             const osc1 = ctx.createOscillator();
             osc1.type = 'triangle';
             osc1.frequency.setValueAtTime(587.33, now); 
-            osc1.frequency.setValueAtTime(880, now + 0.12); 
+            osc1.frequency.setValueAtTime(880, now + 0.1); 
             osc1.connect(masterGain);
 
             const osc2 = ctx.createOscillator();
             osc2.type = 'sine';
             osc2.frequency.setValueAtTime(1174.66, now); 
-            osc2.frequency.setValueAtTime(1760, now + 0.12); 
+            osc2.frequency.setValueAtTime(1760, now + 0.1); 
             osc2.connect(masterGain);
 
             osc1.start(now);
             osc2.start(now);
-            osc1.stop(now + 0.5);
-            osc2.stop(now + 0.5);
+            osc1.stop(now + 0.4);
+            osc2.stop(now + 0.4);
         } catch (e) {}
     }
 
@@ -1543,18 +1549,18 @@
                 const gain = ctx.createGain();
                 osc.type = 'triangle';
                 
-                const startTime = now + (index * 0.08);
+                const startTime = now + (index * 0.06);
                 osc.frequency.setValueAtTime(freq, startTime);
                 
                 gain.gain.setValueAtTime(0.01, startTime);
-                gain.gain.linearRampToValueAtTime(1.0, startTime + 0.04);
-                gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.4);
+                gain.gain.linearRampToValueAtTime(1.0, startTime + 0.03);
+                gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.35);
                 
                 osc.connect(gain);
                 gain.connect(ctx.destination);
                 
                 osc.start(startTime);
-                osc.stop(startTime + 0.4);
+                osc.stop(startTime + 0.35);
             });
         } catch (e) {}
     }
@@ -1568,14 +1574,14 @@
             const gain1 = ctx.createGain(); 
             osc1.type = 'sawtooth'; 
             osc1.frequency.setValueAtTime(100, now); 
-            osc1.frequency.exponentialRampToValueAtTime(32, now + 0.55); 
+            osc1.frequency.exponentialRampToValueAtTime(32, now + 0.45); 
             gain1.gain.setValueAtTime(0.01, now); 
-            gain1.gain.linearRampToValueAtTime(0.75, now + 0.08); 
-            gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.85); 
+            gain1.gain.linearRampToValueAtTime(0.75, now + 0.06); 
+            gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.7); 
             osc1.connect(gain1); 
             gain1.connect(ctx.destination); 
             osc1.start(now); 
-            osc1.stop(now + 0.85); 
+            osc1.stop(now + 0.7); 
         } catch (e) {} 
     }
 
@@ -1608,7 +1614,7 @@
                 if (btnTapHere && !btnTapHere.classList.contains('show')) { 
                     btnTapHere.classList.add('show'); 
                 } 
-            }, 2500);
+            }, 2000);
 
             window.speechSynthesis.speak(utterance);
         } else { 
@@ -1649,7 +1655,7 @@
             playTapHereClickSound(); 
             if ('speechSynthesis' in window) window.speechSynthesis.cancel();
             if (splashScreenOverlay) splashScreenOverlay.classList.add('hidden');
-            setTimeout(() => { if (pinScreenOverlay) pinScreenOverlay.classList.add('active'); }, 200);
+            setTimeout(() => { if (pinScreenOverlay) pinScreenOverlay.classList.add('active'); }, 150);
         });
     }
 
@@ -1681,9 +1687,9 @@
                 updateUI(); 
                 sessionStorage.setItem('venus_is_logged', 'true'); 
                 sessionStorage.setItem('venus_active_modal', 'none'); 
-            }, 850);
+            }, 700);
         } else {
-            pinErrorMsg.innerText = "PIN Salah! Silakan coba lagi."; setTimeout(() => { clearAllPin(); }, 300);
+            pinErrorMsg.innerText = "PIN Salah! Silakan coba lagi."; setTimeout(() => { clearAllPin(); }, 250);
         }
     }
 
@@ -1715,7 +1721,7 @@
             sessionStorage.setItem('venus_active_modal', 'debt');
             renderDebts();
         } else {
-            debtPinErrorMsg.innerText = "PIN Salah!"; setTimeout(() => { clearDebtPin(); }, 300);
+            debtPinErrorMsg.innerText = "PIN Salah!"; setTimeout(() => { clearDebtPin(); }, 250);
         }
     }
 
@@ -1748,7 +1754,7 @@
             document.getElementById('subAccountModal').classList.remove('active');
             clearDelPin();
         } else {
-            deletePinErrorMsg.innerText = "PIN Salah! Gagal menghapus."; setTimeout(() => { clearDelPin(); }, 300);
+            deletePinErrorMsg.innerText = "PIN Salah! Gagal menghapus."; setTimeout(() => { clearDelPin(); }, 250);
         }
     }
 
@@ -2208,7 +2214,7 @@
                 `;
                 resultsContainer.appendChild(item);
             });
-        }, 400);
+        }, 300);
     }
 
     window.streamOnlineTrack = function(audioUrl, trackName) {
@@ -2728,7 +2734,7 @@
 
                 document.getElementById('popupNotification').classList.add('active');
             });
-        }, 2000);
+        }, 1500);
     });
 
     document.getElementById('popupCloseBtn').addEventListener('click', () => { document.getElementById('popupNotification').classList.remove('active'); });
