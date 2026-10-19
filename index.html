@@ -282,8 +282,10 @@
         .sub-account-modal, .all-history-modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3, 14, 38, 0.98); z-index: 20; display: none; flex-direction: column; padding: 20px 16px; justify-content: space-between; border-radius: 26px; overflow-y: auto; overflow-x: hidden !important; }
         .sub-account-modal.active, .all-history-modal.active { display: flex !important; }
 
-        .account-history-box { background: rgba(2, 12, 32, 0.9); border: 1px solid rgba(0, 240, 255, 0.3); border-radius: 12px; padding: 10px; margin-top: 6px; min-height: 180px; max-height: 280px; overflow-y: auto; text-align: left; width: 100%; }
-        .account-history-item { font-size: 0.9rem; color: #ffffff; background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.2); border-radius: 10px; padding: 12px; margin-bottom: 10px; display: flex; flex-direction: column; gap: 6px; cursor: pointer; width: 100%; }
+        /* PERBAIKAN: Hilangkan border outer pembungkus dan atur max-height untuk scroll */
+        .account-history-box { background: transparent; border: none; padding: 0; margin-top: 6px; min-height: 180px; max-height: 280px; overflow-y: auto; text-align: left; width: 100%; display: flex; flex-direction: column; gap: 10px; }
+        .account-history-item { font-size: 0.9rem; color: #ffffff; background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.35); border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; cursor: pointer; width: 100%; transition: border-color 0.2s ease, background 0.2s ease; }
+        .account-history-item:active { border-color: #00f0ff; background: rgba(0, 240, 255, 0.12); }
         .history-user-info { font-size: 0.98rem; font-weight: 800; color: #ffffff; word-break: break-all; display: flex; flex-direction: column; gap: 4px; }
         .history-timestamp { font-size: 0.78rem; font-weight: 700; color: #38bdf8; margin-top: 2px; }
 
@@ -1074,7 +1076,7 @@
         <div id="cyberConfirmMessage" style="font-size: 0.95rem; color: #a5f3fc; line-height: 1.5;">Apakah Anda yakin ingin menghapus transaksi ini?</div>
         <div style="display: flex; gap: 10px; width: 100%; margin-top: 6px;">
             <button type="button" id="cyberConfirmCancelBtn" style="background: rgba(0, 240, 255, 0.1); border: 1.5px solid rgba(0, 240, 255, 0.4); color: #00f0ff; flex: 1; padding: 14px; border-radius: 12px; font-weight: 800; cursor: pointer;">Batal</button>
-            <button type="button" id="cyberConfirmOkBtn" style="background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%); border: none; color: #fff; flex: 1; padding: 14px; border-radius: 900; cursor: pointer;">Hapus</button>
+            <button type="button" id="cyberConfirmOkBtn" style="background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%); border: none; color: #fff; flex: 1; padding: 14px; border-radius: 12px; font-weight: 800; cursor: pointer;">Hapus</button>
         </div>
     </div>
 </div>
@@ -1085,7 +1087,7 @@
         <div class="form-group"><label>Nama Platform / Judul Akun</label><input type="text" id="newPlatformInput" placeholder="Misal: Twitter, Facebook, Netflix"></div>
         <div style="display: flex; gap: 10px; margin-top: 6px; width: 100%;">
             <button type="button" id="cancelNewPlatformBtn" style="background: rgba(244, 63, 94, 0.2); border: 1.5px solid rgba(244, 63, 94, 0.6); color: #fb7185; flex: 1; padding: 14px; border-radius: 12px; font-weight: 800; cursor:pointer;">Batal</button>
-            <button type="button" id="saveNewPlatformBtn" style="background: linear-gradient(135deg, #00f0ff 0%, #0077ff 100%); border: none; color: #020714; flex: 2; padding: 14px; border-radius: 900; cursor:pointer;">Tambah</button>
+            <button type="button" id="saveNewPlatformBtn" style="background: linear-gradient(135deg, #00f0ff 0%, #0077ff 100%); border: none; color: #020714; flex: 2; padding: 14px; border-radius: 12px; font-weight: 900; cursor:pointer;">Tambah</button>
         </div>
     </div>
 </div>
@@ -1622,7 +1624,7 @@
 
     const CORRECT_PIN = "040698"; 
     let enteredPin = "";
-    const pinBoxes = document.querySelectorAll('.pin-box:not([data-debt-pin-index])');
+    const pinBoxes = document.querySelectorAll('.pin-box:not([data-debt-pin-index]):not([data-del-index])');
     const pinErrorMsg = document.getElementById('pinErrorMsg');
 
     function updatePinDisplay() {
@@ -1685,6 +1687,45 @@
             debtPinErrorMsg.innerText = "PIN Salah!"; setTimeout(() => { clearDebtPin(); }, 300);
         }
     }
+
+    /* LOGIKA PIN UNTUK HAPUS AKUN TERPILAN LENGKAP */
+    let enteredDelPin = "";
+    const delPinBoxes = document.querySelectorAll('[data-del-index]');
+    const deletePinErrorMsg = document.getElementById('deletePinErrorMsg');
+    const deleteAccountPinModal = document.getElementById('deleteAccountPinModal');
+
+    function updateDelPinDisplay() {
+        delPinBoxes.forEach((box, index) => {
+            if (index < enteredDelPin.length) { box.innerText = "●"; box.classList.add('filled'); box.classList.remove('active'); }
+            else if (index === enteredDelPin.length) { box.innerText = ""; box.classList.remove('filled'); box.classList.add('active'); }
+            else { box.innerText = ""; box.classList.remove('filled', 'active'); }
+        });
+        if (enteredDelPin.length === 6) verifyDelPin();
+    }
+    function pressDelKey(num) { if (enteredDelPin.length < 6) { enteredDelPin += num; deletePinErrorMsg.innerText = ""; updateDelPinDisplay(); } }
+    function deleteDelPin() { if (enteredDelPin.length > 0) { enteredDelPin = enteredDelPin.slice(0, -1); deletePinErrorMsg.innerText = ""; updateDelPinDisplay(); } }
+    function clearDelPin() { enteredDelPin = ""; deletePinErrorMsg.innerText = ""; updateDelPinDisplay(); }
+
+    function verifyDelPin() {
+        if (enteredDelPin === CORRECT_PIN) {
+            playPinSuccessSound();
+            deleteAccountPinModal.classList.remove('active');
+            const index = parseInt(document.getElementById('subEditIndex').value);
+            let accounts = getStoredAccounts();
+            accounts.splice(index, 1);
+            try { localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); } catch(e) {}
+            renderAccountTitles();
+            document.getElementById('subAccountModal').classList.remove('active');
+            clearDelPin();
+        } else {
+            deletePinErrorMsg.innerText = "PIN Salah! Gagal menghapus."; setTimeout(() => { clearDelPin(); }, 300);
+        }
+    }
+
+    document.getElementById('cancelDeletePinBtn').addEventListener('click', () => {
+        deleteAccountPinModal.classList.remove('active');
+        clearDelPin();
+    });
 
     document.getElementById('toggleAppViewBtn').addEventListener('click', (e) => { 
         e.preventDefault(); refreshRealtimeDateTime(); updateUI(); cyberModalOverlay.classList.add('active'); sessionStorage.setItem('venus_active_modal', 'cyber'); 
@@ -1917,6 +1958,55 @@
             accountTitlesList.appendChild(div);
         });
     }
+
+    /* BUKA EDIT MODAL RIWAYAT UNTUK PERUBAHAN ATAU HAPUS */
+    function openEditHistoryModal(accIndex, historyItemIndex) {
+        const accounts = getStoredAccounts();
+        const acc = accounts[accIndex];
+        if (!acc || !acc.history || !acc.history[historyItemIndex]) return;
+
+        const h = acc.history[historyItemIndex];
+        document.getElementById('editHistoryAccIndex').value = accIndex;
+        document.getElementById('editHistoryItemIndex').value = historyItemIndex;
+        document.getElementById('modalHistoryUsername').value = h.username;
+        document.getElementById('modalHistoryPassword').value = h.password;
+
+        document.getElementById('editHistoryItemModal').classList.add('active');
+    }
+
+    document.getElementById('closeEditHistoryModalBtn').addEventListener('click', () => {
+        document.getElementById('editHistoryItemModal').classList.remove('active');
+    });
+
+    document.getElementById('btnSaveHistoryItem').addEventListener('click', () => {
+        const accIndex = parseInt(document.getElementById('editHistoryAccIndex').value);
+        const itemIndex = parseInt(document.getElementById('editHistoryItemIndex').value);
+        let accounts = getStoredAccounts();
+
+        if (accounts[accIndex] && accounts[accIndex].history && accounts[accIndex].history[itemIndex]) {
+            accounts[accIndex].history[itemIndex].username = document.getElementById('modalHistoryUsername').value;
+            accounts[accIndex].history[itemIndex].password = document.getElementById('modalHistoryPassword').value;
+
+            try { localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); } catch(e) {}
+            document.getElementById('editHistoryItemModal').classList.remove('active');
+            openSubAccountModal(accIndex);
+        }
+    });
+
+    document.getElementById('btnDeleteHistoryItem').addEventListener('click', () => {
+        const accIndex = parseInt(document.getElementById('editHistoryAccIndex').value);
+        const itemIndex = parseInt(document.getElementById('editHistoryItemIndex').value);
+        showCyberConfirm('Apakah Anda yakin ingin menghapus item riwayat ini?', () => {
+            let accounts = getStoredAccounts();
+            if (accounts[accIndex] && accounts[accIndex].history) {
+                accounts[accIndex].history.splice(itemIndex, 1);
+                try { localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); } catch(e) {}
+                document.getElementById('editHistoryItemModal').classList.remove('active');
+                openSubAccountModal(accIndex);
+            }
+        });
+    });
+
     function openSubAccountModal(index) {
         const accounts = getStoredAccounts(); const acc = accounts[index];
         document.getElementById('subEditIndex').value = index;
@@ -1926,18 +2016,25 @@
         
         const historyBox = document.getElementById('subAccountHistoryList');
         if (!acc.history || acc.history.length === 0) {
-            historyBox.innerHTML = '<div style="font-size: 0.8rem; color: #64748b; font-style: italic; text-align: center;">Belum ada riwayat perubahan.</div>';
+            historyBox.innerHTML = '<div style="font-size: 0.8rem; color: #64748b; font-style: italic; text-align: center; width:100%;">Belum ada riwayat perubahan.</div>';
         } else {
             historyBox.innerHTML = '';
-            acc.history.slice().reverse().forEach(h => {
-                const itemDiv = document.createElement('div'); itemDiv.className = 'account-history-item';
-                /* PERBAIKAN: Teks User dan Pass dipisahkan penuh dalam tag div masing-masing agar berada di baris baru */
+            /* Render setiap kartu riwayat akun secara interaktif */
+            const historyListReversed = acc.history.slice().reverse();
+            historyListReversed.forEach((h, revIdx) => {
+                const origHistoryIdx = acc.history.length - 1 - revIdx;
+                const itemDiv = document.createElement('div'); 
+                itemDiv.className = 'account-history-item';
                 itemDiv.innerHTML = `<div class="history-user-info"><div>User: ${h.username}</div><div>Pass: ${h.password}</div></div><div class="history-timestamp">🕒 ${h.timestamp}</div>`;
+                itemDiv.addEventListener('click', () => {
+                    openEditHistoryModal(index, origHistoryIdx);
+                });
                 historyBox.appendChild(itemDiv);
             });
         }
         subAccountModal.classList.add('active');
     }
+
     document.getElementById('closeSubModalBtn').addEventListener('click', () => { document.getElementById('subAccountModal').classList.remove('active'); });
     document.getElementById('btnAddAccountModal').addEventListener('click', () => { document.getElementById('newPlatformInput').value = ''; document.getElementById('newPlatformModal').classList.add('active'); });
     document.getElementById('cancelNewPlatformBtn').addEventListener('click', () => { document.getElementById('newPlatformModal').classList.remove('active'); });
@@ -1947,6 +2044,7 @@
         try { localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); } catch(e) {}
         renderAccountTitles(); document.getElementById('newPlatformModal').classList.remove('active');
     });
+    
     document.getElementById('subAccountForm').addEventListener('submit', function(e) {
         e.preventDefault(); const index = parseInt(document.getElementById('subEditIndex').value); let accounts = getStoredAccounts();
         const newU = document.getElementById('subAccountUsername').value; const newP = document.getElementById('subAccountPassword').value;
@@ -1956,14 +2054,15 @@
         try { localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); } catch(e) {}
         renderAccountTitles(); openSubAccountModal(index);
     });
+
+    /* TOMBOL HAPUS AKUN INI MEMICU MODAL VERIFIKASI PIN 040698 */
     document.getElementById('btnDeleteAccountItem').addEventListener('click', () => {
-        const index = parseInt(document.getElementById('subEditIndex').value);
-        showCyberConfirm('Apakah Anda yakin ingin menghapus akun ini?', () => {
-            let accounts = getStoredAccounts(); accounts.splice(index, 1);
-            try { localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts)); } catch(e) {}
-            renderAccountTitles(); document.getElementById('subAccountModal').classList.remove('active');
+        showCyberConfirm('Apakah Anda yakin ingin menghapus akun ini beserta seluruh riwayatnya?', () => {
+            clearDelPin();
+            deleteAccountPinModal.classList.add('active');
         });
     });
+
     document.getElementById('btnExportPersonal').addEventListener('click', () => {
         const savedData = localStorage.getItem('venus_password_manager_data'); if (!savedData) return alert('Belum ada data akun!');
         const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(savedData); const downloadAnchor = document.createElement('a');
