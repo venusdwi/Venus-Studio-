@@ -1093,9 +1093,9 @@
 <div class="popup-overlay" id="modalSelectType">
     <div class="popup-box popup-select-box" style="max-width: 320px; padding: 24px;">
         <div class="popup-title" style="font-size: 1.2rem; margin-bottom: 16px;">JENIS TRANSAKSI</div>
-        <button type="button" class="custom-option-btn" onclick="selectType('in', '🟩 PEMASUKAN (+)')">🟩 PEMASUKAN (+)</button>
-        <button type="button" class="custom-option-btn" style="margin-top: 10px;" onclick="selectType('out', '🟥 PENGELUARAN (-)')">🟥 PENGELUARAN (-)</button>
-        <button type="button" class="custom-option-btn" style="margin-top: 10px; color: #fbbf24; border-color: rgba(251,191,36,0.5);" onclick="selectType('refund', '🟨 PENGEMBALIAN DANA')">🟨 PENGEMBALIAN DANA</button>
+        <button type="button" class="custom-option-btn" style="color: #34d399; border-color: rgba(16,185,129,0.5);" onclick="selectType('in', 'PEMASUKAN (+)')">PEMASUKAN (+)</button>
+        <button type="button" class="custom-option-btn" style="margin-top: 10px; color: #fb7185; border-color: rgba(244,63,94,0.5);" onclick="selectType('out', 'PENGELUARAN (-)')">PENGELUARAN (-)</button>
+        <button type="button" class="custom-option-btn" style="margin-top: 10px; color: #fbbf24; border-color: rgba(251,191,36,0.5);" onclick="selectType('refund', 'PENGEMBALIAN DANA')">PENGEMBALIAN DANA</button>
         <button type="button" class="popup-btn" style="margin-top: 20px; background: transparent; border: 1px solid #00f0ff; color: #00f0ff; padding: 12px; box-shadow: none;" onclick="document.getElementById('modalSelectType').classList.remove('active')">Batal</button>
     </div>
 </div>
@@ -1103,9 +1103,9 @@
 <div class="popup-overlay" id="modalEditSelectType">
     <div class="popup-box popup-select-box" style="max-width: 320px; padding: 24px;">
         <div class="popup-title" style="font-size: 1.2rem; margin-bottom: 16px;">JENIS TRANSAKSI</div>
-        <button type="button" class="custom-option-btn" onclick="selectEditType('in', '🟩 PEMASUKAN (+)')">🟩 PEMASUKAN (+)</button>
-        <button type="button" class="custom-option-btn" style="margin-top: 10px;" onclick="selectEditType('out', '🟥 PENGELUARAN (-)')">🟥 PENGELUARAN (-)</button>
-        <button type="button" class="custom-option-btn" style="margin-top: 10px; color: #fbbf24; border-color: rgba(251,191,36,0.5);" onclick="selectEditType('refund', '🟨 PENGEMBALIAN DANA')">🟨 PENGEMBALIAN DANA</button>
+        <button type="button" class="custom-option-btn" style="color: #34d399; border-color: rgba(16,185,129,0.5);" onclick="selectEditType('in', 'PEMASUKAN (+)')">PEMASUKAN (+)</button>
+        <button type="button" class="custom-option-btn" style="margin-top: 10px; color: #fb7185; border-color: rgba(244,63,94,0.5);" onclick="selectEditType('out', 'PENGELUARAN (-)')">PENGELUARAN (-)</button>
+        <button type="button" class="custom-option-btn" style="margin-top: 10px; color: #fbbf24; border-color: rgba(251,191,36,0.5);" onclick="selectEditType('refund', 'PENGEMBALIAN DANA')">PENGEMBALIAN DANA</button>
         <button type="button" class="popup-btn" style="margin-top: 20px; background: transparent; border: 1px solid #00f0ff; color: #00f0ff; padding: 12px; box-shadow: none;" onclick="document.getElementById('modalEditSelectType').classList.remove('active')">Batal</button>
     </div>
 </div>
@@ -2522,7 +2522,7 @@
         const tx = transactions.find(t => t.id === id); if (!tx) return;
         document.getElementById('editTxId').value = tx.id;
         document.getElementById('editType').value = tx.type;
-        document.getElementById('btnEditSelectType').innerText = tx.type === 'in' ? '🟩 PEMASUKAN (+)' : '🟥 PENGELUARAN (-)';
+        document.getElementById('btnEditSelectType').innerText = tx.type === 'in' ? 'PEMASUKAN (+)' : 'PENGELUARAN (-)';
         document.getElementById('editAmount').value = tx.amount.toLocaleString('id-ID');
         document.getElementById('editDescription').value = tx.description;
         document.getElementById('editDate').value = tx.date;
