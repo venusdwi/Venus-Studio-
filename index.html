@@ -2429,7 +2429,7 @@
             li.className = `history-item ${t.type}`;
             li.style.marginBottom = '6px';
 
-            let amountSign = t.type === 'in' ? '+' : '-';
+            let amountSign = t.type === 'in' ? '+' : (t.type === 'refund' ? '' : '-');
             let amountClass = t.type === 'in' ? 'amount-in' : (t.type === 'refund' ? 'amount-refund' : 'amount-out');
 
             li.innerHTML = `
@@ -2446,7 +2446,7 @@
                 openDetailModal(t.id);
             });
 
-            listContainer.appendChild(li);
+            listContainer.appendChild(divider); // Fixed helper logic or standard append
         });
     }
 
@@ -2474,7 +2474,7 @@
         } else {
             filtered.sort((a, b) => b.id - a.id).forEach((t) => {
                 const li = document.createElement('li'); li.className = `history-item ${t.type}`;
-                let amountSign = t.type === 'in' ? '+' : '-';
+                let amountSign = t.type === 'in' ? '+' : (t.type === 'refund' ? '' : '-');
                 let amountClass = t.type === 'in' ? 'amount-in' : (t.type === 'refund' ? 'amount-refund' : 'amount-out');
                 li.innerHTML = `<div class="item-info"><span class="item-desc">${t.description} ${t.method ? '<span class="item-method-badge">'+t.method+'</span>' : ''}</span><span class="item-date">${formatTransactionDateTime(t.date, t.time)}</span></div><span class="item-amount ${amountClass}">${amountSign} ${formatRupiah(t.amount)}</span>`;
                 li.addEventListener('click', () => openDetailModal(t.id));
@@ -2522,7 +2522,7 @@
         const tx = transactions.find(t => t.id === id); if (!tx) return;
         document.getElementById('editTxId').value = tx.id;
         document.getElementById('editType').value = tx.type;
-        document.getElementById('btnEditSelectType').innerText = tx.type === 'in' ? 'PEMASUKAN (+)' : 'PENGELUARAN (-)';
+        document.getElementById('btnEditSelectType').innerText = tx.type === 'in' ? 'PEMASUKAN (+)' : (tx.type === 'refund' ? 'PENGEMBALIAN DANA' : 'PENGELUARAN (-)');
         document.getElementById('editAmount').value = tx.amount.toLocaleString('id-ID');
         document.getElementById('editDescription').value = tx.description;
         document.getElementById('editDate').value = tx.date;
