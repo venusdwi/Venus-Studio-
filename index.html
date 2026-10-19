@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     
-    <!-- PERBAIKAN: Menyelaraskan warna status bar agar menyatu penuh dengan background gelap -->
+    <!-- PERBAIKAN: Menghilangkan latar abu-abu di status bar paling atas -->
     <meta name="theme-color" content="#020714">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -33,13 +33,16 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* PERBAIKAN: Memastikan html dan body mencakup seluruh layar secara mutlak tanpa celah abu-abu */
+        /* PERBAIKAN: Memastikan html & body menutup seluruh area atas layar tanpa celah abu-abu */
         html {
             background-color: #020714 !important;
             color-scheme: dark;
+            height: 100%;
+            width: 100%;
+            overflow-x: hidden !important;
         }
 
-        html, body {
+        body {
             width: 100% !important;
             max-width: 100vw !important;
             overflow-x: hidden !important;
@@ -50,15 +53,12 @@
             min-height: 100dvh;
             overscroll-behavior-y: none;
             margin: 0;
-            padding: 0;
-        }
-
-        body {
             padding: env(safe-area-inset-top, 0px) 12px env(safe-area-inset-bottom, 16px) 12px;
             display: flex;
             justify-content: center;
             align-items: flex-start;
             -webkit-text-size-adjust: 100%;
+            -webkit-font-smoothing: antialiased;
         }
 
         *::-webkit-scrollbar { display: none; }
@@ -90,7 +90,9 @@
         .splash-screen-overlay {
             position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh;
             background: linear-gradient(rgba(2, 7, 20, 0.95), rgba(2, 7, 20, 0.99)), #020714; z-index: 99999999;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; overflow: hidden !important; transition: opacity 0.4s ease, visibility 0.4s ease;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; overflow: hidden !important; 
+            transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s ease;
+            transform: translateZ(0);
         }
         .splash-screen-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; display: none !important; }
         .splash-pulse-line { position: absolute; top: 0; left: 0; width: 100% !important; height: 100% !important; pointer-events: none; z-index: 1; background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.15) 0%, transparent 60%); animation: pulseGlowMove 4s infinite ease-in-out; }
@@ -124,8 +126,14 @@
 
         @keyframes tapPulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); } 50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(0, 240, 255, 0.6); } }
 
-        .pin-screen-overlay { position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh; background: #020714; z-index: 9999990; display: none; opacity: 0; visibility: hidden; flex-direction: column; justify-content: center; align-items: center; padding: 20px; overflow-x: hidden !important; transition: opacity 0.25s ease, visibility 0.25s ease; overscroll-behavior-y: none; }
-        .pin-screen-overlay.active { display: flex !important; opacity: 1 !important; visibility: visible !important; }
+        .pin-screen-overlay, .debt-pin-overlay, .personal-pin-overlay { 
+            position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh; 
+            background: #020714; z-index: 9999990; display: none; opacity: 0; visibility: hidden; 
+            flex-direction: column; justify-content: center; align-items: center; padding: 20px; 
+            overflow-x: hidden !important; transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s ease; overscroll-behavior-y: none;
+            transform: translateZ(0);
+        }
+        .pin-screen-overlay.active, .debt-pin-overlay.active, .personal-pin-overlay.active { display: flex !important; opacity: 1 !important; visibility: visible !important; }
 
         .cyber-scanner-flash { position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh; background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.2) 0%, rgba(2, 7, 20, 0.98) 85%), linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px); background-size: 100% 100%, 20px 20px, 20px 20px; z-index: 99999995; opacity: 0; visibility: hidden; pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; transition: opacity 0.2s ease; overflow-x: hidden !important; }
         .cyber-scanner-flash.active { opacity: 1; visibility: visible; animation: hackerTerminalSeq 0.9s forwards cubic-bezier(0.1, 0.9, 0.2, 1); }
@@ -156,7 +164,7 @@
         .keypad-btn:active { background: rgba(0, 240, 255, 0.3); border-color: #00f0ff; transform: scale(0.95); }
         .keypad-btn.action-btn { font-size: 1.2rem; color: #7dd3fc; }
 
-        /* PERBAIKAN: Background Full Layar Dioptimalkan agar Smooth Tanpa Jeda */
+        /* PERBAIKAN: Background Dan Transisi Aplikasi Dibuat Halus (Smooth GPU-accelerated) */
         .tech-bg-container { 
             position: fixed !important; 
             top: 0 !important; 
@@ -173,7 +181,8 @@
             background: #020714 !important; 
             opacity: 0; 
             visibility: hidden; 
-            transition: opacity 0.3s ease, visibility 0.3s ease; 
+            transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease; 
+            transform: translateZ(0);
         }
         .tech-bg-container.active { opacity: 1; visibility: visible; }
         
@@ -189,27 +198,54 @@
         }
         .cyber-vignette { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: radial-gradient(circle at 50% 50%, transparent 30%, rgba(1, 4, 12, 0.65) 100%); pointer-events: none; }
 
-        .container { position: relative; z-index: 10; width: 100% !important; max-width: 440px !important; overflow-x: hidden !important; margin: 0 auto; background: transparent; border: none; box-shadow: none; padding: 10px 4px; display: none; flex-direction: column; align-items: center; gap: 12px; opacity: 0; transform: scale(0.96); transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); overscroll-behavior-y: none; }
-        .container.active { display: flex !important; opacity: 1; transform: scale(1); }
+        .container { 
+            position: relative; z-index: 10; width: 100% !important; max-width: 440px !important; overflow-x: hidden !important; margin: 0 auto; 
+            background: transparent; border: none; box-shadow: none; padding: 10px 4px; display: none; flex-direction: column; align-items: center; gap: 12px; 
+            opacity: 0; transform: scale(0.96) translateZ(0); transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); overscroll-behavior-y: none; 
+        }
+        .container.active { display: flex !important; opacity: 1; transform: scale(1) translateZ(0); }
         .install-app-btn { background: linear-gradient(135deg, rgba(0, 240, 255, 0.2) 0%, rgba(0, 119, 255, 0.2) 100%); border: 1px solid rgba(0, 240, 255, 0.6); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 0.9rem; font-weight: 800; padding: 10px 16px; border-radius: 12px; cursor: pointer; display: none; align-items: center; justify-content: center; gap: 6px; margin: 0 auto 14px auto; box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); letter-spacing: 1px; text-transform: uppercase; }
 
         .header-box { text-align: center; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 14px; margin-bottom: 4px; }
         .brand-top-header { display: flex; align-items: center; justify-content: center; pointer-events: none; user-select: none; padding: 2px 10px; background: transparent; border: none; }
         .brand-studio-title { font-family: 'Rajdhani', sans-serif; font-size: 1.05rem; font-weight: 900; letter-spacing: 4px; color: #00f0ff; text-transform: uppercase; text-shadow: 0 0 15px rgba(0, 240, 255, 0.8); }
 
-        .clickable-header-wrapper, .music-player-panel, .personal-data-panel, .debt-tracker-panel { cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px 16px; border-radius: 16px; background: rgba(2, 10, 28, 0.28); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1.5px solid rgba(0, 240, 255, 0.45); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.2); width: 100%; transition: transform 0.15s ease, filter 0.15s ease, background 0.15s ease; margin-bottom: 12px; position: relative; z-index: 20; }
-        .clickable-header-wrapper:active, .music-player-panel:active, .personal-data-panel:active, .debt-tracker-panel:active { transform: scale(0.98); filter: brightness(1.2); background: rgba(0, 240, 255, 0.15); }
+        .clickable-header-wrapper, .music-player-panel, .personal-data-panel, .debt-tracker-panel { 
+            cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px 16px; border-radius: 16px; 
+            background: rgba(2, 10, 28, 0.28); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1.5px solid rgba(0, 240, 255, 0.45); 
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.2); width: 100%; 
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease, background 0.2s ease; margin-bottom: 12px; position: relative; z-index: 20; 
+            transform: translateZ(0);
+        }
+        .clickable-header-wrapper:active, .music-player-panel:active, .personal-data-panel:active, .debt-tracker-panel:active { transform: scale(0.97) translateZ(0); filter: brightness(1.2); background: rgba(0, 240, 255, 0.15); }
         
         .main-page-title { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: clamp(1.4rem, 5vw, 1.8rem); letter-spacing: 2px; text-transform: uppercase; background: linear-gradient(135deg, #ffffff 0%, #00f0ff 60%, #38bdf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 20px rgba(0, 240, 255, 0.8); text-align: center; pointer-events: none; }
         .main-page-subtitle { font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; font-weight: 800; letter-spacing: 2px; color: #7dd3fc; text-transform: uppercase; margin-top: 4px; opacity: 0.95; text-align: center; pointer-events: none; }
 
-        .cyber-modal-overlay, .music-modal-overlay, .personal-modal-overlay, .debt-modal-overlay, .debt-pin-overlay, .edit-debt-overlay, .view-debt-overlay, .popup-overlay { position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh; background: rgba(2, 7, 20, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 99999999; display: flex; justify-content: center; align-items: center; padding: 12px; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.25s ease; overflow-x: hidden !important; overscroll-behavior-y: none; }
-        .cyber-modal-overlay.active, .music-modal-overlay.active, .personal-modal-overlay.active, .debt-modal-overlay.active, .debt-pin-overlay.active, .edit-debt-overlay.active, .view-debt-overlay.active, .popup-overlay.active { opacity: 1; visibility: visible; pointer-events: auto; }
+        /* PERBAIKAN: Modal Overlay & Transisi Lembut */
+        .cyber-modal-overlay, .music-modal-overlay, .personal-modal-overlay, .debt-modal-overlay, .debt-pin-overlay, .personal-pin-overlay, .edit-debt-overlay, .view-debt-overlay, .popup-overlay { 
+            position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh; 
+            background: rgba(2, 7, 20, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 99999999; 
+            display: flex; justify-content: center; align-items: center; padding: 12px; opacity: 0; visibility: hidden; pointer-events: none; 
+            transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s ease; overflow-x: hidden !important; overscroll-behavior-y: none; 
+            transform: translateZ(0);
+        }
+        .cyber-modal-overlay.active, .music-modal-overlay.active, .personal-modal-overlay.active, .debt-modal-overlay.active, .debt-pin-overlay.active, .personal-pin-overlay.active, .edit-debt-overlay.active, .view-debt-overlay.active, .popup-overlay.active { 
+            opacity: 1; visibility: visible; pointer-events: auto; 
+        }
 
-        .music-modal-card, .personal-modal-card, .debt-modal-card, .view-debt-card { background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.75); border-radius: 26px; padding: 22px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); transform: scale(0.95); transition: transform 0.25s cubic-bezier(0.34, 1.2, 0.64, 1); overflow-x: hidden !important; overscroll-behavior-y: none; }
+        .music-modal-card, .personal-modal-card, .debt-modal-card, .view-debt-card { 
+            background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.75); border-radius: 26px; padding: 22px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); 
+            transform: scale(0.95) translateZ(0); transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); overflow-x: hidden !important; overscroll-behavior-y: none; 
+        }
         
-        .cyber-modal-card { background: var(--cv-bg-modal) !important; border: 2px solid var(--cv-border-primary) !important; border-radius: 26px; padding: 22px 18px 24px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); transform: scale(0.95); transition: transform 0.25s cubic-bezier(0.34, 1.2, 0.64, 1), background-color 0.2s ease, border-color 0.2s ease; overflow-x: hidden !important; overscroll-behavior-y: none; }
-        .cyber-modal-overlay.active .cyber-modal-card, .music-modal-overlay.active .music-modal-card, .personal-modal-overlay.active .personal-modal-card, .debt-modal-overlay.active .debt-modal-card, .view-debt-overlay.active .view-debt-card { transform: scale(1); }
+        .cyber-modal-card { 
+            background: var(--cv-bg-modal) !important; border: 2px solid var(--cv-border-primary) !important; border-radius: 26px; padding: 22px 18px 24px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); 
+            transform: scale(0.95) translateZ(0); transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, border-color 0.2s ease; overflow-x: hidden !important; overscroll-behavior-y: none; 
+        }
+        .cyber-modal-overlay.active .cyber-modal-card, .music-modal-overlay.active .music-modal-card, .personal-modal-overlay.active .personal-modal-card, .debt-modal-overlay.active .debt-modal-card, .view-debt-overlay.active .view-debt-card { 
+            transform: scale(1) translateZ(0); 
+        }
 
         .close-cyber-modal, .close-music-modal, .close-personal-modal, .close-debt-modal, .close-view-debt { background: rgba(0, 240, 255, 0.12); border: 1.5px solid rgba(0, 240, 255, 0.5); color: #00f0ff; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800; transition: all 0.15s ease; flex-shrink: 0; }
         .close-cyber-modal:active, .close-music-modal:active, .close-personal-modal:active, .close-debt-modal:active, .close-view-debt:active { background: rgba(0, 240, 255, 0.35); transform: scale(0.92); }
@@ -579,6 +615,39 @@
             <button type="button" class="keypad-btn" onclick="pressKey('0')">0</button>
             <button type="button" class="keypad-btn action-btn" onclick="deletePin()">⌫</button>
         </div>
+    </div>
+</div>
+
+<!-- PERBAIKAN: PIN Akses Khusus Personal Data -->
+<div class="personal-pin-overlay" id="personalPinOverlay">
+    <div class="pin-card">
+        <div class="pin-icon-box">🔑</div>
+        <div class="pin-title">PERSONAL DATA PIN</div>
+        <div class="pin-subtitle">Masukkan PIN untuk membuka Personal Data</div>
+        <div class="pin-inputs-container" id="personalPinInputsContainer">
+            <div class="pin-box active" data-personal-pin-index="0"></div>
+            <div class="pin-box" data-personal-pin-index="1"></div>
+            <div class="pin-box" data-personal-pin-index="2"></div>
+            <div class="pin-box" data-personal-pin-index="3"></div>
+            <div class="pin-box" data-personal-pin-index="4"></div>
+            <div class="pin-box" data-personal-pin-index="5"></div>
+        </div>
+        <div class="pin-error-msg" id="personalPinErrorMsg"></div>
+        <div class="on-screen-keypad">
+            <button type="button" class="keypad-btn" onclick="pressPersonalPinKey('1')">1</button>
+            <button type="button" class="keypad-btn" onclick="pressPersonalPinKey('2')">2</button>
+            <button type="button" class="keypad-btn" onclick="pressPersonalPinKey('3')">3</button>
+            <button type="button" class="keypad-btn" onclick="pressPersonalPinKey('4')">4</button>
+            <button type="button" class="keypad-btn" onclick="pressPersonalPinKey('5')">5</button>
+            <button type="button" class="keypad-btn" onclick="pressPersonalPinKey('6')">6</button>
+            <button type="button" class="keypad-btn" onclick="pressPersonalPinKey('7')">7</button>
+            <button type="button" class="keypad-btn" onclick="pressPersonalPinKey('8')">8</button>
+            <button type="button" class="keypad-btn" onclick="pressPersonalPinKey('9')">9</button>
+            <button type="button" class="keypad-btn action-btn" onclick="clearPersonalPin()">C</button>
+            <button type="button" class="keypad-btn" onclick="pressPersonalPinKey('0')">0</button>
+            <button type="button" class="keypad-btn action-btn" onclick="deletePersonalPin()">⌫</button>
+        </div>
+        <button type="button" id="cancelPersonalPinBtn" style="background: rgba(0, 240, 255, 0.1); border: 1.5px solid rgba(0, 240, 255, 0.4); color: #00f0ff; width: 100%; padding: 12px; border-radius: 12px; font-weight: 800; cursor: pointer; margin-top: 4px;">Batal</button>
     </div>
 </div>
 
@@ -1647,6 +1716,7 @@
     const personalModalOverlay = document.getElementById('personalModalOverlay');
     const debtModalOverlay = document.getElementById('debtModalOverlay');
     const debtPinOverlay = document.getElementById('debtPinOverlay');
+    const personalPinOverlay = document.getElementById('personalPinOverlay');
     const cyberScannerFlash = document.getElementById('cyberScannerFlash');
     const techBgContainer = document.getElementById('techBgContainer');
 
@@ -1661,7 +1731,7 @@
 
     const CORRECT_PIN = "040698"; 
     let enteredPin = "";
-    const pinBoxes = document.querySelectorAll('.pin-box:not([data-debt-pin-index]):not([data-del-index])');
+    const pinBoxes = document.querySelectorAll('.pin-box:not([data-debt-pin-index]):not([data-personal-pin-index]):not([data-del-index])');
     const pinErrorMsg = document.getElementById('pinErrorMsg');
 
     function updatePinDisplay() {
@@ -1690,6 +1760,39 @@
             }, 700);
         } else {
             pinErrorMsg.innerText = "PIN Salah! Silakan coba lagi."; setTimeout(() => { clearAllPin(); }, 250);
+        }
+    }
+
+    /* PERBAIKAN: Fungsi Logika PIN untuk Personal Data */
+    let enteredPersonalPin = "";
+    const personalPinBoxes = document.querySelectorAll('[data-personal-pin-index]');
+    const personalPinErrorMsg = document.getElementById('personalPinErrorMsg');
+    
+    document.getElementById('openPersonalModalPanel').addEventListener('click', () => { clearPersonalPin(); personalPinOverlay.classList.add('active'); });
+    document.getElementById('cancelPersonalPinBtn').addEventListener('click', () => { personalPinOverlay.classList.remove('active'); });
+    document.getElementById('closePersonalModalBtn').addEventListener('click', () => { personalModalOverlay.classList.remove('active'); sessionStorage.setItem('venus_active_modal', 'none'); });
+
+    function updatePersonalPinDisplay() {
+        personalPinBoxes.forEach((box, index) => {
+            if (index < enteredPersonalPin.length) { box.innerText = "●"; box.classList.add('filled'); box.classList.remove('active'); }
+            else if (index === enteredPersonalPin.length) { box.innerText = ""; box.classList.remove('filled'); box.classList.add('active'); }
+            else { box.innerText = ""; box.classList.remove('filled', 'active'); }
+        });
+        if (enteredPersonalPin.length === 6) verifyPersonalPin();
+    }
+    function pressPersonalPinKey(num) { if (enteredPersonalPin.length < 6) { enteredPersonalPin += num; personalPinErrorMsg.innerText = ""; updatePersonalPinDisplay(); } }
+    function deletePersonalPin() { if (enteredPersonalPin.length > 0) { enteredPersonalPin = enteredPersonalPin.slice(0, -1); personalPinErrorMsg.innerText = ""; updatePersonalPinDisplay(); } }
+    function clearPersonalPin() { enteredPersonalPin = ""; personalPinErrorMsg.innerText = ""; updatePersonalPinDisplay(); }
+
+    function verifyPersonalPin() {
+        if (enteredPersonalPin === CORRECT_PIN) {
+            playPinSuccessSound();
+            personalPinOverlay.classList.remove('active');
+            personalModalOverlay.classList.add('active');
+            sessionStorage.setItem('venus_active_modal', 'personal');
+            renderAccountTitles();
+        } else {
+            personalPinErrorMsg.innerText = "PIN Salah!"; setTimeout(() => { clearPersonalPin(); }, 250);
         }
     }
 
@@ -1769,8 +1872,6 @@
     document.getElementById('closeCyberModalBtn').addEventListener('click', () => { cyberModalOverlay.classList.remove('active'); sessionStorage.setItem('venus_active_modal', 'none'); });
     document.getElementById('openMusicModalPanel').addEventListener('click', () => { musicModalOverlay.classList.add('active'); sessionStorage.setItem('venus_active_modal', 'music'); });
     document.getElementById('closeMusicModalBtn').addEventListener('click', () => { musicModalOverlay.classList.remove('active'); sessionStorage.setItem('venus_active_modal', 'none'); });
-    document.getElementById('openPersonalModalPanel').addEventListener('click', () => { personalModalOverlay.classList.add('active'); sessionStorage.setItem('venus_active_modal', 'personal'); });
-    document.getElementById('closePersonalModalBtn').addEventListener('click', () => { personalModalOverlay.classList.remove('active'); sessionStorage.setItem('venus_active_modal', 'none'); });
 
     function selectType(val, text) {
         document.getElementById('type').value = val;
