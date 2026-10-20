@@ -370,6 +370,23 @@
         }
         .full-app-content .custom-select-box.selected, #detailTransactionModal .custom-select-box.selected { color: var(--cv-text-primary); }
         
+        /* Style Dinamis Jenis Transaksi */
+        .custom-select-box.type-in {
+            color: #34d399 !important;
+            border-color: rgba(16, 185, 129, 0.7) !important;
+            background: rgba(16, 185, 129, 0.08) !important;
+        }
+        .custom-select-box.type-out {
+            color: #fb7185 !important;
+            border-color: rgba(244, 63, 94, 0.7) !important;
+            background: rgba(244, 63, 94, 0.08) !important;
+        }
+        .custom-select-box.type-refund {
+            color: #fbbf24 !important;
+            border-color: rgba(251, 191, 36, 0.7) !important;
+            background: rgba(251, 191, 36, 0.08) !important;
+        }
+
         .custom-option-btn { background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.45); border-radius: 12px; color: #ffffff; font-size: 1.05rem; font-weight: 800; padding: 16px; width: 100%; text-align: center; cursor: pointer; display: block; }
 
         .account-title-card { background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.4); border-radius: 14px; padding: 16px 18px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; width: 100%; }
@@ -1107,7 +1124,7 @@
             <div id="monthlyModalTitle" style="font-family: 'Orbitron', sans-serif; font-size: 1.15rem; font-weight: 900; color: #00f0ff; text-align: center; flex-grow: 1;">REKAP BULANAN</div>
             
             <div style="display: flex; align-items: center;">
-                <!-- TOMBOL DOWNLOAD PDF (Dipastikan punya style="display: none;" secara langsung) -->
+                <!-- TOMBOL DOWNLOAD PDF -->
                 <button type="button" class="btn-download-pdf-icon" id="btnDownloadMonthlyPdf" style="display: none;" title="Download PDF Rekap Bulanan">
                     <svg style="width: 20px; height: 20px; fill: currentColor;" viewBox="0 0 24 24">
                         <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
@@ -1468,7 +1485,12 @@
         if (fileNameDisplay) fileNameDisplay.innerText = "Tidak ada file dipilih";
         document.getElementById('type').value = ''; 
         document.getElementById('paymentMethod').value = '';
-        document.getElementById('btnSelectType').innerText = '-- Pilih Jenis --';
+        
+        const selectBox = document.getElementById('btnSelectType');
+        selectBox.classList.remove('type-in', 'type-out', 'type-refund');
+        selectBox.classList.remove('selected');
+        selectBox.innerText = '-- Pilih Jenis --';
+
         document.getElementById('btnSelectMethod').innerText = '-- Pilih Metode --';
         localStorage.removeItem('venus_draft_transaction');
     }
@@ -1911,8 +1933,19 @@
 
     function selectType(val, text) {
         document.getElementById('type').value = val;
-        document.getElementById('btnSelectType').innerText = text;
-        document.getElementById('btnSelectType').classList.add('selected');
+        const selectBox = document.getElementById('btnSelectType');
+        selectBox.innerText = text;
+        selectBox.classList.add('selected');
+        
+        selectBox.classList.remove('type-in', 'type-out', 'type-refund');
+        if (val === 'in') {
+            selectBox.classList.add('type-in');
+        } else if (val === 'out') {
+            selectBox.classList.add('type-out');
+        } else if (val === 'refund') {
+            selectBox.classList.add('type-refund');
+        }
+
         document.getElementById('modalSelectType').classList.remove('active');
         saveTransactionDraftOnFly();
     }
@@ -2536,7 +2569,7 @@
         document.getElementById('monthlyListContainer').style.display = 'flex';
         document.getElementById('monthlyDetailContainer').style.display = 'none';
         document.getElementById('btnBackMonthly').style.display = 'none';
-        document.getElementById('btnDownloadMonthlyPdf').style.display = 'none'; // Dipastikan tersembunyi
+        document.getElementById('btnDownloadMonthlyPdf').style.display = 'none';
         document.getElementById('monthlyModalTitle').innerText = 'REKAP BULANAN';
         document.getElementById('monthlyHistoryModalOverlay').classList.add('active');
     });
@@ -2550,7 +2583,7 @@
         document.getElementById('monthlyListContainer').style.display = 'flex';
         document.getElementById('monthlyDetailContainer').style.display = 'none';
         document.getElementById('btnBackMonthly').style.display = 'none';
-        document.getElementById('btnDownloadMonthlyPdf').style.display = 'none'; // Sembunyikan saat kembali
+        document.getElementById('btnDownloadMonthlyPdf').style.display = 'none';
         document.getElementById('monthlyModalTitle').innerText = 'REKAP BULANAN';
     });
 
@@ -2558,7 +2591,6 @@
         const container = document.getElementById('monthlyListContainer'); 
         container.innerHTML = '';
 
-        // Memastikan tombol PDF tersembunyi secara eksplisit saat halaman daftar bulan dirender
         document.getElementById('btnDownloadMonthlyPdf').style.display = 'none';
 
         const monthlyGroups = {};
@@ -2617,7 +2649,6 @@
         document.getElementById('monthlyDetailContainer').style.display = 'flex';
         document.getElementById('btnBackMonthly').style.display = 'block';
 
-        // Tampilkan Tombol Download PDF hanya ketika masuk ke rincian/detail bulan
         document.getElementById('btnDownloadMonthlyPdf').style.display = 'flex';
 
         const [y, m] = ym.split('-');
@@ -2743,7 +2774,6 @@
         renderMonthlyDetailView();
     });
 
-    // Fungsionalitas Download PDF Rekap Bulanan
     document.getElementById('btnDownloadMonthlyPdf').addEventListener('click', () => {
         let targetYm = activeMonthlyYm;
         if (!targetYm) {
@@ -2778,7 +2808,6 @@
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF('p', 'mm', 'a4');
 
-        // Header Dokumen Minimalis
         doc.setFillColor(2, 7, 20);
         doc.rect(0, 0, 210, 32, 'F');
 
@@ -2797,7 +2826,6 @@
         doc.setTextColor(255, 255, 255);
         doc.text(`PERIODE: ${periodTitle.toUpperCase()}`, 196, 20, { align: "right" });
 
-        // Ringkasan Keuangan Kotak
         doc.setFillColor(248, 250, 252);
         doc.roundedRect(14, 38, 182, 22, 3, 3, 'F');
 
@@ -2821,7 +2849,6 @@
         doc.setFontSize(11);
         doc.text(formatRupiah(totalNet), 148, 53);
 
-        // Tabel Data PDF
         const tableBody = monthTxs.map((t, idx) => {
             const dateFormatted = `${t.date.split('-').reverse().join('/')} ${t.time || ''}`;
             const isInc = t.type === 'in';
@@ -2876,7 +2903,6 @@
             }
         });
 
-        // Footer Dokumen
         const pageCount = doc.internal.getNumberOfPages();
         for (let i = 1; i <= pageCount; i++) {
             doc.setPage(i);
@@ -3014,7 +3040,12 @@
                 document.getElementById('proofInput').value = '';
                 document.getElementById('fileNameDisplay').innerText = "Tidak ada file dipilih";
                 document.getElementById('type').value = ''; document.getElementById('paymentMethod').value = '';
-                document.getElementById('btnSelectType').innerText = '-- Pilih Jenis --';
+                
+                const selectBox = document.getElementById('btnSelectType');
+                selectBox.classList.remove('type-in', 'type-out', 'type-refund');
+                selectBox.classList.remove('selected');
+                selectBox.innerText = '-- Pilih Jenis --';
+
                 document.getElementById('btnSelectMethod').innerText = '-- Pilih Metode --';
                 refreshRealtimeDateTime();
                 
