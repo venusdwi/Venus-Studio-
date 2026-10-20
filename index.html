@@ -253,7 +253,7 @@
         .close-cyber-modal, .close-music-modal, .close-personal-modal, .close-debt-modal, .close-view-debt { background: rgba(0, 240, 255, 0.12); border: 1.5px solid rgba(0, 240, 255, 0.5); color: #00f0ff; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800; transition: all 0.15s ease; flex-shrink: 0; }
         .close-cyber-modal:active, .close-music-modal:active, .close-personal-modal:active, .close-debt-modal:active, .close-view-debt:active { background: rgba(0, 240, 255, 0.35); transform: scale(0.92); }
 
-        /* Style untuk Tombol Download PDF Rekap */
+        /* Style untuk Tombol Download PDF - Default Disembunyikan */
         .btn-download-pdf-icon {
             background: rgba(16, 185, 129, 0.18);
             border: 1.5px solid rgba(16, 185, 129, 0.6);
@@ -262,12 +262,13 @@
             height: 40px;
             border-radius: 50%;
             cursor: pointer;
-            display: flex;
+            display: none; /* Hanya tampil ketika masuk ke detail bulan tertentu */
             align-items: center;
             justify-content: center;
             transition: all 0.15s ease;
             box-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
             flex-shrink: 0;
+            margin-right: 8px;
         }
         .btn-download-pdf-icon:active {
             transform: scale(0.92);
@@ -1098,23 +1099,27 @@
     </div>
 </div>
 
-<!-- Modal Rekap Bulanan Terkait -->
+<!-- Modal Rekap Bulanan -->
 <div class="popup-overlay" id="monthlyHistoryModalOverlay">
     <div class="popup-box monthly-modal-box">
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid rgba(0,240,255,0.25); padding-bottom: 12px; flex-shrink: 0; width: 100%;">
             <button type="button" id="btnBackMonthly" style="display: none; background:none; border:none; color:#00f0ff; font-size:1.6rem; font-weight: 900; line-height: 1; cursor:pointer; padding-right: 10px;">←</button>
             <div id="monthlyModalTitle" style="font-family: 'Orbitron', sans-serif; font-size: 1.15rem; font-weight: 900; color: #00f0ff; text-align: center; flex-grow: 1;">REKAP BULANAN</div>
             
-            <!-- TOMBOL IKON DOWNLOAD PDF REKAP BULANAN -->
-            <button type="button" class="btn-download-pdf-icon" id="btnDownloadMonthlyPdf" title="Download PDF Rekap Bulanan">
-                <svg style="width: 20px; height: 20px; fill: currentColor;" viewBox="0 0 24 24">
-                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
-                </svg>
-            </button>
-            
-            <button type="button" id="closeMonthlyModalBtn" style="background:none; border:none; color:#94a3b8; font-size:1.5rem; cursor:pointer; padding-left: 10px;">✕</button>
+            <div style="display: flex; align-items: center;">
+                <!-- TOMBOL DOWNLOAD PDF (Hanya Muncul di Tampilan Detail Bulan) -->
+                <button type="button" class="btn-download-pdf-icon" id="btnDownloadMonthlyPdf" title="Download PDF Rekap Bulanan">
+                    <svg style="width: 20px; height: 20px; fill: currentColor;" viewBox="0 0 24 24">
+                        <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                    </svg>
+                </button>
+                
+                <button type="button" id="closeMonthlyModalBtn" style="background:none; border:none; color:#94a3b8; font-size:1.5rem; cursor:pointer; padding-left: 6px;">✕</button>
+            </div>
         </div>
+
         <div id="monthlyListContainer" style="display: flex; flex-direction: column; gap: 10px; overflow-y: auto; flex-grow: 1; padding: 8px 0; width: 100%;"></div>
+        
         <div id="monthlyDetailContainer" style="display: none; flex-direction: column; gap: 12px; overflow-y: auto; flex-grow: 1; padding: 8px 0; width: 100%;">
             <div style="display: flex; flex-direction: column; gap: 10px; width: 100%; flex-shrink: 0;" id="monthlyHeaderBoxes">
                 <div class="card-hero pemasukan" id="btnFilterPemasukanDetail" style="cursor: pointer; padding: 14px; text-align: left; display: flex; justify-content: space-between; align-items: center;">
@@ -2531,6 +2536,7 @@
         document.getElementById('monthlyListContainer').style.display = 'flex';
         document.getElementById('monthlyDetailContainer').style.display = 'none';
         document.getElementById('btnBackMonthly').style.display = 'none';
+        document.getElementById('btnDownloadMonthlyPdf').style.display = 'none'; // Sembunyikan tombol download di daftar bulan
         document.getElementById('monthlyModalTitle').innerText = 'REKAP BULANAN';
         document.getElementById('monthlyHistoryModalOverlay').classList.add('active');
     });
@@ -2544,6 +2550,7 @@
         document.getElementById('monthlyListContainer').style.display = 'flex';
         document.getElementById('monthlyDetailContainer').style.display = 'none';
         document.getElementById('btnBackMonthly').style.display = 'none';
+        document.getElementById('btnDownloadMonthlyPdf').style.display = 'none'; // Sembunyikan tombol saat kembali ke daftar bulan
         document.getElementById('monthlyModalTitle').innerText = 'REKAP BULANAN';
     });
 
@@ -2606,6 +2613,9 @@
         document.getElementById('monthlyListContainer').style.display = 'none';
         document.getElementById('monthlyDetailContainer').style.display = 'flex';
         document.getElementById('btnBackMonthly').style.display = 'block';
+
+        // Tampilkan Tombol Download PDF hanya di dalam Detail Bulan
+        document.getElementById('btnDownloadMonthlyPdf').style.display = 'flex';
 
         const [y, m] = ym.split('-');
         const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
@@ -2730,7 +2740,7 @@
         renderMonthlyDetailView();
     });
 
-    // FUNGSIONALITAS GENERATE & DOWNLOAD PDF MINIMALIS
+    // Fungsionalitas Download PDF Rekap Bulanan
     document.getElementById('btnDownloadMonthlyPdf').addEventListener('click', () => {
         let targetYm = activeMonthlyYm;
         if (!targetYm) {
@@ -2765,13 +2775,13 @@
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF('p', 'mm', 'a4');
 
-        // Header Minimalis
-        doc.setFillColor(2, 7, 20); // Cyber Dark
+        // Header Dokumen Minimalis
+        doc.setFillColor(2, 7, 20);
         doc.rect(0, 0, 210, 32, 'F');
 
         doc.setFont("helvetica", "bold");
         doc.setFontSize(18);
-        doc.setTextColor(0, 240, 255); // Cyan
+        doc.setTextColor(0, 240, 255);
         doc.text("VENUS STUDIO", 14, 18);
 
         doc.setFontSize(9);
@@ -2784,34 +2794,31 @@
         doc.setTextColor(255, 255, 255);
         doc.text(`PERIODE: ${periodTitle.toUpperCase()}`, 196, 20, { align: "right" });
 
-        // Ringkasan Keuangan
+        // Ringkasan Keuangan Kotak
         doc.setFillColor(248, 250, 252);
         doc.roundedRect(14, 38, 182, 22, 3, 3, 'F');
 
         doc.setFontSize(8);
         doc.setFont("helvetica", "bold");
 
-        // Box Pemasukan
         doc.setTextColor(16, 185, 129);
         doc.text("TOTAL PEMASUKAN", 22, 45);
         doc.setFontSize(11);
         doc.text(formatRupiah(totalIn), 22, 53);
 
-        // Box Pengeluaran
         doc.setFontSize(8);
         doc.setTextColor(244, 63, 94);
         doc.text("TOTAL PENGELUARAN", 85, 45);
         doc.setFontSize(11);
         doc.text(formatRupiah(totalOut), 85, 53);
 
-        // Box Saldo Bersih
         doc.setFontSize(8);
         doc.setTextColor(0, 119, 255);
         doc.text("SALDO BERSIH", 148, 45);
         doc.setFontSize(11);
         doc.text(formatRupiah(totalNet), 148, 53);
 
-        // Data Tabel Transaksi
+        // Tabel Data PDF
         const tableBody = monthTxs.map((t, idx) => {
             const dateFormatted = `${t.date.split('-').reverse().join('/')} ${t.time || ''}`;
             const isInc = t.type === 'in';
@@ -2866,7 +2873,7 @@
             }
         });
 
-        // Footer Minimalis
+        // Footer Dokumen
         const pageCount = doc.internal.getNumberOfPages();
         for (let i = 1; i <= pageCount; i++) {
             doc.setPage(i);
