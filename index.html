@@ -982,10 +982,14 @@
 
 <div class="cyber-modal-overlay" id="cyberModalOverlay">
     <div class="cyber-modal-card" id="cyberModalCard">
-        <div style="display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; width: 100%; flex-shrink: 0; padding: 2px 0;">
-            <div></div>
-            <div style="font-family: 'Orbitron', sans-serif; font-size: 1.05rem; font-weight: 900; color: #00f0ff; letter-spacing: 1.5px; text-align: center;">CYBER VAULT SYSTEM</div>
-            <div style="display: flex; justify-content: flex-end;"><button type="button" class="close-cyber-modal" id="closeCyberModalBtn" style="position: static;">✕</button></div>
+        <!-- Tombol Tutup di Kanan Atas -->
+        <div style="display: flex; justify-content: flex-end; width: 100%; flex-shrink: 0; padding-top: 2px;">
+            <button type="button" class="close-cyber-modal" id="closeCyberModalBtn">✕</button>
+        </div>
+
+        <!-- Judul Header Cyber Vault dipindah ke baris baru di bawah tombol tutup -->
+        <div style="width: 100%; text-align: center; margin-top: 4px; margin-bottom: 8px; flex-shrink: 0;">
+            <div style="font-family: 'Orbitron', sans-serif; font-size: 1.25rem; font-weight: 900; color: #00f0ff; letter-spacing: 2px; text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);">CYBER VAULT SYSTEM</div>
         </div>
 
         <div class="full-app-content" id="fullAppContent">
@@ -1017,6 +1021,17 @@
                 <div class="sub-dashboard">
                     <div class="card-sub pemasukan"><h4>PEMASUKAN</h4><p id="totalPemasukan">Rp 0</p></div>
                     <div class="card-sub pengeluaran"><h4>PENGELUARAN</h4><p id="totalPengeluaran">Rp 0</p></div>
+                </div>
+            </div>
+
+            <!-- KARTU ANALISIS GRAFIK KEUANGAN (Chart.js) - Dipasang di bawah kartu saldo -->
+            <div class="analytics-card" style="background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.4); border-radius: 16px; padding: 16px; width: 100%; box-shadow: 0 4px 20px rgba(0,0,0,0.5); margin-top: 4px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <h4 style="font-family: 'Orbitron', sans-serif; font-size: 0.85rem; color: #00f0ff; margin: 0; letter-spacing: 1px;">📊 ANALISIS KEUANGAN</h4>
+                    <span style="font-size: 0.75rem; color: #7dd3fc; font-weight: 700;">Bulan Ini</span>
+                </div>
+                <div style="position: relative; height: 160px; width: 100%;">
+                    <canvas id="financialAnalyticsChart"></canvas>
                 </div>
             </div>
 
@@ -1298,6 +1313,9 @@
         <button type="button" class="popup-btn" style="margin-top: 20px; background: transparent; border: 1px solid #00f0ff; color: #00f0ff; padding: 12px; box-shadow: none;" onclick="document.getElementById('modalEditSelectMethod').classList.remove('active')">Batal</button>
     </div>
 </div>
+
+<!-- Chart.js CDN untuk Grafik Analisis Keuangan -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
     function updateFileName(input, displayId) {
@@ -2922,6 +2940,39 @@
         doc.save(`Rekap_Keuangan_VENUS_STUDIO_${targetYm}.pdf`);
     });
 
+    let analyticsChart = null;
+    function updateAnalyticsChart(inAmount, outAmount) {
+        const chartCtx = document.getElementById('financialAnalyticsChart').getContext('2d');
+        if (analyticsChart) {
+            analyticsChart.data.datasets[0].data = [inAmount, outAmount];
+            analyticsChart.update();
+            return;
+        }
+        analyticsChart = new Chart(chartCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Pemasukan', 'Pengeluaran'],
+                datasets: [{
+                    label: 'Jumlah (Rp)',
+                    data: [inAmount, outAmount],
+                    backgroundColor: ['rgba(16, 185, 129, 0.75)', 'rgba(244, 63, 94, 0.75)'],
+                    borderColor: ['#10b981', '#f43f5e'],
+                    borderWidth: 1.5,
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { ticks: { color: '#a5f3fc', font: { size: 11 } }, grid: { display: false } },
+                    y: { ticks: { color: '#a5f3fc', font: { size: 10 } }, grid: { color: 'rgba(0,240,255,0.1)' } }
+                }
+            }
+        });
+    }
+
     function updateUI() {
         const historyList = document.getElementById('historyList'); historyList.innerHTML = '';
         let filtered = currentFilterDate ? transactions.filter(t => String(t.date).trim() === String(currentFilterDate).trim()) : transactions;
@@ -2952,6 +3003,8 @@
         document.getElementById('totalPengeluaran').innerText = formatRupiah(totalOut);
         document.getElementById('totalSaldoCash').innerText = formatRupiah(cashBalance);
         document.getElementById('totalSaldoBank').innerText = formatRupiah(bankBalance);
+
+        updateAnalyticsChart(totalIn, totalOut);
 
         try { 
             localStorage.setItem('my_transactions', JSON.stringify(transactions)); 
