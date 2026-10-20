@@ -22,6 +22,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Orbitron:wght@600;800;900&family=Rajdhani:wght@600;700;800&family=Share+Tech+Mono&family=Cinzel:wght@600;700;900&display=swap" rel="stylesheet">
     
+    <!-- Pustaka untuk Generate PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
     <style>
         *, *::before, *::after {
             box-sizing: border-box !important;
@@ -199,7 +203,6 @@
         .container { 
             position: relative; z-index: 10; width: 100% !important; max-width: 440px !important; overflow-x: hidden !important; margin: 0 auto; 
             background: transparent; border: none; box-shadow: none; 
-            /* PERBAIKAN: Menggeser konten utama ke bawah sejauh 1 baris/safe area agar tidak terhalang poni kamera */
             padding: calc(env(safe-area-inset-top, 24px) + 24px) 4px 16px 4px; 
             display: none; flex-direction: column; align-items: center; gap: 12px; 
             opacity: 0; transform: scale(0.96) translateZ(0); transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); overscroll-behavior-y: none; 
@@ -249,6 +252,27 @@
 
         .close-cyber-modal, .close-music-modal, .close-personal-modal, .close-debt-modal, .close-view-debt { background: rgba(0, 240, 255, 0.12); border: 1.5px solid rgba(0, 240, 255, 0.5); color: #00f0ff; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800; transition: all 0.15s ease; flex-shrink: 0; }
         .close-cyber-modal:active, .close-music-modal:active, .close-personal-modal:active, .close-debt-modal:active, .close-view-debt:active { background: rgba(0, 240, 255, 0.35); transform: scale(0.92); }
+
+        /* Style untuk Tombol Download PDF Rekap */
+        .btn-download-pdf-icon {
+            background: rgba(16, 185, 129, 0.18);
+            border: 1.5px solid rgba(16, 185, 129, 0.6);
+            color: #34d399;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s ease;
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
+            flex-shrink: 0;
+        }
+        .btn-download-pdf-icon:active {
+            transform: scale(0.92);
+            background: rgba(16, 185, 129, 0.35);
+        }
 
         .audio-stabilizer-container { width: 100% !important; max-width: 260px !important; height: 50px !important; display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: flex-end !important; margin: 0.8rem auto 0.1rem auto !important; padding: 0 !important; position: relative !important; border: none !important; background: transparent !important; box-shadow: none !important; }
         .stabilizer-bars-wrapper { display: flex !important; align-items: flex-end !important; justify-content: space-between !important; width: 210px !important; height: 40px !important; border: none !important; border-bottom: 1.5px solid rgba(0, 240, 255, 0.25) !important; background: transparent !important; padding-bottom: 0px !important; box-shadow: none !important; }
@@ -1074,11 +1098,20 @@
     </div>
 </div>
 
+<!-- Modal Rekap Bulanan Terkait -->
 <div class="popup-overlay" id="monthlyHistoryModalOverlay">
     <div class="popup-box monthly-modal-box">
         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid rgba(0,240,255,0.25); padding-bottom: 12px; flex-shrink: 0; width: 100%;">
             <button type="button" id="btnBackMonthly" style="display: none; background:none; border:none; color:#00f0ff; font-size:1.6rem; font-weight: 900; line-height: 1; cursor:pointer; padding-right: 10px;">←</button>
             <div id="monthlyModalTitle" style="font-family: 'Orbitron', sans-serif; font-size: 1.15rem; font-weight: 900; color: #00f0ff; text-align: center; flex-grow: 1;">REKAP BULANAN</div>
+            
+            <!-- TOMBOL IKON DOWNLOAD PDF REKAP BULANAN -->
+            <button type="button" class="btn-download-pdf-icon" id="btnDownloadMonthlyPdf" title="Download PDF Rekap Bulanan">
+                <svg style="width: 20px; height: 20px; fill: currentColor;" viewBox="0 0 24 24">
+                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                </svg>
+            </button>
+            
             <button type="button" id="closeMonthlyModalBtn" style="background:none; border:none; color:#94a3b8; font-size:1.5rem; cursor:pointer; padding-left: 10px;">✕</button>
         </div>
         <div id="monthlyListContainer" style="display: flex; flex-direction: column; gap: 10px; overflow-y: auto; flex-grow: 1; padding: 8px 0; width: 100%;"></div>
@@ -2550,7 +2583,7 @@
             const monthLabel = `${monthNames[parseInt(m)-1]} ${y}`;
 
             div.innerHTML = `
-                <div style="display: flex; justify-content: space-width; width: 100%; align-items: center;">
+                <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
                     <label style="font-weight:900; color:var(--cv-text-primary); font-size: 1.05rem; cursor: pointer;">${monthLabel} (${ym})</label>
                     <span style="color:#00f0ff; font-weight:900; font-size:1.2rem;">›</span>
                 </div>
@@ -2695,6 +2728,155 @@
     document.getElementById('btnResetMonthlyFilter').addEventListener('click', () => {
         activeMonthlyType = 'all';
         renderMonthlyDetailView();
+    });
+
+    // FUNGSIONALITAS GENERATE & DOWNLOAD PDF MINIMALIS
+    document.getElementById('btnDownloadMonthlyPdf').addEventListener('click', () => {
+        let targetYm = activeMonthlyYm;
+        if (!targetYm) {
+            const nowIso = getLocalIsoDate(new Date());
+            targetYm = nowIso.substring(0, 7);
+        }
+
+        const monthTxs = transactions.filter(t => t.date && t.date.startsWith(targetYm));
+
+        if (monthTxs.length === 0) {
+            alert('Tidak ada transaksi untuk diunduh pada bulan ini!');
+            return;
+        }
+
+        monthTxs.sort((a, b) => {
+            if (a.date !== b.date) return a.date.localeCompare(b.date);
+            return (a.time || '').localeCompare(b.time || '');
+        });
+
+        let totalIn = 0, totalOut = 0;
+        monthTxs.forEach(t => {
+            if (t.type === 'in') totalIn += t.amount;
+            else if (t.type === 'out') totalOut += t.amount;
+            else if (t.type === 'refund') totalOut -= t.amount;
+        });
+        const totalNet = totalIn - totalOut;
+
+        const [year, month] = targetYm.split('-');
+        const monthNames = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+        const periodTitle = `${monthNames[parseInt(month)-1]} ${year}`;
+
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF('p', 'mm', 'a4');
+
+        // Header Minimalis
+        doc.setFillColor(2, 7, 20); // Cyber Dark
+        doc.rect(0, 0, 210, 32, 'F');
+
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(18);
+        doc.setTextColor(0, 240, 255); // Cyan
+        doc.text("VENUS STUDIO", 14, 18);
+
+        doc.setFontSize(9);
+        doc.setFont("helvetica", "normal");
+        doc.setTextColor(165, 243, 252);
+        doc.text("LAPORAN REKAP KEUANGAN BULANAN", 14, 25);
+
+        doc.setFontSize(10);
+        doc.setFont("helvetica", "bold");
+        doc.setTextColor(255, 255, 255);
+        doc.text(`PERIODE: ${periodTitle.toUpperCase()}`, 196, 20, { align: "right" });
+
+        // Ringkasan Keuangan
+        doc.setFillColor(248, 250, 252);
+        doc.roundedRect(14, 38, 182, 22, 3, 3, 'F');
+
+        doc.setFontSize(8);
+        doc.setFont("helvetica", "bold");
+
+        // Box Pemasukan
+        doc.setTextColor(16, 185, 129);
+        doc.text("TOTAL PEMASUKAN", 22, 45);
+        doc.setFontSize(11);
+        doc.text(formatRupiah(totalIn), 22, 53);
+
+        // Box Pengeluaran
+        doc.setFontSize(8);
+        doc.setTextColor(244, 63, 94);
+        doc.text("TOTAL PENGELUARAN", 85, 45);
+        doc.setFontSize(11);
+        doc.text(formatRupiah(totalOut), 85, 53);
+
+        // Box Saldo Bersih
+        doc.setFontSize(8);
+        doc.setTextColor(0, 119, 255);
+        doc.text("SALDO BERSIH", 148, 45);
+        doc.setFontSize(11);
+        doc.text(formatRupiah(totalNet), 148, 53);
+
+        // Data Tabel Transaksi
+        const tableBody = monthTxs.map((t, idx) => {
+            const dateFormatted = `${t.date.split('-').reverse().join('/')} ${t.time || ''}`;
+            const isInc = t.type === 'in';
+            const isRef = t.type === 'refund';
+            const typeLabel = isInc ? 'Pemasukan' : (isRef ? 'Refund' : 'Pengeluaran');
+            const amountFormatted = (isInc ? '+ ' : (isRef ? '' : '- ')) + formatRupiah(t.amount);
+
+            return [
+                idx + 1,
+                dateFormatted,
+                t.description,
+                t.method || 'CASH',
+                typeLabel,
+                amountFormatted
+            ];
+        });
+
+        doc.autoTable({
+            startY: 66,
+            head: [['No', 'Tanggal & Waktu', 'Keterangan', 'Metode', 'Jenis', 'Jumlah (Rp)']],
+            body: tableBody,
+            theme: 'striped',
+            headStyles: {
+                fillColor: [3, 14, 38],
+                textColor: [0, 240, 255],
+                fontStyle: 'bold',
+                fontSize: 9
+            },
+            bodyStyles: {
+                fontSize: 8.5,
+                textColor: [30, 41, 59]
+            },
+            columnStyles: {
+                0: { cellWidth: 10, halign: 'center' },
+                1: { cellWidth: 32 },
+                2: { cellWidth: 68 },
+                3: { cellWidth: 22, halign: 'center' },
+                4: { cellWidth: 24, halign: 'center' },
+                5: { cellWidth: 26, halign: 'right' }
+            },
+            didParseCell: function(data) {
+                if (data.section === 'body' && data.column.index === 5) {
+                    const val = data.cell.raw;
+                    if (val.startsWith('+')) {
+                        data.cell.styles.textColor = [16, 185, 129];
+                        data.cell.styles.fontStyle = 'bold';
+                    } else if (val.startsWith('-')) {
+                        data.cell.styles.textColor = [244, 63, 94];
+                        data.cell.styles.fontStyle = 'bold';
+                    }
+                }
+            }
+        });
+
+        // Footer Minimalis
+        const pageCount = doc.internal.getNumberOfPages();
+        for (let i = 1; i <= pageCount; i++) {
+            doc.setPage(i);
+            doc.setFontSize(8);
+            doc.setTextColor(148, 163, 184);
+            doc.text(`Dicetak secara otomatis oleh VENUS STUDIO pada ${new Date().toLocaleDateString('id-ID')}`, 14, 287);
+            doc.text(`Halaman ${i} dari ${pageCount}`, 196, 287, { align: 'right' });
+        }
+
+        doc.save(`Rekap_Keuangan_VENUS_STUDIO_${targetYm}.pdf`);
     });
 
     function updateUI() {
