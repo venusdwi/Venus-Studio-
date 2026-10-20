@@ -253,26 +253,29 @@
         .close-cyber-modal, .close-music-modal, .close-personal-modal, .close-debt-modal, .close-view-debt { background: rgba(0, 240, 255, 0.12); border: 1.5px solid rgba(0, 240, 255, 0.5); color: #00f0ff; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800; transition: all 0.15s ease; flex-shrink: 0; }
         .close-cyber-modal:active, .close-music-modal:active, .close-personal-modal:active, .close-debt-modal:active, .close-view-debt:active { background: rgba(0, 240, 255, 0.35); transform: scale(0.92); }
 
-        /* Style untuk Tombol Download PDF - Default Disembunyikan (display: none) */
-        .btn-download-pdf-icon {
-            background: rgba(16, 185, 129, 0.18);
-            border: 1.5px solid rgba(16, 185, 129, 0.6);
-            color: #34d399;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
+        /* Style Baru Tombol Download Laporan Format Kapsul/Pill */
+        .btn-download-pdf-capsule {
             display: none; /* Disembunyikan secara bawaan */
             align-items: center;
             justify-content: center;
-            transition: all 0.15s ease;
-            box-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
-            flex-shrink: 0;
-            margin-right: 8px;
+            gap: 8px;
+            width: 100%;
+            max-width: 240px;
+            padding: 8px 16px;
+            background-color: rgba(0, 242, 255, 0.08);
+            border: 1px solid #00f2ff;
+            border-radius: 20px;
+            color: #00f2ff;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 0 10px rgba(0, 242, 255, 0.15);
+            margin: 6px auto 0 auto;
         }
-        .btn-download-pdf-icon:active {
-            transform: scale(0.92);
-            background: rgba(16, 185, 129, 0.35);
+        .btn-download-pdf-capsule:active {
+            background-color: rgba(0, 242, 255, 0.25);
+            transform: scale(0.97);
         }
 
         .audio-stabilizer-container { width: 100% !important; max-width: 260px !important; height: 50px !important; display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: flex-end !important; margin: 0.8rem auto 0.1rem auto !important; padding: 0 !important; position: relative !important; border: none !important; background: transparent !important; box-shadow: none !important; }
@@ -1116,23 +1119,27 @@
     </div>
 </div>
 
-<!-- Modal Rekap Bulanan -->
+<!-- Modal Rekap Bulanan (Header Diperbarui) -->
 <div class="popup-overlay" id="monthlyHistoryModalOverlay">
     <div class="popup-box monthly-modal-box">
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid rgba(0,240,255,0.25); padding-bottom: 12px; flex-shrink: 0; width: 100%;">
-            <button type="button" id="btnBackMonthly" style="display: none; background:none; border:none; color:#00f0ff; font-size:1.6rem; font-weight: 900; line-height: 1; cursor:pointer; padding-right: 10px;">←</button>
-            <div id="monthlyModalTitle" style="font-family: 'Orbitron', sans-serif; font-size: 1.15rem; font-weight: 900; color: #00f0ff; text-align: center; flex-grow: 1;">REKAP BULANAN</div>
-            
-            <div style="display: flex; align-items: center;">
-                <!-- TOMBOL DOWNLOAD PDF -->
-                <button type="button" class="btn-download-pdf-icon" id="btnDownloadMonthlyPdf" style="display: none;" title="Download PDF Rekap Bulanan">
-                    <svg style="width: 20px; height: 20px; fill: currentColor;" viewBox="0 0 24 24">
-                        <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
-                    </svg>
-                </button>
-                
-                <button type="button" id="closeMonthlyModalBtn" style="background:none; border:none; color:#94a3b8; font-size:1.5rem; cursor:pointer; padding-left: 6px;">✕</button>
+        <div style="display: flex; flex-direction: column; width: 100%; border-bottom: 1.5px solid rgba(0,240,255,0.25); padding-bottom: 12px; flex-shrink: 0;">
+            <!-- Baris Navigasi Atas -->
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                <button type="button" id="btnBackMonthly" style="display: none; background:none; border:none; color:#00f0ff; font-size:1.6rem; font-weight: 900; line-height: 1; cursor:pointer; padding: 2px 6px;">←</button>
+                <div id="monthlyModalNavSpacer" style="flex-grow: 1;"></div>
+                <button type="button" id="closeMonthlyModalBtn" style="background:none; border:none; color:#94a3b8; font-size:1.5rem; cursor:pointer; padding: 2px 6px; line-height: 1;">✕</button>
             </div>
+            
+            <!-- Judul Bulan -->
+            <div id="monthlyModalTitle" style="font-family: 'Orbitron', sans-serif; font-size: 1.2rem; font-weight: 900; color: #00f0ff; text-align: center; margin-top: 2px; text-shadow: 0 0 8px rgba(0, 240, 255, 0.4);">REKAP BULANAN</div>
+            
+            <!-- Tombol Download Laporan Format Kapsul -->
+            <button type="button" class="btn-download-pdf-capsule" id="btnDownloadMonthlyPdf">
+                <svg style="width: 16px; height: 16px; fill: currentColor;" viewBox="0 0 24 24">
+                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                </svg>
+                <span>Download Laporan</span>
+            </button>
         </div>
 
         <div id="monthlyListContainer" style="display: flex; flex-direction: column; gap: 10px; overflow-y: auto; flex-grow: 1; padding: 8px 0; width: 100%;"></div>
