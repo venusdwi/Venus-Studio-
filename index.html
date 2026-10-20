@@ -253,7 +253,7 @@
         .close-cyber-modal, .close-music-modal, .close-personal-modal, .close-debt-modal, .close-view-debt { background: rgba(0, 240, 255, 0.12); border: 1.5px solid rgba(0, 240, 255, 0.5); color: #00f0ff; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800; transition: all 0.15s ease; flex-shrink: 0; }
         .close-cyber-modal:active, .close-music-modal:active, .close-personal-modal:active, .close-debt-modal:active, .close-view-debt:active { background: rgba(0, 240, 255, 0.35); transform: scale(0.92); }
 
-        /* Style untuk Tombol Download PDF - Default Disembunyikan */
+        /* Style untuk Tombol Download PDF - Default Disembunyikan (display: none) */
         .btn-download-pdf-icon {
             background: rgba(16, 185, 129, 0.18);
             border: 1.5px solid rgba(16, 185, 129, 0.6);
@@ -262,7 +262,7 @@
             height: 40px;
             border-radius: 50%;
             cursor: pointer;
-            display: none; /* Hanya tampil ketika masuk ke detail bulan tertentu */
+            display: none; /* Disembunyikan secara bawaan */
             align-items: center;
             justify-content: center;
             transition: all 0.15s ease;
@@ -1107,8 +1107,8 @@
             <div id="monthlyModalTitle" style="font-family: 'Orbitron', sans-serif; font-size: 1.15rem; font-weight: 900; color: #00f0ff; text-align: center; flex-grow: 1;">REKAP BULANAN</div>
             
             <div style="display: flex; align-items: center;">
-                <!-- TOMBOL DOWNLOAD PDF (Hanya Muncul di Tampilan Detail Bulan) -->
-                <button type="button" class="btn-download-pdf-icon" id="btnDownloadMonthlyPdf" title="Download PDF Rekap Bulanan">
+                <!-- TOMBOL DOWNLOAD PDF (Dipastikan punya style="display: none;" secara langsung) -->
+                <button type="button" class="btn-download-pdf-icon" id="btnDownloadMonthlyPdf" style="display: none;" title="Download PDF Rekap Bulanan">
                     <svg style="width: 20px; height: 20px; fill: currentColor;" viewBox="0 0 24 24">
                         <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
                     </svg>
@@ -2536,7 +2536,7 @@
         document.getElementById('monthlyListContainer').style.display = 'flex';
         document.getElementById('monthlyDetailContainer').style.display = 'none';
         document.getElementById('btnBackMonthly').style.display = 'none';
-        document.getElementById('btnDownloadMonthlyPdf').style.display = 'none'; // Sembunyikan tombol download di daftar bulan
+        document.getElementById('btnDownloadMonthlyPdf').style.display = 'none'; // Dipastikan tersembunyi
         document.getElementById('monthlyModalTitle').innerText = 'REKAP BULANAN';
         document.getElementById('monthlyHistoryModalOverlay').classList.add('active');
     });
@@ -2550,13 +2550,16 @@
         document.getElementById('monthlyListContainer').style.display = 'flex';
         document.getElementById('monthlyDetailContainer').style.display = 'none';
         document.getElementById('btnBackMonthly').style.display = 'none';
-        document.getElementById('btnDownloadMonthlyPdf').style.display = 'none'; // Sembunyikan tombol saat kembali ke daftar bulan
+        document.getElementById('btnDownloadMonthlyPdf').style.display = 'none'; // Sembunyikan saat kembali
         document.getElementById('monthlyModalTitle').innerText = 'REKAP BULANAN';
     });
 
     function renderMonthlyList() {
         const container = document.getElementById('monthlyListContainer'); 
         container.innerHTML = '';
+
+        // Memastikan tombol PDF tersembunyi secara eksplisit saat halaman daftar bulan dirender
+        document.getElementById('btnDownloadMonthlyPdf').style.display = 'none';
 
         const monthlyGroups = {};
         transactions.forEach(t => {
@@ -2614,7 +2617,7 @@
         document.getElementById('monthlyDetailContainer').style.display = 'flex';
         document.getElementById('btnBackMonthly').style.display = 'block';
 
-        // Tampilkan Tombol Download PDF hanya di dalam Detail Bulan
+        // Tampilkan Tombol Download PDF hanya ketika masuk ke rincian/detail bulan
         document.getElementById('btnDownloadMonthlyPdf').style.display = 'flex';
 
         const [y, m] = ym.split('-');
