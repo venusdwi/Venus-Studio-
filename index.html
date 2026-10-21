@@ -36,26 +36,14 @@
         }
 
         html, body {
-            width: 100vw !important;
-            height: 100vh !important;
-            height: 100dvh !important;
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            overflow: hidden !important;
-            background-color: #020714 !important;
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            background-color: #020714;
             color: #ffffff;
             color-scheme: dark;
             -webkit-text-size-adjust: 100%;
             -webkit-font-smoothing: antialiased;
-            overscroll-behavior: none;
-        }
-
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
         }
 
         *::-webkit-scrollbar { display: none; }
@@ -85,14 +73,13 @@
         }
 
         .splash-screen-overlay {
-            position: fixed; top: 0; left: 0; width: 100vw !important; height: 100vh !important; height: 100dvh !important;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100dvh;
             background: linear-gradient(rgba(2, 7, 20, 0.95), rgba(2, 7, 20, 0.99)), #020714; z-index: 99999999;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; overflow: hidden !important; 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; overflow: hidden; 
             transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s ease;
-            transform: translateZ(0);
         }
         .splash-screen-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; display: none !important; }
-        .splash-pulse-line { position: absolute; top: 0; left: 0; width: 100% !important; height: 100% !important; pointer-events: none; z-index: 1; background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.15) 0%, transparent 60%); animation: pulseGlowMove 4s infinite ease-in-out; }
+        .splash-pulse-line { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.15) 0%, transparent 60%); animation: pulseGlowMove 4s infinite ease-in-out; }
         @keyframes pulseGlowMove { 0%, 100% { transform: scale(1); opacity: 0.6; } 50% { transform: scale(1.08); opacity: 1; } }
 
         .splash-top-section { position: fixed; top: 50px; width: 100%; display: flex; justify-content: center; z-index: 5; }
@@ -124,15 +111,14 @@
         @keyframes tapPulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); } 50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(0, 240, 255, 0.6); } }
 
         .pin-screen-overlay, .debt-pin-overlay, .personal-pin-overlay { 
-            position: fixed; top: 0; left: 0; width: 100vw !important; height: 100vh !important; height: 100dvh !important; 
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100dvh; 
             background: #020714; z-index: 9999990; display: none; opacity: 0; visibility: hidden; 
             flex-direction: column; justify-content: center; align-items: center; padding: 20px; 
-            overflow: hidden !important; transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s ease; overscroll-behavior: none;
-            transform: translateZ(0);
+            overflow: hidden; transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s ease;
         }
         .pin-screen-overlay.active, .debt-pin-overlay.active, .personal-pin-overlay.active { display: flex !important; opacity: 1 !important; visibility: visible !important; }
 
-        .cyber-scanner-flash { position: fixed; top: 0; left: 0; width: 100vw !important; height: 100vh !important; height: 100dvh !important; background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.2) 0%, rgba(2, 7, 20, 0.98) 85%), linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px); background-size: 100% 100%, 20px 20px, 20px 20px; z-index: 99999995; opacity: 0; visibility: hidden; pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; transition: opacity 0.2s ease; overflow: hidden !important; }
+        .cyber-scanner-flash { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100dvh; background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.2) 0%, rgba(2, 7, 20, 0.98) 85%), linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px); background-size: 100% 100%, 20px 20px, 20px 20px; z-index: 99999995; opacity: 0; visibility: hidden; pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; transition: opacity 0.2s ease; overflow: hidden; }
         .cyber-scanner-flash.active { opacity: 1; visibility: visible; animation: hackerTerminalSeq 0.9s forwards cubic-bezier(0.1, 0.9, 0.2, 1); }
 
         .hacker-terminal-box { background: rgba(2, 12, 32, 0.92); border: 1.5px solid #00f0ff; border-radius: 14px; padding: 20px 24px; max-width: 340px; width: 100%; box-shadow: 0 0 40px rgba(0, 240, 255, 0.5), inset 0 0 15px rgba(0, 240, 255, 0.25); font-family: 'Rajdhani', sans-serif; text-align: left; display: flex; flex-direction: column; gap: 8px; }
@@ -162,43 +148,42 @@
         .keypad-btn.action-btn { font-size: 1.2rem; color: #7dd3fc; }
 
         .tech-bg-container { 
-            position: fixed !important; 
-            top: 0 !important; 
-            left: 0 !important; 
-            width: 100vw !important; 
-            height: 100vh !important; 
-            height: 100dvh !important; 
-            z-index: 0 !important; 
-            overflow: hidden !important; 
-            pointer-events: none !important; 
-            background: #020714 !important; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100vw; 
+            height: 100vh; 
+            height: 100dvh; 
+            z-index: 0; 
+            overflow: hidden; 
+            pointer-events: none; 
+            background: #020714; 
             opacity: 0; 
             visibility: hidden; 
-            transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease; 
-            transform: translateZ(0);
+            transition: opacity 0.3s ease, visibility 0.3s ease; 
         }
         .tech-bg-container.active { opacity: 1; visibility: visible; }
         
         #circuitCanvas { 
-            position: absolute !important; 
-            top: 0 !important; 
-            left: 0 !important; 
-            width: 100% !important; 
-            height: 100% !important; 
-            object-fit: cover !important;
-            z-index: 1 !important; 
-            background: #020714 !important;
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover;
+            z-index: 1; 
+            background: #020714;
         }
         .cyber-vignette { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; background: radial-gradient(circle at 50% 50%, transparent 30%, rgba(1, 4, 12, 0.65) 100%); pointer-events: none; }
 
         .container { 
-            position: relative; z-index: 10; width: 100% !important; max-width: 440px !important; margin: 0 auto; 
+            position: relative; z-index: 10; width: 100%; max-width: 440px; margin: 0 auto; 
             background: transparent; border: none; box-shadow: none; 
-            padding: 24px 12px 16px 12px; 
-            display: none; flex-direction: column; align-items: center; gap: 12px; 
-            opacity: 0; transform: scale(0.96) translateZ(0); transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); overscroll-behavior: none; 
+            padding: 30px 16px 20px 16px; 
+            display: none; flex-direction: column; align-items: center; gap: 14px; 
+            opacity: 0; transform: scale(0.96); transition: opacity 0.3s ease, transform 0.3s ease;
         }
-        .container.active { display: flex !important; opacity: 1; transform: scale(1) translateZ(0); }
+        .container.active { display: flex !important; opacity: 1; transform: scale(1); }
         .install-app-btn { background: linear-gradient(135deg, rgba(0, 240, 255, 0.2) 0%, rgba(0, 119, 255, 0.2) 100%); border: 1px solid rgba(0, 240, 255, 0.6); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 0.9rem; font-weight: 800; padding: 10px 16px; border-radius: 12px; cursor: pointer; display: none; align-items: center; justify-content: center; gap: 6px; margin: 0 auto 14px auto; box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); letter-spacing: 1px; text-transform: uppercase; }
 
         .header-box { text-align: center; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 14px; margin-bottom: 4px; }
@@ -209,21 +194,20 @@
             cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px 16px; border-radius: 16px; 
             background: rgba(2, 10, 28, 0.28); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1.5px solid rgba(0, 240, 255, 0.45); 
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.2); width: 100%; 
-            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease, background 0.2s ease; margin-bottom: 12px; position: relative; z-index: 20; 
-            transform: translateZ(0);
+            transition: transform 0.2s ease, filter 0.2s ease, background 0.2s ease; margin-bottom: 4px; position: relative; z-index: 20; 
         }
-        .clickable-header-wrapper:active, .music-player-panel:active, .personal-data-panel:active, .debt-tracker-panel:active { transform: scale(0.97) translateZ(0); filter: brightness(1.2); background: rgba(0, 240, 255, 0.15); }
+        .clickable-header-wrapper:active, .music-player-panel:active, .personal-data-panel:active, .debt-tracker-panel:active { transform: scale(0.97); filter: brightness(1.2); background: rgba(0, 240, 255, 0.15); }
         
         .main-page-title { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: clamp(1.4rem, 5vw, 1.8rem); letter-spacing: 2px; text-transform: uppercase; background: linear-gradient(135deg, #ffffff 0%, #00f0ff 60%, #38bdf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 20px rgba(0, 240, 255, 0.8); text-align: center; pointer-events: none; }
         .main-page-subtitle { font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; font-weight: 800; letter-spacing: 2px; color: #7dd3fc; text-transform: uppercase; margin-top: 4px; opacity: 0.95; text-align: center; pointer-events: none; }
 
         .cyber-modal-overlay, .music-modal-overlay, .personal-modal-overlay, .debt-modal-overlay, .debt-pin-overlay, .personal-pin-overlay, .edit-debt-overlay, .view-debt-overlay, .popup-overlay { 
-            position: fixed !important; 
-            top: 0 !important; 
-            left: 0 !important; 
-            width: 100vw !important; 
-            height: 100vh !important; 
-            height: 100dvh !important; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100vw; 
+            height: 100vh; 
+            height: 100dvh; 
             background: rgba(2, 7, 20, 0.92); 
             backdrop-filter: blur(16px); 
             -webkit-backdrop-filter: blur(16px); 
@@ -231,14 +215,11 @@
             display: flex; 
             justify-content: center; 
             align-items: center; 
-            padding: 0 !important; 
+            padding: 16px; 
             opacity: 0; 
             visibility: hidden; 
             pointer-events: none; 
-            transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s ease; 
-            overflow: hidden !important; 
-            overscroll-behavior: none; 
-            transform: translateZ(0);
+            transition: opacity 0.25s ease, visibility 0.25s ease; 
         }
         .cyber-modal-overlay.active, .music-modal-overlay.active, .personal-modal-overlay.active, .debt-modal-overlay.active, .debt-pin-overlay.active, .personal-pin-overlay.active, .edit-debt-overlay.active, .view-debt-overlay.active, .popup-overlay.active { 
             opacity: 1 !important; 
@@ -246,20 +227,13 @@
             pointer-events: auto !important; 
         }
 
-        .music-modal-card, .personal-modal-card, .debt-modal-card, .view-debt-card { 
-            background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.75); border-radius: 0; width: 100vw !important; height: 100vh !important; height: 100dvh !important; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: none; 
-            transform: scale(0.98) translateZ(0); transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); overflow: hidden !important; overscroll-behavior: none; 
-            padding: calc(env(safe-area-inset-top, 16px) + 12px) 16px calc(env(safe-area-inset-bottom, 16px) + 12px) 16px;
-        }
-        
-        .cyber-modal-card { 
-            background: var(--cv-bg-modal) !important; border: none !important; border-radius: 0 !important; width: 100vw !important; height: 100vh !important; height: 100dvh !important; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: none !important; 
-            transform: scale(0.98) translateZ(0); transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease; overflow: hidden !important; overscroll-behavior: none; 
-            padding: calc(env(safe-area-inset-top, 16px) + 12px) 16px calc(env(safe-area-inset-bottom, 16px) + 12px) 16px;
+        .cyber-modal-card, .music-modal-card, .personal-modal-card, .debt-modal-card, .view-debt-card { 
+            background: var(--cv-bg-modal); border: 2px solid rgba(0, 240, 255, 0.75); border-radius: 28px; width: 100%; max-width: 420px; max-height: 96vh; max-height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.35); 
+            transform: scale(0.95); transition: transform 0.25s ease, background-color 0.2s ease; overflow: hidden; padding: 20px 16px 16px 16px;
         }
         
         .cyber-modal-overlay.active .cyber-modal-card, .music-modal-overlay.active .music-modal-card, .personal-modal-overlay.active .personal-modal-card, .debt-modal-overlay.active .debt-modal-card, .view-debt-overlay.active .view-debt-card { 
-            transform: scale(1) translateZ(0); 
+            transform: scale(1); 
         }
 
         .close-cyber-modal, .close-music-modal, .close-personal-modal, .close-debt-modal, .close-view-debt { background: rgba(0, 240, 255, 0.12); border: 1.5px solid rgba(0, 240, 255, 0.5); color: #00f0ff; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800; transition: all 0.15s ease; flex-shrink: 0; }
@@ -313,7 +287,7 @@
         .music-search-input { flex-grow: 1; padding: 10px 12px; border: 1.5px solid rgba(0, 240, 255, 0.4); border-radius: 10px; background: rgba(2, 12, 32, 0.9); color: #fff; font-size: 0.9rem; outline: none; }
         .music-search-btn { background: rgba(0, 240, 255, 0.2); border: 1.5px solid #00f0ff; color: #00f0ff; padding: 0 14px; border-radius: 10px; font-weight: 800; cursor: pointer; font-size: 0.85rem; }
         
-        .music-search-results { width: 100%; max-height: 130px; overflow-y: auto; background: rgba(1, 6, 18, 0.95); border: 1px solid rgba(0, 240, 255, 0.3); border-radius: 10px; padding: 6px; display: none; flex-direction: column; gap: 4px; margin-bottom: 6px; text-align: left; overscroll-behavior: none; }
+        .music-search-results { width: 100%; max-height: 130px; overflow-y: auto; background: rgba(1, 6, 18, 0.95); border: 1px solid rgba(0, 240, 255, 0.3); border-radius: 10px; padding: 6px; display: none; flex-direction: column; gap: 4px; margin-bottom: 6px; text-align: left; }
         .music-search-results.active { display: flex; }
         .search-result-item { display: flex; justify-content: space-between; align-items: center; background: rgba(0, 240, 255, 0.05); padding: 6px 10px; border-radius: 8px; font-size: 0.82rem; gap: 8px; border: 1px solid rgba(0,240,255,0.15); }
         .search-result-title { color: #fff; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-grow: 1; }
@@ -321,16 +295,16 @@
         .btn-stream-online { background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; color: #34d399; padding: 3px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 800; cursor: pointer; }
         .btn-add-online { background: rgba(0, 240, 255, 0.2); border: 1px solid #00f0ff; color: #00f0ff; padding: 3px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 800; cursor: pointer; }
 
-        .playlist-wrapper { width: 100%; flex-grow: 1; min-height: 120px; overflow-y: auto; background: rgba(2, 12, 32, 0.7); border: 1.5px solid rgba(0, 240, 255, 0.3); border-radius: 14px; padding: 8px; display: flex; flex-direction: column; gap: 6px; margin-top: 4px; overscroll-behavior: none; }
+        .playlist-wrapper { width: 100%; flex-grow: 1; min-height: 120px; overflow-y: auto; background: rgba(2, 12, 32, 0.7); border: 1.5px solid rgba(0, 240, 255, 0.3); border-radius: 14px; padding: 8px; display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
         .playlist-item { display: flex; align-items: center; justify-content: space-between; background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.22); padding: 10px 12px; border-radius: 10px; cursor: pointer; font-size: 0.9rem; text-align: left; gap: 10px; }
         .playlist-item.active-track { background: rgba(0, 240, 255, 0.2); border-color: #00f0ff; }
         .playlist-delete-btn { color: #fb7185; font-size: 0.8rem; font-weight: 700; cursor: pointer; padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(244, 63, 94, 0.35); background: rgba(244, 63, 94, 0.08); letter-spacing: 0.3px; display: inline-block; text-align: center; }
 
-        .full-app-content, .personal-app-content, .debt-app-content { display: flex; flex-direction: column; width: 100% !important; max-width: 100% !important; flex-grow: 1; overflow-y: auto; background: transparent !important; border: none !important; padding: 6px 4px 40px 4px !important; text-align: left; gap: 16px; margin-top: 10px; scroll-behavior: smooth; overscroll-behavior: none; }
+        .full-app-content, .personal-app-content, .debt-app-content { display: flex; flex-direction: column; width: 100%; max-width: 100%; flex-grow: 1; overflow-y: auto; background: transparent; border: none; padding: 6px 4px 20px 4px; text-align: left; gap: 16px; margin-top: 10px; scroll-behavior: smooth; }
 
         .glass-control-panel { display: flex !important; align-items: center; justify-content: space-between; gap: 12px; flex-shrink: 0; height: 40px; margin-bottom: 0 !important; }
         .glass-label-text { font-size: 0.9rem; font-weight: 800; color: var(--cv-text-secondary); white-space: nowrap; line-height: 1; display: flex; align-items: center; height: 100%; transition: color 0.2s ease; }
-        .glass-slider-wrapper { display: flex; align-items: center; flex-grow: 1; padding: 0 4px; height: 100%; overflow: hidden !important; }
+        .glass-slider-wrapper { display: flex; align-items: center; flex-grow: 1; padding: 0 4px; height: 100%; overflow: hidden; }
         
         .glass-range-input { -webkit-appearance: none !important; appearance: none !important; width: 100% !important; height: 16px !important; background: transparent !important; outline: none !important; border: none !important; margin: 0 !important; padding: 0 !important; cursor: pointer !important; }
         .glass-range-input::-webkit-slider-runnable-track { width: 100% !important; height: 4px !important; background: rgba(0, 240, 255, 0.35) !important; border-radius: 2px !important; border: none !important; }
@@ -408,10 +382,10 @@
 
         .btn-add-account-action { background: linear-gradient(135deg, rgba(0, 240, 255, 0.18) 0%, rgba(0, 119, 255, 0.28) 100%); border: 1.5px solid rgba(0, 240, 255, 0.6); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 1.05rem; font-weight: 800; letter-spacing: 1.5px; padding: 14px; border-radius: 14px; cursor: pointer; width: 100%; text-align: center; text-transform: uppercase; }
 
-        .sub-account-modal, .all-history-modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3, 14, 38, 0.98); z-index: 20; display: none; flex-direction: column; padding: 20px 16px; justify-content: space-between; border-radius: 0; overflow-y: auto; overscroll-behavior: none; }
+        .sub-account-modal, .all-history-modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3, 14, 38, 0.98); z-index: 20; display: none; flex-direction: column; padding: 20px 16px; justify-content: space-between; border-radius: 26px; overflow-y: auto; }
         .sub-account-modal.active, .all-history-modal.active { display: flex !important; }
 
-        .account-history-box { background: transparent; border: none; padding: 0; margin-top: 6px; min-height: 180px; max-height: 280px; overflow-y: auto; text-align: left; width: 100%; display: flex; flex-direction: column; gap: 10px; overscroll-behavior: none; }
+        .account-history-box { background: transparent; border: none; padding: 0; margin-top: 6px; min-height: 180px; max-height: 280px; overflow-y: auto; text-align: left; width: 100%; display: flex; flex-direction: column; gap: 10px; }
         .account-history-item { font-size: 0.9rem; color: #ffffff; background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.35); border-radius: 12px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; cursor: pointer; width: 100%; transition: border-color 0.15s ease, background 0.15s ease; }
         .account-history-item:active { border-color: #00f0ff; background: rgba(0, 240, 255, 0.12); }
         .history-user-info { font-size: 0.98rem; font-weight: 800; color: #ffffff; word-break: break-all; display: flex; flex-direction: column; gap: 4px; }
@@ -469,13 +443,13 @@
 
         .monthly-modal-box {
             background: rgba(3, 14, 38, 0.98) !important;
-            border: none !important;
-            border-radius: 0 !important;
-            width: 100vw !important;
-            height: 100vh !important;
-            height: 100dvh !important;
-            padding: calc(env(safe-area-inset-top, 16px) + 12px) 18px calc(env(safe-area-inset-bottom, 16px) + 12px) 18px !important;
-            box-shadow: none !important;
+            border: 2px solid rgba(0, 240, 255, 0.75) !important;
+            border-radius: 28px !important;
+            width: 100% !important;
+            max-width: 420px !important;
+            max-height: 96vh !important;
+            max-height: 96dvh !important;
+            padding: 20px 18px 18px 18px !important;
         }
 
         .monthly-date-header {
