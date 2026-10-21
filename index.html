@@ -35,9 +35,9 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* Mencegah layar bergerak/pull-to-refresh di iOS & Android */
+        /* Perbaikan khusus iOS agar latar belakang memenuhi seluruh layar termasuk safe-area */
         html, body {
-            width: 100% !important;
+            width: 100vw !important;
             height: 100% !important;
             height: 100dvh !important;
             margin: 0 !important;
@@ -158,6 +158,7 @@
         .keypad-btn:active { background: rgba(0, 240, 255, 0.3); border-color: #00f0ff; transform: scale(0.95); }
         .keypad-btn.action-btn { font-size: 1.2rem; color: #7dd3fc; }
 
+        /* Perbaikan penuh layar untuk kontainer latar belakang teknologi */
         .tech-bg-container { 
             position: fixed !important; 
             top: 0 !important; 
