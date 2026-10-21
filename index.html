@@ -253,9 +253,8 @@
         .close-cyber-modal, .close-music-modal, .close-personal-modal, .close-debt-modal, .close-view-debt { background: rgba(0, 240, 255, 0.12); border: 1.5px solid rgba(0, 240, 255, 0.5); color: #00f0ff; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800; transition: all 0.15s ease; flex-shrink: 0; }
         .close-cyber-modal:active, .close-music-modal:active, .close-personal-modal:active, .close-debt-modal:active, .close-view-debt:active { background: rgba(0, 240, 255, 0.35); transform: scale(0.92); }
 
-        /* Style Baru Tombol Download Laporan Format Kapsul/Pill */
         .btn-download-pdf-capsule {
-            display: none; /* Disembunyikan secara bawaan */
+            display: none; 
             align-items: center;
             justify-content: center;
             gap: 8px;
@@ -373,7 +372,6 @@
         }
         .full-app-content .custom-select-box.selected, #detailTransactionModal .custom-select-box.selected { color: var(--cv-text-primary); }
         
-        /* Style Dinamis Jenis Transaksi */
         .custom-select-box.type-in {
             color: #34d399 !important;
             border-color: rgba(16, 185, 129, 0.7) !important;
@@ -982,12 +980,10 @@
 
 <div class="cyber-modal-overlay" id="cyberModalOverlay">
     <div class="cyber-modal-card" id="cyberModalCard">
-        <!-- Tombol Tutup di Kanan Atas -->
         <div style="display: flex; justify-content: flex-end; width: 100%; flex-shrink: 0; padding-top: 2px;">
             <button type="button" class="close-cyber-modal" id="closeCyberModalBtn">✕</button>
         </div>
 
-        <!-- Judul Header Cyber Vault dipindah ke baris baru di bawah tombol tutup -->
         <div style="width: 100%; text-align: center; margin-top: 4px; margin-bottom: 8px; flex-shrink: 0;">
             <div style="font-family: 'Orbitron', sans-serif; font-size: 1.25rem; font-weight: 900; color: #00f0ff; letter-spacing: 2px; text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);">CYBER VAULT SYSTEM</div>
         </div>
@@ -1019,12 +1015,11 @@
                 </div>
 
                 <div class="sub-dashboard">
-                    <div class="card-sub pemasukan"><h4>PEMASUKAN</h4><p id="totalPemasukan">Rp 0</p></div>
-                    <div class="card-sub pengeluaran"><h4>PENGELUARAN</h4><p id="totalPengeluaran">Rp 0</p></div>
+                    <div class="card-sub pemasukan"><h4>PEMASUKAN (BULAN INI)</h4><p id="totalPemasukan">Rp 0</p></div>
+                    <div class="card-sub pengeluaran"><h4>PENGELUARAN (BULAN INI)</h4><p id="totalPengeluaran">Rp 0</p></div>
                 </div>
             </div>
 
-            <!-- KARTU ANALISIS GRAFIK KEUANGAN (Chart.js) - Dipasang di bawah kartu saldo -->
             <div class="analytics-card" style="background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.4); border-radius: 16px; padding: 16px; width: 100%; box-shadow: 0 4px 20px rgba(0,0,0,0.5); margin-top: 4px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                     <h4 style="font-family: 'Orbitron', sans-serif; font-size: 0.85rem; color: #00f0ff; margin: 0; letter-spacing: 1px;">📊 ANALISIS KEUANGAN</h4>
@@ -1134,21 +1129,17 @@
     </div>
 </div>
 
-<!-- Modal Rekap Bulanan (Header Diperbarui) -->
 <div class="popup-overlay" id="monthlyHistoryModalOverlay">
     <div class="popup-box monthly-modal-box">
         <div style="display: flex; flex-direction: column; width: 100%; border-bottom: 1.5px solid rgba(0,240,255,0.25); padding-bottom: 12px; flex-shrink: 0;">
-            <!-- Baris Navigasi Atas -->
             <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                 <button type="button" id="btnBackMonthly" style="display: none; background:none; border:none; color:#00f0ff; font-size:1.6rem; font-weight: 900; line-height: 1; cursor:pointer; padding: 2px 6px;">←</button>
                 <div id="monthlyModalNavSpacer" style="flex-grow: 1;"></div>
                 <button type="button" id="closeMonthlyModalBtn" style="background:none; border:none; color:#94a3b8; font-size:1.5rem; cursor:pointer; padding: 2px 6px; line-height: 1;">✕</button>
             </div>
             
-            <!-- Judul Bulan -->
             <div id="monthlyModalTitle" style="font-family: 'Orbitron', sans-serif; font-size: 1.2rem; font-weight: 900; color: #00f0ff; text-align: center; margin-top: 2px; text-shadow: 0 0 8px rgba(0, 240, 255, 0.4);">REKAP BULANAN</div>
             
-            <!-- Tombol Download Laporan Format Kapsul -->
             <button type="button" class="btn-download-pdf-capsule" id="btnDownloadMonthlyPdf">
                 <svg style="width: 16px; height: 16px; fill: currentColor;" viewBox="0 0 24 24">
                     <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
@@ -2990,21 +2981,46 @@
             });
         }
         
-        let totalIn = 0, totalOut = 0, cashBalance = 0, bankBalance = 0;
+        let totalInAll = 0, totalOutAll = 0, cashBalance = 0, bankBalance = 0;
+        let currentMonthIn = 0, currentMonthOut = 0;
+        
+        const nowIso = getLocalIsoDate(new Date());
+        const currentYm = nowIso.substring(0, 7); // Format "YYYY-MM" bulan berjalan
+
         transactions.forEach(t => { 
             const isCash = (t.method === 'CASH');
-            if (t.type === 'in') { totalIn += t.amount; if (isCash) cashBalance += t.amount; else bankBalance += t.amount; }
-            else if (t.type === 'out') { totalOut += t.amount; if (isCash) cashBalance -= t.amount; else bankBalance -= t.amount; }
-            else if (t.type === 'refund') { totalOut -= t.amount; if (isCash) cashBalance += t.amount; else bankBalance += t.amount; }
+            
+            // Perhitungan Saldo Sisa tetap akumulatif keseluruhan
+            if (t.type === 'in') { 
+                totalInAll += t.amount; 
+                if (isCash) cashBalance += t.amount; else bankBalance += t.amount; 
+            } else if (t.type === 'out') { 
+                totalOutAll += t.amount; 
+                if (isCash) cashBalance -= t.amount; else bankBalance -= t.amount; 
+            } else if (t.type === 'refund') { 
+                totalOutAll -= t.amount; 
+                if (isCash) cashBalance += t.amount; else bankBalance += t.amount; 
+            }
+
+            // Perhitungan Pemasukan & Pengeluaran Dashboard khusus Bulan Berjalan (otomatis reset tiap tgl 1 jam 00.00)
+            if (t.date && t.date.startsWith(currentYm)) {
+                if (t.type === 'in') {
+                    currentMonthIn += t.amount;
+                } else if (t.type === 'out') {
+                    currentMonthOut += t.amount;
+                } else if (t.type === 'refund') {
+                    currentMonthOut -= t.amount;
+                }
+            }
         });
 
-        document.getElementById('totalSaldo').innerText = formatRupiah(totalIn - totalOut); 
-        document.getElementById('totalPemasukan').innerText = formatRupiah(totalIn); 
-        document.getElementById('totalPengeluaran').innerText = formatRupiah(totalOut);
+        document.getElementById('totalSaldo').innerText = formatRupiah(totalInAll - totalOutAll); 
+        document.getElementById('totalPemasukan').innerText = formatRupiah(currentMonthIn); 
+        document.getElementById('totalPengeluaran').innerText = formatRupiah(currentMonthOut);
         document.getElementById('totalSaldoCash').innerText = formatRupiah(cashBalance);
         document.getElementById('totalSaldoBank').innerText = formatRupiah(bankBalance);
 
-        updateAnalyticsChart(totalIn, totalOut);
+        updateAnalyticsChart(currentMonthIn, currentMonthOut);
 
         try { 
             localStorage.setItem('my_transactions', JSON.stringify(transactions)); 
