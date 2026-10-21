@@ -35,10 +35,11 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* PERBAIKAN: Mencegah layar goyang / layout shift saat bar notifikasi muncul */
+        /* PERBAIKAN: Kompatibilitas penuh iOS & Android tanpa mengubah fungsi */
         html, body {
             width: 100% !important;
             height: 100% !important;
+            height: 100dvh !important;
             margin: 0 !important;
             padding: 0 !important;
             overflow: hidden !important;
@@ -78,7 +79,7 @@
         }
 
         .splash-screen-overlay {
-            position: fixed; top: 0; left: 0; width: 100vw !important; height: 100% !important;
+            position: fixed; top: 0; left: 0; width: 100vw !important; height: 100% !important; height: 100dvh !important;
             background: linear-gradient(rgba(2, 7, 20, 0.95), rgba(2, 7, 20, 0.99)), #020714; z-index: 99999999;
             display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; overflow-y: auto !important; 
             transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s ease;
@@ -136,7 +137,7 @@
         @keyframes tapPulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); } 50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(0, 240, 255, 0.6); } }
 
         .pin-screen-overlay, .debt-pin-overlay, .personal-pin-overlay { 
-            position: fixed; top: 0; left: 0; width: 100vw !important; height: 100% !important; 
+            position: fixed; top: 0; left: 0; width: 100vw !important; height: 100% !important; height: 100dvh !important;
             background: #020714; z-index: 9999990; display: none; opacity: 0; visibility: hidden; 
             flex-direction: column; justify-content: center; align-items: center; padding: 20px; 
             overflow-x: hidden !important; transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s ease; overscroll-behavior-y: none;
@@ -144,7 +145,7 @@
         }
         .pin-screen-overlay.active, .debt-pin-overlay.active, .personal-pin-overlay.active { display: flex !important; opacity: 1 !important; visibility: visible !important; }
 
-        .cyber-scanner-flash { position: fixed; top: 0; left: 0; width: 100vw !important; height: 100% !important; background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.2) 0%, rgba(2, 7, 20, 0.98) 85%), linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px); background-size: 100% 100%, 20px 20px, 20px 20px; z-index: 99999995; opacity: 0; visibility: hidden; pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; transition: opacity 0.2s ease; overflow-x: hidden !important; }
+        .cyber-scanner-flash { position: fixed; top: 0; left: 0; width: 100vw !important; height: 100% !important; height: 100dvh !important; background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.2) 0%, rgba(2, 7, 20, 0.98) 85%), linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px); background-size: 100% 100%, 20px 20px, 20px 20px; z-index: 99999995; opacity: 0; visibility: hidden; pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; transition: opacity 0.2s ease; overflow-x: hidden !important; }
         .cyber-scanner-flash.active { opacity: 1; visibility: visible; animation: hackerTerminalSeq 0.9s forwards cubic-bezier(0.1, 0.9, 0.2, 1); }
 
         .hacker-terminal-box { background: rgba(2, 12, 32, 0.92); border: 1.5px solid #00f0ff; border-radius: 14px; padding: 20px 24px; max-width: 340px; width: 100%; box-shadow: 0 0 40px rgba(0, 240, 255, 0.5), inset 0 0 15px rgba(0, 240, 255, 0.25); font-family: 'Rajdhani', sans-serif; text-align: left; display: flex; flex-direction: column; gap: 8px; }
@@ -181,6 +182,7 @@
             bottom: 0 !important;
             width: 100vw !important; 
             height: 100% !important; 
+            height: 100dvh !important;
             z-index: 0 !important; 
             overflow: hidden !important; 
             pointer-events: none !important; 
@@ -198,6 +200,7 @@
             left: 0 !important; 
             width: 100vw !important; 
             height: 100% !important; 
+            height: 100dvh !important;
             object-fit: cover !important;
             z-index: 1 !important; 
             background: #020714 !important;
@@ -207,7 +210,7 @@
         .container { 
             position: relative; z-index: 10; width: 100% !important; max-width: 440px !important; overflow-x: hidden !important; margin: 0 auto; 
             background: transparent; border: none; box-shadow: none; 
-            padding: calc(env(safe-area-inset-top, 24px) + 24px) 12px 16px 12px; 
+            padding: calc(env(safe-area-inset-top, 24px) + 24px) 12px calc(env(safe-area-inset-bottom, 16px) + 16px) 12px; 
             display: none; flex-direction: column; align-items: center; gap: 12px; 
             opacity: 0; transform: translateZ(0); transition: opacity 0.3s ease; overscroll-behavior-y: none; 
         }
@@ -230,9 +233,9 @@
         .main-page-title { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: clamp(1.4rem, 5vw, 1.8rem); letter-spacing: 2px; text-transform: uppercase; background: linear-gradient(135deg, #ffffff 0%, #00f0ff 60%, #38bdf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 20px rgba(0, 240, 255, 0.8); text-align: center; pointer-events: none; }
         .main-page-subtitle { font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; font-weight: 800; letter-spacing: 2px; color: #7dd3fc; text-transform: uppercase; margin-top: 4px; opacity: 0.95; text-align: center; pointer-events: none; }
 
-        /* PERBAIKAN: Menghilangkan transisi transform & mengunci overlay agar tidak bergoyang saat dipindah aplikasi */
+        /* PERBAIKAN: Mengunci overlay agar merentang penuh di iOS & Android */
         .cyber-modal-overlay, .music-modal-overlay, .personal-modal-overlay, .debt-modal-overlay, .debt-pin-overlay, .personal-pin-overlay, .edit-debt-overlay, .view-debt-overlay, .popup-overlay { 
-            position: fixed; top: 0; left: 0; width: 100vw !important; height: 100% !important; 
+            position: fixed; top: 0; left: 0; width: 100vw !important; height: 100% !important; height: 100dvh !important;
             background: rgba(2, 7, 20, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 99999999; 
             display: flex; justify-content: center; align-items: center; padding: 12px; opacity: 0; visibility: hidden; pointer-events: none; 
             transition: opacity 0.25s ease, visibility 0.25s ease; overflow-x: hidden !important; overscroll-behavior-y: none; 
@@ -242,17 +245,23 @@
             opacity: 1; visibility: visible; pointer-events: auto; 
         }
 
-        /* PERBAIKAN: Mengunci kartu modal agar tidak terpengaruh perubahan tinggi viewport */
+        /* PERBAIKAN: Menggunakan safe area padding di iOS agar modal full dan rapi */
         .music-modal-card, .personal-modal-card, .debt-modal-card, .view-debt-card { 
-            background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.75); border-radius: 26px; padding: 22px 18px; width: 100%; max-width: 410px; height: 92%; max-height: 92%; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); 
-            overflow-x: hidden !important; overscroll-behavior-y: none; 
+            background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.75); border-radius: 26px; 
+            padding: calc(env(safe-area-inset-top, 16px) + 12px) 18px calc(env(safe-area-inset-bottom, 16px) + 12px) 18px; 
+            width: 100% !important; max-width: 410px !important; height: 100% !important; max-height: 100dvh !important; 
+            text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); 
+            overflow-x: hidden !important; overflow-y: auto !important; overscroll-behavior-y: none; 
             backface-visibility: hidden;
             transform: none !important;
         }
         
         .cyber-modal-card { 
-            background: var(--cv-bg-modal) !important; border: 2px solid var(--cv-border-primary) !important; border-radius: 26px; padding: 22px 18px 24px 18px; width: 100%; max-width: 410px; height: 92%; max-height: 92%; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); 
-            transition: background-color 0.2s ease, border-color 0.2s ease; overflow-x: hidden !important; overscroll-behavior-y: none; 
+            background: var(--cv-bg-modal) !important; border: 2px solid var(--cv-border-primary) !important; border-radius: 26px; 
+            padding: calc(env(safe-area-inset-top, 16px) + 12px) 18px calc(env(safe-area-inset-bottom, 16px) + 12px) 18px; 
+            width: 100% !important; max-width: 410px !important; height: 100% !important; max-height: 100dvh !important; 
+            text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); 
+            transition: background-color 0.2s ease, border-color 0.2s ease; overflow-x: hidden !important; overflow-y: auto !important; overscroll-behavior-y: none; 
             backface-visibility: hidden;
             transform: none !important;
         }
@@ -468,8 +477,8 @@
             border-radius: 26px !important;
             width: 100% !important;
             max-width: 410px !important;
-            height: 92% !important;
-            max-height: 92% !important;
+            height: 100% !important;
+            max-height: 100dvh !important;
             padding: 20px 18px !important;
             box-shadow: 0 0 50px rgba(0, 240, 255, 0.4) !important;
         }
