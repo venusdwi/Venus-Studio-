@@ -389,9 +389,38 @@
 
         .custom-option-btn { background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.45); border-radius: 12px; color: #ffffff; font-size: 1.05rem; font-weight: 800; padding: 16px; width: 100%; text-align: center; cursor: pointer; display: block; }
 
-        .account-title-card { background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.4); border-radius: 14px; padding: 16px 18px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; width: 100%; }
+        /* Kartu Akun Standard / Debt Default */
+        .account-title-card { background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.4); border-radius: 14px; padding: 16px 18px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; width: 100%; transition: all 0.25s ease; }
         .account-title-name { font-family: 'Rajdhani', sans-serif; font-size: 1.15rem; font-weight: 800; color: #00f0ff; letter-spacing: 1px; text-transform: uppercase; }
         .account-title-arrow { color: #7dd3fc; font-weight: 900; font-size: 1.25rem; }
+
+        /* KUSTOMISASI DEBT TRACKER KHUSUS STATUS LUNAS */
+        .account-title-card.paid {
+            background: rgba(16, 185, 129, 0.12) !important;
+            border: 1.5px solid #10b981 !important;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.25), inset 0 0 10px rgba(16, 185, 129, 0.1) !important;
+        }
+        .account-title-card.paid .account-title-name {
+            color: #34d399 !important;
+            text-shadow: 0 0 8px rgba(52, 211, 153, 0.6) !important;
+        }
+        .account-title-card.paid .account-title-arrow {
+            color: #34d399 !important;
+        }
+        .debt-paid-badge {
+            font-size: 0.75rem;
+            font-weight: 900;
+            color: #34d399;
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.6);
+            padding: 3px 8px;
+            border-radius: 6px;
+            letter-spacing: 1px;
+            margin-left: 8px;
+            display: inline-flex;
+            align-items: center;
+            vertical-align: middle;
+        }
 
         .btn-add-account-action { background: linear-gradient(135deg, rgba(0, 240, 255, 0.18) 0%, rgba(0, 119, 255, 0.28) 100%); border: 1.5px solid rgba(0, 240, 255, 0.6); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 1.05rem; font-weight: 800; letter-spacing: 1.5px; padding: 14px; border-radius: 14px; cursor: pointer; width: 100%; text-align: center; text-transform: uppercase; }
 
@@ -2079,6 +2108,7 @@
         if (window.saveDebtsToFirebase) window.saveDebtsToFirebase(debts);
     }
 
+    /* PENGATURAN RENDERING KARTU DEBT DENGAN DUKUNGAN WARNA OTOMATIS STATUS LUNAS */
     function renderDebts() {
         const debts = getStoredDebts();
         debtListContainer.innerHTML = '';
@@ -2090,11 +2120,22 @@
             debts.slice().reverse().forEach((d, revIdx) => {
                 const origIndex = debts.length - 1 - revIdx;
                 const paid = d.paid || 0; const remaining = Math.max(0, d.amount - paid);
+                const isPaidLunas = remaining <= 0;
+
                 totalDebt += d.amount; totalRemaining += remaining;
 
                 const div = document.createElement('div');
-                div.className = 'account-title-card';
-                div.innerHTML = `<span class="account-title-name">${d.name}</span><span class="account-title-arrow">›</span>`;
+                div.className = `account-title-card ${isPaidLunas ? 'paid' : ''}`;
+                
+                const lunasBadgeHtml = isPaidLunas ? `<span class="debt-paid-badge">✅ LUNAS</span>` : '';
+
+                div.innerHTML = `
+                    <div style="display: flex; align-items: center; min-width: 0;">
+                        <span class="account-title-name">${d.name}</span>
+                        ${lunasBadgeHtml}
+                    </div>
+                    <span class="account-title-arrow">›</span>
+                `;
                 div.addEventListener('click', () => openViewDebtModal(origIndex));
                 debtListContainer.appendChild(div);
             });
@@ -3168,7 +3209,7 @@
                 transactions.push({ id: Date.now(), type, amount, description, date, time, method, proof: base64Proof });
                 clearUnfinishedTransactionDraft();
                 currentFilterDate = date; filterDateInputDirect.value = date; filterBadgeText.innerText = formatTransactionDateShort(date);
-                updateUI(); transactionForm.reses = true; // reset
+                updateUI();
                 transactionForm.reset();
                 document.getElementById('proofInput').value = '';
                 document.getElementById('fileNameDisplay').innerText = "Tidak ada file dipilih";
