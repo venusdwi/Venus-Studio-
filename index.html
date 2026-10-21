@@ -1615,7 +1615,43 @@
                 });
             }
         }, 400);
+
+        // --- FITUR GESTUR SWIPE-TO-BACK (PENGGESERAN LAYAR KIRI KE KANAN) ---
+        setupSwipeGestures();
     });
+
+    function setupSwipeGestures() {
+        const modalsToSwipe = [
+            { overlay: document.getElementById('cyberModalOverlay'), key: 'cyber' },
+            { overlay: document.getElementById('personalModalOverlay'), key: 'personal' },
+            { overlay: document.getElementById('debtModalOverlay'), key: 'debt' },
+            { overlay: document.getElementById('musicModalOverlay'), key: 'music' }
+        ];
+
+        modalsToSwipe.forEach(item => {
+            if (!item.overlay) return;
+            let touchStartX = 0;
+            let touchStartY = 0;
+
+            item.overlay.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            }, { passive: true });
+
+            item.overlay.addEventListener('touchend', (e) => {
+                let touchEndX = e.changedTouches[0].screenX;
+                let touchEndY = e.changedTouches[0].screenY;
+                let diffX = touchEndX - touchStartX;
+                let diffY = Math.abs(touchEndY - touchStartY);
+
+                // Jika geser ke kanan cukup jauh dari sisi kiri/tengah dan arah horizontal dominan
+                if (diffX > 90 && diffY < 75) {
+                    item.overlay.classList.remove('active');
+                    sessionStorage.setItem('venus_active_modal', 'none');
+                }
+            }, { passive: true });
+        });
+    }
 
     function playTapHereClickSound() {
         try {
@@ -2988,7 +3024,6 @@
         const nowIso = getLocalIsoDate(now);
         const currentYm = nowIso.substring(0, 7);
 
-        // Update nama bulan secara dinamis (Uppercase, misal: OKTOBER)
         const monthNamesUpper = ["JANUARI", "FEBRUARI", "MARET", "APRIL", "MEI", "JUNI", "JULI", "AGUSTUS", "SEPTEMBER", "OKTOBER", "NOVEMBER", "DESEMBER"];
         const currentMonthNameUpper = monthNamesUpper[now.getMonth()];
 
