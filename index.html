@@ -29,35 +29,20 @@
     <style>
         *, *::before, *::after {
             box-sizing: border-box !important;
-            max-width: 100vw !important;
             font-family: 'Plus Jakarta Sans', sans-serif;
             margin: 0;
             padding: 0;
             -webkit-tap-highlight-color: transparent;
         }
 
-        html {
-            background-color: #020714 !important;
-            color-scheme: dark;
+        html, body {
             width: 100% !important;
             height: 100% !important;
-            overflow: hidden !important;
-        }
-
-        body {
-            width: 100% !important;
-            height: 100% !important;
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
+            margin: 0 !important;
+            padding: 0 !important;
             overflow: hidden !important;
             background-color: #020714 !important;
             color: #ffffff;
-            margin: 0;
-            padding: 0 12px env(safe-area-inset-bottom, 16px) 12px;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
             -webkit-text-size-adjust: 100%;
             -webkit-font-smoothing: antialiased;
         }
@@ -89,7 +74,7 @@
         }
 
         .splash-screen-overlay {
-            position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh;
+            position: fixed; top: 0; left: 0; width: 100vw !important; height: 100vh; height: 100dvh;
             background: linear-gradient(rgba(2, 7, 20, 0.95), rgba(2, 7, 20, 0.99)), #020714; z-index: 99999999;
             display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; overflow: hidden !important; 
             transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s ease;
@@ -128,7 +113,7 @@
         @keyframes tapPulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); } 50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(0, 240, 255, 0.6); } }
 
         .pin-screen-overlay, .debt-pin-overlay, .personal-pin-overlay { 
-            position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh; 
+            position: fixed; top: 0; left: 0; width: 100vw !important; height: 100vh; height: 100dvh; 
             background: #020714; z-index: 9999990; display: none; opacity: 0; visibility: hidden; 
             flex-direction: column; justify-content: center; align-items: center; padding: 20px; 
             overflow-x: hidden !important; transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s ease; overscroll-behavior-y: none;
@@ -136,7 +121,7 @@
         }
         .pin-screen-overlay.active, .debt-pin-overlay.active, .personal-pin-overlay.active { display: flex !important; opacity: 1 !important; visibility: visible !important; }
 
-        .cyber-scanner-flash { position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh; background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.2) 0%, rgba(2, 7, 20, 0.98) 85%), linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px); background-size: 100% 100%, 20px 20px, 20px 20px; z-index: 99999995; opacity: 0; visibility: hidden; pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; transition: opacity 0.2s ease; overflow-x: hidden !important; }
+        .cyber-scanner-flash { position: fixed; top: 0; left: 0; width: 100vw !important; height: 100vh; height: 100dvh; background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.2) 0%, rgba(2, 7, 20, 0.98) 85%), linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px); background-size: 100% 100%, 20px 20px, 20px 20px; z-index: 99999995; opacity: 0; visibility: hidden; pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; transition: opacity 0.2s ease; overflow-x: hidden !important; }
         .cyber-scanner-flash.active { opacity: 1; visibility: visible; animation: hackerTerminalSeq 0.9s forwards cubic-bezier(0.1, 0.9, 0.2, 1); }
 
         .hacker-terminal-box { background: rgba(2, 12, 32, 0.92); border: 1.5px solid #00f0ff; border-radius: 14px; padding: 20px 24px; max-width: 340px; width: 100%; box-shadow: 0 0 40px rgba(0, 240, 255, 0.5), inset 0 0 15px rgba(0, 240, 255, 0.25); font-family: 'Rajdhani', sans-serif; text-align: left; display: flex; flex-direction: column; gap: 8px; }
@@ -165,10 +150,13 @@
         .keypad-btn:active { background: rgba(0, 240, 255, 0.3); border-color: #00f0ff; transform: scale(0.95); }
         .keypad-btn.action-btn { font-size: 1.2rem; color: #7dd3fc; }
 
+        /* PERBAIKAN BACKGROUND FULL LAYAR TANPA MENINGGALKAN RUANG KOSONG */
         .tech-bg-container { 
             position: fixed !important; 
             top: 0 !important; 
             left: 0 !important; 
+            right: 0 !important;
+            bottom: 0 !important;
             width: 100vw !important; 
             height: 100vh !important; 
             height: 100dvh !important; 
@@ -180,12 +168,11 @@
             visibility: hidden; 
             transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease; 
             transform: translateZ(0);
-            will-change: opacity;
         }
         .tech-bg-container.active { opacity: 1; visibility: visible; }
         
         #circuitCanvas { 
-            position: absolute !important; 
+            position: fixed !important; 
             top: 0 !important; 
             left: 0 !important; 
             width: 100vw !important; 
@@ -200,7 +187,7 @@
         .container { 
             position: relative; z-index: 10; width: 100% !important; max-width: 440px !important; overflow-x: hidden !important; margin: 0 auto; 
             background: transparent; border: none; box-shadow: none; 
-            padding: calc(env(safe-area-inset-top, 24px) + 24px) 4px 16px 4px; 
+            padding: calc(env(safe-area-inset-top, 24px) + 24px) 12px 16px 12px; 
             display: none; flex-direction: column; align-items: center; gap: 12px; 
             opacity: 0; transform: scale(0.96) translateZ(0); transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); overscroll-behavior-y: none; 
         }
@@ -224,7 +211,7 @@
         .main-page-subtitle { font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; font-weight: 800; letter-spacing: 2px; color: #7dd3fc; text-transform: uppercase; margin-top: 4px; opacity: 0.95; text-align: center; pointer-events: none; }
 
         .cyber-modal-overlay, .music-modal-overlay, .personal-modal-overlay, .debt-modal-overlay, .debt-pin-overlay, .personal-pin-overlay, .edit-debt-overlay, .view-debt-overlay, .popup-overlay { 
-            position: fixed; top: 0; left: 0; width: 100vw !important; max-width: 100vw !important; height: 100vh; height: 100dvh; 
+            position: fixed; top: 0; left: 0; width: 100vw !important; height: 100vh; height: 100dvh; 
             background: rgba(2, 7, 20, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 99999999; 
             display: flex; justify-content: center; align-items: center; padding: 12px; opacity: 0; visibility: hidden; pointer-events: none; 
             transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s ease; overflow-x: hidden !important; overscroll-behavior-y: none; 
@@ -2752,11 +2739,13 @@
             filteredTxs = monthTxs.filter(t => t.type === 'out' || t.type === 'refund');
         }
 
+        // Urutkan transaksi bulanan berdasarkan tanggal & jam terbaru di atas
         filteredTxs.sort((a, b) => {
-            if (a.date !== b.date) {
-                return a.date.localeCompare(b.date);
-            }
-            return (a.time || '').localeCompare(b.time || '');
+            const timeA = a.time || '00:00';
+            const timeB = b.time || '00:00';
+            const dtA = `${a.date}T${timeA}`;
+            const dtB = `${b.date}T${timeB}`;
+            return dtB.localeCompare(dtA);
         });
 
         const listContainer = document.getElementById('monthlyDetailList');
@@ -2840,8 +2829,11 @@
         }
 
         monthTxs.sort((a, b) => {
-            if (a.date !== b.date) return a.date.localeCompare(b.date);
-            return (a.time || '').localeCompare(b.time || '');
+            const timeA = a.time || '00:00';
+            const timeB = b.time || '00:00';
+            const dtA = `${a.date}T${timeA}`;
+            const dtB = `${b.date}T${timeB}`;
+            return dtA.localeCompare(dtB);
         });
 
         let totalIn = 0, totalOut = 0;
@@ -3006,7 +2998,17 @@
         if (filtered.length === 0) {
             historyList.innerHTML = '<li style="text-align:center; color:#a5f3fc; font-size:0.95rem; padding:20px 0;">Tidak ada transaksi</li>';
         } else {
-            filtered.sort((a, b) => b.id - a.id).forEach((t) => {
+            // PERBAIKAN PENGURUTAN: Transaksi diurutkan berdasarkan Jam & Menit terbaru di paling atas
+            filtered.sort((a, b) => {
+                const timeA = a.time || '00:00';
+                const timeB = b.time || '00:00';
+                const dtA = `${a.date}T${timeA}`;
+                const dtB = `${b.date}T${timeB}`;
+                if (dtA !== dtB) {
+                    return dtB.localeCompare(dtA);
+                }
+                return b.id - a.id;
+            }).forEach((t) => {
                 const li = document.createElement('li'); li.className = `history-item ${t.type}`;
                 let amountSign = t.type === 'in' ? '+' : (t.type === 'refund' ? '' : '-');
                 let amountClass = t.type === 'in' ? 'amount-in' : (t.type === 'refund' ? 'amount-refund' : 'amount-out');
