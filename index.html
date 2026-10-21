@@ -35,7 +35,7 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* PERBAIKAN: Kompatibilitas penuh iOS & Android tanpa mengubah fungsi */
+        /* PERBAIKAN: Mencegah layar bergerak/pull-to-refresh di iOS & Android */
         html, body {
             width: 100% !important;
             height: 100% !important;
@@ -49,7 +49,8 @@
             -webkit-font-smoothing: antialiased;
             position: fixed !important;
             inset: 0 !important;
-            touch-action: pan-x pan-y;
+            touch-action: none !important;
+            overscroll-behavior: none !important;
         }
 
         *::-webkit-scrollbar { display: none; }
@@ -81,32 +82,15 @@
         .splash-screen-overlay {
             position: fixed; top: 0; left: 0; width: 100vw !important; height: 100% !important; height: 100dvh !important;
             background: linear-gradient(rgba(2, 7, 20, 0.95), rgba(2, 7, 20, 0.99)), #020714; z-index: 99999999;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; overflow-y: auto !important; 
+            display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; overflow: hidden !important; 
             transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s ease;
             transform: translateZ(0);
-            -webkit-overflow-scrolling: touch;
+            touch-action: none !important;
+            overscroll-behavior: none !important;
         }
         .splash-screen-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; display: none !important; }
         .splash-pulse-line { position: absolute; top: 0; left: 0; width: 100% !important; height: 100% !important; pointer-events: none; z-index: 1; background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.15) 0%, transparent 60%); animation: pulseGlowMove 4s infinite ease-in-out; }
         @keyframes pulseGlowMove { 0%, 100% { transform: scale(1); opacity: 0.6; } 50% { transform: scale(1.08); opacity: 1; } }
-
-        /* Indikator Pull to Refresh */
-        .pull-refresh-indicator {
-            position: absolute; top: -50px; left: 50%; transform: translateX(-50%);
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-            background: rgba(0, 240, 255, 0.12); border: 1px solid rgba(0, 240, 255, 0.5);
-            padding: 8px 16px; border-radius: 20px; color: #00f0ff; font-family: 'Rajdhani', sans-serif;
-            font-size: 0.85rem; font-weight: 800; z-index: 20; transition: transform 0.2s ease, opacity 0.2s ease;
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); opacity: 0; pointer-events: none;
-        }
-        .pull-refresh-indicator.refreshing {
-            transform: translateX(-50%) translateY(70px);
-            opacity: 1;
-        }
-        .refresh-spinner {
-            width: 16px; height: 16px; border: 2px solid rgba(0,240,255,0.3); border-top: 2px solid #00f0ff;
-            border-radius: 50%; animation: spinLoading 0.6s linear infinite; display: inline-block;
-        }
 
         .splash-top-section { position: fixed; top: 50px; width: 100%; display: flex; justify-content: center; z-index: 5; pointer-events: none; }
         .splash-logo-glow { width: 88px; height: 88px; border-radius: 50%; background: rgba(0, 240, 255, 0.05); border: 2px dashed rgba(0, 240, 255, 0.5); display: flex; align-items: center; justify-content: center; position: relative; box-shadow: 0 0 35px rgba(0, 240, 255, 0.25), inset 0 0 20px rgba(0, 240, 255, 0.1); animation: coreRotateOuter 10s infinite linear, logoFloat 2s infinite alternate ease-in-out; }
@@ -130,7 +114,7 @@
         }
 
         .splash-bottom-section { position: fixed; bottom: 85px; width: 100%; display: flex; justify-content: center; z-index: 50; pointer-events: auto; }
-        .tap-here-btn { background: linear-gradient(135deg, rgba(0, 240, 255, 0.15) 0%, rgba(0, 119, 255, 0.25) 100%); border: 1.5px solid rgba(0, 240, 255, 0.7); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 1.15rem; font-weight: 800; letter-spacing: 3px; padding: 14px 38px; border-radius: 30px; cursor: pointer; box-shadow: 0 0 20px rgba(0, 240, 255, 0.35); text-transform: uppercase; opacity: 0; visibility: hidden; transition: opacity 0.4s ease, transform 0.2s ease; text-decoration: none !important; outline: none !important; }
+        .tap-here-btn { background: linear-gradient(135deg, rgba(0, 240, 255, 0.15) 0%, rgba(0, 119, 255, 0.25) 100%); border: 1.5px solid rgba(0, 240, 255, 0.7); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 1.15rem; font-weight: 800; letter-spacing: 3px; padding: 14px 38px; border-radius: 30px; cursor: pointer; box-shadow: 0 0 20px rgba(0, 240, 255, 0.35); text-transform: uppercase; opacity: 0; visibility: hidden; transition: opacity 0.4s ease, transform 0.2s ease; text-decoration: none !important; outline: none !important; touch-action: manipulation; }
         .tap-here-btn.show { opacity: 1; visibility: visible; animation: tapPulse 1.5s infinite ease-in-out; }
         .tap-here-btn:active { transform: scale(0.95); background: rgba(0, 240, 255, 0.35); box-shadow: 0 0 30px rgba(0, 240, 255, 0.8); }
 
@@ -170,7 +154,7 @@
         .pin-error-msg { color: #fb7185; font-size: 0.85rem; font-weight: 700; min-height: 18px; }
 
         .on-screen-keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; width: 100%; max-width: 280px; margin-top: 5px; }
-        .keypad-btn { background: rgba(0, 240, 255, 0.06); border: 1px solid rgba(0, 240, 255, 0.25); color: #ffffff; font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; font-weight: 700; padding: 12px 0; border-radius: 14px; cursor: pointer; transition: all 0.1s ease; user-select: none; display: flex; align-items: center; justify-content: center; }
+        .keypad-btn { background: rgba(0, 240, 255, 0.06); border: 1px solid rgba(0, 240, 255, 0.25); color: #ffffff; font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; font-weight: 700; padding: 12px 0; border-radius: 14px; cursor: pointer; transition: all 0.1s ease; user-select: none; display: flex; align-items: center; justify-content: center; touch-action: manipulation; }
         .keypad-btn:active { background: rgba(0, 240, 255, 0.3); border-color: #00f0ff; transform: scale(0.95); }
         .keypad-btn.action-btn { font-size: 1.2rem; color: #7dd3fc; }
 
@@ -233,7 +217,6 @@
         .main-page-title { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: clamp(1.4rem, 5vw, 1.8rem); letter-spacing: 2px; text-transform: uppercase; background: linear-gradient(135deg, #ffffff 0%, #00f0ff 60%, #38bdf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 20px rgba(0, 240, 255, 0.8); text-align: center; pointer-events: none; }
         .main-page-subtitle { font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; font-weight: 800; letter-spacing: 2px; color: #7dd3fc; text-transform: uppercase; margin-top: 4px; opacity: 0.95; text-align: center; pointer-events: none; }
 
-        /* PERBAIKAN: Mengunci overlay agar merentang penuh di iOS & Android */
         .cyber-modal-overlay, .music-modal-overlay, .personal-modal-overlay, .debt-modal-overlay, .debt-pin-overlay, .personal-pin-overlay, .edit-debt-overlay, .view-debt-overlay, .popup-overlay { 
             position: fixed; top: 0; left: 0; width: 100vw !important; height: 100% !important; height: 100dvh !important;
             background: rgba(2, 7, 20, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 99999999; 
@@ -245,7 +228,6 @@
             opacity: 1; visibility: visible; pointer-events: auto; 
         }
 
-        /* PERBAIKAN: Menggunakan safe area padding di iOS agar modal full dan rapi */
         .music-modal-card, .personal-modal-card, .debt-modal-card, .view-debt-card { 
             background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.75); border-radius: 26px; 
             padding: calc(env(safe-area-inset-top, 16px) + 12px) 18px calc(env(safe-area-inset-bottom, 16px) + 12px) 18px; 
@@ -622,10 +604,6 @@
 <body>
 
 <div class="splash-screen-overlay active" id="splashScreenOverlay">
-    <div class="pull-refresh-indicator" id="pullRefreshIndicator">
-        <div class="refresh-spinner"></div>
-        <span>MEMUAT ULANG...</span>
-    </div>
     <div class="splash-pulse-line"></div>
     <div class="splash-top-section">
         <div class="splash-logo-glow">
@@ -1637,44 +1615,7 @@
         }, 400);
 
         setupSwipeGestures();
-        setupPullToRefresh();
     });
-
-    // Fitur Pull to Refresh pada Splash Screen
-    function setupPullToRefresh() {
-        const splash = document.getElementById('splashScreenOverlay');
-        const indicator = document.getElementById('pullRefreshIndicator');
-        let startY = 0;
-        let pulling = false;
-
-        splash.addEventListener('touchstart', (e) => {
-            if (splash.scrollTop === 0) {
-                startY = e.touches[0].clientY;
-                pulling = true;
-            }
-        }, { passive: true });
-
-        splash.addEventListener('touchmove', (e) => {
-            if (!pulling) return;
-            const currentY = e.touches[0].clientY;
-            const diff = currentY - startY;
-
-            if (diff > 70 && splash.scrollTop === 0) {
-                indicator.classList.add('refreshing');
-            }
-        }, { passive: true });
-
-        splash.addEventListener('touchend', (e) => {
-            if (!pulling) return;
-            pulling = false;
-
-            if (indicator.classList.contains('refreshing')) {
-                setTimeout(() => {
-                    window.location.reload();
-                }, 600);
-            }
-        });
-    }
 
     function setupSwipeGestures() {
         const modalsToSwipe = [
