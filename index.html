@@ -1015,15 +1015,15 @@
                 </div>
 
                 <div class="sub-dashboard">
-                    <div class="card-sub pemasukan"><h4>PEMASUKAN (BULAN INI)</h4><p id="totalPemasukan">Rp 0</p></div>
-                    <div class="card-sub pengeluaran"><h4>PENGELUARAN (BULAN INI)</h4><p id="totalPengeluaran">Rp 0</p></div>
+                    <div class="card-sub pemasukan"><h4 id="labelPemasukanBulan">PEMASUKAN</h4><p id="totalPemasukan">Rp 0</p></div>
+                    <div class="card-sub pengeluaran"><h4 id="labelPengeluaranBulan">PENGELUARAN</h4><p id="totalPengeluaran">Rp 0</p></div>
                 </div>
             </div>
 
             <div class="analytics-card" style="background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.4); border-radius: 16px; padding: 16px; width: 100%; box-shadow: 0 4px 20px rgba(0,0,0,0.5); margin-top: 4px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                     <h4 style="font-family: 'Orbitron', sans-serif; font-size: 0.85rem; color: #00f0ff; margin: 0; letter-spacing: 1px;">📊 ANALISIS KEUANGAN</h4>
-                    <span style="font-size: 0.75rem; color: #7dd3fc; font-weight: 700;">Bulan Ini</span>
+                    <span id="labelAnalisisBulan" style="font-size: 0.75rem; color: #7dd3fc; font-weight: 700;">Bulan Ini</span>
                 </div>
                 <div style="position: relative; height: 160px; width: 100%;">
                     <canvas id="financialAnalyticsChart"></canvas>
@@ -2984,13 +2984,25 @@
         let totalInAll = 0, totalOutAll = 0, cashBalance = 0, bankBalance = 0;
         let currentMonthIn = 0, currentMonthOut = 0;
         
-        const nowIso = getLocalIsoDate(new Date());
-        const currentYm = nowIso.substring(0, 7); // Format "YYYY-MM" bulan berjalan
+        const now = new Date();
+        const nowIso = getLocalIsoDate(now);
+        const currentYm = nowIso.substring(0, 7);
+
+        // Update nama bulan secara dinamis (Uppercase, misal: OKTOBER)
+        const monthNamesUpper = ["JANUARI", "FEBRUARI", "MARET", "APRIL", "MEI", "JUNI", "JULI", "AGUSTUS", "SEPTEMBER", "OKTOBER", "NOVEMBER", "DESEMBER"];
+        const currentMonthNameUpper = monthNamesUpper[now.getMonth()];
+
+        const labelPemasukanBulan = document.getElementById('labelPemasukanBulan');
+        const labelPengeluaranBulan = document.getElementById('labelPengeluaranBulan');
+        const labelAnalisisBulan = document.getElementById('labelAnalisisBulan');
+
+        if (labelPemasukanBulan) labelPemasukanBulan.innerText = `PEMASUKAN (${currentMonthNameUpper})`;
+        if (labelPengeluaranBulan) labelPengeluaranBulan.innerText = `PENGELUARAN (${currentMonthNameUpper})`;
+        if (labelAnalisisBulan) labelAnalisisBulan.innerText = currentMonthNameUpper;
 
         transactions.forEach(t => { 
             const isCash = (t.method === 'CASH');
             
-            // Perhitungan Saldo Sisa tetap akumulatif keseluruhan
             if (t.type === 'in') { 
                 totalInAll += t.amount; 
                 if (isCash) cashBalance += t.amount; else bankBalance += t.amount; 
@@ -3002,7 +3014,6 @@
                 if (isCash) cashBalance += t.amount; else bankBalance += t.amount; 
             }
 
-            // Perhitungan Pemasukan & Pengeluaran Dashboard khusus Bulan Berjalan (otomatis reset tiap tgl 1 jam 00.00)
             if (t.date && t.date.startsWith(currentYm)) {
                 if (t.type === 'in') {
                     currentMonthIn += t.amount;
