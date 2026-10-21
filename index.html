@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     
     <meta name="theme-color" content="#020714">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -35,6 +35,7 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        /* PERBAIKAN: Mencegah layar goyang / layout shift saat bar notifikasi muncul */
         html, body {
             width: 100% !important;
             height: 100% !important;
@@ -45,6 +46,9 @@
             color: #ffffff;
             -webkit-text-size-adjust: 100%;
             -webkit-font-smoothing: antialiased;
+            position: fixed !important;
+            inset: 0 !important;
+            touch-action: pan-x pan-y;
         }
 
         *::-webkit-scrollbar { display: none; }
@@ -74,7 +78,7 @@
         }
 
         .splash-screen-overlay {
-            position: fixed; top: 0; left: 0; width: 100vw !important; height: 100vh; height: 100dvh;
+            position: fixed; top: 0; left: 0; width: 100vw !important; height: 100% !important;
             background: linear-gradient(rgba(2, 7, 20, 0.95), rgba(2, 7, 20, 0.99)), #020714; z-index: 99999999;
             display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; overflow-y: auto !important; 
             transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s ease;
@@ -132,7 +136,7 @@
         @keyframes tapPulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); } 50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(0, 240, 255, 0.6); } }
 
         .pin-screen-overlay, .debt-pin-overlay, .personal-pin-overlay { 
-            position: fixed; top: 0; left: 0; width: 100vw !important; height: 100vh; height: 100dvh; 
+            position: fixed; top: 0; left: 0; width: 100vw !important; height: 100% !important; 
             background: #020714; z-index: 9999990; display: none; opacity: 0; visibility: hidden; 
             flex-direction: column; justify-content: center; align-items: center; padding: 20px; 
             overflow-x: hidden !important; transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s ease; overscroll-behavior-y: none;
@@ -140,7 +144,7 @@
         }
         .pin-screen-overlay.active, .debt-pin-overlay.active, .personal-pin-overlay.active { display: flex !important; opacity: 1 !important; visibility: visible !important; }
 
-        .cyber-scanner-flash { position: fixed; top: 0; left: 0; width: 100vw !important; height: 100vh; height: 100dvh; background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.2) 0%, rgba(2, 7, 20, 0.98) 85%), linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px); background-size: 100% 100%, 20px 20px, 20px 20px; z-index: 99999995; opacity: 0; visibility: hidden; pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; transition: opacity 0.2s ease; overflow-x: hidden !important; }
+        .cyber-scanner-flash { position: fixed; top: 0; left: 0; width: 100vw !important; height: 100% !important; background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.2) 0%, rgba(2, 7, 20, 0.98) 85%), linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px); background-size: 100% 100%, 20px 20px, 20px 20px; z-index: 99999995; opacity: 0; visibility: hidden; pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; transition: opacity 0.2s ease; overflow-x: hidden !important; }
         .cyber-scanner-flash.active { opacity: 1; visibility: visible; animation: hackerTerminalSeq 0.9s forwards cubic-bezier(0.1, 0.9, 0.2, 1); }
 
         .hacker-terminal-box { background: rgba(2, 12, 32, 0.92); border: 1.5px solid #00f0ff; border-radius: 14px; padding: 20px 24px; max-width: 340px; width: 100%; box-shadow: 0 0 40px rgba(0, 240, 255, 0.5), inset 0 0 15px rgba(0, 240, 255, 0.25); font-family: 'Rajdhani', sans-serif; text-align: left; display: flex; flex-direction: column; gap: 8px; }
@@ -176,8 +180,7 @@
             right: 0 !important;
             bottom: 0 !important;
             width: 100vw !important; 
-            height: 100vh !important; 
-            height: 100dvh !important; 
+            height: 100% !important; 
             z-index: 0 !important; 
             overflow: hidden !important; 
             pointer-events: none !important; 
@@ -194,8 +197,7 @@
             top: 0 !important; 
             left: 0 !important; 
             width: 100vw !important; 
-            height: 100vh !important; 
-            height: 100dvh !important; 
+            height: 100% !important; 
             object-fit: cover !important;
             z-index: 1 !important; 
             background: #020714 !important;
@@ -207,9 +209,9 @@
             background: transparent; border: none; box-shadow: none; 
             padding: calc(env(safe-area-inset-top, 24px) + 24px) 12px 16px 12px; 
             display: none; flex-direction: column; align-items: center; gap: 12px; 
-            opacity: 0; transform: scale(0.96) translateZ(0); transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); overscroll-behavior-y: none; 
+            opacity: 0; transform: translateZ(0); transition: opacity 0.3s ease; overscroll-behavior-y: none; 
         }
-        .container.active { display: flex !important; opacity: 1; transform: scale(1) translateZ(0); }
+        .container.active { display: flex !important; opacity: 1; }
         .install-app-btn { background: linear-gradient(135deg, rgba(0, 240, 255, 0.2) 0%, rgba(0, 119, 255, 0.2) 100%); border: 1px solid rgba(0, 240, 255, 0.6); color: #00f0ff; font-family: 'Rajdhani', sans-serif; font-size: 0.9rem; font-weight: 800; padding: 10px 16px; border-radius: 12px; cursor: pointer; display: none; align-items: center; justify-content: center; gap: 6px; margin: 0 auto 14px auto; box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); letter-spacing: 1px; text-transform: uppercase; }
 
         .header-box { text-align: center; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 14px; margin-bottom: 4px; }
@@ -220,40 +222,39 @@
             cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px 16px; border-radius: 16px; 
             background: rgba(2, 10, 28, 0.28); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1.5px solid rgba(0, 240, 255, 0.45); 
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.2); width: 100%; 
-            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.2s ease, background 0.2s ease; margin-bottom: 12px; position: relative; z-index: 20; 
+            transition: filter 0.2s ease, background 0.2s ease; margin-bottom: 12px; position: relative; z-index: 20; 
             transform: translateZ(0);
         }
-        .clickable-header-wrapper:active, .music-player-panel:active, .personal-data-panel:active, .debt-tracker-panel:active { transform: scale(0.97) translateZ(0); filter: brightness(1.2); background: rgba(0, 240, 255, 0.15); }
+        .clickable-header-wrapper:active, .music-player-panel:active, .personal-data-panel:active, .debt-tracker-panel:active { filter: brightness(1.2); background: rgba(0, 240, 255, 0.15); }
         
         .main-page-title { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: clamp(1.4rem, 5vw, 1.8rem); letter-spacing: 2px; text-transform: uppercase; background: linear-gradient(135deg, #ffffff 0%, #00f0ff 60%, #38bdf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: 0 0 20px rgba(0, 240, 255, 0.8); text-align: center; pointer-events: none; }
         .main-page-subtitle { font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; font-weight: 800; letter-spacing: 2px; color: #7dd3fc; text-transform: uppercase; margin-top: 4px; opacity: 0.95; text-align: center; pointer-events: none; }
 
+        /* PERBAIKAN: Menghilangkan transisi transform & mengunci overlay agar tidak bergoyang saat dipindah aplikasi */
         .cyber-modal-overlay, .music-modal-overlay, .personal-modal-overlay, .debt-modal-overlay, .debt-pin-overlay, .personal-pin-overlay, .edit-debt-overlay, .view-debt-overlay, .popup-overlay { 
-            position: fixed; top: 0; left: 0; width: 100vw !important; height: 100vh; height: 100dvh; 
+            position: fixed; top: 0; left: 0; width: 100vw !important; height: 100% !important; 
             background: rgba(2, 7, 20, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 99999999; 
             display: flex; justify-content: center; align-items: center; padding: 12px; opacity: 0; visibility: hidden; pointer-events: none; 
-            transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s ease; overflow-x: hidden !important; overscroll-behavior-y: none; 
+            transition: opacity 0.25s ease, visibility 0.25s ease; overflow-x: hidden !important; overscroll-behavior-y: none; 
             transform: translateZ(0);
         }
         .cyber-modal-overlay.active, .music-modal-overlay.active, .personal-modal-overlay.active, .debt-modal-overlay.active, .debt-pin-overlay.active, .personal-pin-overlay.active, .edit-debt-overlay.active, .view-debt-overlay.active, .popup-overlay.active { 
             opacity: 1; visibility: visible; pointer-events: auto; 
         }
 
+        /* PERBAIKAN: Mengunci kartu modal agar tidak terpengaruh perubahan tinggi viewport */
         .music-modal-card, .personal-modal-card, .debt-modal-card, .view-debt-card { 
-            background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.75); border-radius: 26px; padding: 22px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); 
-            transform: scale(0.95) translateZ(0); transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); overflow-x: hidden !important; overscroll-behavior-y: none; 
-            will-change: transform, opacity;
+            background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.75); border-radius: 26px; padding: 22px 18px; width: 100%; max-width: 410px; height: 92%; max-height: 92%; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); 
+            overflow-x: hidden !important; overscroll-behavior-y: none; 
             backface-visibility: hidden;
+            transform: none !important;
         }
         
         .cyber-modal-card { 
-            background: var(--cv-bg-modal) !important; border: 2px solid var(--cv-border-primary) !important; border-radius: 26px; padding: 22px 18px 24px 18px; width: 100%; max-width: 410px; height: 96vh; height: 96dvh; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); 
-            transform: scale(0.95) translateZ(0); transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, border-color 0.2s ease; overflow-x: hidden !important; overscroll-behavior-y: none; 
-            will-change: transform, opacity;
+            background: var(--cv-bg-modal) !important; border: 2px solid var(--cv-border-primary) !important; border-radius: 26px; padding: 22px 18px 24px 18px; width: 100%; max-width: 410px; height: 92%; max-height: 92%; text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); 
+            transition: background-color 0.2s ease, border-color 0.2s ease; overflow-x: hidden !important; overscroll-behavior-y: none; 
             backface-visibility: hidden;
-        }
-        .cyber-modal-overlay.active .cyber-modal-card, .music-modal-overlay.active .music-modal-card, .personal-modal-overlay.active .personal-modal-card, .debt-modal-overlay.active .debt-modal-card, .view-debt-overlay.active .view-debt-card { 
-            transform: scale(1) translateZ(0); 
+            transform: none !important;
         }
 
         .close-cyber-modal, .close-music-modal, .close-personal-modal, .close-debt-modal, .close-view-debt { background: rgba(0, 240, 255, 0.12); border: 1.5px solid rgba(0, 240, 255, 0.5); color: #00f0ff; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 800; transition: all 0.15s ease; flex-shrink: 0; }
@@ -467,8 +468,8 @@
             border-radius: 26px !important;
             width: 100% !important;
             max-width: 410px !important;
-            height: 96vh !important;
-            height: 96dvh !important;
+            height: 92% !important;
+            max-height: 92% !important;
             padding: 20px 18px !important;
             box-shadow: 0 0 50px rgba(0, 240, 255, 0.4) !important;
         }
