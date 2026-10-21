@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, height=device-height">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <meta name="theme-color" content="#020714">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -39,28 +39,19 @@
         html {
             background-color: #020714 !important;
             color-scheme: dark;
-            height: 100% !important;
-            height: -webkit-fill-available !important;
             width: 100% !important;
-            max-width: 100vw !important;
+            min-height: 100%;
             overflow-x: hidden !important;
-            position: fixed !important;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            -webkit-overflow-scrolling: touch;
         }
 
         body {
             width: 100% !important;
-            max-width: 100vw !important;
+            min-height: 100vh;
+            min-height: 100dvh;
             overflow-x: hidden !important;
             overflow-y: auto !important;
-            position: relative !important;
             background-color: #020714 !important;
             color: #ffffff;
-            height: 100vh !important;
             margin: 0;
             padding: 0 12px env(safe-area-inset-bottom, 16px) 12px;
             display: flex;
