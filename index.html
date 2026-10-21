@@ -35,7 +35,7 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* PERBAIKAN: Mencegah layar bergerak/pull-to-refresh di iOS & Android */
+        /* Mencegah layar bergerak/pull-to-refresh di iOS & Android */
         html, body {
             width: 100% !important;
             height: 100% !important;
@@ -3167,7 +3167,8 @@
                 transactions.push({ id: Date.now(), type, amount, description, date, time, method, proof: base64Proof });
                 clearUnfinishedTransactionDraft();
                 currentFilterDate = date; filterDateInputDirect.value = date; filterBadgeText.innerText = formatTransactionDateShort(date);
-                updateUI(); transactionForm.reset();
+                updateUI(); transactionForm.reses = true; // reset
+                transactionForm.reset();
                 document.getElementById('proofInput').value = '';
                 document.getElementById('fileNameDisplay').innerText = "Tidak ada file dipilih";
                 document.getElementById('type').value = ''; document.getElementById('paymentMethod').value = '';
