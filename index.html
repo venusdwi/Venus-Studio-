@@ -1,6 +1,100 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
+<head><style>
+@font-face {
+  font-family: "Optimistic";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Optimistic Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
+}
+:where(html) {
+  font-family: "Optimistic", system-ui, sans-serif;
+}
+:where(code, pre, kbd, samp) {
+  font-family: "Optimistic Mono", ui-monospace, monospace;
+}
+</style><style>
+@font-face {
+  font-family: "Optimistic";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Optimistic Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
+}
+:where(html) {
+  font-family: "Optimistic", system-ui, sans-serif;
+}
+:where(code, pre, kbd, samp) {
+  font-family: "Optimistic Mono", ui-monospace, monospace;
+}
+
+        /* V4 ULTRA COMPACT - Hilangkan semua space kosong */
+        .sync-status-badge {
+            margin-bottom: 6px !important;
+            margin-top: 0 !important;
+        }
+        .glass-control-panel {
+            margin: 4px 0 !important;
+            padding: 6px 12px !important;
+            gap: 4px !important;
+        }
+        .glass-label-text {
+            margin: 0 !important;
+        }
+        .glass-control-panel > div {
+            margin: 0 !important;
+            gap: 4px !important;
+        }
+        /* Dashboard langsung nempel */
+        .dashboard {
+            margin-top: 4px !important;
+            gap: 8px !important;
+        }
+        /* Card hero SALDO SISA lebih mepet */
+        .card-hero {
+            margin-top: 0 !important;
+            padding-top: 12px !important;
+            padding-bottom: 12px !important;
+        }
+        /* Full app content gap minimal */
+        .full-app-content {
+            gap: 6px !important;
+            padding-top: 8px !important;
+        }
+        /* Transparansi row compact */
+        #fullAppContent > div,
+        .full-app-content > div {
+            margin-bottom: 4px !important;
+        }
+        /* Hapus margin besar di bawah judul */
+        .cyber-modal-card > div:first-child {
+            margin-bottom: 8px !important;
+        }
+        /* Cloud sync badge to transparansi gap */
+        .sync-status-badge + .glass-control-panel {
+            margin-top: 4px !important;
+        }
+        /* Transparansi to Saldo Sisa */
+        .glass-control-panel + .dashboard {
+            margin-top: 6px !important;
+        }
+
+        </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     
@@ -1029,9 +1123,7 @@
             </div>
 
             <div style="display: flex; justify-content: center; gap: 10px; width: 100%; margin: 4px 0 12px 0;">
-                <button type="button" id="btnOpenThemeModal" style="background: rgba(0, 240, 255, 0.12); border: 1px solid rgba(0, 240, 255, 0.5); color: #00f0ff; border-radius: 20px; padding: 8px 22px; font-size: 0.85rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(0,240,255,0.25); letter-spacing: 1px; width: 100%;">
-                    Custom Theme
-                </button>
+                
             </div>
 
             <div class="dashboard">
@@ -1096,6 +1188,21 @@
                     <label>Metode Pembayaran</label>
                     <div class="custom-select-box" id="btnSelectMethod">-- Pilih Metode --</div>
                     <input type="hidden" id="paymentMethod" required>
+                </div>
+
+                <div class="form-group" id="dualPaymentGroup" style="display:none; flex-direction: column; background: rgba(0,240,255,0.07); border: 1.5px dashed rgba(0,240,255,0.5); border-radius: 12px; padding: 14px; gap: 10px;">
+                    <label style="color:#00f0ff; font-size:0.92rem;">💳 Rincian DUA PEMBAYARAN</label>
+                    <div style="display: flex; flex-direction: column; gap: 12px; width:100%;">
+                        <div style="display:flex; flex-direction:column; gap:6px;">
+                            <label style="font-size:0.85rem; color:#38bdf8;">Nominal CASH (Rp)</label>
+                            <input type="text" id="dualCashAmount" placeholder="Contoh: 50.000" inputmode="numeric">
+                        </div>
+                        <div style="display:flex; flex-direction:column; gap:6px;">
+                            <label style="font-size:0.85rem; color:#c084fc;">Nominal BANK/QRIS (Rp)</label>
+                            <input type="text" id="dualBankAmount" placeholder="Contoh: 50.000" inputmode="numeric">
+                        </div>
+                    </div>
+                    <div id="dualPaymentInfo" style="font-size:0.8rem; color:#7dd3fc; font-weight:700; min-height:16px;"></div>
                 </div>
 
                 <div class="form-group">
@@ -1227,6 +1334,20 @@
                 <div class="form-group"><label>Jam</label><input type="time" id="editTime"></div>
             </div>
             <div class="form-group"><label>Metode Pembayaran</label><div class="custom-select-box selected" id="btnEditSelectMethod">-- Pilih Metode --</div><input type="hidden" id="editMethod"></div>
+            <div class="form-group" id="dualEditPaymentGroup" style="display:none; flex-direction: column; background: rgba(0,240,255,0.07); border: 1.5px dashed rgba(0,240,255,0.5); border-radius: 12px; padding: 14px; gap: 10px;">
+                <label style="color:#00f0ff; font-size:0.92rem;">💳 Rincian DUA PEMBAYARAN (Edit)</label>
+                <div style="display: flex; flex-direction: column; gap: 12px; width:100%;">
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size:0.85rem; color:#38bdf8;">Nominal CASH (Rp)</label>
+                        <input type="text" id="editDualCashAmount" placeholder="0" inputmode="numeric">
+                    </div>
+                    <div style="display:flex; flex-direction:column; gap:6px;">
+                        <label style="font-size:0.85rem; color:#c084fc;">Nominal BANK/QRIS (Rp)</label>
+                        <input type="text" id="editDualBankAmount" placeholder="0" inputmode="numeric">
+                    </div>
+                </div>
+                <div id="dualEditPaymentInfo" style="font-size:0.8rem; color:#7dd3fc; font-weight:700; min-height:16px;"></div>
+            </div>
             <div style="display: flex; gap: 10px; margin-top: 6px; width: 100%;">
                 <button type="button" id="btnDeleteTransaction" style="background: rgba(244, 63, 94, 0.2); border: 1.5px solid rgba(244, 63, 94, 0.6); color: #fb7185; flex: 1; padding: 14px; border-radius: 12px; font-weight: 800; cursor:pointer;">Hapus</button>
                 <button type="button" id="btnUpdateTransaction" style="background: linear-gradient(135deg, #00f0ff 0%, #0077ff 100%); border: none; color: #020714; flex: 2; padding: 14px; border-radius: 12px; font-weight: 900; cursor:pointer;">Simpan Perubahan</button>
@@ -1317,8 +1438,8 @@
     <div class="popup-box popup-select-box" style="max-width: 320px; padding: 24px;">
         <div class="popup-title" style="font-size: 1.2rem; margin-bottom: 16px;">METODE PEMBAYARAN</div>
         <button type="button" class="custom-option-btn" onclick="selectMethod('CASH', '💵 CASH (Tunai)')">💵 CASH (Tunai)</button>
-        <button type="button" class="custom-option-btn" style="margin-top: 10px;" onclick="selectMethod('TRANSFER', '🏦 TRANSFER BANK')">🏦 TRANSFER BANK</button>
-        <button type="button" class="custom-option-btn" style="margin-top: 10px;" onclick="selectMethod('QRIS', '📱 QRIS (E-Wallet)')">📱 QRIS (E-Wallet)</button>
+        <button type="button" class="custom-option-btn" style="margin-top: 10px;" onclick="selectMethod('TRANSFER', '🏦 TRANSFER/QRIS')">🏦 TRANSFER/QRIS</button>
+        <button type="button" class="custom-option-btn" style="margin-top: 10px;" onclick="selectMethod('DUAL', '💳 DUA PEMBAYARAN')">💳 DUA PEMBAYARAN</button>
         <button type="button" class="popup-btn" style="margin-top: 20px; background: transparent; border: 1px solid #00f0ff; color: #00f0ff; padding: 12px; box-shadow: none;" onclick="document.getElementById('modalSelectMethod').classList.remove('active')">Batal</button>
     </div>
 </div>
@@ -1327,8 +1448,8 @@
     <div class="popup-box popup-select-box" style="max-width: 320px; padding: 24px;">
         <div class="popup-title" style="font-size: 1.2rem; margin-bottom: 16px;">METODE PEMBAYARAN</div>
         <button type="button" class="custom-option-btn" onclick="selectEditMethod('CASH', '💵 CASH (Tunai)')">💵 CASH (Tunai)</button>
-        <button type="button" class="custom-option-btn" style="margin-top: 10px;" onclick="selectEditMethod('TRANSFER', '🏦 TRANSFER BANK')">🏦 TRANSFER BANK</button>
-        <button type="button" class="custom-option-btn" style="margin-top: 10px;" onclick="selectEditMethod('QRIS', '📱 QRIS (E-Wallet)')">📱 QRIS (E-Wallet)</button>
+        <button type="button" class="custom-option-btn" style="margin-top: 10px;" onclick="selectEditMethod('TRANSFER', '🏦 TRANSFER/QRIS')">🏦 TRANSFER/QRIS</button>
+        <button type="button" class="custom-option-btn" style="margin-top: 10px;" onclick="selectEditMethod('DUAL', '💳 DUA PEMBAYARAN')">💳 DUA PEMBAYARAN</button>
         <button type="button" class="popup-btn" style="margin-top: 20px; background: transparent; border: 1px solid #00f0ff; color: #00f0ff; padding: 12px; box-shadow: none;" onclick="document.getElementById('modalEditSelectMethod').classList.remove('active')">Batal</button>
     </div>
 </div>
@@ -1536,6 +1657,12 @@
         selectBox.innerText = '-- Pilih Jenis --';
 
         document.getElementById('btnSelectMethod').innerText = '-- Pilih Metode --';
+        const dualGroup = document.getElementById('dualPaymentGroup');
+        if (dualGroup) dualGroup.style.display = 'none';
+        const dCash = document.getElementById('dualCashAmount');
+        const dBank = document.getElementById('dualBankAmount');
+        if (dCash) dCash.value = '';
+        if (dBank) dBank.value = '';
         localStorage.removeItem('venus_draft_transaction');
     }
 
@@ -2034,7 +2161,70 @@
         document.getElementById('btnSelectMethod').innerText = text;
         document.getElementById('btnSelectMethod').classList.add('selected');
         document.getElementById('modalSelectMethod').classList.remove('active');
+        toggleDualPaymentGroup(val);
         saveTransactionDraftOnFly();
+    }
+    function toggleDualPaymentGroup(methodVal) {
+        const dualGroup = document.getElementById('dualPaymentGroup');
+        if (!dualGroup) return;
+        if (methodVal === 'DUAL') {
+            dualGroup.style.display = 'flex';
+            updateDualPaymentInfo();
+        } else {
+            dualGroup.style.display = 'none';
+        }
+    }
+    function updateDualPaymentInfo() {
+        const totalEl = document.getElementById('amount');
+        const cashEl = document.getElementById('dualCashAmount');
+        const bankEl = document.getElementById('dualBankAmount');
+        const infoEl = document.getElementById('dualPaymentInfo');
+        if (!totalEl || !cashEl || !bankEl || !infoEl) return;
+        const total = parseFloat(totalEl.value.replace(/\./g, '')) || 0;
+        const cash = parseFloat(cashEl.value.replace(/\./g, '')) || 0;
+        const bank = parseFloat(bankEl.value.replace(/\./g, '')) || 0;
+        const sum = cash + bank;
+        if (total === 0) {
+            infoEl.innerText = `Total DUA: ${sum.toLocaleString('id-ID')} | Isi Jumlah total dulu`;
+            infoEl.style.color = '#fbbf24';
+        } else if (sum === total) {
+            infoEl.innerHTML = `<span style="color:#00f0ff; text-shadow:0 0 6px #00f0ff; font-weight:900;">⬢</span> Cocok: CASH ${cash.toLocaleString('id-ID')} + BANK ${bank.toLocaleString('id-ID')} = ${total.toLocaleString('id-ID')}`;
+            infoEl.style.color = '#00f0ff';
+        } else {
+            infoEl.innerText = `⚠️ Belum cocok: ${cash.toLocaleString('id-ID')} + ${bank.toLocaleString('id-ID')} = ${sum.toLocaleString('id-ID')} (Harus ${total.toLocaleString('id-ID')})`;
+            infoEl.style.color = '#fb7185';
+        }
+    }
+    function toggleEditDualPaymentGroup(methodVal) {
+        const dualGroup = document.getElementById('dualEditPaymentGroup');
+        if (!dualGroup) return;
+        if (methodVal === 'DUAL') {
+            dualGroup.style.display = 'flex';
+            updateEditDualPaymentInfo();
+        } else {
+            dualGroup.style.display = 'none';
+        }
+    }
+    function updateEditDualPaymentInfo() {
+        const totalEl = document.getElementById('editAmount');
+        const cashEl = document.getElementById('editDualCashAmount');
+        const bankEl = document.getElementById('editDualBankAmount');
+        const infoEl = document.getElementById('dualEditPaymentInfo');
+        if (!totalEl || !cashEl || !bankEl || !infoEl) return;
+        const total = parseFloat(totalEl.value.replace(/\./g, '')) || 0;
+        const cash = parseFloat(cashEl.value.replace(/\./g, '')) || 0;
+        const bank = parseFloat(bankEl.value.replace(/\./g, '')) || 0;
+        const sum = cash + bank;
+        if (total === 0) {
+            infoEl.innerText = `Total DUA: ${sum.toLocaleString('id-ID')}`;
+            infoEl.style.color = '#fbbf24';
+        } else if (sum === total) {
+            infoEl.innerHTML = `<span style="color:#00f0ff; text-shadow:0 0 6px #00f0ff; font-weight:900;">⬢</span> Cocok: ${cash.toLocaleString('id-ID')} + ${bank.toLocaleString('id-ID')} = ${total.toLocaleString('id-ID')}`;
+            infoEl.style.color = '#00f0ff';
+        } else {
+            infoEl.innerText = `⚠️ ${cash.toLocaleString('id-ID')} + ${bank.toLocaleString('id-ID')} = ${sum.toLocaleString('id-ID')} (Harus ${total.toLocaleString('id-ID')})`;
+            infoEl.style.color = '#fb7185';
+        }
     }
     document.getElementById('btnSelectMethod').addEventListener('click', () => { document.getElementById('modalSelectMethod').classList.add('active'); });
 
@@ -2049,6 +2239,7 @@
         document.getElementById('editMethod').value = val;
         document.getElementById('btnEditSelectMethod').innerText = text;
         document.getElementById('modalEditSelectMethod').classList.remove('active');
+        toggleEditDualPaymentGroup(val);
     }
     document.getElementById('btnEditSelectMethod').addEventListener('click', () => { document.getElementById('modalEditSelectMethod').classList.add('active'); });
 
@@ -2630,6 +2821,31 @@
     function formatRupiah(number) { return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(number); }
     document.getElementById('amount').addEventListener('input', function() { let rawValue = this.value.replace(/\D/g, ''); this.value = rawValue ? parseInt(rawValue, 10).toLocaleString('id-ID') : ''; });
     document.getElementById('editAmount').addEventListener('input', function() { let rawValue = this.value.replace(/\D/g, ''); this.value = rawValue ? parseInt(rawValue, 10).toLocaleString('id-ID') : ''; });
+    // Dual payment input formatters
+    ['dualCashAmount','dualBankAmount','editDualCashAmount','editDualBankAmount'].forEach(id => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.addEventListener('input', function() {
+            let rawValue = this.value.replace(/\D/g, '');
+            this.value = rawValue ? parseInt(rawValue, 10).toLocaleString('id-ID') : '';
+            if (id.startsWith('edit')) updateEditDualPaymentInfo();
+            else updateDualPaymentInfo();
+        });
+    });
+    const mainAmountEl = document.getElementById('amount');
+    if (mainAmountEl) {
+        mainAmountEl.addEventListener('input', function() {
+            let rawValue = this.value.replace(/\D/g, '');
+            this.value = rawValue ? parseInt(rawValue, 10).toLocaleString('id-ID') : '';
+            updateDualPaymentInfo();
+        });
+    }
+    const editAmountEl = document.getElementById('editAmount');
+    if (editAmountEl) {
+        editAmountEl.addEventListener('input', function() {
+            updateEditDualPaymentInfo();
+        });
+    }
 
     function formatTransactionDateTime(dateStr, timeStr) {
         return `${formatTransactionDateShort(dateStr)}, ${timeStr ? timeStr.replace(':', '.') : '00.00'} WIB`;
@@ -2836,7 +3052,7 @@
                 <div class="item-info">
                     <span class="item-desc" style="display: flex; align-items: center;">
                         <span class="monthly-item-bullet"></span>
-                        <span>${t.description} ${t.method ? '<span class="item-method-badge">'+t.method+'</span>' : ''}</span>
+                        <span>${t.description} ${t.method ? '<span class="item-method-badge">'+getMethodDisplayLabel(t.method)+ (t.method==='DUAL' && t.dualCash!==undefined ? ` (C:${formatRupiah(t.dualCash)}+B:${formatRupiah(t.dualBank)})` : '') +'</span>' : ''}</span>
                     </span>
                     <span class="item-date" style="padding-left: 16px;">🕒 ${t.time ? t.time.replace(':', '.') : '00.00'} WIB</span>
                 </div>
@@ -3042,6 +3258,15 @@
         });
     }
 
+
+    function getMethodDisplayLabel(method) {
+        if (method === 'CASH') return 'CASH';
+        if (method === 'TRANSFER') return 'TRANSFER/QRIS';
+        if (method === 'QRIS') return 'TRANSFER/QRIS';
+        if (method === 'DUAL') return 'DUA PEMBAYARAN';
+        return method || 'CASH';
+    }
+
     function updateUI() {
         const historyList = document.getElementById('historyList'); historyList.innerHTML = '';
         let filtered = currentFilterDate ? transactions.filter(t => String(t.date).trim() === String(currentFilterDate).trim()) : transactions;
@@ -3062,7 +3287,7 @@
                 const li = document.createElement('li'); li.className = `history-item ${t.type}`;
                 let amountSign = t.type === 'in' ? '+' : (t.type === 'refund' ? '' : '-');
                 let amountClass = t.type === 'in' ? 'amount-in' : (t.type === 'refund' ? 'amount-refund' : 'amount-out');
-                li.innerHTML = `<div class="item-info"><span class="item-desc">${t.description} ${t.method ? '<span class="item-method-badge">'+t.method+'</span>' : ''}</span><span class="item-date">${formatTransactionDateTime(t.date, t.time)}</span></div><span class="item-amount ${amountClass}">${amountSign} ${formatRupiah(t.amount)}</span>`;
+                li.innerHTML = `<div class="item-info"><span class="item-desc">${t.description} ${t.method ? '<span class="item-method-badge">'+getMethodDisplayLabel(t.method)+ (t.method==='DUAL' && t.dualCash!==undefined ? ` (C:${formatRupiah(t.dualCash)}+B:${formatRupiah(t.dualBank)})` : '') +'</span>' : ''}</span><span class="item-date">${formatTransactionDateTime(t.date, t.time)}</span></div><span class="item-amount ${amountClass}">${amountSign} ${formatRupiah(t.amount)}</span>`;
                 li.addEventListener('click', () => openDetailModal(t.id));
                 historyList.appendChild(li);
             });
@@ -3087,17 +3312,38 @@
         if (labelAnalisisBulan) labelAnalisisBulan.innerText = currentMonthNameUpper;
 
         transactions.forEach(t => { 
-            const isCash = (t.method === 'CASH');
+            // Support legacy QRIS as BANK
+            const methodNorm = (t.method === 'QRIS' ? 'TRANSFER' : t.method);
+            const isCash = (methodNorm === 'CASH');
+            const isDual = (methodNorm === 'DUAL');
             
-            if (t.type === 'in') { 
-                totalInAll += t.amount; 
-                if (isCash) cashBalance += t.amount; else bankBalance += t.amount; 
-            } else if (t.type === 'out') { 
-                totalOutAll += t.amount; 
-                if (isCash) cashBalance -= t.amount; else bankBalance -= t.amount; 
-            } else if (t.type === 'refund') { 
-                totalOutAll -= t.amount; 
-                if (isCash) cashBalance += t.amount; else bankBalance += t.amount; 
+            if (isDual) {
+                const dc = t.dualCash || 0;
+                const db = t.dualBank || 0;
+                if (t.type === 'in') { 
+                    totalInAll += t.amount; 
+                    cashBalance += dc; 
+                    bankBalance += db; 
+                } else if (t.type === 'out') { 
+                    totalOutAll += t.amount; 
+                    cashBalance -= dc; 
+                    bankBalance -= db; 
+                } else if (t.type === 'refund') { 
+                    totalOutAll -= t.amount; 
+                    cashBalance += dc; 
+                    bankBalance += db; 
+                }
+            } else {
+                if (t.type === 'in') { 
+                    totalInAll += t.amount; 
+                    if (isCash) cashBalance += t.amount; else bankBalance += t.amount; 
+                } else if (t.type === 'out') { 
+                    totalOutAll += t.amount; 
+                    if (isCash) cashBalance -= t.amount; else bankBalance -= t.amount; 
+                } else if (t.type === 'refund') { 
+                    totalOutAll -= t.amount; 
+                    if (isCash) cashBalance += t.amount; else bankBalance += t.amount; 
+                }
             }
 
             if (t.date && t.date.startsWith(currentYm)) {
@@ -3150,8 +3396,22 @@
         document.getElementById('editDescription').value = tx.description;
         document.getElementById('editDate').value = tx.date;
         document.getElementById('editTime').value = tx.time;
+        const methodDisplay = tx.method === 'QRIS' ? 'TRANSFER/QRIS' : (tx.method === 'DUAL' ? 'DUA PEMBAYARAN' : (tx.method === 'TRANSFER' ? 'TRANSFER/QRIS' : tx.method));
         document.getElementById('editMethod').value = tx.method || 'CASH';
-        document.getElementById('btnEditSelectMethod').innerText = tx.method || 'CASH';
+        document.getElementById('btnEditSelectMethod').innerText = methodDisplay || 'CASH';
+        // DUAL handling
+        const dualCashEdit = document.getElementById('editDualCashAmount');
+        const dualBankEdit = document.getElementById('editDualBankAmount');
+        if (dualCashEdit && dualBankEdit) {
+            if (tx.method === 'DUAL') {
+                dualCashEdit.value = (tx.dualCash || 0).toLocaleString('id-ID');
+                dualBankEdit.value = (tx.dualBank || 0).toLocaleString('id-ID');
+            } else {
+                dualCashEdit.value = '';
+                dualBankEdit.value = '';
+            }
+        }
+        toggleEditDualPaymentGroup(tx.method || 'CASH');
 
         const imgContainer = document.getElementById('detailProofContainer');
         if (tx.proof) { detailProofImage.src = tx.proof; imgContainer.style.display = 'flex'; } else { imgContainer.style.display = 'none'; }
@@ -3163,12 +3423,31 @@
         const id = parseInt(document.getElementById('editTxId').value);
         const index = transactions.findIndex(t => t.id === id);
         if (index !== -1) {
-            transactions[index].type = document.getElementById('editType').value;
-            transactions[index].amount = parseFloat(document.getElementById('editAmount').value.replace(/\./g, ''));
+            const newType = document.getElementById('editType').value;
+            const newAmount = parseFloat(document.getElementById('editAmount').value.replace(/\./g, ''));
+            const newMethod = document.getElementById('editMethod').value;
+            let newDualCash = transactions[index].dualCash || 0;
+            let newDualBank = transactions[index].dualBank || 0;
+            if (newMethod === 'DUAL') {
+                const ec = document.getElementById('editDualCashAmount').value.replace(/\./g, '');
+                const eb = document.getElementById('editDualBankAmount').value.replace(/\./g, '');
+                newDualCash = parseFloat(ec) || 0;
+                newDualBank = parseFloat(eb) || 0;
+                if ((newDualCash + newDualBank) !== newAmount) {
+                    return alert(`Total DUA PEMBAYARAN harus sama dengan Jumlah!\nCASH + BANK = ${(newDualCash+newDualBank).toLocaleString('id-ID')}, Jumlah = ${newAmount.toLocaleString('id-ID')}`);
+                }
+                transactions[index].dualCash = newDualCash;
+                transactions[index].dualBank = newDualBank;
+            } else {
+                delete transactions[index].dualCash;
+                delete transactions[index].dualBank;
+            }
+            transactions[index].type = newType;
+            transactions[index].amount = newAmount;
             transactions[index].description = document.getElementById('editDescription').value;
             transactions[index].date = document.getElementById('editDate').value;
             transactions[index].time = document.getElementById('editTime').value;
-            transactions[index].method = document.getElementById('editMethod').value;
+            transactions[index].method = newMethod;
             updateUI(); 
             if (activeMonthlyYm) renderMonthlyDetailView();
             detailTransactionModal.classList.remove('active');
@@ -3201,12 +3480,27 @@
 
         if (!type || !method || !amount || isNaN(amount) || !description) return alert('Lengkapi data transaksi dengan benar!');
 
+        let dualCash = 0;
+        let dualBank = 0;
+        if (method === 'DUAL') {
+            const cashVal = document.getElementById('dualCashAmount').value.replace(/\./g, '');
+            const bankVal = document.getElementById('dualBankAmount').value.replace(/\./g, '');
+            dualCash = parseFloat(cashVal) || 0;
+            dualBank = parseFloat(bankVal) || 0;
+            if (dualCash <=0 && dualBank <=0) return alert('Untuk DUA PEMBAYARAN, isi nominal CASH dan BANK/QRIS!');
+            if ((dualCash + dualBank) !== amount) return alert(`Total DUA PEMBAYARAN harus sama dengan Jumlah!\nCASH (${dualCash.toLocaleString('id-ID')}) + BANK (${dualBank.toLocaleString('id-ID')}) = ${(dualCash+dualBank).toLocaleString('id-ID')}\nJumlah total: ${amount.toLocaleString('id-ID')}`);
+        }
+
         btnSubmit.disabled = true;
         btnText.innerHTML = '<span class="btn-spinner"></span>&nbsp;&nbsp;Memproses...';
 
         setTimeout(() => {
             compressImage(proofFile, function(base64Proof) {
-                transactions.push({ id: Date.now(), type, amount, description, date, time, method, proof: base64Proof });
+                if (method === 'DUAL') {
+                    transactions.push({ id: Date.now(), type, amount, description, date, time, method, dualCash, dualBank, proof: base64Proof });
+                } else {
+                    transactions.push({ id: Date.now(), type, amount, description, date, time, method, proof: base64Proof });
+                }
                 clearUnfinishedTransactionDraft();
                 currentFilterDate = date; filterDateInputDirect.value = date; filterBadgeText.innerText = formatTransactionDateShort(date);
                 updateUI();
@@ -3237,5 +3531,5 @@
 
     refreshRealtimeDateTime();
 </script>
-</body>
+<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script><script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body>
 </html>
