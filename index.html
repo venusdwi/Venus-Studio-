@@ -747,10 +747,9 @@
     </style>
 <style>
 
-/* ===== FIX V5 - FINAL: PIN TIDAK FULL, CYBER VAULT BAWAH MUNCUL, KHUSUS IOS ===== */
-/* Android tetap pakai CSS asli, tidak terpengaruh */
+/* ===== FIX V6 - GARIS ATAS BAWAH MUNCUL IOS, PIN TETAP TIDAK FULL ===== */
+/* Android aman, semua fix di dalam @supports iOS only */
 
-/* Step 1: Fix umum anti-scroll horizontal (aman untuk Android & iOS) */
 html, body {
   width: 100% !important;
   max-width: 100% !important;
@@ -770,10 +769,8 @@ html, body {
   max-width: 100% !important;
 }
 
-/* Step 2: KHUSUS IOS ONLY - semua fix di dalam sini, Android skip total */
 @supports (-webkit-touch-callout: none) {
-  
-  /* --- CYBER VAULT & MODAL LAIN (KECUALI PIN) = FULL TAPI BAWAH KELIATAN --- */
+  /* OVERLAY - benerin 100vw yang bikin kepotong notch */
   .cyber-modal-overlay,
   .music-modal-overlay,
   .personal-modal-overlay,
@@ -781,11 +778,12 @@ html, body {
   .edit-debt-overlay,
   .view-debt-overlay,
   .popup-overlay {
+    position: fixed !important;
+    top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
     width: 100% !important;
     height: 100dvh !important;
     min-height: -webkit-fill-available !important;
-    /* Padding pakai safe area biar tidak ketutup notch & home indicator */
-    padding: 12px !important;
+    /* Padding pakai safe area + 12px biar border tidak nempel notch/home indicator */
     padding-top: max(12px, env(safe-area-inset-top, 0px)) !important;
     padding-bottom: max(12px, env(safe-area-inset-bottom, 0px)) !important;
     padding-left: max(12px, env(safe-area-inset-left, 0px)) !important;
@@ -794,9 +792,12 @@ html, body {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
+    overflow-y: auto !important;
     overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
   }
 
+  /* CARD UTAMA - INI KUNCI ATAS BAWAH MUNCUL */
   .cyber-modal-card,
   .music-modal-card,
   .personal-modal-card,
@@ -806,26 +807,32 @@ html, body {
     width: 100% !important;
     max-width: 410px !important;
     height: auto !important;
-    /* INI KUNCI GARIS BAWAH MUNCUL: max-height dikurangi safe area + padding overlay */
+    min-height: auto !important;
+    /* max-height dihitung: 100dvh - padding overlay atas bawah - margin card */
+    /* jadi border atas & bawah PASTI masuk layar */
     max-height: calc(100dvh - 24px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
     max-height: calc(-webkit-fill-available - 24px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
-    margin: 0 auto !important;
-    /* Padding dalam - bawah pakai safe area juga biar border bawah tidak ketutup */
-    padding: 12px 18px !important;
-    padding-top: max(12px, env(safe-area-inset-top, 0px)) !important;
-    padding-bottom: max(16px, env(safe-area-inset-bottom, 0px)) !important;
+    margin: 12px auto !important;
+    padding: 16px 18px !important;
     box-sizing: border-box !important;
     border: 2px solid rgba(0, 240, 255, 0.85) !important;
     border-radius: 26px !important;
     flex-shrink: 0 !important;
-    /* Pastikan border bawah keliatan jelas */
-    box-shadow: 0 0 30px rgba(0, 240, 255, 0.4) !important;
+    align-self: center !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    /* Biar border jelas */
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.35) !important;
+    transform: none !important;
   }
 
-  /* --- PIN AKSES = BALIKIN KE SEBELUMNYA, TIDAK FULL --- */
+  /* PIN AKSES - BALIK KE ASLI, TIDAK FULL, TENGAH */
   .pin-screen-overlay,
   .debt-pin-overlay,
   .personal-pin-overlay {
+    position: fixed !important;
+    top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
     width: 100% !important;
     height: 100dvh !important;
     min-height: -webkit-fill-available !important;
@@ -842,18 +849,16 @@ html, body {
   }
 
   .pin-card {
-    width: 100% !important;
-    max-width: 360px !important; /* Balik ke ukuran asli, tidak full */
+    width: calc(100% - 40px) !important;
+    max-width: 360px !important;
     height: auto !important;
-    max-height: none !important;
     min-height: auto !important;
-    max-height: 90dvh !important;
+    max-height: calc(100dvh - 40px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
     margin: 0 auto !important;
     padding: 28px 20px !important;
     flex-grow: 0 !important;
-    align-self: center !important;
     flex-shrink: 0 !important;
-    /* Style asli pin */
+    align-self: center !important;
     background: rgba(3, 14, 38, 0.95) !important;
     border: 1.5px solid rgba(0, 240, 255, 0.5) !important;
     border-radius: 24px !important;
@@ -862,11 +867,18 @@ html, body {
     flex-direction: column !important;
     align-items: center !important;
     gap: 16px !important;
+    transform: none !important;
   }
 
-  /* Pastikan keypad pin tidak ketutup */
-  .on-screen-keypad {
-    margin-bottom: env(safe-area-inset-bottom, 0px) !important;
+  /* Pastikan konten dalam card bisa scroll kalau panjang */
+  .full-app-content,
+  .personal-app-content,
+  .debt-app-content {
+    width: 100% !important;
+    max-height: 100% !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: 8px !important;
   }
 }
 
