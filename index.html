@@ -346,8 +346,7 @@
 
         .music-modal-card, .personal-modal-card, .debt-modal-card, .view-debt-card { 
             background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.75); border-radius: 26px; 
-            padding: 0 !important; 
-            width: 100% !important; max-width: 100% !important; height: 100% !important; max-height: 100dvh !important; 
+            padding: 0 !important; width: 100% !important; max-width: 100% !important; height: 100% !important; max-height: 100dvh !important; 
             text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); 
             overflow-x: hidden !important; overflow-y: auto !important; overscroll-behavior-y: none; 
             backface-visibility: hidden;
@@ -356,8 +355,7 @@
         
         .cyber-modal-card { 
             background: var(--cv-bg-modal) !important; border: 2px solid var(--cv-border-primary) !important; border-radius: 26px; 
-            padding: 0 !important; 
-            width: 100% !important; max-width: 100% !important; height: 100% !important; max-height: 100dvh !important; 
+            padding: 0 !important; width: 100% !important; max-width: 100% !important; height: 100% !important; max-height: 100dvh !important; 
             text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); 
             transition: background-color 0.2s ease, border-color 0.2s ease; overflow-x: hidden !important; overflow-y: auto !important; overscroll-behavior-y: none; 
             backface-visibility: hidden;
@@ -746,15 +744,10 @@
         }
     </style>
 <style>
-/* ===== FIX V10 - KIRI KANAN OK, ATAS BAWAH MUNCUL, ISI BISA SCROLL, BORDER FIXED ===== */
-html, body {
-  width: 100% !important;
-  max-width: 100% !important;
-  overflow-x: hidden !important;
-}
+/* ===== FIX V11 - IPHONE XR BOTTOM FULL MENTOK DI ATAS GARIS PUTIH HOME INDICATOR ===== */
+html, body { width: 100% !important; max-width: 100% !important; overflow-x: hidden !important; }
 
 @supports (-webkit-touch-callout: none) {
-  /* OVERLAY - full layar dengan safe area */
   .cyber-modal-overlay,
   .music-modal-overlay,
   .personal-modal-overlay,
@@ -766,20 +759,19 @@ html, body {
     top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
     width: 100% !important;
     height: 100dvh !important;
-    height: -webkit-fill-available !important;
     min-height: -webkit-fill-available !important;
+    /* Atas pakai safe area biar tidak ketutup notch XR, bawah 0 biar bisa full mentok */
     padding-top: env(safe-area-inset-top, 0px) !important;
-    padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+    padding-bottom: 0px !important;
     padding-left: env(safe-area-inset-left, 0px) !important;
     padding-right: env(safe-area-inset-right, 0px) !important;
-    box-sizing: border-box !important;
     display: flex !important;
     justify-content: center !important;
-    align-items: center !important;
+    align-items: flex-start !important;
     overflow: hidden !important;
+    box-sizing: border-box !important;
   }
 
-  /* CARD - BORDER FIXED, ATAS BAWAH MUNCUL, LEBAR KIRI KANAN OK (16px gap) */
   .cyber-modal-card,
   .music-modal-card,
   .personal-modal-card,
@@ -787,62 +779,43 @@ html, body {
   .view-debt-card {
     width: calc(100% - 16px) !important; /* kiri kanan udah ok kata lo */
     max-width: 460px !important;
-    /* Tinggi = 100% dari overlay (yang sudah dikurangi safe area) - 16px margin */
-    height: calc(100% - 16px) !important;
-    max-height: calc(100% - 16px) !important;
-    min-height: 0 !important;
-    margin: 8px !important; /* 8px atas bawah biar border di atas garis home indicator & bawah notch */
+    /* Tinggi full: 100dvh - notch atas - 16px (8px atas + 8px bawah) */
+    /* Jadi bawahnya mentok 8px di atas layar = pas di atas garis putih home indicator XR */
+    height: calc(100dvh - env(safe-area-inset-top, 0px) - 16px) !important;
+    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 16px) !important;
+    height: calc(-webkit-fill-available - env(safe-area-inset-top, 0px) - 16px) !important;
+    max-height: calc(-webkit-fill-available - env(safe-area-inset-top, 0px) - 16px) !important;
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
     padding: 0 !important;
-    box-sizing: border-box !important;
     border: 2px solid rgba(0, 240, 255, 0.95) !important;
     border-radius: 26px !important;
     display: flex !important;
     flex-direction: column !important;
-    overflow: hidden !important; /* border tidak scroll */
-    background: var(--cv-bg-modal, rgba(3,14,38,0.98)) !important;
+    overflow: hidden !important;
     box-shadow: 0 0 40px rgba(0,240,255,0.5) !important;
+    box-sizing: border-box !important;
   }
 
-  /* HEADER - JUDUL & X FIXED TIDAK SCROLL */
-  .cyber-modal-card > div:first-child,
-  .music-modal-card > div:first-child,
-  .personal-modal-card > div:first-child,
-  .debt-modal-card > div:first-child {
+  /* Header fixed */
+  .cyber-modal-card > div:first-child {
     flex: 0 0 auto !important;
-    width: 100% !important;
-    padding-top: 12px !important;
+    padding-top: 10px !important;
     padding-left: 12px !important;
     padding-right: 12px !important;
-    padding-bottom: 4px !important;
-    box-sizing: border-box !important;
-    background: transparent !important;
-    z-index: 10 !important;
   }
   .cyber-modal-card > div:nth-child(2) {
     flex: 0 0 auto !important;
-    width: 100% !important;
     padding: 0 18px 10px 18px !important;
-    box-sizing: border-box !important;
-    text-align: center !important;
   }
 
-  /* ISI - SATU-SATUNYA YANG BISA SCROLL */
-  .full-app-content {
-    flex: 1 1 auto !important;
-    width: 100% !important;
-    min-height: 0 !important; /* penting biar flex scroll jalan di iOS */
-    height: 0 !important; /* trik flexbox iOS biar scroll muncul */
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    -webkit-overflow-scrolling: touch !important;
-    overscroll-behavior: contain !important;
-    padding: 0 14px 20px 14px !important;
-    box-sizing: border-box !important;
-  }
+  /* Isi scroll */
+  .full-app-content,
   .personal-app-content,
   .debt-app-content {
     flex: 1 1 auto !important;
-    width: 100% !important;
     min-height: 0 !important;
     height: 0 !important;
     overflow-y: auto !important;
@@ -851,27 +824,17 @@ html, body {
     box-sizing: border-box !important;
   }
 
-  /* PIN - tetap tidak full */
+  /* Pin tetap tengah tidak full */
   .pin-screen-overlay,
   .debt-pin-overlay,
   .personal-pin-overlay {
-    position: fixed !important;
-    top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
-    width: 100% !important;
-    height: 100dvh !important;
-    min-height: -webkit-fill-available !important;
     padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px) !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
   }
   .pin-card {
     width: calc(100% - 40px) !important;
     max-width: 360px !important;
     height: auto !important;
     max-height: 90% !important;
-    margin: auto !important;
-    overflow: hidden !important;
   }
 }
 </style></head>
