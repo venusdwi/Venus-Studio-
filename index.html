@@ -747,17 +747,14 @@
     </style>
 <style>
 
-/* ===== FIX V4.1 - ANDROID 100% AMAN, IOS BAWAH FULL ===== */
-/* Step 1: Fix umum yang aman di Android & iOS (100vw -> 100%) */
-/* Ini justru bikin Android lebih aman, anti scroll horizontal */
-html {
+/* ===== FIX V5 - FINAL: PIN TIDAK FULL, CYBER VAULT BAWAH MUNCUL, KHUSUS IOS ===== */
+/* Android tetap pakai CSS asli, tidak terpengaruh */
+
+/* Step 1: Fix umum anti-scroll horizontal (aman untuk Android & iOS) */
+html, body {
   width: 100% !important;
   max-width: 100% !important;
   overflow-x: hidden !important;
-}
-body {
-  width: 100% !important;
-  max-width: 100% !important;
 }
 .cyber-modal-overlay,
 .music-modal-overlay,
@@ -768,38 +765,36 @@ body {
 .edit-debt-overlay,
 .view-debt-overlay,
 .popup-overlay,
-.pin-screen,
-.splash-screen,
-.cyber-scanner-flash {
+.pin-screen-overlay {
   width: 100% !important;
   max-width: 100% !important;
 }
 
-/* Step 2: KHUSUS IOS SAJA - Android tidak akan baca ini */
+/* Step 2: KHUSUS IOS ONLY - semua fix di dalam sini, Android skip total */
 @supports (-webkit-touch-callout: none) {
-  /* Ini cuma jalan di iPhone Safari, di Android Chrome di-skip total */
+  
+  /* --- CYBER VAULT & MODAL LAIN (KECUALI PIN) = FULL TAPI BAWAH KELIATAN --- */
   .cyber-modal-overlay,
   .music-modal-overlay,
   .personal-modal-overlay,
   .debt-modal-overlay,
-  .debt-pin-overlay,
-  .personal-pin-overlay,
   .edit-debt-overlay,
   .view-debt-overlay,
   .popup-overlay {
     width: 100% !important;
-    height: 100% !important;
     height: 100dvh !important;
     min-height: -webkit-fill-available !important;
-    padding-top: env(safe-area-inset-top, 0px) !important;
+    /* Padding pakai safe area biar tidak ketutup notch & home indicator */
+    padding: 12px !important;
+    padding-top: max(12px, env(safe-area-inset-top, 0px)) !important;
+    padding-bottom: max(12px, env(safe-area-inset-bottom, 0px)) !important;
     padding-left: max(12px, env(safe-area-inset-left, 0px)) !important;
     padding-right: max(12px, env(safe-area-inset-right, 0px)) !important;
-    /* BAWAH 0 BIAR FULL MENTOK DI ATAS GARIS PUTIH HOME INDICATOR */
-    padding-bottom: 0px !important;
     box-sizing: border-box !important;
     display: flex !important;
     justify-content: center !important;
-    align-items: flex-start !important;
+    align-items: center !important;
+    overflow-x: hidden !important;
   }
 
   .cyber-modal-card,
@@ -807,30 +802,73 @@ body {
   .personal-modal-card,
   .debt-modal-card,
   .view-debt-card,
-  .monthly-modal-box,
-  .pin-card {
-    width: calc(100% - 24px) !important;
+  .monthly-modal-box {
+    width: 100% !important;
     max-width: 410px !important;
-    /* BAWAH FULL: cuma 8px dari tepi layar = di atas garis putih */
-    margin-top: 12px !important;
-    margin-bottom: 8px !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    /* Tinggi dipaksa full kebawah */
-    min-height: calc(-webkit-fill-available - 20px - env(safe-area-inset-top, 0px)) !important;
-    flex-grow: 1 !important;
-    align-self: stretch !important;
+    height: auto !important;
+    /* INI KUNCI GARIS BAWAH MUNCUL: max-height dikurangi safe area + padding overlay */
+    max-height: calc(100dvh - 24px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
+    max-height: calc(-webkit-fill-available - 24px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
+    margin: 0 auto !important;
+    /* Padding dalam - bawah pakai safe area juga biar border bawah tidak ketutup */
+    padding: 12px 18px !important;
     padding-top: max(12px, env(safe-area-inset-top, 0px)) !important;
-    padding-bottom: 12px !important;
-    padding-left: 18px !important;
-    padding-right: 18px !important;
+    padding-bottom: max(16px, env(safe-area-inset-bottom, 0px)) !important;
+    box-sizing: border-box !important;
+    border: 2px solid rgba(0, 240, 255, 0.85) !important;
+    border-radius: 26px !important;
+    flex-shrink: 0 !important;
+    /* Pastikan border bawah keliatan jelas */
+    box-shadow: 0 0 30px rgba(0, 240, 255, 0.4) !important;
+  }
+
+  /* --- PIN AKSES = BALIKIN KE SEBELUMNYA, TIDAK FULL --- */
+  .pin-screen-overlay,
+  .debt-pin-overlay,
+  .personal-pin-overlay {
+    width: 100% !important;
+    height: 100dvh !important;
+    min-height: -webkit-fill-available !important;
+    background: #020714 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: 20px !important;
+    padding-top: max(20px, env(safe-area-inset-top, 0px)) !important;
+    padding-bottom: max(20px, env(safe-area-inset-bottom, 0px)) !important;
+    padding-left: max(20px, env(safe-area-inset-left, 0px)) !important;
+    padding-right: max(20px, env(safe-area-inset-right, 0px)) !important;
     box-sizing: border-box !important;
   }
-}
 
-/* Step 3: Android tetap pakai CSS asli (env = 0, jadi hasilnya sama persis) */
-/* Di Android: env(safe-area-inset-*) = 0px, jadi max(12px, 0px) = 12px -> sama kayak asli */
-/* Di iOS: env(safe-area-inset-*) = 34-47px, jadi ada penyesuaian notch */
+  .pin-card {
+    width: 100% !important;
+    max-width: 360px !important; /* Balik ke ukuran asli, tidak full */
+    height: auto !important;
+    max-height: none !important;
+    min-height: auto !important;
+    max-height: 90dvh !important;
+    margin: 0 auto !important;
+    padding: 28px 20px !important;
+    flex-grow: 0 !important;
+    align-self: center !important;
+    flex-shrink: 0 !important;
+    /* Style asli pin */
+    background: rgba(3, 14, 38, 0.95) !important;
+    border: 1.5px solid rgba(0, 240, 255, 0.5) !important;
+    border-radius: 24px !important;
+    box-shadow: 0 0 50px rgba(0, 240, 255, 0.3) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 16px !important;
+  }
+
+  /* Pastikan keypad pin tidak ketutup */
+  .on-screen-keypad {
+    margin-bottom: env(safe-area-inset-bottom, 0px) !important;
+  }
+}
 
 </style>
 </head>
