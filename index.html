@@ -747,9 +747,9 @@
     </style>
 <style>
 
-/* ===== FIX V4 - V3 TAPI BAWAH FULL DI ATAS GARIS HOME INDICATOR IOS ===== */
-/* Tujuan: border bawah mentok di atas garis putih pindah aplikasi iOS */
-
+/* ===== FIX V4.1 - ANDROID 100% AMAN, IOS BAWAH FULL ===== */
+/* Step 1: Fix umum yang aman di Android & iOS (100vw -> 100%) */
+/* Ini justru bikin Android lebih aman, anti scroll horizontal */
 html {
   width: 100% !important;
   max-width: 100% !important;
@@ -759,8 +759,6 @@ body {
   width: 100% !important;
   max-width: 100% !important;
 }
-
-/* Overlay full layar, padding bawah 0 biar bisa mentok */
 .cyber-modal-overlay,
 .music-modal-overlay,
 .personal-modal-overlay,
@@ -775,96 +773,64 @@ body {
 .cyber-scanner-flash {
   width: 100% !important;
   max-width: 100% !important;
-  left: 0 !important;
-  right: 0 !important;
-  top: 0 !important;
-  bottom: 0 !important;
-  height: 100% !important;
-  height: 100dvh !important;
-  min-height: 100dvh !important;
-  /* KIRI KANAN ATAS pakai safe area, BAWAH 0 biar bisa full */
-  padding-top: env(safe-area-inset-top, 0px) !important;
-  padding-left: max(12px, env(safe-area-inset-left, 0px)) !important;
-  padding-right: max(12px, env(safe-area-inset-right, 0px)) !important;
-  padding-bottom: 0px !important;
-  box-sizing: border-box !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: flex-start !important;
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
 }
 
-/* Card utama - bawahnya full mentok di atas garis putih home indicator */
-.cyber-modal-card,
-.music-modal-card,
-.personal-modal-card,
-.debt-modal-card,
-.view-debt-card,
-.monthly-modal-box,
-.pin-card {
-  width: calc(100% - 24px) !important;
-  max-width: 410px !important;
-  /* Tinggi full dari atas safe area sampai bawah mentok */
-  height: auto !important;
-  min-height: auto !important;
-  max-height: none !important;
-  /* INI KUNCI BAWAH FULL: margin bawah cuma 8px dari layar, jadi di atas garis putih */
-  margin-top: 12px !important;
-  margin-bottom: 8px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  /* Tinggi card ngikutin isi tapi dipaksa full kebawah */
-  flex-grow: 1 !important;
-  /* Padding dalam tetap aman biar tombol X tidak ketutup notch */
-  padding-top: max(12px, env(safe-area-inset-top, 0px)) !important;
-  padding-left: 18px !important;
-  padding-right: 18px !important;
-  padding-bottom: 12px !important;
-  box-sizing: border-box !important;
-  border: 2px solid rgba(0, 240, 255, 0.85) !important;
-  border-radius: 26px !important;
-  /* Pastikan card memanjang kebawah */
-  align-self: stretch !important;
-}
-
-/* Container kalau dipakai */
-.container {
-  width: calc(100% - 24px) !important;
-  max-width: 440px !important;
-  margin-top: 12px !important;
-  margin-bottom: 8px !important;
-  padding: 12px !important;
-  padding-top: max(12px, env(safe-area-inset-top, 0px)) !important;
-  box-sizing: border-box !important;
-}
-
-/* iOS webkit fix */
+/* Step 2: KHUSUS IOS SAJA - Android tidak akan baca ini */
 @supports (-webkit-touch-callout: none) {
-  html { height: -webkit-fill-available !important; }
-  body,
+  /* Ini cuma jalan di iPhone Safari, di Android Chrome di-skip total */
   .cyber-modal-overlay,
   .music-modal-overlay,
   .personal-modal-overlay,
-  .debt-modal-overlay {
+  .debt-modal-overlay,
+  .debt-pin-overlay,
+  .personal-pin-overlay,
+  .edit-debt-overlay,
+  .view-debt-overlay,
+  .popup-overlay {
+    width: 100% !important;
+    height: 100% !important;
+    height: 100dvh !important;
     min-height: -webkit-fill-available !important;
-    height: -webkit-fill-available !important;
+    padding-top: env(safe-area-inset-top, 0px) !important;
+    padding-left: max(12px, env(safe-area-inset-left, 0px)) !important;
+    padding-right: max(12px, env(safe-area-inset-right, 0px)) !important;
+    /* BAWAH 0 BIAR FULL MENTOK DI ATAS GARIS PUTIH HOME INDICATOR */
+    padding-bottom: 0px !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
   }
+
   .cyber-modal-card,
   .music-modal-card,
   .personal-modal-card,
   .debt-modal-card,
-  .view-debt-card {
+  .view-debt-card,
+  .monthly-modal-box,
+  .pin-card {
+    width: calc(100% - 24px) !important;
+    max-width: 410px !important;
+    /* BAWAH FULL: cuma 8px dari tepi layar = di atas garis putih */
+    margin-top: 12px !important;
+    margin-bottom: 8px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    /* Tinggi dipaksa full kebawah */
     min-height: calc(-webkit-fill-available - 20px - env(safe-area-inset-top, 0px)) !important;
+    flex-grow: 1 !important;
+    align-self: stretch !important;
+    padding-top: max(12px, env(safe-area-inset-top, 0px)) !important;
+    padding-bottom: 12px !important;
+    padding-left: 18px !important;
+    padding-right: 18px !important;
+    box-sizing: border-box !important;
   }
 }
 
-/* Tambahan: biar full-app-content bisa scroll tapi border tetap full bawah */
-.full-app-content,
-.personal-app-content,
-.debt-app-content {
-  padding-bottom: 20px !important;
-}
+/* Step 3: Android tetap pakai CSS asli (env = 0, jadi hasilnya sama persis) */
+/* Di Android: env(safe-area-inset-*) = 0px, jadi max(12px, 0px) = 12px -> sama kayak asli */
+/* Di iOS: env(safe-area-inset-*) = 34-47px, jadi ada penyesuaian notch */
 
 </style>
 </head>
