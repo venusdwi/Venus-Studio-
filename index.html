@@ -744,8 +744,8 @@
         }
     </style>
 <style>
-/* ===== FIX V11 - IPHONE XR BOTTOM FULL MENTOK DI ATAS GARIS PUTIH HOME INDICATOR ===== */
-html, body { width: 100% !important; max-width: 100% !important; overflow-x: hidden !important; }
+/* ===== FIX V12 - BALIKIN KE V9 YANG OKE, BAWAH FULL MENTOK ATAS GARIS PUTIH XR ===== */
+html, body { width: 100% !important; overflow-x: hidden !important; }
 
 @supports (-webkit-touch-callout: none) {
   .cyber-modal-overlay,
@@ -760,7 +760,6 @@ html, body { width: 100% !important; max-width: 100% !important; overflow-x: hid
     width: 100% !important;
     height: 100dvh !important;
     min-height: -webkit-fill-available !important;
-    /* Atas pakai safe area biar tidak ketutup notch XR, bawah 0 biar bisa full mentok */
     padding-top: env(safe-area-inset-top, 0px) !important;
     padding-bottom: 0px !important;
     padding-left: env(safe-area-inset-left, 0px) !important;
@@ -777,10 +776,8 @@ html, body { width: 100% !important; max-width: 100% !important; overflow-x: hid
   .personal-modal-card,
   .debt-modal-card,
   .view-debt-card {
-    width: calc(100% - 16px) !important; /* kiri kanan udah ok kata lo */
+    width: calc(100% - 16px) !important;
     max-width: 460px !important;
-    /* Tinggi full: 100dvh - notch atas - 16px (8px atas + 8px bawah) */
-    /* Jadi bawahnya mentok 8px di atas layar = pas di atas garis putih home indicator XR */
     height: calc(100dvh - env(safe-area-inset-top, 0px) - 16px) !important;
     max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 16px) !important;
     height: calc(-webkit-fill-available - env(safe-area-inset-top, 0px) - 16px) !important;
@@ -795,36 +792,40 @@ html, body { width: 100% !important; max-width: 100% !important; overflow-x: hid
     display: flex !important;
     flex-direction: column !important;
     overflow: hidden !important;
-    box-shadow: 0 0 40px rgba(0,240,255,0.5) !important;
     box-sizing: border-box !important;
+    box-shadow: 0 0 40px rgba(0,240,255,0.5) !important;
   }
 
   /* Header fixed */
   .cyber-modal-card > div:first-child {
     flex: 0 0 auto !important;
-    padding-top: 10px !important;
-    padding-left: 12px !important;
-    padding-right: 12px !important;
+    padding: 10px 12px 4px 12px !important;
   }
   .cyber-modal-card > div:nth-child(2) {
     flex: 0 0 auto !important;
     padding: 0 18px 10px 18px !important;
+    text-align: center !important;
   }
 
-  /* Isi scroll */
-  .full-app-content,
-  .personal-app-content,
-  .debt-app-content {
+  /* Isi bisa scroll - TANPA height:0 !important yang bikin ilang kemarin */
+  .full-app-content {
     flex: 1 1 auto !important;
     min-height: 0 !important;
-    height: 0 !important;
     overflow-y: auto !important;
+    overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch !important;
     padding: 0 14px 20px 14px !important;
     box-sizing: border-box !important;
   }
+  .personal-app-content,
+  .debt-app-content {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding: 0 14px 20px 14px !important;
+  }
 
-  /* Pin tetap tengah tidak full */
   .pin-screen-overlay,
   .debt-pin-overlay,
   .personal-pin-overlay {
