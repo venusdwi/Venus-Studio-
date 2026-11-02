@@ -747,8 +747,20 @@
     </style>
 <style>
 
-/* ===== FIX V3 - BEST OF BOTH: BORDER FULL TAPI ISI AMAN DARI NOTCH ===== */
-html, body { width: 100% !important; max-width: 100% !important; overflow-x:hidden !important; }
+/* ===== FIX V4 - V3 TAPI BAWAH FULL DI ATAS GARIS HOME INDICATOR IOS ===== */
+/* Tujuan: border bawah mentok di atas garis putih pindah aplikasi iOS */
+
+html {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+}
+body {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Overlay full layar, padding bawah 0 biar bisa mentok */
 .cyber-modal-overlay,
 .music-modal-overlay,
 .personal-modal-overlay,
@@ -761,33 +773,97 @@ html, body { width: 100% !important; max-width: 100% !important; overflow-x:hidd
 .pin-screen,
 .splash-screen,
 .cyber-scanner-flash {
-  width: 100% !important; max-width: 100% !important; left:0 !important; right:0 !important;
-  padding: 12px !important; 
-  padding-top: max(12px, env(safe-area-inset-top, 12px)) !important;
-  padding-bottom: max(12px, env(safe-area-inset-bottom, 12px)) !important;
-  padding-left: max(12px, env(safe-area-inset-left, 12px)) !important;
-  padding-right: max(12px, env(safe-area-inset-right, 12px)) !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  height: 100% !important;
+  height: 100dvh !important;
+  min-height: 100dvh !important;
+  /* KIRI KANAN ATAS pakai safe area, BAWAH 0 biar bisa full */
+  padding-top: env(safe-area-inset-top, 0px) !important;
+  padding-left: max(12px, env(safe-area-inset-left, 0px)) !important;
+  padding-right: max(12px, env(safe-area-inset-right, 0px)) !important;
+  padding-bottom: 0px !important;
   box-sizing: border-box !important;
-  height: 100% !important; height: 100dvh !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
 }
+
+/* Card utama - bawahnya full mentok di atas garis putih home indicator */
 .cyber-modal-card,
 .music-modal-card,
 .personal-modal-card,
 .debt-modal-card,
 .view-debt-card,
-.monthly-modal-box {
-  width: 100% !important; max-width: 410px !important;
-  max-height: calc(100dvh - 24px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
-  padding: 12px 18px !important;
-  /* Isi dalam card kasih safe area tipis biar tombol X tidak ketutup notch */
+.monthly-modal-box,
+.pin-card {
+  width: calc(100% - 24px) !important;
+  max-width: 410px !important;
+  /* Tinggi full dari atas safe area sampai bawah mentok */
+  height: auto !important;
+  min-height: auto !important;
+  max-height: none !important;
+  /* INI KUNCI BAWAH FULL: margin bawah cuma 8px dari layar, jadi di atas garis putih */
+  margin-top: 12px !important;
+  margin-bottom: 8px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  /* Tinggi card ngikutin isi tapi dipaksa full kebawah */
+  flex-grow: 1 !important;
+  /* Padding dalam tetap aman biar tombol X tidak ketutup notch */
+  padding-top: max(12px, env(safe-area-inset-top, 0px)) !important;
+  padding-left: 18px !important;
+  padding-right: 18px !important;
+  padding-bottom: 12px !important;
+  box-sizing: border-box !important;
+  border: 2px solid rgba(0, 240, 255, 0.85) !important;
+  border-radius: 26px !important;
+  /* Pastikan card memanjang kebawah */
+  align-self: stretch !important;
+}
+
+/* Container kalau dipakai */
+.container {
+  width: calc(100% - 24px) !important;
+  max-width: 440px !important;
+  margin-top: 12px !important;
+  margin-bottom: 8px !important;
+  padding: 12px !important;
   padding-top: max(12px, env(safe-area-inset-top, 0px)) !important;
   box-sizing: border-box !important;
-  margin: auto !important;
-  border: 2px solid rgba(0, 240, 255, 0.75) !important;
 }
+
+/* iOS webkit fix */
 @supports (-webkit-touch-callout: none) {
-  .cyber-modal-overlay { height: -webkit-fill-available !important; }
-  .cyber-modal-card { max-height: calc(-webkit-fill-available - 24px) !important; }
+  html { height: -webkit-fill-available !important; }
+  body,
+  .cyber-modal-overlay,
+  .music-modal-overlay,
+  .personal-modal-overlay,
+  .debt-modal-overlay {
+    min-height: -webkit-fill-available !important;
+    height: -webkit-fill-available !important;
+  }
+  .cyber-modal-card,
+  .music-modal-card,
+  .personal-modal-card,
+  .debt-modal-card,
+  .view-debt-card {
+    min-height: calc(-webkit-fill-available - 20px - env(safe-area-inset-top, 0px)) !important;
+  }
+}
+
+/* Tambahan: biar full-app-content bisa scroll tapi border tetap full bawah */
+.full-app-content,
+.personal-app-content,
+.debt-app-content {
+  padding-bottom: 20px !important;
 }
 
 </style>
