@@ -238,7 +238,7 @@
         .pin-screen-overlay, .debt-pin-overlay, .personal-pin-overlay { 
             position: fixed; top: 0; left: 0; width: 100% !important; height: 100% !important; height: 100dvh !important;
             background: #020714; z-index: 9999990; display: none; opacity: 0; visibility: hidden; 
-            flex-direction: column; justify-content: center; align-items: center; padding: max(20px, env(safe-area-inset-top, 0px)) max(20px, env(safe-area-inset-right, 0px)) max(20px, env(safe-area-inset-bottom, 0px)) max(20px, env(safe-area-inset-left, 0px)); 
+            flex-direction: column; justify-content: center; align-items: center; padding: 20px; 
             overflow-x: hidden !important; transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s ease; overscroll-behavior-y: none;
             transform: translateZ(0);
         }
@@ -336,7 +336,7 @@
         .cyber-modal-overlay, .music-modal-overlay, .personal-modal-overlay, .debt-modal-overlay, .debt-pin-overlay, .personal-pin-overlay, .edit-debt-overlay, .view-debt-overlay, .popup-overlay { 
             position: fixed; top: 0; left: 0; width: 100% !important; height: 100% !important; height: 100dvh !important;
             background: rgba(2, 7, 20, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 99999999; 
-            display: flex; justify-content: center; align-items: center; padding: max(12px, env(safe-area-inset-top, 0px)) max(12px, env(safe-area-inset-right, 0px)) max(12px, env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px)); opacity: 0; visibility: hidden; pointer-events: none; 
+            display: flex; justify-content: center; align-items: center; padding: 12px; opacity: 0; visibility: hidden; pointer-events: none; 
             transition: opacity 0.25s ease, visibility 0.25s ease; overflow-x: hidden !important; overscroll-behavior-y: none; 
             transform: translateZ(0);
         }
@@ -346,8 +346,8 @@
 
         .music-modal-card, .personal-modal-card, .debt-modal-card, .view-debt-card { 
             background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.75); border-radius: 26px; 
-            padding: calc(env(safe-area-inset-top, 16px) + 16px) 18px calc(env(safe-area-inset-bottom, 16px) + 16px) 18px; 
-            width: calc(100% - 24px) !important; max-width: 410px !important; height: auto !important; max-height: calc(100dvh - 24px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important; 
+            padding: 0 !important; 
+            width: 100% !important; max-width: 100% !important; height: 100% !important; max-height: 100dvh !important; 
             text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); 
             overflow-x: hidden !important; overflow-y: auto !important; overscroll-behavior-y: none; 
             backface-visibility: hidden;
@@ -356,8 +356,8 @@
         
         .cyber-modal-card { 
             background: var(--cv-bg-modal) !important; border: 2px solid var(--cv-border-primary) !important; border-radius: 26px; 
-            padding: calc(env(safe-area-inset-top, 16px) + 16px) 18px calc(env(safe-area-inset-bottom, 16px) + 16px) 18px; 
-            width: calc(100% - 24px) !important; max-width: 410px !important; height: auto !important; max-height: calc(100dvh - 24px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important; 
+            padding: 0 !important; 
+            width: 100% !important; max-width: 100% !important; height: 100% !important; max-height: 100dvh !important; 
             text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); 
             transition: background-color 0.2s ease, border-color 0.2s ease; overflow-x: hidden !important; overflow-y: auto !important; overscroll-behavior-y: none; 
             backface-visibility: hidden;
@@ -746,7 +746,32 @@
         }
     </style>
 <style>
-/* FIX V8 FINAL - DIRECT EDIT + IOS EXTRA - JUDUL X & BORDER ATAS BAWAH MUNCUL */
+/* ===== FIX V9 FINAL - BORDER FIXED FULL LAYAR IOS, ISI SCROLL, JUDUL X FIXED, LEBAR FULL ===== */
+html, body {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+  overscroll-behavior: none !important;
+}
+
+/* Overlay semua modal - width 100% bukan 100vw */
+.cyber-modal-overlay,
+.music-modal-overlay,
+.personal-modal-overlay,
+.debt-modal-overlay,
+.edit-debt-overlay,
+.view-debt-overlay,
+.popup-overlay,
+.pin-screen-overlay,
+.debt-pin-overlay,
+.personal-pin-overlay {
+  width: 100% !important;
+  max-width: 100% !important;
+  left: 0 !important;
+  right: 0 !important;
+}
+
+/* KHUSUS IOS - BORDER FIXED, TIDAK SCROLL */
 @supports (-webkit-touch-callout: none) {
   .cyber-modal-overlay,
   .music-modal-overlay,
@@ -755,41 +780,145 @@
   .edit-debt-overlay,
   .view-debt-overlay,
   .popup-overlay {
-    align-items: flex-start !important;
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch !important;
+    position: fixed !important;
+    top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+    width: 100% !important;
+    height: 100dvh !important;
+    min-height: -webkit-fill-available !important;
+    /* Safe area - biar notch tidak ketutup, bawah di atas garis home indicator */
     padding-top: env(safe-area-inset-top, 0px) !important;
     padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+    padding-left: env(safe-area-inset-left, 0px) !important;
+    padding-right: env(safe-area-inset-right, 0px) !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    overflow: hidden !important; /* Overlay tidak scroll */
+    background: rgba(2, 7, 20, 0.92) !important;
   }
+
+  /* CARD = BORDER FIXED FULL LAYAR - TIDAK SCROLL */
   .cyber-modal-card,
   .music-modal-card,
   .personal-modal-card,
   .debt-modal-card,
   .view-debt-card,
   .monthly-modal-box {
-    margin-top: max(12px, env(safe-area-inset-top, 0px)) !important;
-    margin-bottom: max(12px, env(safe-area-inset-bottom, 0px)) !important;
-    max-height: none !important;
-    min-height: auto !important;
-    height: auto !important;
-    /* Biar judul & X tidak hilang, pakai flex-start */
-    justify-content: flex-start !important;
-    overflow-y: visible !important;
-  }
-  .full-app-content {
-    overflow-y: visible !important;
-    flex: none !important;
-    width: 100% !important;
-  }
-  /* Pastikan header tidak ketutup */
-  .cyber-modal-card > div:first-child {
+    width: calc(100% - 16px) !important; /* LEBAR FULL, cuma 8px kiri kanan - LEBIH LEBAR dari sebelumnya 24px */
+    max-width: 460px !important; /* Lebih lebar biar tidak kurang */
+    /* Tinggi full layar iOS: 100dvh - safe area top bottom - 16px margin */
+    height: calc(100dvh - 16px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
+    max-height: calc(100dvh - 16px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
+    height: calc(-webkit-fill-available - 16px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
+    max-height: calc(-webkit-fill-available - 16px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
+    margin: 8px auto !important; /* 8px atas bawah biar border di atas garis home indicator & di bawah notch */
+    padding: 0 !important; /* Padding 0 di card, nanti header & content yang kasih padding */
+    box-sizing: border-box !important;
+    border: 2px solid rgba(0, 240, 255, 0.9) !important;
+    border-radius: 26px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important; /* CARD TIDAK SCROLL, border tetap */
     flex-shrink: 0 !important;
-    position: sticky !important;
-    top: 0 !important;
-    z-index: 5 !important;
-    background: rgba(3, 14, 38, 0.98) !important;
-    padding-top: 4px !important;
+    align-self: center !important;
+    box-shadow: 0 0 40px rgba(0, 240, 255, 0.45) !important;
+    transform: none !important;
+  }
+
+  /* HEADER - JUDUL & TOMBOL X = FIXED, TIDAK SCROLL */
+  .cyber-modal-card > div:nth-child(1),
+  .cyber-modal-card > div:nth-child(2),
+  .music-modal-card > div:nth-child(1),
+  .personal-modal-card > div:nth-child(1),
+  .debt-modal-card > div:nth-child(1) {
+    flex-shrink: 0 !important;
+    flex-grow: 0 !important;
     width: 100% !important;
+    position: relative !important;
+    z-index: 10 !important;
+    background: transparent !important;
+  }
+  
+  /* Khusus header atas (close button + title) */
+  .cyber-modal-card > div:first-child {
+    padding-top: max(10px, env(safe-area-inset-top, 0px)) !important;
+    padding-right: 12px !important;
+    padding-left: 12px !important;
+  }
+  .cyber-modal-card > div:nth-child(2) {
+    padding: 0 18px 8px 18px !important;
+    text-align: center !important;
+  }
+
+  /* Close button tetap di pojok, tidak scroll */
+  .close-cyber-modal,
+  .close-music-modal,
+  .close-personal-modal,
+  .close-debt-modal,
+  .close-view-debt {
+    position: relative !important;
+    flex-shrink: 0 !important;
+    z-index: 20 !important;
+  }
+
+  /* ISI HALAMAN = SATU-SATUNYA YANG SCROLL */
+  .full-app-content,
+  .personal-app-content,
+  .debt-app-content {
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
+    padding: 0 14px 20px 14px !important;
+    box-sizing: border-box !important;
+    gap: 12px !important;
+  }
+
+  /* PIN - TETAP TIDAK FULL, DI TENGAH */
+  .pin-screen-overlay,
+  .debt-pin-overlay,
+  .personal-pin-overlay {
+    position: fixed !important;
+    top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
+    width: 100% !important;
+    height: 100dvh !important;
+    min-height: -webkit-fill-available !important;
+    background: #020714 !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px) !important;
+    box-sizing: border-box !important;
+  }
+  .pin-card {
+    width: calc(100% - 40px) !important;
+    max-width: 360px !important;
+    height: auto !important;
+    max-height: calc(100dvh - 40px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
+    margin: 20px auto !important;
+    padding: 28px 20px !important;
+    flex-grow: 0 !important;
+    flex-shrink: 0 !important;
+    align-self: center !important;
+    overflow: hidden !important;
+  }
+}
+
+/* ANDROID - biarkan pakai style asli, tapi width 100% biar aman */
+@media not all and (-webkit-touch-callout: none) {
+  .cyber-modal-card,
+  .music-modal-card,
+  .personal-modal-card,
+  .debt-modal-card,
+  .view-debt-card {
+    width: calc(100% - 24px) !important;
+    max-width: 440px !important;
   }
 }
 </style></head>
