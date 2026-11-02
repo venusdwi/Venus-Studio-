@@ -150,7 +150,7 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* BASE - Android & Desktop (keep fixed for immersive) */
+        /* Perbaikan khusus iOS agar latar belakang memenuhi seluruh layar termasuk safe-area */
         html, body {
             width: 100vw !important;
             height: 100% !important;
@@ -167,107 +167,6 @@
             touch-action: none !important;
             overscroll-behavior: none !important;
         }
-
-        /* iOS ONLY - Detected via -webkit-touch-callout, tidak mempengaruhi Android */
-        @supports (-webkit-touch-callout: none) {
-            html {
-                height: -webkit-fill-available !important;
-                min-height: -webkit-fill-available !important;
-                width: 100% !important;
-                position: relative !important;
-                overflow: hidden !important;
-            }
-            body {
-                width: 100% !important;
-                height: 100% !important;
-                min-height: 100vh !important;
-                min-height: -webkit-fill-available !important;
-                min-height: 100dvh !important;
-                position: fixed !important;
-                inset: 0 !important;
-                overflow: hidden !important;
-                touch-action: manipulation !important;
-                -webkit-overflow-scrolling: touch !important;
-                padding-top: env(safe-area-inset-top) !important;
-                padding-bottom: env(safe-area-inset-bottom) !important;
-                padding-left: env(safe-area-inset-left) !important;
-                padding-right: env(safe-area-inset-right) !important;
-            }
-
-            /* Full app content scroll fix iOS */
-            .full-app-content, .debt-app-content, .personal-app-content, .music-modal-card,
-            .personal-modal-card, .debt-modal-card, .view-debt-card {
-                -webkit-overflow-scrolling: touch !important;
-                touch-action: pan-y !important;
-                overscroll-behavior-y: contain !important;
-            }
-
-            /* Input iOS: cegah auto-zoom dengan font-size 16px */
-            input, select, textarea {
-                font-size: 16px !important;
-            }
-
-            /* Modal di iOS: gunakan -webkit-fill-available agar tidak kepotong notch */
-            .cyber-modal-overlay, .music-modal-overlay, .personal-modal-overlay, 
-            .debt-modal-overlay, .view-debt-overlay, .edit-debt-overlay, .popup-overlay,
-            .debt-pin-overlay, .personal-pin-overlay, .pin-screen-overlay {
-                padding-top: env(safe-area-inset-top) !important;
-                padding-bottom: env(safe-area-inset-bottom) !important;
-                height: -webkit-fill-available !important;
-                min-height: -webkit-fill-available !important;
-            }
-
-            .debt-modal-card, .view-debt-card, .music-modal-card, .personal-modal-card {
-                max-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 20px) !important;
-                height: auto !important;
-                min-height: 0 !important;
-                margin-top: env(safe-area-inset-top) !important;
-                margin-bottom: env(safe-area-inset-bottom) !important;
-            }
-
-            /* Fix 100vw issue di iOS (horizontal scroll) */
-            .tech-bg-container, .splash-container, .pin-container {
-                width: 100% !important;
-                max-width: 100% !important;
-            }
-
-            /* History box scroll iOS */
-            .account-history-box, #debtPaymentHistoryList, #historyList, #monthlyHistoryList {
-                -webkit-overflow-scrolling: touch !important;
-                touch-action: pan-y !important;
-                overflow-y: auto !important;
-            }
-
-            
-        /* FIX tambahan: pastikan history list debt tracker selalu visible di iOS */
-        #debtPaymentHistoryList {
-            display: flex !important;
-            flex-direction: column !important;
-            gap: 10px !important;
-            opacity: 1 !important;
-            visibility: visible !important;
-        }
-        #debtPaymentHistoryList .account-history-item {
-            display: flex !important;
-            opacity: 1 !important;
-        }
-
-            /* Tombol tetap responsive di iOS */
-            button, .keypad-btn, .btn-add-account-action {
-                touch-action: manipulation !important;
-                -webkit-tap-highlight-color: transparent !important;
-            }
-        }
-
-        /* Tambahan fix untuk iOS versi lama yang tidak support @supports */
-        @media screen and (max-width: 768px) {
-            @supports (-webkit-touch-callout: none) {
-                .full-app-content {
-                    padding-bottom: calc(120px + env(safe-area-inset-bottom)) !important;
-                }
-            }
-        }
-
 
         *::-webkit-scrollbar { display: none; }
         * { -ms-overflow-style: none; scrollbar-width: none; }
@@ -846,28 +745,146 @@
             --cv-bg-history-item: rgba(1, 15, 25, 0.85) !important;
         }
     </style>
+<style>
 
-    <script>
-    // iOS Detection - tidak mempengaruhi Android
-    (function() {
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
-                      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1) ||
-                      (CSS.supports && CSS.supports('-webkit-touch-callout', 'none'));
-        if (isIOS) {
-            document.documentElement.classList.add('ios-device');
-            document.body.classList.add('ios-device');
-            // Fix 100vh issue di iOS Safari
-            const setVH = () => {
-                const vh = window.innerHeight * 0.01;
-                document.documentElement.style.setProperty('--vh', `${vh}px`);
-            };
-            setVH();
-            window.addEventListener('resize', setVH);
-            window.addEventListener('orientationchange', () => setTimeout(setVH, 200));
-        }
-    })();
-    </script>
+/* ===== FIX iOS FULL BORDER - DISAMAKAN ANDROID (TIDAK MENGUBAH FUNGSI) ===== */
+html {
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+  /* iOS fill available */
+  min-height: -webkit-fill-available !important;
+}
+body {
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  min-height: 100vh !important;
+  min-height: 100dvh !important;
+  min-height: -webkit-fill-available !important;
+  /* Safe area untuk iOS - ini kunci agar garis tidak kepotong notch/home indicator */
+  padding-top: env(safe-area-inset-top, 0px) !important;
+  padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+  padding-left: env(safe-area-inset-left, 0px) !important;
+  padding-right: env(safe-area-inset-right, 0px) !important;
+  box-sizing: border-box !important;
+}
 
+/* Overlay - jangan pakai 100vw di iOS, pakai 100% + safe area */
+.cyber-modal-overlay,
+.music-modal-overlay,
+.personal-modal-overlay,
+.debt-modal-overlay,
+.debt-pin-overlay,
+.personal-pin-overlay,
+.edit-debt-overlay,
+.view-debt-overlay,
+.popup-overlay,
+.pin-screen,
+.splash-screen,
+.cyber-scanner-flash {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 100% !important;
+  height: 100% !important;
+  height: 100dvh !important;
+  min-height: 100dvh !important;
+  min-height: -webkit-fill-available !important;
+  left: 0 !important;
+  right: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  padding-top: env(safe-area-inset-top, 0px) !important;
+  padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+  padding-left: max(12px, env(safe-area-inset-left, 0px)) !important;
+  padding-right: max(12px, env(safe-area-inset-right, 0px)) !important;
+  box-sizing: border-box !important;
+  overflow-x: hidden !important;
+}
+
+/* Card utama - INI KUNCI GARIS PEMBATAS FULL */
+.cyber-modal-card,
+.music-modal-card,
+.personal-modal-card,
+.debt-modal-card,
+.view-debt-card,
+.monthly-modal-box,
+.pin-card {
+  width: 100% !important;
+  max-width: min(410px, calc(100vw - 24px - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px))) !important;
+  box-sizing: border-box !important;
+  /* Tinggi menyesuaikan safe area agar border tidak kepotong */
+  max-height: calc(100dvh - 24px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
+  /* Padding dalam card juga pakai max() biar aman di notch */
+  padding-top: max(12px, env(safe-area-inset-top, 0px)) !important;
+  padding-bottom: max(12px, env(safe-area-inset-bottom, 0px)) !important;
+  padding-left: max(18px, env(safe-area-inset-left, 12px)) !important;
+  padding-right: max(18px, env(safe-area-inset-right, 12px)) !important;
+  margin: 0 auto !important;
+  /* Pastikan border selalu terlihat full */
+  border-width: 2px !important;
+  border-style: solid !important;
+  /* Hindari transform yang bikin blur di iOS */
+  transform: translateZ(0) !important;
+  -webkit-transform: translateZ(0) !important;
+}
+
+/* Container utama aplikasi */
+.container {
+  width: 100% !important;
+  max-width: min(440px, calc(100vw - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px))) !important;
+  box-sizing: border-box !important;
+  padding-top: max(24px, env(safe-area-inset-top, 16px)) !important;
+  padding-bottom: max(16px, env(safe-area-inset-bottom, 16px)) !important;
+  padding-left: max(12px, env(safe-area-inset-left, 12px)) !important;
+  padding-right: max(12px, env(safe-area-inset-right, 12px)) !important;
+}
+
+/* Fix khusus iOS Safari - webkit-fill-available */
+@supports (-webkit-touch-callout: none) {
+  html {
+    height: -webkit-fill-available !important;
+  }
+  body {
+    min-height: -webkit-fill-available !important;
+    height: -webkit-fill-available !important;
+  }
+  .cyber-modal-overlay,
+  .music-modal-overlay,
+  .personal-modal-overlay,
+  .debt-modal-overlay,
+  .debt-pin-overlay,
+  .personal-pin-overlay,
+  .edit-debt-overlay,
+  .view-debt-overlay,
+  .popup-overlay {
+    min-height: -webkit-fill-available !important;
+    height: -webkit-fill-available !important;
+  }
+  .cyber-modal-card,
+  .music-modal-card,
+  .personal-modal-card,
+  .debt-modal-card,
+  .view-debt-card,
+  .monthly-modal-box {
+    max-height: calc(-webkit-fill-available - 24px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
+
+/* Landscape mode iOS - pastikan tidak kepotong notch kiri kanan */
+@media screen and (orientation: landscape) {
+  .cyber-modal-card,
+  .music-modal-card,
+  .personal-modal-card,
+  .debt-modal-card,
+  .view-debt-card {
+    max-width: min(500px, calc(100vw - 48px - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px))) !important;
+    max-height: calc(100dvh - 24px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
+
+</style>
 </head>
 <body>
 
@@ -1114,7 +1131,7 @@
 
             <div class="form-group" style="background: rgba(2, 12, 32, 0.85); border: 1.5px solid rgba(0, 240, 255, 0.4); border-radius: 14px; padding: 14px; gap: 8px;">
                 <label style="font-size: 0.88rem; color: #38bdf8;">Riwayat Pembayaran / Cicilan</label>
-                <div class="account-history-box" id="debtPaymentHistoryList" style="max-height: 280px; min-height: 120px; overflow-y: auto; -webkit-overflow-scrolling: touch;">
+                <div class="account-history-box" id="debtPaymentHistoryList" style="max-height: 120px;">
                     <div style="font-size: 0.8rem; color: #64748b; font-style: italic; text-align: center;">Belum ada riwayat pembayaran.</div>
                 </div>
             </div>
@@ -1908,32 +1925,7 @@
             if (window.initDebtFirebaseSync) {
                 window.initDebtFirebaseSync((cloudDebtData) => {
                     if (cloudDebtData && Array.isArray(cloudDebtData)) {
-                        try {
-                            // FIX: Jangan overwrite local jika local punya riwayat lebih lengkap (cegah history hilang)
-                            const localDataStr = localStorage.getItem('venus_debt_tracker_data');
-                            let localData = null;
-                            try { localData = JSON.parse(localDataStr); } catch(e) {}
-                            
-                            let shouldUseCloud = true;
-                            if (localData && Array.isArray(localData) && localData.length > 0) {
-                                // Jika local punya history lebih banyak, pertahankan local
-                                let localHistoryCount = 0;
-                                localData.forEach(d => { if (d.history) localHistoryCount += d.history.length; });
-                                let cloudHistoryCount = 0;
-                                cloudDebtData.forEach(d => { if (d.history) cloudHistoryCount += d.history.length; });
-                                
-                                // Jika local lebih lengkap, jangan timpa (atau merge)
-                                if (localHistoryCount > cloudHistoryCount) {
-                                    shouldUseCloud = false;
-                                    // Sync local ke cloud agar cloud update
-                                    if (window.saveDebtsToFirebase) window.saveDebtsToFirebase(localData);
-                                }
-                            }
-                            
-                            if (shouldUseCloud) {
-                                localStorage.setItem('venus_debt_tracker_data', JSON.stringify(cloudDebtData));
-                            }
-                        } catch(e) {}
+                        try { localStorage.setItem('venus_debt_tracker_data', JSON.stringify(cloudDebtData)); } catch(e) {}
                         renderDebts();
                     }
                 });
@@ -2560,34 +2552,7 @@
 
         saveAndSyncDebts(debts);
         renderDebts();
-        
-        // FIX: Refresh riwayat langsung di modal tanpa menutup, jadi user langsung lihat
-        const updatedPaid = debt.paid || 0;
-        const updatedRemaining = Math.max(0, debt.amount - updatedPaid);
-        document.getElementById('viewDebtRemaining').innerText = formatRupiah(updatedRemaining);
-        document.getElementById('viewDebtPayInput').value = '';
-        document.getElementById('paymentStatusValue').value = '';
-        document.getElementById('btnSelectPaymentStatus').innerText = '-- Pilih Status Pembayaran --';
-        
-        const historyList = document.getElementById('debtPaymentHistoryList');
-        if (!debt.history || debt.history.length === 0) {
-            historyList.innerHTML = '<div style="font-size: 0.8rem; color: #64748b; font-style: italic; text-align: center;">Belum ada riwayat pembayaran.</div>';
-        } else {
-            historyList.innerHTML = '';
-            debt.history.slice().reverse().forEach(h => {
-                const itemDiv = document.createElement('div');
-                itemDiv.className = 'account-history-item';
-                itemDiv.innerHTML = `<div class="history-user-info" style="color: #34d399;"><div>Bayar: ${formatRupiah(h.amount)} (${h.status.toUpperCase()})</div></div><div class="history-timestamp">🕒 ${h.timestamp}</div>`;
-                historyList.appendChild(itemDiv);
-            });
-            // Auto scroll ke atas untuk lihat transaksi terbaru
-            historyList.scrollTop = 0;
-        }
-        
-        // Optional: beri feedback sukses
-        if (typeof showCyberToast === 'function') {
-            showCyberToast('Pembayaran berhasil disimpan!', 'success');
-        }
+        viewDebtModal.classList.remove('active');
     });
 
     document.getElementById('btnDeleteDebtItemFromView').addEventListener('click', () => {
