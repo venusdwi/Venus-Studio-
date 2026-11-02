@@ -152,7 +152,7 @@
 
         /* Perbaikan khusus iOS agar latar belakang memenuhi seluruh layar termasuk safe-area */
         html, body {
-            width: 100vw !important;
+            width: 100% !important;
             height: 100% !important;
             height: 100dvh !important;
             margin: 0 !important;
@@ -195,7 +195,7 @@
         }
 
         .splash-screen-overlay {
-            position: fixed; top: 0; left: 0; width: 100vw !important; height: 100% !important; height: 100dvh !important;
+            position: fixed; top: 0; left: 0; width: 100% !important; height: 100% !important; height: 100dvh !important;
             background: linear-gradient(rgba(2, 7, 20, 0.95), rgba(2, 7, 20, 0.99)), #020714; z-index: 99999999;
             display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; overflow: hidden !important; 
             transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s ease;
@@ -236,15 +236,15 @@
         @keyframes tapPulse { 0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 240, 255, 0.3); } 50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(0, 240, 255, 0.6); } }
 
         .pin-screen-overlay, .debt-pin-overlay, .personal-pin-overlay { 
-            position: fixed; top: 0; left: 0; width: 100vw !important; height: 100% !important; height: 100dvh !important;
+            position: fixed; top: 0; left: 0; width: 100% !important; height: 100% !important; height: 100dvh !important;
             background: #020714; z-index: 9999990; display: none; opacity: 0; visibility: hidden; 
-            flex-direction: column; justify-content: center; align-items: center; padding: 20px; 
+            flex-direction: column; justify-content: center; align-items: center; padding: max(20px, env(safe-area-inset-top, 0px)) max(20px, env(safe-area-inset-right, 0px)) max(20px, env(safe-area-inset-bottom, 0px)) max(20px, env(safe-area-inset-left, 0px)); 
             overflow-x: hidden !important; transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.25s ease; overscroll-behavior-y: none;
             transform: translateZ(0);
         }
         .pin-screen-overlay.active, .debt-pin-overlay.active, .personal-pin-overlay.active { display: flex !important; opacity: 1 !important; visibility: visible !important; }
 
-        .cyber-scanner-flash { position: fixed; top: 0; left: 0; width: 100vw !important; height: 100% !important; height: 100dvh !important; background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.2) 0%, rgba(2, 7, 20, 0.98) 85%), linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px); background-size: 100% 100%, 20px 20px, 20px 20px; z-index: 99999995; opacity: 0; visibility: hidden; pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; transition: opacity 0.2s ease; overflow-x: hidden !important; }
+        .cyber-scanner-flash { position: fixed; top: 0; left: 0; width: 100% !important; height: 100% !important; height: 100dvh !important; background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.2) 0%, rgba(2, 7, 20, 0.98) 85%), linear-gradient(rgba(16, 185, 129, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px); background-size: 100% 100%, 20px 20px, 20px 20px; z-index: 99999995; opacity: 0; visibility: hidden; pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; transition: opacity 0.2s ease; overflow-x: hidden !important; }
         .cyber-scanner-flash.active { opacity: 1; visibility: visible; animation: hackerTerminalSeq 0.9s forwards cubic-bezier(0.1, 0.9, 0.2, 1); }
 
         .hacker-terminal-box { background: rgba(2, 12, 32, 0.92); border: 1.5px solid #00f0ff; border-radius: 14px; padding: 20px 24px; max-width: 340px; width: 100%; box-shadow: 0 0 40px rgba(0, 240, 255, 0.5), inset 0 0 15px rgba(0, 240, 255, 0.25); font-family: 'Rajdhani', sans-serif; text-align: left; display: flex; flex-direction: column; gap: 8px; }
@@ -280,7 +280,7 @@
             left: 0 !important; 
             right: 0 !important;
             bottom: 0 !important;
-            width: 100vw !important; 
+            width: 100% !important; 
             height: 100% !important; 
             height: 100dvh !important;
             z-index: 0 !important; 
@@ -298,7 +298,7 @@
             position: fixed !important; 
             top: 0 !important; 
             left: 0 !important; 
-            width: 100vw !important; 
+            width: 100% !important; 
             height: 100% !important; 
             height: 100dvh !important;
             object-fit: cover !important;
@@ -334,9 +334,9 @@
         .main-page-subtitle { font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; font-weight: 800; letter-spacing: 2px; color: #7dd3fc; text-transform: uppercase; margin-top: 4px; opacity: 0.95; text-align: center; pointer-events: none; }
 
         .cyber-modal-overlay, .music-modal-overlay, .personal-modal-overlay, .debt-modal-overlay, .debt-pin-overlay, .personal-pin-overlay, .edit-debt-overlay, .view-debt-overlay, .popup-overlay { 
-            position: fixed; top: 0; left: 0; width: 100vw !important; height: 100% !important; height: 100dvh !important;
+            position: fixed; top: 0; left: 0; width: 100% !important; height: 100% !important; height: 100dvh !important;
             background: rgba(2, 7, 20, 0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); z-index: 99999999; 
-            display: flex; justify-content: center; align-items: center; padding: 12px; opacity: 0; visibility: hidden; pointer-events: none; 
+            display: flex; justify-content: center; align-items: center; padding: max(12px, env(safe-area-inset-top, 0px)) max(12px, env(safe-area-inset-right, 0px)) max(12px, env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px)); opacity: 0; visibility: hidden; pointer-events: none; 
             transition: opacity 0.25s ease, visibility 0.25s ease; overflow-x: hidden !important; overscroll-behavior-y: none; 
             transform: translateZ(0);
         }
@@ -346,8 +346,8 @@
 
         .music-modal-card, .personal-modal-card, .debt-modal-card, .view-debt-card { 
             background: rgba(3, 14, 38, 0.98); border: 2px solid rgba(0, 240, 255, 0.75); border-radius: 26px; 
-            padding: calc(env(safe-area-inset-top, 16px) + 12px) 18px calc(env(safe-area-inset-bottom, 16px) + 12px) 18px; 
-            width: 100% !important; max-width: 410px !important; height: 100% !important; max-height: 100dvh !important; 
+            padding: calc(env(safe-area-inset-top, 16px) + 16px) 18px calc(env(safe-area-inset-bottom, 16px) + 16px) 18px; 
+            width: calc(100% - 24px) !important; max-width: 410px !important; height: auto !important; max-height: calc(100dvh - 24px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important; 
             text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); 
             overflow-x: hidden !important; overflow-y: auto !important; overscroll-behavior-y: none; 
             backface-visibility: hidden;
@@ -356,8 +356,8 @@
         
         .cyber-modal-card { 
             background: var(--cv-bg-modal) !important; border: 2px solid var(--cv-border-primary) !important; border-radius: 26px; 
-            padding: calc(env(safe-area-inset-top, 16px) + 12px) 18px calc(env(safe-area-inset-bottom, 16px) + 12px) 18px; 
-            width: 100% !important; max-width: 410px !important; height: 100% !important; max-height: 100dvh !important; 
+            padding: calc(env(safe-area-inset-top, 16px) + 16px) 18px calc(env(safe-area-inset-bottom, 16px) + 16px) 18px; 
+            width: calc(100% - 24px) !important; max-width: 410px !important; height: auto !important; max-height: calc(100dvh - 24px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important; 
             text-align: center; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; box-shadow: 0 0 50px rgba(0, 240, 255, 0.4); 
             transition: background-color 0.2s ease, border-color 0.2s ease; overflow-x: hidden !important; overflow-y: auto !important; overscroll-behavior-y: none; 
             backface-visibility: hidden;
@@ -746,29 +746,8 @@
         }
     </style>
 <style>
-
-/* ===== FIX V7 - JUDUL & X MUNCUL + BORDER ATAS BAWAH MUNCUL - IOS ONLY ===== */
-html, body {
-  width: 100% !important;
-  max-width: 100% !important;
-  overflow-x: hidden !important;
-}
-.cyber-modal-overlay,
-.music-modal-overlay,
-.personal-modal-overlay,
-.debt-modal-overlay,
-.debt-pin-overlay,
-.personal-pin-overlay,
-.edit-debt-overlay,
-.view-debt-overlay,
-.popup-overlay,
-.pin-screen-overlay {
-  width: 100% !important;
-  max-width: 100% !important;
-}
-
+/* FIX V8 FINAL - DIRECT EDIT + IOS EXTRA - JUDUL X & BORDER ATAS BAWAH MUNCUL */
 @supports (-webkit-touch-callout: none) {
-  /* OVERLAY - pakai 100% bukan 100vw biar gak kepotong notch */
   .cyber-modal-overlay,
   .music-modal-overlay,
   .personal-modal-overlay,
@@ -776,129 +755,44 @@ html, body {
   .edit-debt-overlay,
   .view-debt-overlay,
   .popup-overlay {
-    position: fixed !important;
-    top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
-    width: 100% !important;
-    height: 100dvh !important;
-    min-height: -webkit-fill-available !important;
-    /* Padding luar pakai safe area biar card tidak nempel notch/home indicator */
-    padding-top: env(safe-area-inset-top, 0px) !important;
-    padding-bottom: env(safe-area-inset-bottom, 0px) !important;
-    padding-left: env(safe-area-inset-left, 0px) !important;
-    padding-right: env(safe-area-inset-right, 0px) !important;
-    box-sizing: border-box !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
+    align-items: flex-start !important;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
+    padding-top: env(safe-area-inset-top, 0px) !important;
+    padding-bottom: env(safe-area-inset-bottom, 0px) !important;
   }
-
-  /* CARD - INI KUNCI JUDUL & X MUNCUL + BORDER ATAS BAWAH MUNCUL */
   .cyber-modal-card,
   .music-modal-card,
   .personal-modal-card,
   .debt-modal-card,
   .view-debt-card,
   .monthly-modal-box {
-    width: calc(100% - 24px) !important;
-    max-width: 410px !important;
-    height: auto !important;
+    margin-top: max(12px, env(safe-area-inset-top, 0px)) !important;
+    margin-bottom: max(12px, env(safe-area-inset-bottom, 0px)) !important;
+    max-height: none !important;
     min-height: auto !important;
-    /* Tinggi dipaksa muat layar: 100dvh - 24px margin - safe area */
-    max-height: calc(100dvh - 24px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
-    max-height: calc(-webkit-fill-available - 24px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
-    margin: 12px auto !important;
-    /* PADDING ASLI BALIKIN - ini yang bikin judul & X muncul, jangan di kecilin */
-    padding-top: calc(env(safe-area-inset-top, 16px) + 16px) !important;
-    padding-bottom: calc(env(safe-area-inset-bottom, 16px) + 16px) !important;
-    padding-left: 18px !important;
-    padding-right: 18px !important;
-    box-sizing: border-box !important;
-    border: 2px solid rgba(0, 240, 255, 0.85) !important;
-    border-radius: 26px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
+    height: auto !important;
+    /* Biar judul & X tidak hilang, pakai flex-start */
     justify-content: flex-start !important;
-    gap: 12px !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    -webkit-overflow-scrolling: touch !important;
-    flex-shrink: 0 !important;
-    align-self: center !important;
-    box-shadow: 0 0 40px rgba(0, 240, 255, 0.4) !important;
-    transform: none !important;
+    overflow-y: visible !important;
   }
-
-  /* Header & Close button biar pasti keliatan */
-  .cyber-modal-card .modal-header,
-  .music-modal-card .modal-header,
-  .personal-modal-card .modal-header,
-  .debt-modal-card .modal-header,
-  .cyber-modal-card h2, .cyber-modal-card h3 {
-    margin-top: 0 !important;
+  .full-app-content {
+    overflow-y: visible !important;
+    flex: none !important;
+    width: 100% !important;
+  }
+  /* Pastikan header tidak ketutup */
+  .cyber-modal-card > div:first-child {
+    flex-shrink: 0 !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 5 !important;
+    background: rgba(3, 14, 38, 0.98) !important;
     padding-top: 4px !important;
     width: 100% !important;
-    flex-shrink: 0 !important;
-  }
-  
-  .close-modal-btn,
-  .cyber-close-btn,
-  [class*="close"] {
-    position: absolute !important;
-    top: max(12px, env(safe-area-inset-top, 0px) + 8px) !important;
-    right: 12px !important;
-    z-index: 10 !important;
-    flex-shrink: 0 !important;
-  }
-
-  /* Konten form bisa scroll, header tetap di atas */
-  .full-app-content,
-  .personal-app-content,
-  .debt-app-content,
-  .cyber-vault-content {
-    width: 100% !important;
-    flex: 1 !important;
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    min-height: 0 !important;
-  }
-
-  /* PIN - TETAP TIDAK FULL, DITENGAH */
-  .pin-screen-overlay,
-  .debt-pin-overlay,
-  .personal-pin-overlay {
-    position: fixed !important;
-    top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
-    width: 100% !important;
-    height: 100dvh !important;
-    min-height: -webkit-fill-available !important;
-    background: #020714 !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px) !important;
-    box-sizing: border-box !important;
-  }
-  .pin-card {
-    width: calc(100% - 40px) !important;
-    max-width: 360px !important;
-    height: auto !important;
-    max-height: calc(100dvh - 40px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
-    margin: 20px auto !important;
-    padding: 28px 20px !important;
-    flex-grow: 0 !important;
-    flex-shrink: 0 !important;
-    align-self: center !important;
-    background: rgba(3, 14, 38, 0.95) !important;
-    border: 1.5px solid rgba(0, 240, 255, 0.5) !important;
-    border-radius: 24px !important;
   }
 }
-
-</style>
-</head>
+</style></head>
 <body>
 
 <div class="splash-screen-overlay active" id="splashScreenOverlay">
