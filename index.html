@@ -747,9 +747,7 @@
     </style>
 <style>
 
-/* ===== FIX V6 - GARIS ATAS BAWAH MUNCUL IOS, PIN TETAP TIDAK FULL ===== */
-/* Android aman, semua fix di dalam @supports iOS only */
-
+/* ===== FIX V7 - JUDUL & X MUNCUL + BORDER ATAS BAWAH MUNCUL - IOS ONLY ===== */
 html, body {
   width: 100% !important;
   max-width: 100% !important;
@@ -770,7 +768,7 @@ html, body {
 }
 
 @supports (-webkit-touch-callout: none) {
-  /* OVERLAY - benerin 100vw yang bikin kepotong notch */
+  /* OVERLAY - pakai 100% bukan 100vw biar gak kepotong notch */
   .cyber-modal-overlay,
   .music-modal-overlay,
   .personal-modal-overlay,
@@ -783,51 +781,91 @@ html, body {
     width: 100% !important;
     height: 100dvh !important;
     min-height: -webkit-fill-available !important;
-    /* Padding pakai safe area + 12px biar border tidak nempel notch/home indicator */
-    padding-top: max(12px, env(safe-area-inset-top, 0px)) !important;
-    padding-bottom: max(12px, env(safe-area-inset-bottom, 0px)) !important;
-    padding-left: max(12px, env(safe-area-inset-left, 0px)) !important;
-    padding-right: max(12px, env(safe-area-inset-right, 0px)) !important;
+    /* Padding luar pakai safe area biar card tidak nempel notch/home indicator */
+    padding-top: env(safe-area-inset-top, 0px) !important;
+    padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+    padding-left: env(safe-area-inset-left, 0px) !important;
+    padding-right: env(safe-area-inset-right, 0px) !important;
     box-sizing: border-box !important;
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
     overflow-y: auto !important;
-    overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch !important;
   }
 
-  /* CARD UTAMA - INI KUNCI ATAS BAWAH MUNCUL */
+  /* CARD - INI KUNCI JUDUL & X MUNCUL + BORDER ATAS BAWAH MUNCUL */
   .cyber-modal-card,
   .music-modal-card,
   .personal-modal-card,
   .debt-modal-card,
   .view-debt-card,
   .monthly-modal-box {
-    width: 100% !important;
+    width: calc(100% - 24px) !important;
     max-width: 410px !important;
     height: auto !important;
     min-height: auto !important;
-    /* max-height dihitung: 100dvh - padding overlay atas bawah - margin card */
-    /* jadi border atas & bawah PASTI masuk layar */
+    /* Tinggi dipaksa muat layar: 100dvh - 24px margin - safe area */
     max-height: calc(100dvh - 24px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
     max-height: calc(-webkit-fill-available - 24px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
     margin: 12px auto !important;
-    padding: 16px 18px !important;
+    /* PADDING ASLI BALIKIN - ini yang bikin judul & X muncul, jangan di kecilin */
+    padding-top: calc(env(safe-area-inset-top, 16px) + 16px) !important;
+    padding-bottom: calc(env(safe-area-inset-bottom, 16px) + 16px) !important;
+    padding-left: 18px !important;
+    padding-right: 18px !important;
     box-sizing: border-box !important;
     border: 2px solid rgba(0, 240, 255, 0.85) !important;
     border-radius: 26px !important;
-    flex-shrink: 0 !important;
-    align-self: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 12px !important;
     overflow-y: auto !important;
     overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch !important;
-    /* Biar border jelas */
-    box-shadow: 0 0 30px rgba(0, 240, 255, 0.35) !important;
+    flex-shrink: 0 !important;
+    align-self: center !important;
+    box-shadow: 0 0 40px rgba(0, 240, 255, 0.4) !important;
     transform: none !important;
   }
 
-  /* PIN AKSES - BALIK KE ASLI, TIDAK FULL, TENGAH */
+  /* Header & Close button biar pasti keliatan */
+  .cyber-modal-card .modal-header,
+  .music-modal-card .modal-header,
+  .personal-modal-card .modal-header,
+  .debt-modal-card .modal-header,
+  .cyber-modal-card h2, .cyber-modal-card h3 {
+    margin-top: 0 !important;
+    padding-top: 4px !important;
+    width: 100% !important;
+    flex-shrink: 0 !important;
+  }
+  
+  .close-modal-btn,
+  .cyber-close-btn,
+  [class*="close"] {
+    position: absolute !important;
+    top: max(12px, env(safe-area-inset-top, 0px) + 8px) !important;
+    right: 12px !important;
+    z-index: 10 !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Konten form bisa scroll, header tetap di atas */
+  .full-app-content,
+  .personal-app-content,
+  .debt-app-content,
+  .cyber-vault-content {
+    width: 100% !important;
+    flex: 1 !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    min-height: 0 !important;
+  }
+
+  /* PIN - TETAP TIDAK FULL, DITENGAH */
   .pin-screen-overlay,
   .debt-pin-overlay,
   .personal-pin-overlay {
@@ -840,21 +878,15 @@ html, body {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
-    padding: 20px !important;
-    padding-top: max(20px, env(safe-area-inset-top, 0px)) !important;
-    padding-bottom: max(20px, env(safe-area-inset-bottom, 0px)) !important;
-    padding-left: max(20px, env(safe-area-inset-left, 0px)) !important;
-    padding-right: max(20px, env(safe-area-inset-right, 0px)) !important;
+    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px) !important;
     box-sizing: border-box !important;
   }
-
   .pin-card {
     width: calc(100% - 40px) !important;
     max-width: 360px !important;
     height: auto !important;
-    min-height: auto !important;
     max-height: calc(100dvh - 40px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
-    margin: 0 auto !important;
+    margin: 20px auto !important;
     padding: 28px 20px !important;
     flex-grow: 0 !important;
     flex-shrink: 0 !important;
@@ -862,23 +894,6 @@ html, body {
     background: rgba(3, 14, 38, 0.95) !important;
     border: 1.5px solid rgba(0, 240, 255, 0.5) !important;
     border-radius: 24px !important;
-    box-shadow: 0 0 50px rgba(0, 240, 255, 0.3) !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    gap: 16px !important;
-    transform: none !important;
-  }
-
-  /* Pastikan konten dalam card bisa scroll kalau panjang */
-  .full-app-content,
-  .personal-app-content,
-  .debt-app-content {
-    width: 100% !important;
-    max-height: 100% !important;
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    padding-bottom: 8px !important;
   }
 }
 
