@@ -744,11 +744,10 @@
         }
     </style>
 <style>
-/* ===== FIX V13 - IPHONE XR FINAL: BOTTOM FULL + SCROLL BISA + BORDER MUNCUL ===== */
+/* ===== FIX V14 - XR FINAL BOTTOM MENTOK DI ATAS GARIS PUTIH HOME INDICATOR ===== */
 html, body { width: 100% !important; overflow-x: hidden !important; }
 
 @supports (-webkit-touch-callout: none) {
-  /* Overlay - biar border tidak ketutup notch & home indicator */
   .cyber-modal-overlay,
   .music-modal-overlay,
   .personal-modal-overlay,
@@ -761,75 +760,66 @@ html, body { width: 100% !important; overflow-x: hidden !important; }
     width: 100% !important;
     height: 100dvh !important;
     min-height: -webkit-fill-available !important;
-    padding: max(8px, env(safe-area-inset-top, 0px)) max(8px, env(safe-area-inset-right, 0px)) max(8px, env(safe-area-inset-bottom, 0px)) max(8px, env(safe-area-inset-left, 0px)) !important;
+    /* Atas pakai safe area biar notch XR tidak ketutup, bawah 0 biar bisa full mentok */
+    padding-top: env(safe-area-inset-top, 0px) !important;
+    padding-bottom: 0px !important;
+    padding-left: env(safe-area-inset-left, 0px) !important;
+    padding-right: env(safe-area-inset-right, 0px) !important;
     display: flex !important;
     justify-content: center !important;
-    align-items: center !important;
+    align-items: flex-start !important;
     overflow: hidden !important;
     box-sizing: border-box !important;
   }
 
-  /* Card - border fixed, atas bawah kiri kanan muncul */
   .cyber-modal-card,
   .music-modal-card,
   .personal-modal-card,
   .debt-modal-card,
   .view-debt-card {
-    width: 100% !important;
+    width: calc(100% - 16px) !important;
     max-width: 460px !important;
-    height: 100% !important;
-    max-height: calc(100dvh - 16px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
-    max-height: calc(-webkit-fill-available - 16px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
-    margin: auto !important;
+    /* Full mentok: tinggi = layar - notch atas - 14px (8px atas + 6px bawah) */
+    /* Bawah 6px dari tepi layar = pas di atas garis putih home indicator XR */
+    height: calc(100dvh - env(safe-area-inset-top, 0px) - 14px) !important;
+    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 14px) !important;
+    height: calc(-webkit-fill-available - env(safe-area-inset-top, 0px) - 14px) !important;
+    max-height: calc(-webkit-fill-available - env(safe-area-inset-top, 0px) - 14px) !important;
+    margin-top: 8px !important;
+    margin-bottom: 6px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
     padding: 0 !important;
     border: 2px solid rgba(0, 240, 255, 0.95) !important;
-    border-radius: 22px !important;
+    border-radius: 24px !important;
     display: flex !important;
     flex-direction: column !important;
     overflow: hidden !important;
     box-sizing: border-box !important;
-    background: var(--cv-bg-modal, rgba(3,14,38,0.98)) !important;
     box-shadow: 0 0 40px rgba(0,240,255,0.5) !important;
   }
 
-  /* Header - fixed tidak scroll */
-  .cyber-modal-card > div:first-child,
-  .cyber-modal-card > div:nth-child(2) {
-    flex-shrink: 0 !important;
-    flex-grow: 0 !important;
-    width: 100% !important;
-  }
   .cyber-modal-card > div:first-child {
+    flex: 0 0 auto !important;
     padding: 10px 12px 4px 12px !important;
   }
   .cyber-modal-card > div:nth-child(2) {
+    flex: 0 0 auto !important;
     padding: 0 16px 8px 16px !important;
+    text-align: center !important;
   }
 
-  /* ISI - INI YANG BISA SCROLL, FIX KHUSUS XR */
-  .full-app-content {
-    flex: 1 1 auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
-    overflow-y: scroll !important; /* scroll bukan auto biar di XR ke-detect */
-    overflow-x: hidden !important;
-    -webkit-overflow-scrolling: touch !important;
-    overscroll-behavior: contain !important;
-    touch-action: pan-y !important;
-    padding: 0 12px 24px 12px !important;
-    box-sizing: border-box !important;
-  }
+  .full-app-content,
   .personal-app-content,
   .debt-app-content {
     flex: 1 1 auto !important;
     min-height: 0 !important;
-    overflow-y: scroll !important;
+    overflow-y: auto !important;
     -webkit-overflow-scrolling: touch !important;
-    touch-action: pan-y !important;
-    padding: 0 12px 24px 12px !important;
+    padding: 0 12px 16px 12px !important;
+    box-sizing: border-box !important;
   }
 
-  /* Pin tetap tengah */
   .pin-screen-overlay,
   .debt-pin-overlay,
   .personal-pin-overlay {
