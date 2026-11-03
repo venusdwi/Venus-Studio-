@@ -1007,156 +1007,138 @@ input[type="time"]::-webkit-inner-spin-button {
 
 
 <style>
-/* === FIX FINAL: Full mentok kiri-kanan + iPhone XR notch safe === */
-/* Hilangkan border luar sesuai request pertama */
+/* === REVISI 2: Naikin X + Bawah Full Layar XR === */
 .cyber-modal-card {
     border: none !important;
     box-shadow: none !important;
-    outline: none !important;
 }
 
-/* Overlay full screen dengan safe-area */
-.cyber-modal-overlay,
-.music-modal-overlay,
-.personal-modal-overlay,
-.debt-modal-overlay {
+/* Overlay full viewport */
+.cyber-modal-overlay {
     width: 100vw !important;
     max-width: 100vw !important;
     height: 100dvh !important;
     min-height: 100dvh !important;
+    height: -webkit-fill-available !important;
     padding: 0 !important;
     margin: 0 !important;
+    top: 0 !important;
     left: 0 !important;
     right: 0 !important;
-    top: 0 !important;
     bottom: 0 !important;
-    justify-content: flex-start !important;
     align-items: stretch !important;
+    justify-content: flex-start !important;
     background: #020714 !important;
+    overflow: hidden !important;
 }
 
-/* Card mentok kiri kanan, tapi aman dari notch & home indicator */
+/* Card full layar mentok */
 .cyber-modal-card {
     width: 100vw !important;
     max-width: 100vw !important;
     min-width: 100vw !important;
+    height: 100dvh !important;
     min-height: 100dvh !important;
-    height: auto !important;
+    max-height: 100dvh !important;
+    height: -webkit-fill-available !important;
+    min-height: -webkit-fill-available !important;
     margin: 0 !important;
     border: none !important;
     border-radius: 0 !important;
-    box-shadow: none !important;
-    /* atas kasih jarak buat notch XR, bawah full */
-    padding-top: 0 !important;
-    padding-bottom: calc(env(safe-area-inset-bottom, 34px) + 10px) !important;
     padding-left: 16px !important;
     padding-right: 16px !important;
-    box-sizing: border-box !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
     overflow-y: auto !important;
     overflow-x: hidden !important;
+    -webkit-overflow-scrolling: touch !important;
 }
 
-/* Header tombol X - KHUSUS FIX iPhone XR */
+/* HEADER X - NAIKIN LAGI Dikit (fix terlalu bawah) */
 .cyber-modal-card > div:first-child {
-    display: flex !important;
-    justify-content: flex-end !important;
-    width: 100% !important;
-    flex-shrink: 0 !important;
     position: sticky !important;
     top: 0 !important;
-    z-index: 999 !important;
-    background: rgba(3, 14, 38, 0.96) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    /* Jarak aman dari poni notch */
-    padding-top: max(12px, env(safe-area-inset-top, 44px)) !important;
-    padding-bottom: 10px !important;
-    padding-right: max(12px, env(safe-area-inset-right, 0px)) !important;
+    z-index: 9999 !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    width: calc(100% + 32px) !important;
     margin: 0 -16px !important;
+    /* Naikin: dulu 50px, sekarang 34px */
+    padding-top: calc(env(safe-area-inset-top, 20px) + 6px) !important;
+    padding-bottom: 8px !important;
     padding-left: 16px !important;
     padding-right: 16px !important;
-    width: calc(100% + 32px) !important;
+    background: rgba(2, 7, 20, 0.92) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    flex-shrink: 0 !important;
 }
 
 .close-cyber-modal {
-    width: 44px !important;
-    height: 44px !important;
-    min-width: 44px !important;
-    min-height: 44px !important;
-    font-size: 1.3rem !important;
-    background: rgba(0, 240, 255, 0.15) !important;
-    border: 1.5px solid rgba(0, 240, 255, 0.6) !important;
-    margin-top: 0 !important;
-    /* Pastikan tidak ketutup status bar */
+    width: 42px !important;
+    height: 42px !important;
+    min-width: 42px !important;
+    min-height: 42px !important;
+    margin: 0 !important;
     position: relative !important;
-    z-index: 1000 !important;
+    z-index: 10000 !important;
 }
 
-/* Judul di bawah X kasih jarak dikit */
-.cyber-modal-card > div:nth-child(2) {
-    margin-top: 6px !important;
-    padding-top: 0 !important;
-}
-
-/* Content full lebar kiri kanan */
-.full-app-content,
-.dashboard,
-.card-hero,
-.analytics-card,
-.cyber-input-form,
-.glass-control-panel,
-.sync-status-badge {
+/* Content */
+.full-app-content {
+    flex: 1 !important;
     width: 100% !important;
     max-width: 100% !important;
+    padding-bottom: calc(env(safe-area-inset-bottom, 20px) + 90px) !important;
+    padding-top: 4px !important;
 }
 
-.full-app-content {
-    padding-bottom: calc(120px + env(safe-area-inset-bottom, 34px)) !important;
+/* Bawah full - hapus gap hitam */
+.cyber-modal-card::after {
+    content: "" !important;
+    display: block !important;
+    height: env(safe-area-inset-bottom, 0px) !important;
+    flex-shrink: 0 !important;
+    background: transparent !important;
 }
 
-/* Kolom tetap lega */
-.datetime-group {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 14px !important;
-}
-
-/* iOS specific - XR, 11, 12, 13, 14 semua aman */
+/* iPhone XR specific tuning - naikin dari 50px ke 38px */
 @supports (-webkit-touch-callout: none) {
+  html, body {
+    height: -webkit-fill-available !important;
+    min-height: -webkit-fill-available !important;
+  }
   .cyber-modal-overlay {
-    padding-top: env(safe-area-inset-top, 44px) !important;
-    padding-bottom: env(safe-area-inset-bottom, 34px) !important;
+    min-height: -webkit-fill-available !important;
   }
   .cyber-modal-card {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-height: calc(100dvh - env(safe-area-inset-top, 44px) - env(safe-area-inset-bottom, 34px)) !important;
-    min-height: 100dvh !important;
-    padding-top: 0 !important;
-    border: none !important;
-    border-radius: 0 !important;
+    min-height: -webkit-fill-available !important;
   }
   .cyber-modal-card > div:first-child {
-    padding-top: calc(env(safe-area-inset-top, 44px) + 8px) !important;
+    padding-top: max(10px, env(safe-area-inset-top, 24px)) !important;
   }
 }
 
-/* Khusus iPhone XR 828x1792 & 414x896 viewport */
-@media only screen 
-  and (device-width: 414px) 
-  and (device-height: 896px) 
-  and (-webkit-device-pixel-ratio: 2) {
-    .cyber-modal-card > div:first-child {
-        padding-top: 50px !important; /* XR notch tinggi */
-    }
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2),
+       only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) {
+  .cyber-modal-card > div:first-child {
+    padding-top: 32px !important; /* XR: tadinya 50px, sekarang 32px - naikin 18px */
+  }
+  .full-app-content {
+    padding-bottom: 80px !important;
+  }
 }
-@media only screen 
-  and (device-width: 414px) 
-  and (device-height: 896px) 
-  and (-webkit-device-pixel-ratio: 3) {
-    .cyber-modal-card > div:first-child {
-        padding-top: 50px !important;
-    }
+
+/* Tetap full lebar kiri kanan + no border */
+.container, .dashboard, .card-hero, .analytics-card, .cyber-input-form {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+.datetime-group {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 14px !important;
 }
 </style>
 </head>
