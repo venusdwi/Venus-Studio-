@@ -1005,7 +1005,97 @@ input[type="time"]::-webkit-inner-spin-button {
 }
 </style>
 
+
+<style>
+/* FULL BLEED - Lebarin mentok kiri kanan */
+html, body {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+}
+.cyber-modal-overlay,
+.music-modal-overlay,
+.personal-modal-overlay,
+.debt-modal-overlay {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    justify-content: flex-start !important;
+    align-items: stretch !important;
+}
+
+.cyber-modal-card {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 100vw !important;
+    min-height: 100dvh !important;
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    outline: none !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+}
+
+/* Semua inner card full lebar */
+.container,
+.analytics-card,
+.dashboard,
+.card-hero,
+.cyber-input-form,
+.full-app-content,
+.glass-control-panel {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+/* Grid saldo biar tetap lega */
+.dashboard {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+}
+
+/* Form kolom diperlebar maksimal */
+.datetime-group {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 14px !important;
+    width: 100% !important;
+}
+.form-group,
+.form-group input,
+.custom-select-box,
+.datetime-custom-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* Hilangkan border luar sesuai request awal */
+.cyber-modal-card,
+.music-modal-card,
+.personal-modal-card,
+.debt-modal-card,
+.view-debt-card {
+    border: none !important;
+}
+
+@supports (-webkit-touch-callout: none) {
+  .cyber-modal-card {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-height: 100dvh !important;
+    border: none !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+  }
+}
+</style>
 </head>
+
 <body>
 
 <div class="splash-screen-overlay active" id="splashScreenOverlay">
