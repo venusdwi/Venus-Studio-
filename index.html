@@ -1142,102 +1142,169 @@ input[type="time"]::-webkit-inner-spin-button {
 }
 </style>
 
-<!-- FIX: FULLSCREEN DARK BLUE BACKGROUND #020714 -->
-<style id="fix-full-dark-blue">
+<!-- FIX KHUSUS IPHONE XR - HALAMAN KECIL -->
+<style id="fix-iphone-xr-kecil">
+  /* RESET TOTAL UNTUK IPHONE XR DAN SEMUA IPHONE */
   html {
-    background: #020714 !important;
-    background-color: #020714 !important;
-    min-height: 100% !important;
-    min-height: -webkit-fill-available !important;
+    -webkit-text-size-adjust: 100% !important;
+    text-size-adjust: 100% !important;
   }
+  
   html, body {
     background: #020714 !important;
     background-color: #020714 !important;
     width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
     height: 100% !important;
+    min-height: 100vh !important;
     min-height: 100dvh !important;
-    height: 100dvh !important;
-    height: -webkit-fill-available !important;
     min-height: -webkit-fill-available !important;
     margin: 0 !important;
     padding: 0 !important;
     overflow-x: hidden !important;
-  }
-  body {
+    overflow-y: hidden !important;
     position: fixed !important;
     inset: 0 !important;
-    background: #020714 !important;
-    padding-top: env(safe-area-inset-top) !important;
-    padding-bottom: env(safe-area-inset-bottom) !important;
-    padding-left: env(safe-area-inset-left) !important;
-    padding-right: env(safe-area-inset-right) !important;
   }
 
-  /* App containers */
-  #app, .full-app-container, .full-app-content, .app-container, .dashboard, .main-content, .splash-screen-overlay, .pin-screen-overlay {
-    background: #020714 !important;
-    background-color: #020714 !important;
+  /* iPhone XR spesifik 414x896 */
+  @media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2),
+         only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3),
+         only screen and (width: 414px) and (height: 896px),
+         only screen and (max-width: 414px) {
+    
+    html, body {
+      width: 100vw !important;
+      height: 100vh !important;
+      height: 100dvh !important;
+      height: -webkit-fill-available !important;
+    }
+
+    .cyber-modal-overlay,
+    .music-modal-overlay,
+    .personal-modal-overlay,
+    .debt-modal-overlay,
+    .view-debt-overlay,
+    .popup-overlay {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      width: 100vw !important;
+      max-width: 100vw !important;
+      min-width: 100vw !important;
+      height: 100vh !important;
+      height: 100dvh !important;
+      min-height: 100vh !important;
+      min-height: 100dvh !important;
+      min-height: -webkit-fill-available !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: flex-start !important;
+      align-items: stretch !important;
+      background: #020714 !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      border-radius: 0 !important;
+      overflow: hidden !important;
+    }
+
+    .cyber-modal-card,
+    .music-modal-card,
+    .personal-modal-card,
+    .debt-modal-card,
+    .view-debt-card {
+      width: 100vw !important;
+      max-width: 100vw !important;
+      min-width: 100vw !important;
+      min-width: 100% !important;
+      height: 100vh !important;
+      height: 100dvh !important;
+      min-height: 100vh !important;
+      min-height: 100dvh !important;
+      max-height: 100vh !important;
+      max-height: 100dvh !important;
+      height: -webkit-fill-available !important;
+      min-height: -webkit-fill-available !important;
+      margin: 0 !important;
+      padding-top: calc(12px + env(safe-area-inset-top, 0px)) !important;
+      padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)) !important;
+      padding-left: 16px !important;
+      padding-right: 16px !important;
+      border: none !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      background: #020714 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      flex: 1 1 auto !important;
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+      -webkit-overflow-scrolling: touch !important;
+    }
+
+    .cyber-modal-card > div:first-child {
+      padding-top: calc(8px + env(safe-area-inset-top, 0px)) !important;
+      background: #020714 !important;
+    }
+
+    .full-app-content,
+    .personal-app-content,
+    .debt-app-content {
+      width: 100% !important;
+      max-width: 100% !important;
+      flex: 1 1 auto !important;
+      min-height: 0 !important;
+      padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px)) !important;
+    }
   }
 
-  /* CYBER VAULT SYSTEM - FULLSCREEN FIX */
+  /* LANDSCAPE FIX - Kalau iPhone XR diputar, jangan jadi kecil di tengah */
+  @media screen and (orientation: landscape) and (max-height: 500px) {
+    .cyber-modal-overlay {
+      width: 100vw !important;
+      height: 100vh !important;
+      height: 100dvh !important;
+      padding: 0 !important;
+      align-items: stretch !important;
+      justify-content: flex-start !important;
+    }
+    .cyber-modal-card {
+      width: 100vw !important;
+      max-width: 100vw !important;
+      height: 100vh !important;
+      height: 100dvh !important;
+      border-radius: 0 !important;
+      margin: 0 !important;
+    }
+  }
+
+  /* GLOBAL OVERRIDE - PASTIKAN FULLSCREEN DI SEMUA DEVICE */
   .cyber-modal-overlay {
     background: #020714 !important;
-    background-color: #020714 !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
     width: 100vw !important;
     max-width: 100vw !important;
-    min-width: 100vw !important;
     height: 100dvh !important;
-    min-height: 100dvh !important;
-    max-height: 100dvh !important;
-    height: -webkit-fill-available !important;
     min-height: -webkit-fill-available !important;
     inset: 0 !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    margin: 0 !important;
     padding: 0 !important;
-    border-radius: 0 !important;
-    align-items: stretch !important;
-    justify-content: flex-start !important;
   }
 
   .cyber-modal-card {
     background: #020714 !important;
-    background-color: #020714 !important;
     width: 100vw !important;
     max-width: 100vw !important;
     min-width: 100vw !important;
     height: 100dvh !important;
-    min-height: 100dvh !important;
-    max-height: 100dvh !important;
-    height: -webkit-fill-available !important;
     min-height: -webkit-fill-available !important;
-    margin: 0 !important;
+    max-height: 100dvh !important;
     border: none !important;
     border-radius: 0 !important;
-    box-shadow: none !important;
-    padding-left: 16px !important;
-    padding-right: 16px !important;
-    padding-top: max(12px, env(safe-area-inset-top)) !important;
-    padding-bottom: max(12px, env(safe-area-inset-bottom)) !important;
-    overflow-y: auto !important;
-  }
-
-  .cyber-modal-card > div:first-child,
-  .cyber-modal-card > div:nth-child(2) {
-    background: #020714 !important;
-    background-color: #020714 !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-  }
-
-  /* Hilangkan blur overlay yang bikin kesan hitam */
-  .cyber-modal-overlay.active {
-    background: #020714 !important;
+    margin: 0 !important;
   }
 </style>
 
