@@ -1,6 +1,16 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" style="background:#0A4DA3">
 <head>
+
+<style id="critical-pwa-splash">
+html,body{background:#0A4DA3 !important;margin:0;padding:0}
+body{background:linear-gradient(180deg,#0A4DA3 0%,#0D3A8A 40%,#061A3A 100%) !important}
+.splash-screen-overlay{position:fixed;inset:0;background:#0A4DA3 !important;background:linear-gradient(180deg,#0A4DA3 0%,#082a6b 40%,#061A3A 100%) !important;z-index:99999;display:flex;flex-direction:column;justify-content:center;align-items:center}
+@media (display-mode: standalone){
+  html,body{background:#0A4DA3 !important}
+}
+</style>
+
 
 <meta name="theme-color" content="#0A4DA3">
 <meta name="background-color" content="#0A4DA3">
@@ -43,7 +53,7 @@ button{cursor:pointer}
 @keyframes splashGlow{0%{opacity:0.8; transform:none}100%{opacity:1; transform:scale(1.05)}}
 .splash-screen-overlay.hidden{opacity:0;pointer-events:none;transform:none;transition:opacity 0.6s ease}
 /* ===== VENUS STUDIO v94 - MODERN SPLASH ANIMATIONS ===== */
-.splash-logo-glow{width:96px;height:96px;background:white;border-radius:28px;display:flex;align-items:center;justify-content:center;box-shadow:0 20px 60px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.1) inset;animation:logoModernEntry 1.4s cubic-bezier(0.16,1,0.3,1) both, logoFloatModern 4.5s ease-in-out 1.4s infinite;position:relative;will-change:transform,filter}
+.splash-logo-glow{width:96px;height:96px;background:transparent;border-radius:28px;display:flex;align-items:center;justify-content:center;box-shadow:0 20px 60px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.1) inset;animation:logoModernEntry 1.4s cubic-bezier(0.16,1,0.3,1) both, logoFloatModern 4.5s ease-in-out 1.4s infinite;position:relative;will-change:transform,filter}
 .splash-logo-glow::before{content:'';position:absolute;inset:-18px;border-radius:38px;background:radial-gradient(circle, rgba(255,255,255,0.18) 0%, transparent 70%);animation:logoHaloPulse 3s ease-in-out 1s infinite;z-index:-1}
 .splash-logo-glow::after{content:'';position:absolute;inset:0;border-radius:28px;background:linear-gradient(115deg, rgba(255,255,255,0.35) 0%, transparent 35%, transparent 65%, rgba(255,255,255,0.15) 100%);background-size:200% 100%;animation:logoShineSweep 4s ease 1.6s both;pointer-events:none}
 @keyframes logoModernEntry{0%{transform:scale(0.25) rotate(-20deg) translateY(50px);opacity:0;filter:blur(22px) brightness(0.6)}40%{opacity:1;filter:blur(0px) brightness(1.3)}70%{transform:scale(1.08) rotate(2.5deg) translateY(-8px)}100%{transform:none rotate(0deg) translateY(0);opacity:1;filter:blur(0) brightness(1)}}
@@ -127,7 +137,7 @@ button{cursor:pointer}
 .setting-left{display:flex;align-items:center;gap:10px}
 .setting-icon{width:36px;height:36px;background:var(--primary-light);color:var(--primary);border-radius:10px;display:flex;align-items:center;justify-content:center}
 .switch{width:44px;height:26px;background:var(--border);border-radius:999px;position:relative;transition:.2s;cursor:pointer}
-.switch.on{background:var(--primary)}.switch::after{content:'';position:absolute;left:3px;top:3px;width:20px;height:20px;background:white;border-radius:50%;transition:.2s}
+.switch.on{background:var(--primary)}.switch::after{content:'';position:absolute;left:3px;top:3px;width:20px;height:20px;background:transparent;border-radius:50%;transition:.2s}
 .switch.on::after{left:21px}
 .personal-modal-overlay,.debt-modal-overlay,.music-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.42);backdrop-filter:blur(10px);z-index:80;display:none;align-items:flex-end;justify-content:center}
 .personal-modal-overlay.active,.debt-modal-overlay.active,.music-modal-overlay.active,#monthlyHistoryModalOverlay.active{display:flex}
@@ -440,7 +450,7 @@ window.addEventListener('unhandledrejection', function(e){
 @keyframes eqPulse{0%,100%{transform:scaleY(0.5)}50%{transform:scaleY(1)}}
 </style>
 </head>
-<body>
+<body style="background:#0A4DA3">
 
 <div class="splash-screen-overlay active" id="splashScreenOverlay" style="display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:0;overflow:hidden">
   <!-- TOP: LOGO UP - CENTERED -->
@@ -675,7 +685,7 @@ window.addEventListener('unhandledrejection', function(e){
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><div style="width:28px;height:28px;border-radius:8px;background:#FEF2F2;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#DC2626" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div><div style="font-weight:700;font-size:12px">Keamanan</div><div style="font-size:10px;color:#64748B">PIN & kunci</div></div></div>
         <div style="display:grid;gap:8px">
           <button id="btnChangePin" class="bank-btn secondary" style="height:38px;font-size:11px;display:flex;align-items:center;justify-content:space-between;padding:0 12px"><span style="display:flex;align-items:center;gap:8px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Ganti PIN</span><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
-          <div class="setting-item" style="margin:0;border:none;padding:8px 0;border-bottom:1px solid #F1F5F9"><div class="setting-left"><div class="setting-icon" style="background:#F8FAFC"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0A4DA3" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div style="font-weight:600;font-size:11px">Kunci Otomatis</div><div style="font-size:9px;color:#94A3B8">Kunci saat tidak dipakai</div></div></div><select id="autoLockSelect" style="border:1px solid #E2E8F0;border-radius:8px;padding:4px 8px;font-size:10px;background:white;min-width:90px"><option value="30">30 detik</option><option value="60">1 menit</option><option value="300">5 menit</option><option value="0">Mati</option></select></div>
+          <div class="setting-item" style="margin:0;border:none;padding:8px 0;border-bottom:1px solid #F1F5F9"><div class="setting-left"><div class="setting-icon" style="background:#F8FAFC"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0A4DA3" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div style="font-weight:600;font-size:11px">Kunci Otomatis</div><div style="font-size:9px;color:#94A3B8">Kunci saat tidak dipakai</div></div></div><select id="autoLockSelect" style="border:1px solid #E2E8F0;border-radius:8px;padding:4px 8px;font-size:10px;background:transparent;min-width:90px"><option value="30">30 detik</option><option value="60">1 menit</option><option value="300">5 menit</option><option value="0">Mati</option></select></div>
           <div class="setting-item" style="margin:0;border:1px solid #F1F5F9;border-radius:10px;padding:10px"><div class="setting-left"><div style="width:28px;height:28px;border-radius:8px;background:#F8FAFC;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0A4DA3" stroke-width="1.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><div style="font-weight:600;font-size:11px">Biometrik</div><div style="font-size:9px;color:#94A3B8">Sidik jari / Face ID</div></div></div><div class="switch" id="biometricSwitch"></div></div>
         </div>
       </div>
@@ -3017,12 +3027,12 @@ setTimeout(function(){ try{ initPdfButtonsV52(); }catch(e){ console.log('initPdf
 
 
 <div id="exportMonthModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);backdrop-filter:blur(8px);z-index:9999;align-items:flex-end;justify-content:center">
-  <div class="bank-card" style="width:100%;max-width:400px;border-radius:20px 20px 0 0;padding:0;overflow:hidden;max-height:82vh;display:flex;flex-direction:column;background:white;box-shadow:0 -10px 40px rgba(0,0,0,0.15)">
+  <div class="bank-card" style="width:100%;max-width:400px;border-radius:20px 20px 0 0;padding:0;overflow:hidden;max-height:82vh;display:flex;flex-direction:column;background:transparent;box-shadow:0 -10px 40px rgba(0,0,0,0.15)">
     <div style="padding:16px 16px 10px 16px;border-bottom:1px solid #F1F5F9;background:white">
       <div style="width:32px;height:4px;background:#E2E8F0;border-radius:99px;margin:0 auto 10px"></div>
       <div style="display:flex;justify-content:space-between;align-items:center">
         <div style="display:flex;gap:8px;align-items:center"><div style="width:28px;height:28px;border-radius:8px;background:#0A4DA3;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div><div style="font-weight:700;font-size:13px;color:#0F172A">Export PDF</div><div style="font-size:10px;color:#94A3B8">Pilih periode</div></div></div>
-        <button id="closeExportMonthModal" style="width:28px;height:28px;border-radius:8px;border:1px solid #E2E8F0;background:white;display:flex;align-items:center;justify-content:center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+        <button id="closeExportMonthModal" style="width:28px;height:28px;border-radius:8px;border:1px solid #E2E8F0;background:transparent;display:flex;align-items:center;justify-content:center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
       </div>
       <div id="exportFileInfo" style="margin-top:10px;background:#F8FAFC;border:1px solid #F1F5F9;padding:10px 12px;border-radius:10px;font-size:11px;color:#0F172A">Pilih periode</div>
     </div>
@@ -3047,7 +3057,7 @@ setTimeout(function(){ try{ initPdfButtonsV52(); }catch(e){ console.log('initPdf
     <img id="proofFullImage" style="max-width:100%;max-height:100%;border-radius:12px;object-fit:contain;touch-action:pinch-zoom" alt="Bukti Full">
   </div>
   <div style="position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:2">
-    <button id="btnDownloadProof" style="background:white;color:#0A4DA3;border:none;padding:8px 16px;border-radius:999px;font-size:11px;font-weight:800">Download</button>
+    <button id="btnDownloadProof" style="background:transparent;color:#0A4DA3;border:none;padding:8px 16px;border-radius:999px;font-size:11px;font-weight:800">Download</button>
     <button id="btnCloseProofBottom" style="background:rgba(255,255,255,0.15);color:white;border:1px solid rgba(255,255,255,0.2);padding:8px 16px;border-radius:999px;font-size:11px;font-weight:800">Tutup</button>
   </div>
 </div>
@@ -3074,7 +3084,7 @@ setTimeout(function(){ try{ initPdfButtonsV52(); }catch(e){ console.log('initPdf
 </div>
 
 <div id="deleteAllPinConfirmModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);backdrop-filter:blur(12px);z-index:99996;align-items:center;justify-content:center;padding:20px">
-  <div style="background:white;border-radius:20px;width:100%;max-width:360px;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,0.25)">
+  <div style="background:transparent;border-radius:20px;width:100%;max-width:360px;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,0.25)">
     <div style="width:48px;height:48px;background:#FEF2F2;color:#DC2626;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
     <div style="text-align:center;font-weight:900;font-size:15px;margin-bottom:4px">Konfirmasi Hapus</div>
     <div style="text-align:center;font-size:11px;color:#64748B;margin-bottom:14px">Masukkan PIN untuk konfirmasi hapus semua data</div>
@@ -3517,7 +3527,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     <img id="proofFullImage" style="max-width:100%;max-height:100%;border-radius:12px;object-fit:contain;touch-action:pinch-zoom" alt="Bukti Full">
   </div>
   <div style="position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:2">
-    <button id="btnDownloadProof" style="background:white;color:#0A4DA3;border:none;padding:8px 16px;border-radius:999px;font-size:11px;font-weight:800">Download</button>
+    <button id="btnDownloadProof" style="background:transparent;color:#0A4DA3;border:none;padding:8px 16px;border-radius:999px;font-size:11px;font-weight:800">Download</button>
     <button id="btnCloseProofBottom" style="background:rgba(255,255,255,0.15);color:white;border:1px solid rgba(255,255,255,0.2);padding:8px 16px;border-radius:999px;font-size:11px;font-weight:800">Tutup</button>
   </div>
 </div>
@@ -3544,7 +3554,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 </div>
 
 <div id="deleteAllPinConfirmModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);backdrop-filter:blur(12px);z-index:99996;align-items:center;justify-content:center;padding:20px">
-  <div style="background:white;border-radius:20px;width:100%;max-width:360px;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,0.25)">
+  <div style="background:transparent;border-radius:20px;width:100%;max-width:360px;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,0.25)">
     <div style="width:48px;height:48px;background:#FEF2F2;color:#DC2626;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
     <div style="text-align:center;font-weight:900;font-size:15px;margin-bottom:4px">Konfirmasi Hapus</div>
     <div style="text-align:center;font-size:11px;color:#64748B;margin-bottom:14px">Masukkan PIN untuk konfirmasi hapus semua data</div>
