@@ -487,110 +487,175 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<style id="ios-xr-v116-blend">
-/* Android aman - hanya .ios-device */
-/* Saat main app aktif, body jadi putih (var(--card)) biar strip bawah nyatu sama nav putih */
-.ios-device.main-active, .ios-device.main-active body{
-  background: var(--card) !important;
-  background-color: var(--card) !important;
+
+<style id="ios-xr-v127-full-safe">
+/* ===== v127 iPhone XR - FULL SAFE AREA, Android TIDAK DIUBAH ===== */
+/* Hanya .ios-device, jadi Android 100% aman, tidak ada perubahan */
+.ios-device, .ios-device body{
+  /* Pakai env() asli iPhone, bukan angka 34px hardcode */
+  /* iPhone XR portrait: top 44px (notch), bottom 34px (home indicator) */
+  /* iPhone XR landscape: left 44px, right 44px, bottom 21px */
+  background: var(--card);
 }
+/* SPLASH - Full gradasi, nutup semua sisi termasuk notch + home indicator + kiri/kanan landscape */
+.ios-device #splashScreenOverlay{
+  position: fixed !important;
+  /* Tarik keluar sejauh safe-area, jadi gradasi nutup strip biru polos */
+  top: calc(-1 * env(safe-area-inset-top, 0px)) !important;
+  left: calc(-1 * env(safe-area-inset-left, 0px)) !important;
+  right: calc(-1 * env(safe-area-inset-right, 0px)) !important;
+  bottom: calc(-1 * env(safe-area-inset-bottom, 0px)) !important;
+  width: auto !important;
+  height: auto !important;
+  min-height: 100dvh !important;
+  /* Padding dalam ditambah safe-area, jadi konten tidak ketutup notch/home indicator */
+  padding-top: calc(env(safe-area-inset-top, 0px) + 20px) !important;
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 20px) !important;
+  padding-left: calc(env(safe-area-inset-left, 0px) + 20px) !important;
+  padding-right: calc(env(safe-area-inset-right, 0px) + 20px) !important;
+  /* Gradasi penuh, bukan biru polos #0A4DA3 */
+  background: linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%) !important;
+  background-size: cover !important;
+  overflow: hidden !important;
+}
+/* TAP HERE di splash - naik di atas garis home indicator */
+.ios-device #splashScreenOverlay .tap-here-btn,
+.ios-device #splashScreenOverlay #btnTapHere{
+  margin-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px) !important;
+}
+/* PIN ACCESS - sama, nutup strip biru polos, keypad naik di atas home indicator */
+.ios-device .pin-screen-overlay,
+.ios-device .personal-pin-overlay,
+.ios-device .debt-pin-overlay{
+  position: fixed !important;
+  top: calc(-1 * env(safe-area-inset-top, 0px)) !important;
+  left: calc(-1 * env(safe-area-inset-left, 0px)) !important;
+  right: calc(-1 * env(safe-area-inset-right, 0px)) !important;
+  bottom: calc(-1 * env(safe-area-inset-bottom, 0px)) !important;
+  width: auto !important;
+  height: auto !important;
+  min-height: 100dvh !important;
+  padding-top: calc(env(safe-area-inset-top, 0px) + 20px) !important;
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 20px) !important;
+  padding-left: calc(env(safe-area-inset-left, 0px) + 20px) !important;
+  padding-right: calc(env(safe-area-inset-right, 0px) + 20px) !important;
+  background: var(--bg) !important;
+}
+/* PIN card - jangan nempel ke home indicator */
+.ios-device .pin-card{
+  margin-bottom: calc(env(safe-area-inset-bottom, 0px) + 8px) !important;
+  margin-top: calc(env(safe-area-inset-top, 0px)) !important;
+}
+/* MAIN APP - header naik dari notch, konten tidak ketutup */
 .ios-device #mainAppContainer{
   transform: none !important;
   transition: none !important;
   position: fixed !important;
   inset: 0 !important;
-  top: 0 !important; bottom: 0 !important;
+  width: 100% !important;
   height: 100dvh !important;
   min-height: 100dvh !important;
+  /* Biar body di belakang tidak keliatan biru polos */
+  background: var(--bg) !important;
 }
-.ios-device #mainAppContainer.active{ transform: none !important; }
 .ios-device .bank-header{
-  padding-top: 44px !important;
-  height: 98px !important;
+  padding-top: calc(env(safe-area-inset-top, 0px) + 8px) !important;
+  height: calc(62px + env(safe-area-inset-top, 0px)) !important;
+  min-height: calc(62px + env(safe-area-inset-top, 0px)) !important;
+  padding-left: calc(env(safe-area-inset-left, 0px) + 18px) !important;
+  padding-right: calc(env(safe-area-inset-right, 0px) + 18px) !important;
   align-items: flex-end !important;
-  padding-bottom: 6px !important;
+  padding-bottom: 8px !important;
 }
-/* Bottom nav - background putih + extend 34px ke bawah via ::after biar nutup strip */
+/* BOTTOM NAV - tap naik di atas garis pindah aplikasi (home indicator) + kiri/kanan landscape */
 .ios-device .bottom-nav{
   position: fixed !important;
   left: 0 !important; right: 0 !important; bottom: 0 !important;
   width: 100% !important;
-  height: 102px !important;
-  min-height: 102px !important;
-  padding-top: 10px !important;
-  padding-bottom: 28px !important;
-  align-items: flex-end !important;
+  /* Tinggi = 78px + safe-area bawah, jadi tombol tidak ketutup garis */
+  height: calc(78px + env(safe-area-inset-bottom, 0px)) !important;
+  min-height: calc(78px + env(safe-area-inset-bottom, 0px)) !important;
+  padding-top: 8px !important;
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 8px) !important;
+  padding-left: calc(env(safe-area-inset-left, 0px) + 4px) !important;
+  padding-right: calc(env(safe-area-inset-right, 0px) + 4px) !important;
+  align-items: flex-start !important;
   background: var(--card) !important;
   z-index: 9999 !important;
+  /* Hapus ::after lama yang bikin strip */
 }
 .ios-device .bottom-nav::after{
-  content: '';
-  position: absolute;
-  left: 0; right: 0; bottom: -34px;
-  height: 34px;
-  background: var(--card) !important;
-  z-index: -1;
+  display: none !important;
 }
-.ios-device .bank-content{ padding-bottom: 144px !important; }
-/* Splash tetap full biru */
-.ios-device #splashScreenOverlay{
-  position: fixed !important;
-  top: 0 !important; left: 0 !important; right: 0 !important; bottom: -34px !important;
-  height: calc(100dvh + 34px) !important;
-  padding-bottom: 34px !important;
-  background: linear-gradient(180deg,#0A4DA3 0%,#082a6b 40%,#061A3A 100%) !important;
+/* Konten utama - padding bawah ditambah safe-area, jadi tombol terakhir tidak ketutup nav */
+.ios-device .bank-content{
+  padding-bottom: calc(144px + env(safe-area-inset-bottom, 0px)) !important;
+  padding-left: calc(env(safe-area-inset-left, 0px) + 0px) !important;
+  padding-right: calc(env(safe-area-inset-right, 0px) + 0px) !important;
+}
+/* Semua modal bottom-sheet di iPhone - naik di atas home indicator */
+.ios-device .personal-modal-overlay,
+.ios-device .debt-modal-overlay,
+.ios-device .music-modal-overlay{
+  padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+}
+/* Saat splash aktif, body ikut gradasi (biar tidak ada strip biru polos di belakang) */
+.ios-device.splash-active, .ios-device.splash-active body{
+  background: linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%) !important;
+  background-color: #061A3A !important;
+}
+/* Saat PIN aktif, body ikut warna PIN (light) */
+.ios-device.pin-active, .ios-device.pin-active body{
+  background: var(--bg) !important;
+  background-color: var(--bg) !important;
+}
+/* Saat main aktif, body putih nyatu sama nav */
+.ios-device.main-active, .ios-device.main-active body{
+  background: var(--card) !important;
+  background-color: var(--card) !important;
 }
 </style>
-<script id="ios-v116">
+<script id="ios-v127">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-  if(!isIOS) return;
+  if(!isIOS) return; // Android: stop, tidak ada perubahan sama sekali
   document.documentElement.classList.add('ios-device');
+  document.documentElement.classList.add('splash-active');
   var vp = document.querySelector('meta[name="viewport"]');
   if(vp && vp.content.indexOf('viewport-fit') === -1){ vp.content = vp.content + ', viewport-fit=cover'; }
-  function apply(){
-    var main = document.getElementById('mainAppContainer');
+  function syncBodyBg(){
     var splash = document.getElementById('splashScreenOverlay');
-    var header = document.querySelector('.bank-header');
-    var nav = document.querySelector('.bottom-nav');
-    if(main){
-      main.style.setProperty('transform','none','important');
-      main.style.setProperty('height','100dvh','important');
-    }
-    // Saat main aktif, body jadi putih biar strip bawah nyatu sama nav putih (bukan biru)
-    if(main && main.classList.contains('active')){
-      document.documentElement.classList.add('main-active');
-      document.body.classList.add('main-active');
+    var pin = document.getElementById('pinScreenOverlay');
+    var main = document.getElementById('mainAppContainer');
+    var html = document.documentElement;
+    html.classList.remove('splash-active','pin-active','main-active');
+    // Splash masih keliatan?
+    if(splash && splash.style.display !== 'none' && !splash.classList.contains('hidden')){
+      html.classList.add('splash-active');
+      document.body.style.setProperty('background','linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%)','important');
+      document.body.style.setProperty('background-color','#061A3A','important');
+    } else if(pin && pin.classList.contains('active')){
+      html.classList.add('pin-active');
+      document.body.style.setProperty('background','var(--bg)','important');
+    } else if(main && main.classList.contains('active')){
+      html.classList.add('main-active');
       document.body.style.setProperty('background','var(--card)','important');
-      document.documentElement.style.setProperty('background','var(--card)','important');
-    } else {
-      document.body.style.setProperty('background','#0A4DA3','important');
     }
-    if(header){
-      header.style.setProperty('padding-top','44px','important');
-      header.style.setProperty('height','98px','important');
-      header.style.setProperty('align-items','flex-end','important');
-    }
-    if(nav){
-      if(nav.parentElement !== document.body){ document.body.appendChild(nav); }
-      nav.style.setProperty('position','fixed','important');
-      nav.style.setProperty('bottom','0','important');
-      nav.style.setProperty('height','102px','important');
-      nav.style.setProperty('padding-bottom','28px','important');
-      nav.style.setProperty('background','var(--card)','important');
-    }
-    if(splash){
-      splash.style.setProperty('bottom','-34px','important');
-      splash.style.setProperty('height','calc(100dvh + 34px)','important');
+    // Main container tetap 100dvh
+    if(main){
+      main.style.setProperty('height','100dvh','important');
+      main.style.setProperty('transform','none','important');
     }
   }
-  if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', apply); } else { apply(); }
-  setTimeout(apply, 500); setTimeout(apply, 1500);
-  var obs = new MutationObserver(apply);
-  var mainEl = document.getElementById('mainAppContainer');
-  if(mainEl){ obs.observe(mainEl, {attributes:true, attributeFilter:['class']}); }
+  // Jalankan terus biar saat pindah Splash -> PIN -> Home, warna body ikut ganti
+  setInterval(syncBodyBg, 400);
+  document.addEventListener('click', function(){ setTimeout(syncBodyBg, 100); }, true);
+  window.addEventListener('resize', syncBodyBg);
+  window.addEventListener('orientationchange', function(){ setTimeout(syncBodyBg, 300); });
+  syncBodyBg();
 })();
 </script>
+
 
 
 <style id="laporan-amount-fit">
@@ -2273,8 +2338,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }
   const btnDeleteProof=document.getElementById('btnDeleteProof');
   if(btnDeleteProof){
-    btnDeleteProof.addEventListener('click', function(){
-      if(!confirm('Hapus bukti transfer ini?')) return;
+    btnDeleteProof.addEventListener('click', async function(){
+      var _okBukti = await showVenusConfirm({title:'Hapus Bukti?', message:'Bukti transfer ini akan dihapus. Transaksinya tetap ada.', confirmText:'Hapus', danger:true}); if(!_okBukti) return;
       const t=transactions.find(x=>x.id===currentDetailId);
       if(t){ t.proof=null; saveAndSync(); updateUI(); }
       const pg=document.getElementById('detailProofGroup');
@@ -2284,7 +2349,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 
   const btnDel=document.getElementById('btnDeleteTransaction');
-  if(btnDel) btnDel.addEventListener('click', ()=>{ if(!confirm('Hapus transaksi ini?')) return; transactions=transactions.filter(x=>x.id!==currentDetailId); saveAndSync(); updateUI(); const m=document.getElementById('detailTransactionModal'); if(m) m.style.display='none'; });
+  if(btnDel) btnDel.addEventListener('click', async ()=>{ 
+      var _txDel = transactions.find(x=>x.id===currentDetailId);
+      var _detailDel = _txDel ? ((_txDel.description||'') + ' • ' + formatRupiah(_txDel.amount)) : '';
+      var _okDel = await showVenusConfirm({title:'Hapus Transaksi?', message:'Transaksi ini akan dihapus permanen dan tidak bisa dikembalikan.', detail: _detailDel, confirmText:'Hapus', danger:true}); if(!_okDel) return; transactions=transactions.filter(x=>x.id!==currentDetailId); saveAndSync(); updateUI(); const m=document.getElementById('detailTransactionModal'); if(m) m.style.display='none'; });
   const btnUpd=document.getElementById('btnUpdateTransaction');
   if(btnUpd) btnUpd.addEventListener('click', ()=>{ const idx=transactions.findIndex(x=>x.id===currentDetailId); if(idx===-1) return; const amt=parseFloat(document.getElementById('editAmount')?.value.replace(/\./g,'')||'0')||0; const desc=document.getElementById('editDescription')?.value||''; const date=document.getElementById('editDate')?.value||''; const time=document.getElementById('editTime')?.value||''; transactions[idx].amount=amt; transactions[idx].description=desc; transactions[idx].date=date; transactions[idx].time=time; saveAndSync(); updateUI(); const m=document.getElementById('detailTransactionModal'); if(m) m.style.display='none'; });
 
@@ -2352,9 +2420,9 @@ function renderMusic(){
       playMusic(idx);
     });
     const delBtn=div.querySelector('[data-del]');
-    if(delBtn) delBtn.addEventListener('click', (e)=>{
+    if(delBtn) delBtn.addEventListener('click', async (e)=>{
       e.stopPropagation();
-      if(confirm('Hapus lagu '+m.name+'?')){
+      if(await showVenusConfirm({title:'Hapus Lagu?', message:'Lagu ini akan dihapus dari playlist.', detail: m.name, confirmText:'Hapus', danger:true})){
         const arr=getStoredMusic();
         arr.splice(idx,1);
         saveMusic(arr);
@@ -2416,8 +2484,8 @@ function initMusicPlayer(){
     playMusic(idx);
   });
   const btnClear=document.getElementById('btnClearMusic');
-  if(btnClear) btnClear.addEventListener('click', ()=>{
-    if(confirm('Hapus semua lagu?')){
+  if(btnClear) btnClear.addEventListener('click', async ()=>{
+    if(await showVenusConfirm({title:'Hapus Semua Lagu?', message:'Semua lagu di playlist akan dihapus.', confirmText:'Hapus Semua', danger:true})){
       saveMusic([]);
       const audio=document.getElementById('venusAudioPlayer'); if(audio){ audio.pause(); audio.src=''; }
       stopDemoTone(); currentMusicIndex=-1; renderMusic();
@@ -2604,7 +2672,7 @@ async function initBiometric(){
         const ok=await registerBiometric();
         if(ok){ toggle.classList.add('on'); if(container) container.style.display='flex'; }
       } else {
-        if(confirm('Nonaktifkan biometrik?')){
+        if(await showVenusConfirm({title:'Nonaktifkan Biometrik?', message:'Kamu harus pakai PIN lagi untuk masuk. Biometrik bisa diaktifkan lagi kapan saja.', confirmText:'Nonaktifkan', danger:false})){
           localStorage.removeItem('venus_biometric_credential');
           localStorage.setItem('venus_biometric_enabled','false');
           toggle.classList.remove('on');
@@ -3519,6 +3587,80 @@ function showVenusSuccess(tx){
 
 
 
+
+<!-- KONFIRMASI HAPUS CUSTOM v126 - Tema VENUS, bukan confirm() browser -->
+<div id="venusConfirmModal" style="display:none;position:fixed;inset:0;background:rgba(7,11,21,0.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:10001;align-items:center;justify-content:center;padding:20px">
+  <div style="background:white;width:100%;max-width:320px;border-radius:28px;padding:24px 20px 20px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,0.35);animation:venusPop 0.35s cubic-bezier(0.34,1.56,0.64,1) both">
+    <div id="venusConfirmIcon" style="width:64px;height:64px;margin:0 auto 14px;background:#FEF2F2;border-radius:50%;display:flex;align-items:center;justify-content:center">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+    </div>
+    <div id="venusConfirmTitle" style="font-weight:900;font-size:17px;color:#0F172A">Hapus Transaksi?</div>
+    <div id="venusConfirmMsg" style="font-size:12.5px;color:#64748B;line-height:1.6;margin-top:8px">Transaksi ini akan dihapus permanen dan tidak bisa dikembalikan.</div>
+    <div id="venusConfirmDetail" style="display:none;background:#F8FAFC;border-radius:14px;padding:10px 12px;margin-top:12px;font-size:12px;font-weight:700;color:#0F172A;text-align:left"></div>
+    <div style="display:flex;gap:10px;margin-top:18px">
+      <button id="venusConfirmCancel" style="flex:1;height:48px;background:#F1F5F9;color:#0F172A;border:none;border-radius:14px;font-weight:800;font-size:13px;cursor:pointer">Batal</button>
+      <button id="venusConfirmOk" style="flex:1;height:48px;background:linear-gradient(135deg,#EF4444,#DC2626);color:white;border:none;border-radius:14px;font-weight:800;font-size:13px;cursor:pointer;box-shadow:0 8px 20px rgba(239,68,68,0.3)">Hapus</button>
+    </div>
+  </div>
+</div>
+<script id="venus-confirm-system">
+// Sistem konfirmasi custom - ganti confirm() browser yang jelek
+let _venusConfirmResolve = null;
+function showVenusConfirm(opts){
+  // opts: string message OR {title, message, detail, confirmText, cancelText, danger}
+  return new Promise(function(resolve){
+    var modal = document.getElementById('venusConfirmModal');
+    var titleEl = document.getElementById('venusConfirmTitle');
+    var msgEl = document.getElementById('venusConfirmMsg');
+    var detailEl = document.getElementById('venusConfirmDetail');
+    var okBtn = document.getElementById('venusConfirmOk');
+    var cancelBtn = document.getElementById('venusConfirmCancel');
+    var iconEl = document.getElementById('venusConfirmIcon');
+    if(!modal){ resolve(false); return; }
+    var o = typeof opts === 'string' ? {message: opts} : (opts || {});
+    var title = o.title || 'Hapus?';
+    var msg = o.message || o.msg || 'Lanjutkan?';
+    var detail = o.detail || '';
+    var confirmText = o.confirmText || 'Hapus';
+    var cancelText = o.cancelText || 'Batal';
+    var isDanger = o.danger !== false; // default merah untuk hapus
+    if(titleEl) titleEl.textContent = title;
+    if(msgEl) msgEl.textContent = msg;
+    if(detailEl){
+      if(detail){ detailEl.style.display = 'block'; detailEl.textContent = detail; }
+      else { detailEl.style.display = 'none'; detailEl.textContent = ''; }
+    }
+    if(okBtn){
+      okBtn.textContent = confirmText;
+      okBtn.style.background = isDanger ? 'linear-gradient(135deg,#EF4444,#DC2626)' : 'linear-gradient(135deg,#0A4DA3,#1A6CFF)';
+      okBtn.style.boxShadow = isDanger ? '0 8px 20px rgba(239,68,68,0.3)' : '0 8px 20px rgba(10,77,163,0.3)';
+    }
+    if(cancelBtn) cancelBtn.textContent = cancelText;
+    if(iconEl){
+      iconEl.style.background = isDanger ? '#FEF2F2' : '#EFF6FF';
+      var svg = iconEl.querySelector('svg');
+      if(svg) svg.setAttribute('stroke', isDanger ? '#EF4444' : '#0A4DA3');
+    }
+    _venusConfirmResolve = resolve;
+    modal.style.display = 'flex';
+    if(navigator.vibrate) navigator.vibrate(10);
+  });
+}
+function hideVenusConfirm(result){
+  var modal = document.getElementById('venusConfirmModal');
+  if(modal) modal.style.display = 'none';
+  if(_venusConfirmResolve){ _venusConfirmResolve(!!result); _venusConfirmResolve = null; }
+}
+document.addEventListener('DOMContentLoaded', function(){
+  var cancelBtn = document.getElementById('venusConfirmCancel');
+  var okBtn = document.getElementById('venusConfirmOk');
+  var modal = document.getElementById('venusConfirmModal');
+  if(cancelBtn) cancelBtn.addEventListener('click', function(){ hideVenusConfirm(false); });
+  if(okBtn) okBtn.addEventListener('click', function(){ hideVenusConfirm(true); });
+  if(modal) modal.addEventListener('click', function(e){ if(e.target === modal) hideVenusConfirm(false); });
+});
+</script>
+
 </body>
 <script>
 document.addEventListener('DOMContentLoaded', ()=>{
@@ -4031,6 +4173,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
     </div>
   </div>
 </div>
+
+
+
 
 
 
