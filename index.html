@@ -490,30 +490,34 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<style id="ios-xr-v129-tab-mentok-pin-cepat">
-/* ===== v129 iPhone ONLY - Tab mentok bawah + PIN cepat, Android 0 perubahan ===== */
+
+<style id="ios-xr-v130-fix-akses">
+/* ===== v130 iPhone ONLY - Fix akses (hapus loop + collaps), Tab tetap mentok, PIN cepat via CSS saja ===== */
 .ios-device html, .ios-device body{
+  height: 100% !important;
   -webkit-text-size-adjust: 100% !important;
   text-size-adjust: 100% !important;
-  /* touch-action manipulation SAJA yang cegah double-tap zoom, tanpa JS blocker yang bikin PIN delay */
   touch-action: manipulation !important;
 }
-/* MAIN - jangan pakai 100dvh yang loncat, pakai 100% + fixed inset */
+.ios-device body{
+  overflow: hidden !important;
+}
+/* MAIN - JANGAN pakai max-height:100% (itu yang bikin collaps blank di v129) */
 .ios-device #mainAppContainer{
   transform: none !important;
-  transition: none !important; /* matiin transisi scale yang bikin delay di XR */
+  transition: none !important;
   position: fixed !important;
   inset: 0 !important;
+  left: 0 !important; right: 0 !important; top: 0 !important; bottom: 0 !important;
   width: 100% !important;
-  height: 100% !important;
   height: 100svh !important;
-  min-height: 100% !important;
-  max-height: 100% !important;
+  min-height: 100svh !important;
+  /* max-height jangan 100% - biar tidak collaps */
+  max-height: none !important;
   overflow: hidden !important;
-  zoom: 1 !important;
   background: var(--bg) !important;
 }
-/* HEADER - tinggi tetap 62px + notch sebagai padding, isi tengah */
+/* HEADER */
 .ios-device .bank-header{
   height: calc(62px + env(safe-area-inset-top, 0px)) !important;
   min-height: calc(62px + env(safe-area-inset-top, 0px)) !important;
@@ -524,9 +528,7 @@ window.addEventListener('unhandledrejection', function(e){
   align-items: center !important;
   box-sizing: border-box !important;
 }
-/* BOTTOM NAV - KUNCI: Jangan tambah safe-area ke tinggi! */
-/* Kalau tinggi ditambah env(34px), tab jadi ngambang 34px di atas garis. */
-/* Cara bener: tinggi tetap 78px kayak Android, bottom:0 mentok, safe-area jadi bagian dari nav (home indicator numpang di atas background putih, tetap keliatan) */
+/* BOTTOM NAV - Tab mentok, tinggi tetap 78px kayak Android */
 .ios-device .bottom-nav{
   position: fixed !important;
   left: 0 !important; right: 0 !important; bottom: 0 !important;
@@ -534,14 +536,12 @@ window.addEventListener('unhandledrejection', function(e){
   height: 78px !important;
   min-height: 78px !important;
   max-height: 78px !important;
-  /* Item nempel ke bawah, bukan di tengah / atas */
   padding: 6px 4px 8px 4px !important;
   padding-left: calc(env(safe-area-inset-left, 0px) + 4px) !important;
   padding-right: calc(env(safe-area-inset-right, 0px) + 4px) !important;
   align-items: flex-end !important;
   justify-content: space-around !important;
   background: var(--card) !important;
-  /* Background putih diperpanjang ke bawah untuk nutup safe-area (di belakang home indicator) */
   box-shadow: 0 -1px 0 var(--border), 0 34px 0 var(--card) !important;
   z-index: 9999 !important;
   box-sizing: border-box !important;
@@ -554,22 +554,14 @@ window.addEventListener('unhandledrejection', function(e){
   background: var(--card) !important;
   display: block !important;
 }
-.ios-device .nav-fab{
-  margin-top: -10px !important; /* + sedikit naik kayak Android, tapi tidak ngambang */
-  margin-bottom: 0 !important;
-}
-.ios-device .nav-item{
-  padding-top: 2px !important;
-  padding-bottom: 0 !important;
-}
-/* KONTEN - padding bawah balik ke 96px asli, bukan 130px */
+.ios-device .nav-fab{ margin-top: -10px !important; margin-bottom: 0 !important; }
+.ios-device .nav-item{ padding-top: 2px !important; padding-bottom: 0 !important; }
 .ios-device .bank-content{
   padding-bottom: 96px !important;
   padding-left: 14px !important;
   padding-right: 14px !important;
-  zoom: 1 !important;
 }
-/* SPLASH + PIN - tetap gradasi full, tanpa +20px */
+/* SPLASH */
 .ios-device #splashScreenOverlay{
   position: fixed !important;
   top: calc(-1 * env(safe-area-inset-top, 0px)) !important;
@@ -589,7 +581,7 @@ window.addEventListener('unhandledrejection', function(e){
 .ios-device #splashScreenOverlay #btnTapHere{
   margin-bottom: calc(env(safe-area-inset-bottom, 0px) + 10px) !important;
 }
-/* PIN - PIN CEPAT: keypad tanpa delay */
+/* PIN - Cepat via CSS saja, tanpa JS touchstart yang rawan double */
 .ios-device .pin-screen-overlay,
 .ios-device .personal-pin-overlay,
 .ios-device .debt-pin-overlay{
@@ -607,22 +599,14 @@ window.addEventListener('unhandledrejection', function(e){
   background: var(--bg) !important;
 }
 .ios-device .keypad-btn{
-  /* Ini yang bikin PIN cepat di iPhone: tanpa ini, Safari nunggu 300ms buat bedain tap vs double-tap */
   touch-action: manipulation !important;
   -webkit-tap-highlight-color: transparent !important;
   -webkit-touch-callout: none !important;
   user-select: none !important;
   -webkit-user-select: none !important;
 }
-/* Hilangkan animasi berat di PIN yang bikin delay di XR */
-.ios-device .pin-box{
-  transition: none !important;
-}
-.ios-device .pin-card{
-  margin-bottom: 0 !important;
-  margin-top: 0 !important;
-}
-/* Body ikut layar */
+.ios-device .pin-box{ transition: none !important; }
+.ios-device .pin-card{ margin-bottom: 0 !important; margin-top: 0 !important; }
 .ios-device.splash-active, .ios-device.splash-active body{
   background: linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%) !important;
   background-color: #061A3A !important;
@@ -636,65 +620,46 @@ window.addEventListener('unhandledrejection', function(e){
   background-color: var(--card) !important;
 }
 </style>
-<script id="ios-v129">
+<script id="ios-v130-safe">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-  if(!isIOS) return; // Android: stop total, tidak ada perubahan
+  if(!isIOS) return; // Android: stop total
   document.documentElement.classList.add('ios-device');
-  document.documentElement.classList.add('splash-active');
-  // JANGAN pakai touchend blocker 300ms (v128) - itu yang bikin PIN delay / ketap ke-skip
-  // Double-tap zoom sudah dicegah via CSS touch-action: manipulation, jadi tidak perlu JS blocker
-  // JANGAN pakai setInterval 400ms (v128) - itu bikin layout thrash & delay di XR
-  // Pakai MutationObserver ringan, hanya saat class berubah
-  function syncBodyBg(){
-    var splash = document.getElementById('splashScreenOverlay');
-    var pin = document.getElementById('pinScreenOverlay');
-    var main = document.getElementById('mainAppContainer');
-    var html = document.documentElement;
-    html.classList.remove('splash-active','pin-active','main-active');
-    if(splash && splash.style.display !== 'none' && !splash.classList.contains('hidden')){
-      html.classList.add('splash-active');
-      document.body.style.background = 'linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%)';
-    } else if(pin && pin.classList.contains('active')){
-      html.classList.add('pin-active');
-      document.body.style.background = 'var(--bg)';
-    } else if(main && main.classList.contains('active')){
-      html.classList.add('main-active');
-      document.body.style.background = 'var(--card)';
-    }
-    if(main){ main.style.transform = 'none'; }
+  // TIDAK pakai MutationObserver (v129) - itu yang bikin infinite loop + hang
+  // TIDAK pakai touchend blocker 300ms (v128) - itu yang bikin PIN delay
+  // TIDAK pakai setInterval (v128) - itu yang bikin thrash
+  // TIDAK pakai touchstart preventDefault di keypad (v129) - rawan double / nge-block
+  // Cukup: sync sekali saat klik, tanpa loop
+  function syncBg(){
+    try{
+      var splash = document.getElementById('splashScreenOverlay');
+      var pin = document.getElementById('pinScreenOverlay');
+      var main = document.getElementById('mainAppContainer');
+      var html = document.documentElement;
+      // Pakai flag biar tidak trigger loop: hanya set kalau berubah
+      var next = 'splash-active';
+      if(splash && splash.style.display !== 'none' && !splash.classList.contains('hidden')){
+        next = 'splash-active';
+      } else if(pin && pin.classList.contains('active')){
+        next = 'pin-active';
+      } else if(main && main.classList.contains('active')){
+        next = 'main-active';
+      }
+      if(!html.classList.contains(next)){
+        html.classList.remove('splash-active','pin-active','main-active');
+        html.classList.add(next);
+      }
+      if(main){ main.style.transform = 'none'; }
+    }catch(e){}
   }
-  // Observer ringan, bukan interval
-  var obs = new MutationObserver(function(){ syncBodyBg(); });
-  obs.observe(document.documentElement, {attributes:true, attributeFilter:['class']});
-  var mainEl = document.getElementById('mainAppContainer');
-  if(mainEl) obs.observe(mainEl, {attributes:true, attributeFilter:['class','style']});
-  var pinEl = document.getElementById('pinScreenOverlay');
-  if(pinEl) obs.observe(pinEl, {attributes:true, attributeFilter:['class','style']});
-  // PIN CEPAT: pakai touchstart langsung, jangan nunggu click (click di Safari ada delay)
-  function bindFastPin(){
-    var btns = document.querySelectorAll('.keypad-btn');
-    btns.forEach(function(btn){
-      if(btn.dataset.fastPin) return;
-      btn.dataset.fastPin = '1';
-      // touchstart = respon instan, tanpa nunggu click 300ms
-      btn.addEventListener('touchstart', function(e){
-        e.preventDefault(); // cegah click ganda, jadi tidak double-input
-        btn.style.transform = 'scale(0.92)';
-        setTimeout(function(){ btn.style.transform = ''; }, 80);
-        // Trigger onclick yang sudah ada (pressKey / dll) secara langsung
-        if(typeof btn.onclick === 'function'){ btn.onclick(); }
-        else { btn.click(); }
-      }, {passive:false});
-    });
-  }
-  document.addEventListener('DOMContentLoaded', bindFastPin);
-  bindFastPin();
-  // Coba lagi setelah 500ms (kalau PIN overlay baru muncul)
-  setTimeout(bindFastPin, 500);
-  syncBodyBg();
+  document.addEventListener('click', function(){ setTimeout(syncBg, 50); }, true);
+  window.addEventListener('resize', syncBg);
+  window.addEventListener('orientationchange', function(){ setTimeout(syncBg, 200); });
+  // PIN cepat cukup dari CSS touch-action:manipulation, tidak perlu JS
+  syncBg();
 })();
 </script>
+
 
 
 
