@@ -3,7 +3,14 @@
 <head>
 <style>html,body{background:#0A4DA3 !important}</style>
 
-
+<style id="critical-pwa-splash">
+html,body{background:#0A4DA3 !important;margin:0;padding:0}
+body{background:linear-gradient(180deg,#0A4DA3 0%,#0D3A8A 40%,#061A3A 100%) !important}
+.splash-screen-overlay{position:fixed;inset:0;background:#0A4DA3 !important;background:linear-gradient(180deg,#0A4DA3 0%,#082a6b 40%,#061A3A 100%) !important;z-index:99999;display:flex;flex-direction:column;justify-content:center;align-items:center}
+@media (display-mode: standalone){
+  html,body{background:#0A4DA3 !important}
+}
+</style>
 
 
 <meta name="theme-color" content="#0A4DA3">
@@ -444,74 +451,88 @@ window.addEventListener('unhandledrejection', function(e){
 @keyframes eqPulse{0%,100%{transform:scaleY(0.5)}50%{transform:scaleY(1)}}
 </style>
 
-<style id="ios-xr-safe-fix">
-/* Base - Android & iPhone background tetap full biru kayak semula, no padding */
-html, body{
+<style id="ios-only-safe-fix">
+/* Android aman - tidak ada perubahan tanpa class ios-device */
+html.ios-device{
+  background:#0A4DA3 !important;
+}
+body.ios-device{
   background:#0A4DA3 !important;
 }
 
-/* iOS ONLY - detect via JS .ios-device, Android tidak kena sama sekali */
-.ios-device{
-  /* Background tetap full bleed */
-  background:#0A4DA3 !important;
-}
-
-/* Header di iPhone XR - kasih jarak notch 44px tapi background tetap full biru */
-.ios-device header,
-.ios-device .app-header,
-.ios-device [class*="app-header"],
-.ios-device div[style*="VENUS STUDIO"]{
+/* iPhone XR & semua iPhone notch - header aman dari notch, background tetap full biru kayak myBCA */
+.ios-device .bank-header{
   padding-top: env(safe-area-inset-top) !important;
-  padding-top: calc(10px + env(safe-area-inset-top)) !important;
-  margin-top: 0 !important;
+  padding-top: calc(env(safe-area-inset-top) + 0px) !important;
+  height: calc(62px + env(safe-area-inset-top)) !important;
+  min-height: calc(62px + env(safe-area-inset-top)) !important;
+  background: var(--card) !important;
+  /* Pastikan header di atas notch, tapi warna background card tetap */
+  position: relative;
+  z-index: 10;
 }
 
-/* Status bar iPhone - jam 11.15 jangan numpuk */
-.ios-device .status-bar-spacer{
-  height: env(safe-area-inset-top);
-  min-height: 44px;
+/* iPhone - konten utama kasih jarak bawah biar gak ketutup home indicator */
+.ios-device .bank-content{
+  padding-bottom: calc(96px + env(safe-area-inset-bottom)) !important;
 }
 
-/* Bottom nav - myBCA style: background biru full sampai bawah, tombol naik di atas home indicator */
-.ios-device .bottom-nav,
-.ios-device nav.bottom-nav,
-.ios-device div[class*="bottom-nav"],
-.ios-device div[style*="position:fixed"][style*="bottom:0"]{
+/* Bottom nav - myBCA style: background full biru/putih sampai bawah, tombol naik */
+.ios-device .bottom-nav{
   padding-bottom: env(safe-area-inset-bottom) !important;
   padding-bottom: calc(8px + env(safe-area-inset-bottom)) !important;
+  height: calc(78px + env(safe-area-inset-bottom)) !important;
+  min-height: calc(78px + env(safe-area-inset-bottom)) !important;
+  background: var(--card) !important;
+  /* Background extend behind home indicator */
 }
 
-/* Content biar gak ketutup bottom nav + home indicator di iPhone saja */
-.ios-device .main-content,
-.ios-device main,
-.ios-device [class*="content"]{
-  padding-bottom: calc(90px + env(safe-area-inset-bottom)) !important;
-}
-
-/* Splash - background tetap full biru, konten safe */
+/* Splash screen - background full biru, logo & text safe dari notch */
 .ios-device .splash-screen-overlay{
+  padding-top: env(safe-area-inset-top) !important;
+  padding-bottom: env(safe-area-inset-bottom) !important;
+}
+.ios-device .splash-screen-overlay #splashLogoWrap{
+  margin-top: env(safe-area-inset-top);
+}
+
+/* PIN ACCESS - card jangan ketutup notch */
+.ios-device #pinModal,
+.ios-device [id*="pin"]{
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* iPhone XR khusus 414x896 */
-@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2){
-  .ios-device header{ padding-top: calc(12px + env(safe-area-inset-top)) !important; }
+/* Pastikan body background full bleed behind notch & home indicator seperti myBCA */
+@supports (padding-top: env(safe-area-inset-top)){
+  .ios-device{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
 }
 </style>
 
 
-<script>
-// iOS only - Android untouched 100%
+<script id="ios-detect-only">
+// Hanya iPhone yang dapat class, Android tidak tersentuh
 (function(){
   var ua = navigator.userAgent;
   var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(isIOS){
     document.documentElement.classList.add('ios-device');
-    if(screen.width === 414 && screen.height === 896) document.documentElement.classList.add('iphone-xr');
-    // Fix vh for iOS
-    var setVH = function(){ document.documentElement.style.setProperty('--vh', (window.innerHeight * 0.01) + 'px'); };
-    setVH(); window.addEventListener('resize', setVH);
+    document.body.classList.add('ios-device');
+    if(window.screen.width === 414 && window.screen.height === 896){
+      document.documentElement.classList.add('iphone-xr');
+      document.body.classList.add('iphone-xr');
+    }
+    // Fix 100vh iOS
+    function setVH(){
+      var vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', vh + 'px');
+    }
+    setVH();
+    window.addEventListener('resize', setVH);
+    window.addEventListener('orientationchange', setVH);
   }
 })();
 </script>
