@@ -491,18 +491,16 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<style id="ios-xr-v130-fix-akses">
-/* ===== v130 iPhone ONLY - Fix akses (hapus loop + collaps), Tab tetap mentok, PIN cepat via CSS saja ===== */
+
+<style id="ios-xr-v131-bawah-tab-biru">
+/* ===== v131 iPhone ONLY - Bawah tab jadi biru tema, tab tetap putih, Android 0 perubahan ===== */
 .ios-device html, .ios-device body{
   height: 100% !important;
   -webkit-text-size-adjust: 100% !important;
   text-size-adjust: 100% !important;
   touch-action: manipulation !important;
 }
-.ios-device body{
-  overflow: hidden !important;
-}
-/* MAIN - JANGAN pakai max-height:100% (itu yang bikin collaps blank di v129) */
+.ios-device body{ overflow: hidden !important; }
 .ios-device #mainAppContainer{
   transform: none !important;
   transition: none !important;
@@ -512,12 +510,10 @@ window.addEventListener('unhandledrejection', function(e){
   width: 100% !important;
   height: 100svh !important;
   min-height: 100svh !important;
-  /* max-height jangan 100% - biar tidak collaps */
   max-height: none !important;
   overflow: hidden !important;
   background: var(--bg) !important;
 }
-/* HEADER */
 .ios-device .bank-header{
   height: calc(62px + env(safe-area-inset-top, 0px)) !important;
   min-height: calc(62px + env(safe-area-inset-top, 0px)) !important;
@@ -528,40 +524,37 @@ window.addEventListener('unhandledrejection', function(e){
   align-items: center !important;
   box-sizing: border-box !important;
 }
-/* BOTTOM NAV - Tab mentok, tinggi tetap 78px kayak Android */
+/* BOTTOM NAV - 2 WARNA: atas putih (tempat ikon), bawah biru tema (strip safe-area) */
 .ios-device .bottom-nav{
   position: fixed !important;
   left: 0 !important; right: 0 !important; bottom: 0 !important;
   width: 100% !important;
-  height: 78px !important;
-  min-height: 78px !important;
-  max-height: 78px !important;
-  padding: 6px 4px 8px 4px !important;
+  /* Tinggi = 78px putih + safe-area biru (34px di XR) = 112px total, jadi tidak ada gap putih lagi */
+  height: calc(78px + env(safe-area-inset-bottom, 0px)) !important;
+  min-height: calc(78px + env(safe-area-inset-bottom, 0px)) !important;
+  max-height: calc(78px + env(safe-area-inset-bottom, 0px)) !important;
+  /* Ikon di area putih atas, bukan di tengah / bawah */
+  padding: 6px 4px 0 4px !important;
   padding-left: calc(env(safe-area-inset-left, 0px) + 4px) !important;
   padding-right: calc(env(safe-area-inset-right, 0px) + 4px) !important;
-  align-items: flex-end !important;
+  align-items: flex-start !important;
   justify-content: space-around !important;
-  background: var(--card) !important;
-  box-shadow: 0 -1px 0 var(--border), 0 34px 0 var(--card) !important;
+  /* Kunci: gradient 2 warna - putih sampai (100% - safe-area), biru #0A4DA3 untuk safe-area */
+  background: linear-gradient(180deg, var(--card) 0%, var(--card) calc(100% - env(safe-area-inset-bottom, 34px)), #0A4DA3 calc(100% - env(safe-area-inset-bottom, 34px)), #0A4DA3 100%) !important;
+  box-shadow: 0 -1px 0 var(--border) !important;
   z-index: 9999 !important;
   box-sizing: border-box !important;
 }
 .ios-device .bottom-nav::after{
-  content: '' !important;
-  position: absolute !important;
-  left: 0 !important; right: 0 !important; top: 100% !important;
-  height: env(safe-area-inset-bottom, 0px) !important;
-  background: var(--card) !important;
-  display: block !important;
+  display: none !important; /* sudah ditutup gradient, tidak perlu after putih lagi */
 }
-.ios-device .nav-fab{ margin-top: -10px !important; margin-bottom: 0 !important; }
+.ios-device .nav-fab{ margin-top: -2px !important; margin-bottom: 0 !important; }
 .ios-device .nav-item{ padding-top: 2px !important; padding-bottom: 0 !important; }
 .ios-device .bank-content{
-  padding-bottom: 96px !important;
+  padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)) !important;
   padding-left: 14px !important;
   padding-right: 14px !important;
 }
-/* SPLASH */
 .ios-device #splashScreenOverlay{
   position: fixed !important;
   top: calc(-1 * env(safe-area-inset-top, 0px)) !important;
@@ -581,7 +574,6 @@ window.addEventListener('unhandledrejection', function(e){
 .ios-device #splashScreenOverlay #btnTapHere{
   margin-bottom: calc(env(safe-area-inset-bottom, 0px) + 10px) !important;
 }
-/* PIN - Cepat via CSS saja, tanpa JS touchstart yang rawan double */
 .ios-device .pin-screen-overlay,
 .ios-device .personal-pin-overlay,
 .ios-device .debt-pin-overlay{
@@ -607,6 +599,7 @@ window.addEventListener('unhandledrejection', function(e){
 }
 .ios-device .pin-box{ transition: none !important; }
 .ios-device .pin-card{ margin-bottom: 0 !important; margin-top: 0 !important; }
+/* Body ikut layar - kalau ada celah di luar nav, warnanya biru juga, bukan putih polos */
 .ios-device.splash-active, .ios-device.splash-active body{
   background: linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%) !important;
   background-color: #061A3A !important;
@@ -616,27 +609,21 @@ window.addEventListener('unhandledrejection', function(e){
   background-color: var(--bg) !important;
 }
 .ios-device.main-active, .ios-device.main-active body{
-  background: var(--card) !important;
-  background-color: var(--card) !important;
+  background: #0A4DA3 !important;
+  background-color: #0A4DA3 !important;
 }
 </style>
-<script id="ios-v130-safe">
+<script id="ios-v131-safe">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return; // Android: stop total
   document.documentElement.classList.add('ios-device');
-  // TIDAK pakai MutationObserver (v129) - itu yang bikin infinite loop + hang
-  // TIDAK pakai touchend blocker 300ms (v128) - itu yang bikin PIN delay
-  // TIDAK pakai setInterval (v128) - itu yang bikin thrash
-  // TIDAK pakai touchstart preventDefault di keypad (v129) - rawan double / nge-block
-  // Cukup: sync sekali saat klik, tanpa loop
   function syncBg(){
     try{
       var splash = document.getElementById('splashScreenOverlay');
       var pin = document.getElementById('pinScreenOverlay');
       var main = document.getElementById('mainAppContainer');
       var html = document.documentElement;
-      // Pakai flag biar tidak trigger loop: hanya set kalau berubah
       var next = 'splash-active';
       if(splash && splash.style.display !== 'none' && !splash.classList.contains('hidden')){
         next = 'splash-active';
@@ -655,10 +642,10 @@ window.addEventListener('unhandledrejection', function(e){
   document.addEventListener('click', function(){ setTimeout(syncBg, 50); }, true);
   window.addEventListener('resize', syncBg);
   window.addEventListener('orientationchange', function(){ setTimeout(syncBg, 200); });
-  // PIN cepat cukup dari CSS touch-action:manipulation, tidak perlu JS
   syncBg();
 })();
 </script>
+
 
 
 
