@@ -488,42 +488,117 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<style id="ios-xr-v127-full-safe">
-/* ===== v127 iPhone XR - FULL SAFE AREA, Android TIDAK DIUBAH ===== */
-/* Hanya .ios-device, jadi Android 100% aman, tidak ada perubahan */
-.ios-device, .ios-device body{
-  /* Pakai env() asli iPhone, bukan angka 34px hardcode */
-  /* iPhone XR portrait: top 44px (notch), bottom 34px (home indicator) */
-  /* iPhone XR landscape: left 44px, right 44px, bottom 21px */
-  background: var(--card);
+
+<style id="ios-xr-v128-tab-turun-no-zoom">
+/* ===== v128 iPhone XR - Tab turun + No Zoom, Android 0 perubahan ===== */
+/* Hanya .ios-device */
+.ios-device html{
+  -webkit-text-size-adjust: 100% !important;
+  text-size-adjust: 100% !important;
+  /* Cegah Safari iPhone nge-zoom saat double-tap / rotate */
+  touch-action: manipulation !important;
 }
-/* SPLASH - Full gradasi, nutup semua sisi termasuk notch + home indicator + kiri/kanan landscape */
+.ios-device body{
+  -webkit-text-size-adjust: 100% !important;
+  text-size-adjust: 100% !important;
+  overflow: hidden !important;
+}
+.ios-device *{
+  -webkit-text-size-adjust: 100% !important;
+}
+/* MAIN - pakai svh (stabil, tidak berubah saat URL bar hide/show) biar tidak nge-zoom / loncat */
+.ios-device #mainAppContainer{
+  transform: none !important;
+  transition: none !important;
+  position: fixed !important;
+  inset: 0 !important;
+  left: 0 !important; right: 0 !important; top: 0 !important; bottom: 0 !important;
+  width: 100% !important;
+  /* svh = small viewport, stabil di iPhone XR, dvh sebagai fallback */
+  height: 100svh !important;
+  height: 100dvh !important;
+  height: -webkit-fill-available !important;
+  min-height: 100svh !important;
+  max-height: 100svh !important;
+  max-height: 100dvh !important;
+  overflow: hidden !important;
+  zoom: 1 !important;
+  background: var(--bg) !important;
+}
+/* HEADER - jangan terlalu tinggi, isi tetap 62px seperti Android, notch cuma jadi padding atas */
+.ios-device .bank-header{
+  /* Total = 62px + notch, tapi isi tetap di tengah, tidak ketarik ke bawah */
+  height: calc(62px + env(safe-area-inset-top, 0px)) !important;
+  min-height: calc(62px + env(safe-area-inset-top, 0px)) !important;
+  padding-top: env(safe-area-inset-top, 0px) !important;
+  padding-bottom: 0 !important;
+  padding-left: calc(env(safe-area-inset-left, 0px) + 18px) !important;
+  padding-right: calc(env(safe-area-inset-right, 0px) + 18px) !important;
+  align-items: center !important; /* tengah, bukan flex-end yang bikin keliatan zoom */
+  box-sizing: border-box !important;
+}
+/* BOTTOM NAV - TAB TURUN KE BAWAH, nempel di atas garis home indicator */
+.ios-device .bottom-nav{
+  position: fixed !important;
+  left: 0 !important; right: 0 !important; bottom: 0 !important;
+  width: 100% !important;
+  /* Tinggi isi 70px (sama kayak Android 78px - padding) + safe-area bawah */
+  height: calc(70px + env(safe-area-inset-bottom, 0px)) !important;
+  min-height: calc(70px + env(safe-area-inset-bottom, 0px)) !important;
+  max-height: calc(70px + env(safe-area-inset-bottom, 0px)) !important;
+  /* Padding bawah = safe-area doang, jadi tab turun mentok ke garis */
+  padding: 0 4px env(safe-area-inset-bottom, 0px) 4px !important;
+  padding-left: calc(env(safe-area-inset-left, 0px) + 4px) !important;
+  padding-right: calc(env(safe-area-inset-right, 0px) + 4px) !important;
+  /* Tengah vertikal di area 70px, bukan flex-start yang bikin ngambang di atas */
+  align-items: center !important;
+  justify-content: space-around !important;
+  background: var(--card) !important;
+  z-index: 9999 !important;
+  box-sizing: border-box !important;
+}
+.ios-device .bottom-nav::after{ display: none !important; }
+/* FAB + di iPhone - jangan terlalu naik, samain sama tab lain */
+.ios-device .nav-fab{
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  transform: none !important;
+}
+.ios-device .nav-item{
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
+}
+/* KONTEN - padding bawah pas: 96px asli + safe-area, bukan 144px + 34px yang bikin keliatan zoom */
+.ios-device .bank-content{
+  padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)) !important;
+  padding-left: 14px !important;
+  padding-right: 14px !important;
+  /* Cegah konten ikut nge-zoom */
+  zoom: 1 !important;
+}
+/* SPLASH - tetap gradasi full, tapi padding tidak +20px yang bikin zoom */
 .ios-device #splashScreenOverlay{
   position: fixed !important;
-  /* Tarik keluar sejauh safe-area, jadi gradasi nutup strip biru polos */
   top: calc(-1 * env(safe-area-inset-top, 0px)) !important;
   left: calc(-1 * env(safe-area-inset-left, 0px)) !important;
   right: calc(-1 * env(safe-area-inset-right, 0px)) !important;
   bottom: calc(-1 * env(safe-area-inset-bottom, 0px)) !important;
   width: auto !important;
   height: auto !important;
-  min-height: 100dvh !important;
-  /* Padding dalam ditambah safe-area, jadi konten tidak ketutup notch/home indicator */
-  padding-top: calc(env(safe-area-inset-top, 0px) + 20px) !important;
-  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 20px) !important;
-  padding-left: calc(env(safe-area-inset-left, 0px) + 20px) !important;
-  padding-right: calc(env(safe-area-inset-right, 0px) + 20px) !important;
-  /* Gradasi penuh, bukan biru polos #0A4DA3 */
+  min-height: 100svh !important;
+  padding-top: env(safe-area-inset-top, 0px) !important;
+  padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+  padding-left: env(safe-area-inset-left, 0px) !important;
+  padding-right: env(safe-area-inset-right, 0px) !important;
   background: linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%) !important;
-  background-size: cover !important;
   overflow: hidden !important;
+  zoom: 1 !important;
 }
-/* TAP HERE di splash - naik di atas garis home indicator */
 .ios-device #splashScreenOverlay .tap-here-btn,
 .ios-device #splashScreenOverlay #btnTapHere{
-  margin-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px) !important;
+  margin-bottom: calc(env(safe-area-inset-bottom, 0px) + 10px) !important;
 }
-/* PIN ACCESS - sama, nutup strip biru polos, keypad naik di atas home indicator */
+/* PIN - sama, tanpa +20px */
 .ios-device .pin-screen-overlay,
 .ios-device .personal-pin-overlay,
 .ios-device .debt-pin-overlay{
@@ -534,106 +609,54 @@ window.addEventListener('unhandledrejection', function(e){
   bottom: calc(-1 * env(safe-area-inset-bottom, 0px)) !important;
   width: auto !important;
   height: auto !important;
-  min-height: 100dvh !important;
-  padding-top: calc(env(safe-area-inset-top, 0px) + 20px) !important;
-  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 20px) !important;
-  padding-left: calc(env(safe-area-inset-left, 0px) + 20px) !important;
-  padding-right: calc(env(safe-area-inset-right, 0px) + 20px) !important;
-  background: var(--bg) !important;
-}
-/* PIN card - jangan nempel ke home indicator */
-.ios-device .pin-card{
-  margin-bottom: calc(env(safe-area-inset-bottom, 0px) + 8px) !important;
-  margin-top: calc(env(safe-area-inset-top, 0px)) !important;
-}
-/* MAIN APP - header naik dari notch, konten tidak ketutup */
-.ios-device #mainAppContainer{
-  transform: none !important;
-  transition: none !important;
-  position: fixed !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100dvh !important;
-  min-height: 100dvh !important;
-  /* Biar body di belakang tidak keliatan biru polos */
-  background: var(--bg) !important;
-}
-.ios-device .bank-header{
-  padding-top: calc(env(safe-area-inset-top, 0px) + 8px) !important;
-  height: calc(62px + env(safe-area-inset-top, 0px)) !important;
-  min-height: calc(62px + env(safe-area-inset-top, 0px)) !important;
-  padding-left: calc(env(safe-area-inset-left, 0px) + 18px) !important;
-  padding-right: calc(env(safe-area-inset-right, 0px) + 18px) !important;
-  align-items: flex-end !important;
-  padding-bottom: 8px !important;
-}
-/* BOTTOM NAV - tap naik di atas garis pindah aplikasi (home indicator) + kiri/kanan landscape */
-.ios-device .bottom-nav{
-  position: fixed !important;
-  left: 0 !important; right: 0 !important; bottom: 0 !important;
-  width: 100% !important;
-  /* Tinggi = 78px + safe-area bawah, jadi tombol tidak ketutup garis */
-  height: calc(78px + env(safe-area-inset-bottom, 0px)) !important;
-  min-height: calc(78px + env(safe-area-inset-bottom, 0px)) !important;
-  padding-top: 8px !important;
-  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 8px) !important;
-  padding-left: calc(env(safe-area-inset-left, 0px) + 4px) !important;
-  padding-right: calc(env(safe-area-inset-right, 0px) + 4px) !important;
-  align-items: flex-start !important;
-  background: var(--card) !important;
-  z-index: 9999 !important;
-  /* Hapus ::after lama yang bikin strip */
-}
-.ios-device .bottom-nav::after{
-  display: none !important;
-}
-/* Konten utama - padding bawah ditambah safe-area, jadi tombol terakhir tidak ketutup nav */
-.ios-device .bank-content{
-  padding-bottom: calc(144px + env(safe-area-inset-bottom, 0px)) !important;
-  padding-left: calc(env(safe-area-inset-left, 0px) + 0px) !important;
-  padding-right: calc(env(safe-area-inset-right, 0px) + 0px) !important;
-}
-/* Semua modal bottom-sheet di iPhone - naik di atas home indicator */
-.ios-device .personal-modal-overlay,
-.ios-device .debt-modal-overlay,
-.ios-device .music-modal-overlay{
+  min-height: 100svh !important;
+  padding-top: env(safe-area-inset-top, 0px) !important;
   padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+  padding-left: env(safe-area-inset-left, 0px) !important;
+  padding-right: env(safe-area-inset-right, 0px) !important;
+  background: var(--bg) !important;
 }
-/* Saat splash aktif, body ikut gradasi (biar tidak ada strip biru polos di belakang) */
+.ios-device .pin-card{
+  margin-bottom: calc(env(safe-area-inset-bottom, 0px) + 4px) !important;
+  margin-top: 0 !important;
+}
+/* Body ikut layar */
 .ios-device.splash-active, .ios-device.splash-active body{
   background: linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%) !important;
   background-color: #061A3A !important;
 }
-/* Saat PIN aktif, body ikut warna PIN (light) */
 .ios-device.pin-active, .ios-device.pin-active body{
   background: var(--bg) !important;
   background-color: var(--bg) !important;
 }
-/* Saat main aktif, body putih nyatu sama nav */
 .ios-device.main-active, .ios-device.main-active body{
   background: var(--card) !important;
   background-color: var(--card) !important;
 }
 </style>
-<script id="ios-v127">
+<script id="ios-v128">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-  if(!isIOS) return; // Android: stop, tidak ada perubahan sama sekali
+  if(!isIOS) return; // Android: stop total
   document.documentElement.classList.add('ios-device');
   document.documentElement.classList.add('splash-active');
-  var vp = document.querySelector('meta[name="viewport"]');
-  if(vp && vp.content.indexOf('viewport-fit') === -1){ vp.content = vp.content + ', viewport-fit=cover'; }
+  // Kunci zoom di iPhone: cegah double-tap zoom + pinch yang bikin halaman ngezoom
+  document.addEventListener('touchstart', function(e){ if(e.touches && e.touches.length > 1){ e.preventDefault(); } }, {passive:false});
+  var lastTouch = 0;
+  document.addEventListener('touchend', function(e){
+    var now = Date.now();
+    if(now - lastTouch < 300){ e.preventDefault(); }
+    lastTouch = now;
+  }, {passive:false});
   function syncBodyBg(){
     var splash = document.getElementById('splashScreenOverlay');
     var pin = document.getElementById('pinScreenOverlay');
     var main = document.getElementById('mainAppContainer');
     var html = document.documentElement;
     html.classList.remove('splash-active','pin-active','main-active');
-    // Splash masih keliatan?
     if(splash && splash.style.display !== 'none' && !splash.classList.contains('hidden')){
       html.classList.add('splash-active');
       document.body.style.setProperty('background','linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%)','important');
-      document.body.style.setProperty('background-color','#061A3A','important');
     } else if(pin && pin.classList.contains('active')){
       html.classList.add('pin-active');
       document.body.style.setProperty('background','var(--bg)','important');
@@ -641,13 +664,12 @@ window.addEventListener('unhandledrejection', function(e){
       html.classList.add('main-active');
       document.body.style.setProperty('background','var(--card)','important');
     }
-    // Main container tetap 100dvh
     if(main){
-      main.style.setProperty('height','100dvh','important');
       main.style.setProperty('transform','none','important');
+      // Pakai svh biar tidak loncat saat Safari hide/show URL bar
+      main.style.setProperty('height','100svh','important');
     }
   }
-  // Jalankan terus biar saat pindah Splash -> PIN -> Home, warna body ikut ganti
   setInterval(syncBodyBg, 400);
   document.addEventListener('click', function(){ setTimeout(syncBodyBg, 100); }, true);
   window.addEventListener('resize', syncBodyBg);
@@ -655,6 +677,7 @@ window.addEventListener('unhandledrejection', function(e){
   syncBodyBg();
 })();
 </script>
+
 
 
 
