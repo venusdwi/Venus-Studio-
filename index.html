@@ -496,8 +496,9 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<style id="ios-xr-v136-atas-bawah-full-biru">
-/* ===== v136 iPhone ONLY - Atas notch biru + Bawah full biru + Tab turun lagi, Android 0 perubahan ===== */
+
+<style id="ios-xr-v137-biru-sama-atas-plus-keliatan-tambah-jalan">
+/* ===== v137 iPhone ONLY - Biru bawah = biru atas + Plus keliatan + Tambah jalan, Android 0 perubahan ===== */
 .ios-device html, .ios-device body{
   height: 100% !important;
   position: fixed !important;
@@ -535,12 +536,12 @@ window.addEventListener('unhandledrejection', function(e){
   -webkit-overflow-scrolling: touch !important;
   overscroll-behavior: contain !important;
   touch-action: pan-y !important;
-  padding-bottom: 104px !important; /* ditambah biar konten tidak ketutup nav yang lebih tinggi */
+  padding-bottom: 130px !important;
   padding-left: 14px !important;
   padding-right: 14px !important;
   background: var(--bg) !important;
 }
-/* ATAS - Notch biru */
+/* ATAS - Notch biru, tebal = safe-area-top (44px di XR) */
 .ios-device .bank-header{
   flex: 0 0 auto !important;
   height: calc(62px + env(safe-area-inset-top, 0px)) !important;
@@ -551,26 +552,24 @@ window.addEventListener('unhandledrejection', function(e){
   padding-right: calc(env(safe-area-inset-right, 0px) + 18px) !important;
   align-items: center !important;
   box-sizing: border-box !important;
-  /* Kunci atas: biru untuk area notch (0 sampai safe-area-top), putih untuk isi header */
   background: linear-gradient(180deg, #0A4DA3 0%, #0A4DA3 env(safe-area-inset-top, 44px), var(--card) env(safe-area-inset-top, 44px), var(--card) 100%) !important;
   border-bottom: 1px solid var(--border) !important;
 }
-/* BAWAH - Full biru semuanya, tidak ada putih lagi */
+/* BAWAH - Biru DISAMAKAN dengan atas: tebal biru bawah = tebal biru atas (44px) */
+/* v137 tebel karena 88px nav + 60px ::after = 148px. v137: nav = 62px tab + 44px biru = 106px, sama kayak header (62px + 44px) */
 .ios-device .bottom-nav{
   position: fixed !important;
   left: 0 !important; right: 0 !important; bottom: 0 !important;
   width: 100% !important;
-  /* Tinggi ditambah 10px biar tab bisa turun lagi */
-  height: 88px !important;
-  min-height: 88px !important;
-  max-height: 88px !important;
-  /* Tab turun lagi: padding atas 14px, bawah cuma 8px, jadi tab nempel ke bawah */
-  padding: 14px 4px 8px 4px !important;
+  height: calc(62px + 44px) !important; /* 106px, samain kayak header atas */
+  min-height: calc(62px + 44px) !important;
+  max-height: calc(62px + 44px) !important;
+  /* Tab di atas (area 62px), biru 44px di bawah tab - samain kayak atas (biru 44px di atas header) */
+  padding: 8px 4px 0 4px !important;
   padding-left: calc(env(safe-area-inset-left, 0px) + 4px) !important;
   padding-right: calc(env(safe-area-inset-right, 0px) + 4px) !important;
-  align-items: flex-end !important;
+  align-items: flex-start !important;
   justify-content: space-around !important;
-  /* Full biru, bukan putih lagi */
   background: #0A4DA3 !important;
   background-color: #0A4DA3 !important;
   box-shadow: none !important;
@@ -580,41 +579,75 @@ window.addEventListener('unhandledrejection', function(e){
   transform: none !important;
   transition: none !important;
 }
-/* Perpanjangan biru di bawah nav, nutup celah di bawah garis */
+/* ::after DIMATIKAN + pointer-events none, ini yang nutupin tombol Simpan di halaman Tambah di v137 */
 .ios-device .bottom-nav::after{
-  content: '' !important;
-  position: absolute !important;
-  left: 0 !important; right: 0 !important; top: 100% !important;
-  height: 60px !important;
-  background: #0A4DA3 !important;
-  display: block !important;
+  display: none !important;
+  pointer-events: none !important;
 }
-/* Tab di atas biru harus putih biar kebaca */
 .ios-device .nav-item{
   color: rgba(255,255,255,0.75) !important;
   background: transparent !important;
   padding-top: 2px !important;
   padding-bottom: 0 !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  touch-action: manipulation !important;
 }
 .ios-device .nav-item.active{
   color: #FFFFFF !important;
   background: rgba(255,255,255,0.18) !important;
 }
 .ios-device .nav-item svg,
-.ios-device .nav-item i{
-  color: inherit !important;
-}
-.ios-device .nav-label{
-  color: inherit !important;
-}
-/* Tombol + di atas biru jadi putih biar ngejreng */
+.ios-device .nav-item i{ color: inherit !important; }
+.ios-device .nav-label{ color: inherit !important; }
+/* TOMBOL + - Putih polos di v137 karena SVG inline style color:white di atas background putih */
+/* Fix: Paksa SVG + jadi biru #0A4DA3 dengan !important (ngalahin inline style) */
 .ios-device .nav-fab{
   background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
   color: #0A4DA3 !important;
+  border: 2px solid #0A4DA3 !important;
   box-shadow: 0 8px 20px rgba(0,0,0,0.25) !important;
   margin-top: -2px !important;
   margin-bottom: 0 !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  touch-action: manipulation !important;
 }
+.ios-device #navFabTambah,
+.ios-device .nav-fab#navFabTambah{
+  background: #FFFFFF !important;
+  color: #0A4DA3 !important;
+}
+.ios-device #navFabTambah svg,
+.ios-device .nav-fab svg{
+  color: #0A4DA3 !important; /* ngalahin inline style color:white */
+  stroke: #0A4DA3 !important;
+  fill: none !important;
+}
+.ios-device #navFabTambah svg path,
+.ios-device .nav-fab svg path{
+  stroke: #0A4DA3 !important;
+  stroke-width: 2.5 !important;
+}
+/* HALAMAN TAMBAH TRANSAKSI - Biar bisa diklik / diisi di iPhone */
+.ios-device #tab-tambah{
+  padding-bottom: calc(140px + 44px) !important; /* biar tombol Simpan tidak ketutup nav biru */
+  pointer-events: auto !important;
+}
+.ios-device #tab-tambah input,
+.ios-device #tab-tambah .custom-select-box,
+.ios-device #tab-tambah button,
+.ios-device #transactionForm input,
+.ios-device #transactionForm button,
+.ios-device #transactionForm .custom-select-box{
+  pointer-events: auto !important;
+  touch-action: manipulation !important;
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+/* Semua modal / select di Tambah harus di atas nav */
+.ios-device .custom-select-box{ position: relative !important; z-index: 10 !important; }
 .ios-device #splashScreenOverlay{
   position: fixed !important;
   top: calc(-1 * env(safe-area-inset-top, 0px)) !important;
@@ -673,10 +706,34 @@ window.addEventListener('unhandledrejection', function(e){
   background-color: #0A4DA3 !important;
 }
 </style>
+<script id="ios-v137-fab-fix">
+(function(){
+  var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  if(!isIOS) return; // Android: stop total
+  // Paksa + jadi biru via JS juga (jaga-jaga kalau CSS !important ke-block inline style)
+  function fixFab(){
+    var fab = document.getElementById('navFabTambah');
+    if(!fab) return;
+    fab.style.setProperty('background', '#FFFFFF', 'important');
+    fab.style.setProperty('color', '#0A4DA3', 'important');
+    var svg = fab.querySelector('svg');
+    if(svg){
+      svg.style.setProperty('color', '#0A4DA3', 'important');
+      svg.style.setProperty('stroke', '#0A4DA3', 'important');
+      var paths = svg.querySelectorAll('path');
+      paths.forEach(function(p){ p.style.setProperty('stroke', '#0A4DA3', 'important'); });
+    }
+  }
+  document.addEventListener('DOMContentLoaded', fixFab);
+  setTimeout(fixFab, 300);
+  setTimeout(fixFab, 1000);
+})();
+</script>
 
 
 
-<script id="ios-v136-safe">
+
+<script id="ios-v137-safe">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return; // Android: stop total
