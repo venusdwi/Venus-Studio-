@@ -495,8 +495,9 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<style id="ios-xr-v135-bawah-garis-full-biru">
-/* ===== v135 iPhone ONLY - Di bawah garis pindah aplikasi FULL biru, gak ada putih lagi, Android 0 perubahan ===== */
+
+<style id="ios-xr-v136-atas-bawah-full-biru">
+/* ===== v136 iPhone ONLY - Atas notch biru + Bawah full biru + Tab turun lagi, Android 0 perubahan ===== */
 .ios-device html, .ios-device body{
   height: 100% !important;
   position: fixed !important;
@@ -507,7 +508,6 @@ window.addEventListener('unhandledrejection', function(e){
   -webkit-text-size-adjust: 100% !important;
   text-size-adjust: 100% !important;
   touch-action: manipulation !important;
-  /* Fondasi bawah = biru, jadi celah apapun di bawah nav jadi biru, bukan putih */
   background: #0A4DA3 !important;
   background-color: #0A4DA3 !important;
 }
@@ -526,7 +526,6 @@ window.addEventListener('unhandledrejection', function(e){
   overflow: hidden !important;
   display: flex !important;
   flex-direction: column !important;
-  /* Container juga biru di bawah, biar gap di bawah nav ke-cover */
   background: #0A4DA3 !important;
 }
 .ios-device .bank-content{
@@ -536,11 +535,12 @@ window.addEventListener('unhandledrejection', function(e){
   -webkit-overflow-scrolling: touch !important;
   overscroll-behavior: contain !important;
   touch-action: pan-y !important;
-  padding-bottom: 96px !important;
+  padding-bottom: 104px !important; /* ditambah biar konten tidak ketutup nav yang lebih tinggi */
   padding-left: 14px !important;
   padding-right: 14px !important;
   background: var(--bg) !important;
 }
+/* ATAS - Notch biru */
 .ios-device .bank-header{
   flex: 0 0 auto !important;
   height: calc(62px + env(safe-area-inset-top, 0px)) !important;
@@ -551,40 +551,70 @@ window.addEventListener('unhandledrejection', function(e){
   padding-right: calc(env(safe-area-inset-right, 0px) + 18px) !important;
   align-items: center !important;
   box-sizing: border-box !important;
+  /* Kunci atas: biru untuk area notch (0 sampai safe-area-top), putih untuk isi header */
+  background: linear-gradient(180deg, #0A4DA3 0%, #0A4DA3 env(safe-area-inset-top, 44px), var(--card) env(safe-area-inset-top, 44px), var(--card) 100%) !important;
+  border-bottom: 1px solid var(--border) !important;
 }
-/* BOTTOM NAV - Putih tempat tab, biru di bawah garis */
+/* BAWAH - Full biru semuanya, tidak ada putih lagi */
 .ios-device .bottom-nav{
   position: fixed !important;
   left: 0 !important; right: 0 !important; bottom: 0 !important;
   width: 100% !important;
-  height: 78px !important;
-  min-height: 78px !important;
-  max-height: 78px !important;
-  padding: 10px 4px 12px 4px !important;
+  /* Tinggi ditambah 10px biar tab bisa turun lagi */
+  height: 88px !important;
+  min-height: 88px !important;
+  max-height: 88px !important;
+  /* Tab turun lagi: padding atas 14px, bawah cuma 8px, jadi tab nempel ke bawah */
+  padding: 14px 4px 8px 4px !important;
   padding-left: calc(env(safe-area-inset-left, 0px) + 4px) !important;
   padding-right: calc(env(safe-area-inset-right, 0px) + 4px) !important;
   align-items: flex-end !important;
   justify-content: space-around !important;
-  /* Nav-nya putih bersih, biru-nya dihandle ::after di bawah */
-  background: var(--card) !important;
-  box-shadow: 0 -1px 0 var(--border) !important;
+  /* Full biru, bukan putih lagi */
+  background: #0A4DA3 !important;
+  background-color: #0A4DA3 !important;
+  box-shadow: none !important;
+  border-top: none !important;
   z-index: 9999 !important;
   box-sizing: border-box !important;
   transform: none !important;
   transition: none !important;
 }
-/* KUNCI v135: Perpanjangan biru di bawah nav, nutup celah putih di bawah garis */
+/* Perpanjangan biru di bawah nav, nutup celah di bawah garis */
 .ios-device .bottom-nav::after{
   content: '' !important;
   position: absolute !important;
   left: 0 !important; right: 0 !important; top: 100% !important;
-  /* 60px biru di bawah nav, lebih dari cukup nutup gap + safe-area */
   height: 60px !important;
   background: #0A4DA3 !important;
   display: block !important;
 }
-.ios-device .nav-fab{ margin-top: -2px !important; margin-bottom: 0 !important; }
-.ios-device .nav-item{ padding-top: 2px !important; padding-bottom: 0 !important; }
+/* Tab di atas biru harus putih biar kebaca */
+.ios-device .nav-item{
+  color: rgba(255,255,255,0.75) !important;
+  background: transparent !important;
+  padding-top: 2px !important;
+  padding-bottom: 0 !important;
+}
+.ios-device .nav-item.active{
+  color: #FFFFFF !important;
+  background: rgba(255,255,255,0.18) !important;
+}
+.ios-device .nav-item svg,
+.ios-device .nav-item i{
+  color: inherit !important;
+}
+.ios-device .nav-label{
+  color: inherit !important;
+}
+/* Tombol + di atas biru jadi putih biar ngejreng */
+.ios-device .nav-fab{
+  background: #FFFFFF !important;
+  color: #0A4DA3 !important;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25) !important;
+  margin-top: -2px !important;
+  margin-bottom: 0 !important;
+}
 .ios-device #splashScreenOverlay{
   position: fixed !important;
   top: calc(-1 * env(safe-area-inset-top, 0px)) !important;
@@ -638,7 +668,6 @@ window.addEventListener('unhandledrejection', function(e){
   background: var(--bg) !important;
   background-color: var(--bg) !important;
 }
-/* Main: body biru, jadi di bawah garis tidak ada putih */
 .ios-device.main-active, .ios-device.main-active body{
   background: #0A4DA3 !important;
   background-color: #0A4DA3 !important;
@@ -646,7 +675,8 @@ window.addEventListener('unhandledrejection', function(e){
 </style>
 
 
-<script id="ios-v135-safe">
+
+<script id="ios-v136-safe">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return; // Android: stop total
