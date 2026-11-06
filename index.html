@@ -1,103 +1,8 @@
 <!DOCTYPE html>
 <html lang="id" style="background:#0A4DA3">
 <head>
+<style>html,body{background:#0A4DA3 !important}</style>
 
-<style id="critical-pwa-splash">
-html,body{background:#0A4DA3 !important;margin:0;padding:0}
-body{background:linear-gradient(180deg,#0A4DA3 0%,#0D3A8A 40%,#061A3A 100%) !important}
-.splash-screen-overlay{position:fixed;inset:0;background:#0A4DA3 !important;background:linear-gradient(180deg,#0A4DA3 0%,#082a6b 40%,#061A3A 100%) !important;z-index:99999;display:flex;flex-direction:column;justify-content:center;align-items:center}
-@media (display-mode: standalone){
-  html,body{background:#0A4DA3 !important}
-}
-</style>
-
-<style id="iphone-xr-safe-area-fix">
-/* iPhone XR / Notch Safe Area Fix - Background tetap full biru kayak myBCA */
-:root{
-  --sat: env(safe-area-inset-top);
-  --sar: env(safe-area-inset-right);
-  --sab: env(safe-area-inset-bottom);
-  --sal: env(safe-area-inset-left);
-}
-
-/* Hanya aktif di iOS - Android nilai 0 jadi gak ngaruh */
-@supports (padding-top: env(safe-area-inset-top)){
-  /* Header - kasih jarak notch tapi background tetap full */
-  .app-header, header, [class*="header"]{
-    padding-top: calc(12px + var(--sat)) !important;
-    padding-left: calc(16px + var(--sal)) !important;
-    padding-right: calc(16px + var(--sar)) !important;
-  }
-  
-  /* Body background tetap full edge-to-edge */
-  body, html, #app, .app-container, main{
-    padding-left: var(--sal);
-    padding-right: var(--sar);
-  }
-  
-  /* Splash screen - background full tapi konten safe */
-  .splash-screen-overlay{
-    padding-top: var(--sat) !important;
-    padding-bottom: var(--sab) !important;
-    padding-left: var(--sal) !important;
-    padding-right: var(--sar) !important;
-  }
-  
-  /* Bottom Navigation - background full biru, tapi tombol naik di atas home indicator kayak myBCA */
-  .bottom-nav, nav[class*="bottom"], .tab-bar, [class*="bottom-nav"], footer{
-    padding-bottom: calc(8px + var(--sab)) !important;
-    padding-left: var(--sal) !important;
-    padding-right: var(--sar) !important;
-    background: inherit;
-  }
-  
-  /* Content area - kasih margin bawah biar gak ketutup bottom nav + home indicator */
-  .content, .main-content, [class*="content"], .page-content{
-    padding-bottom: calc(80px + var(--sab)) !important;
-  }
-}
-
-/* Khusus iOS via JS class .ios-device - lebih spesifik untuk iPhone XR */
-.ios-device .app-header,
-.ios-device header{
-  padding-top: calc(16px + env(safe-area-inset-top)) !important;
-}
-
-.ios-device .splash-screen-overlay .splashLogoWrap{
-  margin-top: env(safe-area-inset-top);
-}
-
-.ios-device .bottom-nav,
-.ios-device nav{
-  padding-bottom: calc(12px + env(safe-area-inset-bottom)) !important;
-  /* Background tetap full kayak myBCA - biru nyampe bawah */
-  background: #0A4DA3 !important;
-}
-
-/* iPhone XR specific - notch 44px top, 34px bottom */
-@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2){
-  .app-header{ padding-top: calc(20px + env(safe-area-inset-top)) !important; }
-  .bottom-nav{ padding-bottom: calc(16px + env(safe-area-inset-bottom)) !important; }
-}
-
-/* Ensure background full bleed like myBCA - body gradient extends behind notch */
-html, body{
-  background: #0A4DA3 !important;
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
-}
-
-body::before{
-  content: '';
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(180deg,#0A4DA3 0%,#0D3A8A 40%,#061A3A 100%);
-  z-index: -1;
-  /* Full bleed behind notch & home indicator */
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: env(safe-area-inset-bottom);
-}
-</style>
 
 
 
@@ -539,24 +444,74 @@ window.addEventListener('unhandledrejection', function(e){
 @keyframes eqPulse{0%,100%{transform:scaleY(0.5)}50%{transform:scaleY(1)}}
 </style>
 
-<script id="ios-detection">
-// iOS detection - add class only for iOS, Android untouched
+<style id="ios-xr-safe-fix">
+/* Base - Android & iPhone background tetap full biru kayak semula, no padding */
+html, body{
+  background:#0A4DA3 !important;
+}
+
+/* iOS ONLY - detect via JS .ios-device, Android tidak kena sama sekali */
+.ios-device{
+  /* Background tetap full bleed */
+  background:#0A4DA3 !important;
+}
+
+/* Header di iPhone XR - kasih jarak notch 44px tapi background tetap full biru */
+.ios-device header,
+.ios-device .app-header,
+.ios-device [class*="app-header"],
+.ios-device div[style*="VENUS STUDIO"]{
+  padding-top: env(safe-area-inset-top) !important;
+  padding-top: calc(10px + env(safe-area-inset-top)) !important;
+  margin-top: 0 !important;
+}
+
+/* Status bar iPhone - jam 11.15 jangan numpuk */
+.ios-device .status-bar-spacer{
+  height: env(safe-area-inset-top);
+  min-height: 44px;
+}
+
+/* Bottom nav - myBCA style: background biru full sampai bawah, tombol naik di atas home indicator */
+.ios-device .bottom-nav,
+.ios-device nav.bottom-nav,
+.ios-device div[class*="bottom-nav"],
+.ios-device div[style*="position:fixed"][style*="bottom:0"]{
+  padding-bottom: env(safe-area-inset-bottom) !important;
+  padding-bottom: calc(8px + env(safe-area-inset-bottom)) !important;
+}
+
+/* Content biar gak ketutup bottom nav + home indicator di iPhone saja */
+.ios-device .main-content,
+.ios-device main,
+.ios-device [class*="content"]{
+  padding-bottom: calc(90px + env(safe-area-inset-bottom)) !important;
+}
+
+/* Splash - background tetap full biru, konten safe */
+.ios-device .splash-screen-overlay{
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* iPhone XR khusus 414x896 */
+@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2){
+  .ios-device header{ padding-top: calc(12px + env(safe-area-inset-top)) !important; }
+}
+</style>
+
+
+<script>
+// iOS only - Android untouched 100%
 (function(){
-  var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var ua = navigator.userAgent;
+  var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(isIOS){
     document.documentElement.classList.add('ios-device');
-    document.documentElement.classList.add('ios');
-    // iPhone XR specific
-    if(screen.width === 414 && screen.height === 896){
-      document.documentElement.classList.add('iphone-xr');
-    }
-    // Set viewport height fix for iOS
-    var vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', vh + 'px');
-    window.addEventListener('resize', function(){
-      var vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', vh + 'px');
-    });
+    if(screen.width === 414 && screen.height === 896) document.documentElement.classList.add('iphone-xr');
+    // Fix vh for iOS
+    var setVH = function(){ document.documentElement.style.setProperty('--vh', (window.innerHeight * 0.01) + 'px'); };
+    setVH(); window.addEventListener('resize', setVH);
   }
 })();
 </script>
