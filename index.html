@@ -497,8 +497,9 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<style id="ios-xr-v137-biru-sama-atas-plus-keliatan-tambah-jalan">
-/* ===== v137 iPhone ONLY - Biru bawah = biru atas + Plus keliatan + Tambah jalan, Android 0 perubahan ===== */
+
+<style id="ios-xr-v138-biru-bawah-tipis-sama-atas-tab-turun">
+/* ===== v138 iPhone ONLY - Biru bawah TIPIS 24px persis kayak biru atas + Tab turun mentok, Android 0 perubahan ===== */
 .ios-device html, .ios-device body{
   height: 100% !important;
   position: fixed !important;
@@ -536,12 +537,12 @@ window.addEventListener('unhandledrejection', function(e){
   -webkit-overflow-scrolling: touch !important;
   overscroll-behavior: contain !important;
   touch-action: pan-y !important;
-  padding-bottom: 130px !important;
+  padding-bottom: 110px !important;
   padding-left: 14px !important;
   padding-right: 14px !important;
   background: var(--bg) !important;
 }
-/* ATAS - Notch biru, tebal = safe-area-top (44px di XR) */
+/* ATAS - Biru tipis di atas header, tebalnya = tinggi status bar yang keliatan (24px di foto) */
 .ios-device .bank-header{
   flex: 0 0 auto !important;
   height: calc(62px + env(safe-area-inset-top, 0px)) !important;
@@ -555,37 +556,36 @@ window.addEventListener('unhandledrejection', function(e){
   background: linear-gradient(180deg, #0A4DA3 0%, #0A4DA3 env(safe-area-inset-top, 44px), var(--card) env(safe-area-inset-top, 44px), var(--card) 100%) !important;
   border-bottom: 1px solid var(--border) !important;
 }
-/* BAWAH - Biru DISAMAKAN dengan atas: tebal biru bawah = tebal biru atas (44px) */
-/* v137 tebel karena 88px nav + 60px ::after = 148px. v137: nav = 62px tab + 44px biru = 106px, sama kayak header (62px + 44px) */
+/* BAWAH - DISAMAKAN persis kayak atas: biru cuma 24px tipis di bawah tab, bukan 106px full biru */
+/* v138 salah: nav 106px full biru -> keliatan makin lebar. v138: nav = 62px tab (putih) + 24px biru tipis = 86px total */
 .ios-device .bottom-nav{
   position: fixed !important;
   left: 0 !important; right: 0 !important; bottom: 0 !important;
   width: 100% !important;
-  height: calc(62px + 44px) !important; /* 106px, samain kayak header atas */
-  min-height: calc(62px + 44px) !important;
-  max-height: calc(62px + 44px) !important;
-  /* Tab di atas (area 62px), biru 44px di bawah tab - samain kayak atas (biru 44px di atas header) */
-  padding: 8px 4px 0 4px !important;
+  height: 86px !important;
+  min-height: 86px !important;
+  max-height: 86px !important;
+  /* Tab TURUN mentok: padding atas 14px, bawah 28px (24px biru + 4px gap) -> tab nempel di atas strip biru */
+  padding: 14px 4px 28px 4px !important;
   padding-left: calc(env(safe-area-inset-left, 0px) + 4px) !important;
   padding-right: calc(env(safe-area-inset-right, 0px) + 4px) !important;
-  align-items: flex-start !important;
+  align-items: flex-end !important;
   justify-content: space-around !important;
-  background: #0A4DA3 !important;
-  background-color: #0A4DA3 !important;
-  box-shadow: none !important;
-  border-top: none !important;
+  /* Putih 62px tempat tab, biru 24px tipis di bawah - persis kayak atas (biru 24px di atas header) */
+  background: linear-gradient(180deg, var(--card) 0%, var(--card) calc(100% - 24px), #0A4DA3 calc(100% - 24px), #0A4DA3 100%) !important;
+  box-shadow: 0 -1px 0 var(--border) !important;
   z-index: 9999 !important;
   box-sizing: border-box !important;
   transform: none !important;
   transition: none !important;
 }
-/* ::after DIMATIKAN + pointer-events none, ini yang nutupin tombol Simpan di halaman Tambah di v137 */
 .ios-device .bottom-nav::after{
   display: none !important;
   pointer-events: none !important;
 }
+/* Tab balik ke warna asli (di atas putih, bukan di atas biru) */
 .ios-device .nav-item{
-  color: rgba(255,255,255,0.75) !important;
+  color: inherit !important;
   background: transparent !important;
   padding-top: 2px !important;
   padding-bottom: 0 !important;
@@ -594,14 +594,11 @@ window.addEventListener('unhandledrejection', function(e){
   touch-action: manipulation !important;
 }
 .ios-device .nav-item.active{
-  color: #FFFFFF !important;
-  background: rgba(255,255,255,0.18) !important;
+  color: var(--primary, #0A4DA3) !important;
+  background: transparent !important;
 }
-.ios-device .nav-item svg,
-.ios-device .nav-item i{ color: inherit !important; }
 .ios-device .nav-label{ color: inherit !important; }
-/* TOMBOL + - Putih polos di v137 karena SVG inline style color:white di atas background putih */
-/* Fix: Paksa SVG + jadi biru #0A4DA3 dengan !important (ngalahin inline style) */
+/* TOMBOL + - Tetep putih dengan + biru biar keliatan (fix v138 dipertahankan) */
 .ios-device .nav-fab{
   background: #FFFFFF !important;
   background-color: #FFFFFF !important;
@@ -621,7 +618,7 @@ window.addEventListener('unhandledrejection', function(e){
 }
 .ios-device #navFabTambah svg,
 .ios-device .nav-fab svg{
-  color: #0A4DA3 !important; /* ngalahin inline style color:white */
+  color: #0A4DA3 !important;
   stroke: #0A4DA3 !important;
   fill: none !important;
 }
@@ -630,9 +627,9 @@ window.addEventListener('unhandledrejection', function(e){
   stroke: #0A4DA3 !important;
   stroke-width: 2.5 !important;
 }
-/* HALAMAN TAMBAH TRANSAKSI - Biar bisa diklik / diisi di iPhone */
+/* HALAMAN TAMBAH - Tetep bisa diklik (fix v138 dipertahankan) */
 .ios-device #tab-tambah{
-  padding-bottom: calc(140px + 44px) !important; /* biar tombol Simpan tidak ketutup nav biru */
+  padding-bottom: calc(140px + 24px) !important;
   pointer-events: auto !important;
 }
 .ios-device #tab-tambah input,
@@ -646,8 +643,6 @@ window.addEventListener('unhandledrejection', function(e){
   cursor: pointer !important;
   -webkit-tap-highlight-color: transparent !important;
 }
-/* Semua modal / select di Tambah harus di atas nav */
-.ios-device .custom-select-box{ position: relative !important; z-index: 10 !important; }
 .ios-device #splashScreenOverlay{
   position: fixed !important;
   top: calc(-1 * env(safe-area-inset-top, 0px)) !important;
@@ -706,7 +701,30 @@ window.addEventListener('unhandledrejection', function(e){
   background-color: #0A4DA3 !important;
 }
 </style>
-<script id="ios-v137-fab-fix">
+<script id="ios-v138-fab-fix">
+(function(){
+  var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  if(!isIOS) return;
+  function fixFab(){
+    var fab = document.getElementById('navFabTambah');
+    if(!fab) return;
+    fab.style.setProperty('background', '#FFFFFF', 'important');
+    fab.style.setProperty('color', '#0A4DA3', 'important');
+    var svg = fab.querySelector('svg');
+    if(svg){
+      svg.style.setProperty('color', '#0A4DA3', 'important');
+      svg.style.setProperty('stroke', '#0A4DA3', 'important');
+      var paths = svg.querySelectorAll('path');
+      paths.forEach(function(p){ p.style.setProperty('stroke', '#0A4DA3', 'important'); });
+    }
+  }
+  document.addEventListener('DOMContentLoaded', fixFab);
+  setTimeout(fixFab, 300);
+  setTimeout(fixFab, 1000);
+})();
+</script>
+
+<script id="ios-v138-fab-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return; // Android: stop total
@@ -733,7 +751,7 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<script id="ios-v137-safe">
+<script id="ios-v138-safe">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return; // Android: stop total
