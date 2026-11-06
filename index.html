@@ -494,21 +494,24 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<style id="ios-xr-v134-tab-diem-di-bawah">
-/* ===== v134 iPhone ONLY - Tab DIEM di bawah, gak ikut ketarik / ke-scroll, Android 0 perubahan ===== */
+
+<style id="ios-xr-v135-bawah-garis-full-biru">
+/* ===== v135 iPhone ONLY - Di bawah garis pindah aplikasi FULL biru, gak ada putih lagi, Android 0 perubahan ===== */
 .ios-device html, .ios-device body{
   height: 100% !important;
-  position: fixed !important; /* kunci body biar tidak ikut ketarik pas pull */
+  position: fixed !important;
   inset: 0 !important;
   width: 100% !important;
   overflow: hidden !important;
-  overscroll-behavior: none !important; /* matiin rubber-band Safari yang bikin halaman ketarik */
+  overscroll-behavior: none !important;
   -webkit-text-size-adjust: 100% !important;
   text-size-adjust: 100% !important;
   touch-action: manipulation !important;
+  /* Fondasi bawah = biru, jadi celah apapun di bawah nav jadi biru, bukan putih */
+  background: #0A4DA3 !important;
+  background-color: #0A4DA3 !important;
 }
 .ios-device body{ overflow: hidden !important; }
-/* MAIN - kunci total, tidak ada transform / animasi yang bikin fixed jadi ikut gerak */
 .ios-device #mainAppContainer{
   transform: none !important;
   transition: none !important;
@@ -523,19 +526,20 @@ window.addEventListener('unhandledrejection', function(e){
   overflow: hidden !important;
   display: flex !important;
   flex-direction: column !important;
-  background: var(--bg) !important;
+  /* Container juga biru di bawah, biar gap di bawah nav ke-cover */
+  background: #0A4DA3 !important;
 }
-/* KONTEN - yang boleh di-scroll cuma konten, bukan halaman / tab */
 .ios-device .bank-content{
   flex: 1 1 auto !important;
   overflow-y: auto !important;
   overflow-x: hidden !important;
   -webkit-overflow-scrolling: touch !important;
-  overscroll-behavior: contain !important; /* pull di konten tidak narik tab */
+  overscroll-behavior: contain !important;
   touch-action: pan-y !important;
   padding-bottom: 96px !important;
   padding-left: 14px !important;
   padding-right: 14px !important;
+  background: var(--bg) !important;
 }
 .ios-device .bank-header{
   flex: 0 0 auto !important;
@@ -548,29 +552,37 @@ window.addEventListener('unhandledrejection', function(e){
   align-items: center !important;
   box-sizing: border-box !important;
 }
-/* BOTTOM NAV - DIEM di bawah, fixed ke viewport, tidak ikut ketarik */
+/* BOTTOM NAV - Putih tempat tab, biru di bawah garis */
 .ios-device .bottom-nav{
-  position: fixed !important; /* fixed ke layar, bukan ke konten */
+  position: fixed !important;
   left: 0 !important; right: 0 !important; bottom: 0 !important;
   width: 100% !important;
   height: 78px !important;
   min-height: 78px !important;
   max-height: 78px !important;
-  /* Tab geser ke bawah, pas kayak pas lu tarik di video */
   padding: 10px 4px 12px 4px !important;
   padding-left: calc(env(safe-area-inset-left, 0px) + 4px) !important;
   padding-right: calc(env(safe-area-inset-right, 0px) + 4px) !important;
   align-items: flex-end !important;
   justify-content: space-around !important;
-  /* Putih 68px atas, biru tipis 10px paling bawah (di bawah garis) */
-  background: linear-gradient(180deg, var(--card) 0%, var(--card) calc(100% - 10px), #0A4DA3 calc(100% - 10px), #0A4DA3 100%) !important;
+  /* Nav-nya putih bersih, biru-nya dihandle ::after di bawah */
+  background: var(--card) !important;
   box-shadow: 0 -1px 0 var(--border) !important;
   z-index: 9999 !important;
   box-sizing: border-box !important;
   transform: none !important;
   transition: none !important;
 }
-.ios-device .bottom-nav::after{ display: none !important; }
+/* KUNCI v135: Perpanjangan biru di bawah nav, nutup celah putih di bawah garis */
+.ios-device .bottom-nav::after{
+  content: '' !important;
+  position: absolute !important;
+  left: 0 !important; right: 0 !important; top: 100% !important;
+  /* 60px biru di bawah nav, lebih dari cukup nutup gap + safe-area */
+  height: 60px !important;
+  background: #0A4DA3 !important;
+  display: block !important;
+}
 .ios-device .nav-fab{ margin-top: -2px !important; margin-bottom: 0 !important; }
 .ios-device .nav-item{ padding-top: 2px !important; padding-bottom: 0 !important; }
 .ios-device #splashScreenOverlay{
@@ -626,13 +638,15 @@ window.addEventListener('unhandledrejection', function(e){
   background: var(--bg) !important;
   background-color: var(--bg) !important;
 }
+/* Main: body biru, jadi di bawah garis tidak ada putih */
 .ios-device.main-active, .ios-device.main-active body{
-  background: var(--card) !important;
-  background-color: var(--card) !important;
+  background: #0A4DA3 !important;
+  background-color: #0A4DA3 !important;
 }
 </style>
 
-<script id="ios-v134-safe">
+
+<script id="ios-v135-safe">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return; // Android: stop total
