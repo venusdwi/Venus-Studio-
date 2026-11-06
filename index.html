@@ -2198,9 +2198,9 @@ document.addEventListener('DOMContentLoaded', ()=>{
     if(method==='DUAL'){ dualCash=parseRupiah(document.getElementById('dualCashAmount')?.value||'0'); dualBank=parseRupiah(document.getElementById('dualBankAmount')?.value||'0'); if(dualCash+dualBank!==amount){ alert('Split tidak sama dengan total!'); return; } }
     // Kunci form, tampilkan loading 3 detik
     form.dataset.venusSaving = '1';
-    if(typeof showVenusLoading === 'function') showVenusLoading();
-    var amountText = 'Rp ' + amount.toLocaleString('id-ID') + ' • ' + (type === 'income' ? 'Pemasukan' : type === 'expense' ? 'Pengeluaran' : type);
-    var descText = desc || 'Transaksi tersimpan';
+    if(typeof showVenusLoading === 'function') showVenusLoading(loadingDetail);
+    var typeLabel = type === 'in' ? 'Pemasukan' : type === 'out' ? 'Pengeluaran' : 'Refund';
+    var loadingDetail = (desc || typeLabel) + ' • Rp ' + amount.toLocaleString('id-ID');
     setTimeout(function(){
       const newTx={id:Date.now(), type, amount, description:desc, method, date:selectedDateValue, time:selectedTimeValue, dualCash, dualBank, proof:currentProofDataUrl};
       transactions.push(newTx); saveAndSync(); updateUI();
@@ -2215,7 +2215,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active')); const tabDash=document.getElementById('tab-dashboard'); if(tabDash) tabDash.classList.add('active');
       form.dataset.venusSaving = '';
       // Sembunyikan loading dulu, baru tampilkan popup + sound (tidak numpuk)
-      if(typeof showVenusSuccess === 'function') showVenusSuccess(amountText, descText);
+      if(typeof showVenusSuccess === 'function') showVenusSuccess({type: type, amount: amount, description: desc, method: method, date: selectedDateValue, time: selectedTimeValue});
     }, 3000);
   });
 
@@ -3405,25 +3405,44 @@ setTimeout(function(){ try{ initPdfButtonsV52(); }catch(e){ console.log('initPdf
 </div>
 
 
-<!-- LOADING 3 DETIK SIMPAN TRANSAKSI -->
-<div id="venusLoadingOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);backdrop-filter:blur(4px);z-index:9999;align-items:center;justify-content:center;flex-direction:column;gap:16px">
-  <div style="width:64px;height:64px;background:white;border-radius:20px;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 32px rgba(0,0,0,0.25)">
-    <div style="width:36px;height:36px;border:4px solid #E2E8F0;border-top:4px solid #0A4DA3;border-radius:50%;animation:venusSpin 0.8s linear infinite"></div>
-  </div>
-  <div style="background:white;padding:12px 20px;border-radius:999px;font-weight:800;font-size:13px;color:#0A4DA3;box-shadow:0 8px 24px rgba(0,0,0,0.2)">Menyimpan Transaksi...</div>
-  
-</div>
-<style>@keyframes venusSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}} @keyframes venusPop{0%{transform:scale(0.6);opacity:0}60%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}} @keyframes venusCheck{0%{stroke-dashoffset:40}100%{stroke-dashoffset:0}}</style>
 
-<!-- POPUP BERHASIL -->
-<div id="venusSuccessPopup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);backdrop-filter:blur(3px);z-index:10000;align-items:center;justify-content:center;padding:20px">
-  <div style="background:white;width:100%;max-width:320px;border-radius:24px;padding:28px 20px 20px;text-align:center;animation:venusPop 0.4s cubic-bezier(0.34,1.56,0.64,1) both;box-shadow:0 20px 50px rgba(0,0,0,0.3)">
-    <div style="width:72px;height:72px;margin:0 auto 16px;background:#DCFCE7;border-radius:50%;display:flex;align-items:center;justify-content:center">
-      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" style="stroke-dasharray:40;animation:venusCheck 0.6s ease forwards"/></svg>
+<!-- LOADING BARU v125 - Premium Card + Progress -->
+<div id="venusLoadingOverlay" style="display:none;position:fixed;inset:0;background:rgba(7,11,21,0.65);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);z-index:9999;align-items:center;justify-content:center;padding:20px">
+  <div style="background:white;width:100%;max-width:300px;border-radius:28px;padding:28px 24px 24px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,0.35);animation:venusPop 0.35s cubic-bezier(0.34,1.56,0.64,1) both">
+    <div style="position:relative;width:72px;height:72px;margin:0 auto 16px">
+      <div style="position:absolute;inset:0;border-radius:50%;border:3px solid #E2E8F0;border-top-color:#0A4DA3;animation:venusSpin 0.9s linear infinite"></div>
+      <div style="position:absolute;inset:10px;background:linear-gradient(135deg,#0A4DA3,#1A6CFF);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:900;font-size:22px;letter-spacing:-1px">V</div>
     </div>
-    <div style="font-weight:900;font-size:17px;color:#0F172A;margin-bottom:6px">Transaksi Berhasil!</div>
-    <div id="venusSuccessDetail" style="font-size:12px;color:#64748B;line-height:1.6;margin-bottom:18px">Rp 0 • Disimpan</div>
-    <button onclick="document.getElementById('venusSuccessPopup').style.display='none'" style="width:100%;height:48px;background:#0A4DA3;color:white;border:none;border-radius:12px;font-weight:800;font-size:14px;cursor:pointer">Selesai</button>
+    <div style="font-weight:900;font-size:16px;color:#0F172A">Menyimpan Transaksi</div>
+    <div id="venusLoadingDetail" style="font-size:12px;color:#64748B;margin-top:6px;line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Memproses...</div>
+    <div style="height:6px;background:#EEF2F7;border-radius:999px;overflow:hidden;margin-top:18px">
+      <div id="venusLoadingBar" style="height:100%;width:0%;background:linear-gradient(90deg,#0A4DA3,#1A6CFF);border-radius:999px;transition:width 3s linear"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:10px;color:#94A3B8;font-weight:700"><span>Menghubungi Cloud...</span><span>3 detik</span></div>
+  </div>
+</div>
+<style>@keyframes venusSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}} @keyframes venusPop{0%{transform:scale(0.85);opacity:0}60%{transform:scale(1.03)}100%{transform:scale(1);opacity:1}} @keyframes venusCheck{0%{stroke-dashoffset:40}100%{stroke-dashoffset:0}} @keyframes venusPulse{0%{box-shadow:0 0 0 0 rgba(22,163,74,0.25)}100%{box-shadow:0 0 0 16px rgba(22,163,74,0)}}</style>
+
+<!-- POPUP BERHASIL BARU v125 - Struk Premium -->
+<div id="venusSuccessPopup" style="display:none;position:fixed;inset:0;background:rgba(7,11,21,0.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:10000;align-items:center;justify-content:center;padding:20px">
+  <div style="background:white;width:100%;max-width:320px;border-radius:28px;overflow:hidden;text-align:center;animation:venusPop 0.45s cubic-bezier(0.34,1.56,0.64,1) both;box-shadow:0 24px 60px rgba(0,0,0,0.35)">
+    <div style="background:linear-gradient(135deg,#0A4DA3 0%,#1A6CFF 100%);padding:22px 20px 28px;color:white;position:relative">
+      <div style="width:64px;height:64px;margin:0 auto;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;animation:venusPulse 1.2s ease-out infinite">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" style="stroke-dasharray:40;animation:venusCheck 0.6s ease forwards"/></svg>
+      </div>
+      <div style="font-weight:900;font-size:17px;margin-top:14px">Transaksi Berhasil!</div>
+      <div style="font-size:11px;opacity:0.85;margin-top:3px">Tersimpan di Cloud</div>
+    </div>
+    <div style="padding:18px 20px 20px">
+      <div id="venusSuccessAmount" style="font-size:22px;font-weight:900;color:#0F172A;letter-spacing:-0.5px;line-height:1.2">Rp 0</div>
+      <div id="venusSuccessDesc" style="font-size:12px;color:#64748B;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">-</div>
+      <div style="background:#F8FAFC;border-radius:16px;padding:12px 14px;margin-top:14px;text-align:left;display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:#94A3B8">Jenis</span><span id="venusSuccessType" style="font-weight:800;color:#0F172A">Pengeluaran</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:#94A3B8">Metode</span><span id="venusSuccessMethod" style="font-weight:800;color:#0F172A">CASH</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:#94A3B8">Tanggal</span><span id="venusSuccessDate" style="font-weight:800;color:#0F172A">-</span></div>
+      </div>
+      <button onclick="document.getElementById('venusSuccessPopup').style.display='none'" style="width:100%;height:50px;margin-top:16px;background:linear-gradient(135deg,#0A4DA3,#1A6CFF);color:white;border:none;border-radius:14px;font-weight:800;font-size:14px;cursor:pointer;box-shadow:0 8px 20px rgba(10,77,163,0.3)">Selesai</button>
+    </div>
   </div>
 </div>
 
@@ -3432,8 +3451,9 @@ setTimeout(function(){ try{ initPdfButtonsV52(); }catch(e){ console.log('initPdf
 
 
 
-<script id="venus-success-sound-fix-v118">
-// Pakai getVenusAudioCtx() yang sudah ada di file lama, jangan deklarasi ulang _venusAudioCtx
+
+
+<script id="venus-success-sound-fix-v125">
 function playVenusSuccessSound(){
   try{
     var ctx = null;
@@ -3456,8 +3476,12 @@ function playVenusSuccessSound(){
     if(navigator.vibrate) navigator.vibrate(80);
   }catch(e){}
 }
-function showVenusLoading(){
+function showVenusLoading(detailText){
   var el = document.getElementById('venusLoadingOverlay');
+  var bar = document.getElementById('venusLoadingBar');
+  var detail = document.getElementById('venusLoadingDetail');
+  if(detail && detailText) detail.textContent = detailText;
+  if(bar){ bar.style.width = '0%'; requestAnimationFrame(function(){ setTimeout(function(){ bar.style.width = '100%'; }, 50); }); }
   if(el){ el.style.display = 'flex'; }
   var pop = document.getElementById('venusSuccessPopup');
   if(pop){ pop.style.display = 'none'; }
@@ -3466,15 +3490,33 @@ function hideVenusLoading(){
   var el = document.getElementById('venusLoadingOverlay');
   if(el){ el.style.display = 'none'; }
 }
-function showVenusSuccess(amountText, descText){
+function showVenusSuccess(tx){
   hideVenusLoading();
   var pop = document.getElementById('venusSuccessPopup');
-  var detail = document.getElementById('venusSuccessDetail');
-  if(detail){ detail.innerHTML = amountText + '<br>' + (descText || 'Transaksi tersimpan di Cloud'); }
+  var amountEl = document.getElementById('venusSuccessAmount');
+  var descEl = document.getElementById('venusSuccessDesc');
+  var typeEl = document.getElementById('venusSuccessType');
+  var methodEl = document.getElementById('venusSuccessMethod');
+  var dateEl = document.getElementById('venusSuccessDate');
+  if(tx){
+    var sign = tx.type === 'in' ? '+' : tx.type === 'refund' ? '' : '-';
+    var color = tx.type === 'in' ? '#16A34A' : tx.type === 'refund' ? '#F59E0B' : '#EF4444';
+    if(amountEl){ amountEl.textContent = sign + ' Rp ' + tx.amount.toLocaleString('id-ID'); amountEl.style.color = color; }
+    if(descEl){ descEl.textContent = tx.description || 'Transaksi tersimpan'; }
+    if(typeEl){ typeEl.textContent = tx.type === 'in' ? 'Pemasukan' : tx.type === 'out' ? 'Pengeluaran' : 'Refund'; }
+    if(methodEl){ methodEl.textContent = tx.method || 'CASH'; }
+    if(dateEl){
+      var d = tx.date || '';
+      var parts = String(d).split('-');
+      var dateStr = parts.length===3 ? parts[2]+'-'+parts[1]+'-'+parts[0] : d;
+      dateEl.textContent = dateStr + ' | ' + (tx.time||'') + ' WIB';
+    }
+  }
   if(pop){ pop.style.display = 'flex'; }
   playVenusSuccessSound();
 }
 </script>
+
 
 
 </body>
@@ -3949,27 +3991,47 @@ document.addEventListener('DOMContentLoaded', ()=>{
 </div>
 
 
-<!-- LOADING 3 DETIK SIMPAN TRANSAKSI -->
-<div id="venusLoadingOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);backdrop-filter:blur(4px);z-index:9999;align-items:center;justify-content:center;flex-direction:column;gap:16px">
-  <div style="width:64px;height:64px;background:white;border-radius:20px;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 32px rgba(0,0,0,0.25)">
-    <div style="width:36px;height:36px;border:4px solid #E2E8F0;border-top:4px solid #0A4DA3;border-radius:50%;animation:venusSpin 0.8s linear infinite"></div>
-  </div>
-  <div style="background:white;padding:12px 20px;border-radius:999px;font-weight:800;font-size:13px;color:#0A4DA3;box-shadow:0 8px 24px rgba(0,0,0,0.2)">Menyimpan Transaksi...</div>
-  
-</div>
-<style>@keyframes venusSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}} @keyframes venusPop{0%{transform:scale(0.6);opacity:0}60%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}} @keyframes venusCheck{0%{stroke-dashoffset:40}100%{stroke-dashoffset:0}}</style>
 
-<!-- POPUP BERHASIL -->
-<div id="venusSuccessPopup" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);backdrop-filter:blur(3px);z-index:10000;align-items:center;justify-content:center;padding:20px">
-  <div style="background:white;width:100%;max-width:320px;border-radius:24px;padding:28px 20px 20px;text-align:center;animation:venusPop 0.4s cubic-bezier(0.34,1.56,0.64,1) both;box-shadow:0 20px 50px rgba(0,0,0,0.3)">
-    <div style="width:72px;height:72px;margin:0 auto 16px;background:#DCFCE7;border-radius:50%;display:flex;align-items:center;justify-content:center">
-      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" style="stroke-dasharray:40;animation:venusCheck 0.6s ease forwards"/></svg>
+<!-- LOADING BARU v125 - Premium Card + Progress -->
+<div id="venusLoadingOverlay" style="display:none;position:fixed;inset:0;background:rgba(7,11,21,0.65);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);z-index:9999;align-items:center;justify-content:center;padding:20px">
+  <div style="background:white;width:100%;max-width:300px;border-radius:28px;padding:28px 24px 24px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,0.35);animation:venusPop 0.35s cubic-bezier(0.34,1.56,0.64,1) both">
+    <div style="position:relative;width:72px;height:72px;margin:0 auto 16px">
+      <div style="position:absolute;inset:0;border-radius:50%;border:3px solid #E2E8F0;border-top-color:#0A4DA3;animation:venusSpin 0.9s linear infinite"></div>
+      <div style="position:absolute;inset:10px;background:linear-gradient(135deg,#0A4DA3,#1A6CFF);border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:900;font-size:22px;letter-spacing:-1px">V</div>
     </div>
-    <div style="font-weight:900;font-size:17px;color:#0F172A;margin-bottom:6px">Transaksi Berhasil!</div>
-    <div id="venusSuccessDetail" style="font-size:12px;color:#64748B;line-height:1.6;margin-bottom:18px">Rp 0 • Disimpan</div>
-    <button onclick="document.getElementById('venusSuccessPopup').style.display='none'" style="width:100%;height:48px;background:#0A4DA3;color:white;border:none;border-radius:12px;font-weight:800;font-size:14px;cursor:pointer">Selesai</button>
+    <div style="font-weight:900;font-size:16px;color:#0F172A">Menyimpan Transaksi</div>
+    <div id="venusLoadingDetail" style="font-size:12px;color:#64748B;margin-top:6px;line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Memproses...</div>
+    <div style="height:6px;background:#EEF2F7;border-radius:999px;overflow:hidden;margin-top:18px">
+      <div id="venusLoadingBar" style="height:100%;width:0%;background:linear-gradient(90deg,#0A4DA3,#1A6CFF);border-radius:999px;transition:width 3s linear"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:10px;color:#94A3B8;font-weight:700"><span>Menghubungi Cloud...</span><span>3 detik</span></div>
   </div>
 </div>
+<style>@keyframes venusSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}} @keyframes venusPop{0%{transform:scale(0.85);opacity:0}60%{transform:scale(1.03)}100%{transform:scale(1);opacity:1}} @keyframes venusCheck{0%{stroke-dashoffset:40}100%{stroke-dashoffset:0}} @keyframes venusPulse{0%{box-shadow:0 0 0 0 rgba(22,163,74,0.25)}100%{box-shadow:0 0 0 16px rgba(22,163,74,0)}}</style>
+
+<!-- POPUP BERHASIL BARU v125 - Struk Premium -->
+<div id="venusSuccessPopup" style="display:none;position:fixed;inset:0;background:rgba(7,11,21,0.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:10000;align-items:center;justify-content:center;padding:20px">
+  <div style="background:white;width:100%;max-width:320px;border-radius:28px;overflow:hidden;text-align:center;animation:venusPop 0.45s cubic-bezier(0.34,1.56,0.64,1) both;box-shadow:0 24px 60px rgba(0,0,0,0.35)">
+    <div style="background:linear-gradient(135deg,#0A4DA3 0%,#1A6CFF 100%);padding:22px 20px 28px;color:white;position:relative">
+      <div style="width:64px;height:64px;margin:0 auto;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;animation:venusPulse 1.2s ease-out infinite">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" style="stroke-dasharray:40;animation:venusCheck 0.6s ease forwards"/></svg>
+      </div>
+      <div style="font-weight:900;font-size:17px;margin-top:14px">Transaksi Berhasil!</div>
+      <div style="font-size:11px;opacity:0.85;margin-top:3px">Tersimpan di Cloud</div>
+    </div>
+    <div style="padding:18px 20px 20px">
+      <div id="venusSuccessAmount" style="font-size:22px;font-weight:900;color:#0F172A;letter-spacing:-0.5px;line-height:1.2">Rp 0</div>
+      <div id="venusSuccessDesc" style="font-size:12px;color:#64748B;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">-</div>
+      <div style="background:#F8FAFC;border-radius:16px;padding:12px 14px;margin-top:14px;text-align:left;display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:#94A3B8">Jenis</span><span id="venusSuccessType" style="font-weight:800;color:#0F172A">Pengeluaran</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:#94A3B8">Metode</span><span id="venusSuccessMethod" style="font-weight:800;color:#0F172A">CASH</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:#94A3B8">Tanggal</span><span id="venusSuccessDate" style="font-weight:800;color:#0F172A">-</span></div>
+      </div>
+      <button onclick="document.getElementById('venusSuccessPopup').style.display='none'" style="width:100%;height:50px;margin-top:16px;background:linear-gradient(135deg,#0A4DA3,#1A6CFF);color:white;border:none;border-radius:14px;font-weight:800;font-size:14px;cursor:pointer;box-shadow:0 8px 20px rgba(10,77,163,0.3)">Selesai</button>
+    </div>
+  </div>
+</div>
+
 
 
 
