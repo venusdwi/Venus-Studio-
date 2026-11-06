@@ -457,75 +457,77 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<style id="ios-bottom-full-fix">
-/* Android 100% aman - tanpa .ios-device tidak ada perubahan */
+
+
+
+
+
+
+<style id="ios-xr-v110-precise">
+/* Android 0% berubah - hanya .ios-device */
+.ios-device .bank-header{
+  /* Pas di bawah notch - V nempel di bawah notch, bukan di tengah header */
+  height: calc(54px + env(safe-area-inset-top)) !important;
+  min-height: calc(54px + env(safe-area-inset-top)) !important;
+  padding-top: env(safe-area-inset-top) !important;
+  padding-bottom: 6px !important;
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  align-items: flex-end !important;
+  justify-content: space-between !important;
+  background: var(--card) !important;
+  /* Header nempel atas, background card nutup notch area */
+  position: relative;
+}
+
+/* Bawah FULL - nav putih nutup strip biru sampai ujung, tab lebih bawah */
 .ios-device .bottom-nav{
-  /* Full menutup bawah - tidak ada strip biru di bawah */
   position: fixed !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  margin: 0 !important;
-  /* Height + safe area, dengan fallback 34px untuk XR jika env=0 */
-  height: calc(78px + max(env(safe-area-inset-bottom), 24px)) !important;
-  min-height: calc(78px + max(env(safe-area-inset-bottom), 24px)) !important;
-  /* Padding bawah = safe area, biar tab turun ke bawah */
-  padding-top: 10px !important;
+  left: 0 !important; right: 0 !important; bottom: 0 !important;
+  width: 100% !important; max-width: 100% !important; margin: 0 !important;
+  /* Height total = 68 + safe area, jadi background putih nutup sampe ujung bawah */
+  height: calc(68px + env(safe-area-inset-bottom)) !important;
+  min-height: calc(68px + env(safe-area-inset-bottom)) !important;
+  /* Tab lebih bawah: padding bawah cuma safe area - 8px, jadi tab mepet ke home indicator */
+  padding-top: 8px !important;
   padding-left: 4px !important;
   padding-right: 4px !important;
-  padding-bottom: max(env(safe-area-inset-bottom), 24px) !important;
-  /* Tab lebih bawah - align ke bawah bukan tengah */
+  padding-bottom: calc(env(safe-area-inset-bottom) - 6px) !important;
+  /* Fallback XR 34px jika env 0 */
+  padding-bottom: calc(max(env(safe-area-inset-bottom), 34px) - 6px) !important;
   align-items: flex-end !important;
   justify-content: space-around !important;
   background: var(--card) !important;
   background-color: var(--card) !important;
   border-top: 1px solid var(--border) !important;
   z-index: 999 !important;
-  /* Pastikan background nutup sampai ujung bawah */
-  box-shadow: 0 -1px 0 var(--border);
 }
 
-/* Tab item - turunin lagi */
+/* Tab item turun lagi 4px */
 .ios-device .bottom-nav .nav-item{
-  padding-bottom: 2px !important;
-  margin-bottom: 0 !important;
-}
-.ios-device .bottom-nav .nav-fab{
-  margin-top: -10px !important;
+  padding-top: 2px !important;
+  padding-bottom: 0 !important;
   margin-bottom: 2px !important;
 }
+.ios-device .bottom-nav .nav-fab{
+  margin-top: -8px !important;
+  margin-bottom: 4px !important;
+}
 
-/* Konten jangan ketutup bottom nav baru yang lebih tinggi */
+/* Konten biar gak ketutup nav baru */
 .ios-device .bank-content{
-  padding-bottom: calc(120px + max(env(safe-area-inset-bottom), 24px)) !important;
+  padding-bottom: calc(110px + env(safe-area-inset-bottom)) !important;
 }
 
-/* Header atas - biar notch gak nutup, tapi background tetap full */
-.ios-device .bank-header{
-  padding-top: max(env(safe-area-inset-top), 20px) !important;
-  height: calc(62px + max(env(safe-area-inset-top), 20px)) !important;
-  min-height: calc(62px + max(env(safe-area-inset-top), 20px)) !important;
-}
-
-/* Splash & PIN - background full, konten safe */
+/* Splash & PIN tetap full */
 .ios-device .splash-screen-overlay{
-  padding-top: max(env(safe-area-inset-top), 20px) !important;
-  padding-bottom: max(env(safe-area-inset-bottom), 24px) !important;
-}
-
-/* iPhone XR khusus 414x896 - bottom lebih bawah */
-@media only screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2){
-  .ios-device .bottom-nav{
-    height: calc(82px + 34px) !important;
-    padding-bottom: 34px !important;
-  }
+  padding-top: env(safe-area-inset-top) !important;
+  padding-bottom: env(safe-area-inset-bottom) !important;
 }
 </style>
 
 
-<script id="ios-detect-v109">
+<script id="ios-detect-v110">
 (function(){
   var ua = navigator.userAgent;
   var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
