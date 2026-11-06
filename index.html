@@ -493,18 +493,26 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<style id="ios-xr-v133-tab-geser-bawah">
-/* ===== v133 iPhone ONLY - Biru TIPIS 10px di bawah garis pindah aplikasi, Android 0 perubahan ===== */
+
+<style id="ios-xr-v134-tab-diem-di-bawah">
+/* ===== v134 iPhone ONLY - Tab DIEM di bawah, gak ikut ketarik / ke-scroll, Android 0 perubahan ===== */
 .ios-device html, .ios-device body{
   height: 100% !important;
+  position: fixed !important; /* kunci body biar tidak ikut ketarik pas pull */
+  inset: 0 !important;
+  width: 100% !important;
+  overflow: hidden !important;
+  overscroll-behavior: none !important; /* matiin rubber-band Safari yang bikin halaman ketarik */
   -webkit-text-size-adjust: 100% !important;
   text-size-adjust: 100% !important;
   touch-action: manipulation !important;
 }
 .ios-device body{ overflow: hidden !important; }
+/* MAIN - kunci total, tidak ada transform / animasi yang bikin fixed jadi ikut gerak */
 .ios-device #mainAppContainer{
   transform: none !important;
   transition: none !important;
+  animation: none !important;
   position: fixed !important;
   inset: 0 !important;
   left: 0 !important; right: 0 !important; top: 0 !important; bottom: 0 !important;
@@ -513,9 +521,24 @@ window.addEventListener('unhandledrejection', function(e){
   min-height: 100svh !important;
   max-height: none !important;
   overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
   background: var(--bg) !important;
 }
+/* KONTEN - yang boleh di-scroll cuma konten, bukan halaman / tab */
+.ios-device .bank-content{
+  flex: 1 1 auto !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior: contain !important; /* pull di konten tidak narik tab */
+  touch-action: pan-y !important;
+  padding-bottom: 96px !important;
+  padding-left: 14px !important;
+  padding-right: 14px !important;
+}
 .ios-device .bank-header{
+  flex: 0 0 auto !important;
   height: calc(62px + env(safe-area-inset-top, 0px)) !important;
   min-height: calc(62px + env(safe-area-inset-top, 0px)) !important;
   padding-top: env(safe-area-inset-top, 0px) !important;
@@ -525,35 +548,31 @@ window.addEventListener('unhandledrejection', function(e){
   align-items: center !important;
   box-sizing: border-box !important;
 }
-/* BOTTOM NAV - Putih, biru TIPIS 10px di paling bawah (di bawah garis home indicator) */
+/* BOTTOM NAV - DIEM di bawah, fixed ke viewport, tidak ikut ketarik */
 .ios-device .bottom-nav{
-  position: fixed !important;
+  position: fixed !important; /* fixed ke layar, bukan ke konten */
   left: 0 !important; right: 0 !important; bottom: 0 !important;
   width: 100% !important;
-  /* Balik ke 78px kayak Android, jangan +34px lagi (itu yang bikin biru tebel di v131) */
   height: 78px !important;
   min-height: 78px !important;
   max-height: 78px !important;
+  /* Tab geser ke bawah, pas kayak pas lu tarik di video */
   padding: 10px 4px 12px 4px !important;
   padding-left: calc(env(safe-area-inset-left, 0px) + 4px) !important;
   padding-right: calc(env(safe-area-inset-right, 0px) + 4px) !important;
   align-items: flex-end !important;
   justify-content: space-around !important;
-  /* Kunci v133: putih 68px atas, biru cuma 10px paling bawah */
-  /* Garis putih home indicator duduk di atas strip biru 10px ini */
+  /* Putih 68px atas, biru tipis 10px paling bawah (di bawah garis) */
   background: linear-gradient(180deg, var(--card) 0%, var(--card) calc(100% - 10px), #0A4DA3 calc(100% - 10px), #0A4DA3 100%) !important;
   box-shadow: 0 -1px 0 var(--border) !important;
   z-index: 9999 !important;
   box-sizing: border-box !important;
+  transform: none !important;
+  transition: none !important;
 }
 .ios-device .bottom-nav::after{ display: none !important; }
 .ios-device .nav-fab{ margin-top: -2px !important; margin-bottom: 0 !important; }
 .ios-device .nav-item{ padding-top: 2px !important; padding-bottom: 0 !important; }
-.ios-device .bank-content{
-  padding-bottom: 96px !important;
-  padding-left: 14px !important;
-  padding-right: 14px !important;
-}
 .ios-device #splashScreenOverlay{
   position: fixed !important;
   top: calc(-1 * env(safe-area-inset-top, 0px)) !important;
@@ -588,6 +607,7 @@ window.addEventListener('unhandledrejection', function(e){
   padding-left: env(safe-area-inset-left, 0px) !important;
   padding-right: env(safe-area-inset-right, 0px) !important;
   background: var(--bg) !important;
+  overscroll-behavior: none !important;
 }
 .ios-device .keypad-btn{
   touch-action: manipulation !important;
@@ -611,7 +631,8 @@ window.addEventListener('unhandledrejection', function(e){
   background-color: var(--card) !important;
 }
 </style>
-<script id="ios-v133-safe">
+
+<script id="ios-v134-safe">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return; // Android: stop total
