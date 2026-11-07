@@ -33,9 +33,9 @@ body{background:linear-gradient(180deg,#0A4DA3 0%,#0D3A8A 40%,#061A3A 100%) !imp
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<script id="ios-v145-prepaint">
-/* v145 PRE-PAINT: Tambah .ios-device SEBELUM first paint, biar tidak putih dulu */
-/* Biang bug v145: .ios-device baru ditambah di akhir body + setTimeout 100-1000ms, jadi first paint masih putih, biru baru nongol pas tab di-klik */
+<script id="ios-v147-prepaint">
+/* v147 PRE-PAINT: Tambah .ios-device SEBELUM first paint, biar tidak putih dulu */
+/* Biang bug v147: .ios-device baru ditambah di akhir body + setTimeout 100-1000ms, jadi first paint masih putih, biru baru nongol pas tab di-klik */
 (function(){
   try{
     var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -46,10 +46,10 @@ body{background:linear-gradient(180deg,#0A4DA3 0%,#0D3A8A 40%,#061A3A 100%) !imp
   }catch(e){}
 })();
 </script>
-<style id="ios-v145-prepaint-style">
-/* Pre-paint: html biru dari detik 0, jadi tidak ada kedip putih / hitam pas buka */
+<style id="ios-v147-prepaint-style">
+/* v147: html biru dari byte pertama, sebelum font / CSS lain load -> tidak ada kedip putih */
+html{ background: #0A4DA3 !important; background-color: #0A4DA3 !important; }
 html.ios-device, html.ios-device body{ background: #0A4DA3 !important; background-color: #0A4DA3 !important; }
-/* Splash langsung biru + presisi dari detik 0, bukan nunggu JS */
 html.ios-device #splashScreenOverlay{
   position: fixed !important;
   inset: 0 !important;
@@ -66,6 +66,75 @@ html.ios-device #splashScreenOverlay{
   background: linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%) !important;
   overflow: hidden !important;
   transform: none !important;
+}
+/* Custom Select VENUS - berlaku iPhone + Android, dari detik 0 */
+/* Light Mode: putih + biru (udah ok) */
+.venus-select{ position: relative !important; min-width: 110px !important; }
+.venus-select-btn{
+  width: 100% !important;
+  display: flex !important; align-items: center !important; justify-content: space-between !important; gap: 8px !important;
+  background: var(--card, #FFFFFF) !important; border: 1.5px solid #0A4DA3 !important; border-radius: 12px !important;
+  padding: 8px 10px !important; font-size: 12px !important; font-weight: 600 !important; color: #0A4DA3 !important;
+  cursor: pointer !important; touch-action: manipulation !important; -webkit-tap-highlight-color: transparent !important;
+}
+.venus-select-btn .venus-chevron{ font-size: 10px !important; transition: transform 0.15s !important; }
+.venus-select.open .venus-select-btn .venus-chevron{ transform: rotate(180deg) !important; }
+.venus-select-list{
+  position: absolute !important; left: 0 !important; right: 0 !important; top: calc(100% + 6px) !important;
+  background: var(--card, #FFFFFF) !important; border: 1px solid var(--border, #E2E8F0) !important; border-radius: 14px !important;
+  box-shadow: 0 12px 28px rgba(10,77,163,0.18) !important; overflow: hidden !important; z-index: 9999 !important;
+  display: none !important;
+}
+.venus-select.open .venus-select-list{ display: block !important; }
+.venus-select-opt{
+  padding: 10px 12px !important; font-size: 12px !important; font-weight: 600 !important; color: var(--text, #1E293B) !important;
+  display: flex !important; align-items: center !important; justify-content: space-between !important;
+  cursor: pointer !important; touch-action: manipulation !important;
+}
+.venus-select-opt:active{ background: var(--primary-light, #EFF6FF) !important; }
+.venus-select-opt.selected{ background: #0A4DA3 !important; color: #FFFFFF !important; }
+.venus-select-opt.selected .venus-check{ opacity: 1 !important; }
+.venus-check{ opacity: 0 !important; font-size: 12px !important; }
+/* DARK MODE - Kolom ikut item, jangan putih lagi */
+/* Tema dark: [data-theme="dark"] -> --card #101828, --text #F1F5F9, --border #1E293B */
+html[data-theme="dark"] .venus-select-btn,
+body[data-theme="dark"] .venus-select-btn,
+[data-theme="dark"] .venus-select-btn{
+  background: #101828 !important;
+  background-color: #101828 !important;
+  border-color: #3B82F6 !important; /* biru lebih terang biar keliatan di item */
+  color: #FFFFFF !important;
+}
+html[data-theme="dark"] .venus-select-list,
+body[data-theme="dark"] .venus-select-list,
+[data-theme="dark"] .venus-select-list{
+  background: #101828 !important;
+  background-color: #101828 !important;
+  border-color: #1E293B !important;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.5) !important;
+}
+html[data-theme="dark"] .venus-select-opt,
+body[data-theme="dark"] .venus-select-opt,
+[data-theme="dark"] .venus-select-opt{
+  color: #F1F5F9 !important;
+  background: transparent !important;
+}
+html[data-theme="dark"] .venus-select-opt:active,
+body[data-theme="dark"] .venus-select-opt:active,
+[data-theme="dark"] .venus-select-opt:active{
+  background: #172130 !important;
+}
+html[data-theme="dark"] .venus-select-opt.selected,
+body[data-theme="dark"] .venus-select-opt.selected,
+[data-theme="dark"] .venus-select-opt.selected{
+  background: #0A4DA3 !important;
+  color: #FFFFFF !important;
+}
+/* Native select fallback (kalau JS custom gagal) juga ikut dark */
+html[data-theme="dark"] select{
+  background: #101828 !important;
+  color: #F1F5F9 !important;
+  border-color: #1E293B !important;
 }
 </style>
 
@@ -541,8 +610,9 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<style id="ios-xr-v145-splash-presisi-biru-langsung">
-/* ===== v145 iPhone ONLY - Splash presisi + Biru langsung muncul (tidak putih dulu / nunggu klik tab), Android 0 perubahan ===== */
+
+<style id="ios-xr-v147-splash-turun-biru-di-nav-setting-venus">
+/* ===== v147 iPhone ONLY (kecuali Setting Custom = iPhone + Android) - Splash turun, Biru di nav (bukan ::after), Android tab 0 perubahan ===== */
 .ios-device html, .ios-device body{
   height: 100% !important;
   position: fixed !important;
@@ -580,12 +650,12 @@ window.addEventListener('unhandledrejection', function(e){
   -webkit-overflow-scrolling: touch !important;
   overscroll-behavior: contain !important;
   touch-action: pan-y !important;
-  padding-bottom: 110px !important;
+  padding-bottom: 130px !important;
   padding-left: 14px !important;
   padding-right: 14px !important;
   background: var(--bg) !important;
 }
-/* SPLASH PRESISI - Tengah persis, logo + teks + TAP HERE tidak geser */
+/* SPLASH - KURANG KE BAWAH: padding-top 20vh (dari 10vh) + konten tengah-bawah */
 .ios-device #splashScreenOverlay,
 .ios-device .splash-screen-overlay{
   position: fixed !important;
@@ -595,11 +665,11 @@ window.addEventListener('unhandledrejection', function(e){
   min-height: 100dvh !important;
   display: flex !important;
   flex-direction: column !important;
-  justify-content: center !important;
+  justify-content: flex-start !important; /* dari center -> flex-start biar bisa didorong ke bawah pakai padding */
   align-items: center !important;
   text-align: center !important;
   gap: 14px !important;
-  padding: env(safe-area-inset-top, 44px) 20px env(safe-area-inset-bottom, 34px) 20px !important;
+  padding: calc(env(safe-area-inset-top, 44px) + 20vh) 20px env(safe-area-inset-bottom, 34px) 20px !important;
   padding-left: calc(env(safe-area-inset-left, 0px) + 20px) !important;
   padding-right: calc(env(safe-area-inset-right, 0px) + 20px) !important;
   box-sizing: border-box !important;
@@ -611,8 +681,8 @@ window.addEventListener('unhandledrejection', function(e){
 .ios-device #splashScreenOverlay .tap-here-btn,
 .ios-device #splashScreenOverlay #btnTapHere,
 .ios-device .splash-screen-overlay .tap-here-btn{
-  margin-top: auto !important; /* TAP HERE nempel di bawah, tidak di tengah */
-  margin-bottom: calc(env(safe-area-inset-bottom, 34px) + 16px) !important;
+  margin-top: auto !important;
+  margin-bottom: calc(env(safe-area-inset-bottom, 34px) + 24px) !important;
   flex-shrink: 0 !important;
 }
 .ios-device .bank-header{
@@ -628,37 +698,32 @@ window.addEventListener('unhandledrejection', function(e){
   background: linear-gradient(180deg, #0A4DA3 0%, #0A4DA3 env(safe-area-inset-top, 44px), var(--card) env(safe-area-inset-top, 44px), var(--card) 100%) !important;
   border-bottom: 1px solid var(--border) !important;
 }
-/* BAWAH - Putih nempel sampe atas kotak + (v145 dipertahankan) + Biru langsung, tidak nunggu klik */
+/* BAWAH - Biru JADI BAGIAN NAV (bukan ::after yang ke-clip sama overflow hidden) */
+/* Biang bug v147: ::after top:100% di luar nav, ke-clip overflow hidden container, jadi putih dulu, baru nongol pas klik tab (reflow) */
+/* v147: nav tinggi 108px = 64px putih + 44px biru, biru di dalam nav, selalu ke-paint */
 .ios-device .bottom-nav{
   position: fixed !important;
   left: 0 !important; right: 0 !important; bottom: 0 !important;
   width: 100% !important;
-  height: 64px !important;
-  min-height: 64px !important;
-  max-height: 64px !important;
-  padding: 6px 4px 6px 4px !important;
+  height: 108px !important;
+  min-height: 108px !important;
+  max-height: 108px !important;
+  padding: 6px 4px 44px 4px !important; /* bawah 44px = area biru, tab di atas (putih) */
   padding-left: calc(env(safe-area-inset-left, 0px) + 4px) !important;
   padding-right: calc(env(safe-area-inset-right, 0px) + 4px) !important;
-  align-items: center !important;
+  align-items: flex-start !important; /* tab di atas (putih), bukan nempel bawah */
   justify-content: space-around !important;
   overflow: visible !important;
-  background: var(--card) !important;
-  background-color: var(--card) !important;
-  background-image: none !important;
+  /* Putih 64px tempat tab, biru 44px di bawah - di dalam nav, bukan ::after */
+  background: linear-gradient(180deg, var(--card) 0%, var(--card) calc(100% - 44px), #0A4DA3 calc(100% - 44px), #0A4DA3 100%) !important;
   box-shadow: 0 -1px 0 var(--border) !important;
   z-index: 9999 !important;
   box-sizing: border-box !important;
   transform: none !important;
   transition: none !important;
-  /* Biru di bawah nav sudah ada dari detik 0 via ::after, tidak nunggu JS / klik */
 }
 .ios-device .bottom-nav::after{
-  content: '' !important;
-  position: absolute !important;
-  left: 0 !important; right: 0 !important; top: 100% !important;
-  height: 44px !important;
-  background: #0A4DA3 !important;
-  display: block !important;
+  display: none !important; /* dimatikan, biang kedip */
   pointer-events: none !important;
 }
 .ios-device .nav-item{
@@ -791,7 +856,7 @@ window.addEventListener('unhandledrejection', function(e){
 .ios-device .pin-box{ transition: none !important; }
 .ios-device .pin-card{ margin-bottom: 0 !important; margin-top: 0 !important; }
 .ios-device #tab-tambah{
-  padding-bottom: calc(140px + 0px) !important;
+  padding-bottom: calc(140px + 44px) !important;
   pointer-events: auto !important;
 }
 .ios-device #tab-tambah input,
@@ -819,7 +884,8 @@ window.addEventListener('unhandledrejection', function(e){
 }
 </style>
 
-<script id="ios-v145-fab-pin-fix">
+
+<script id="ios-v147-fab-pin-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -867,7 +933,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v145-fab-pin-fix">
+<script id="ios-v147-fab-pin-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -902,7 +968,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v145-fab-pin-fix">
+<script id="ios-v147-fab-pin-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -927,7 +993,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v145-fab-pin-fix">
+<script id="ios-v147-fab-pin-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -950,7 +1016,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v145-fab-pin-fix">
+<script id="ios-v147-fab-pin-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -973,7 +1039,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v145-fab-pin-fix">
+<script id="ios-v147-fab-pin-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -996,7 +1062,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v145-fab-pin-fix">
+<script id="ios-v147-fab-pin-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -1019,7 +1085,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v145-fab-pin-fix">
+<script id="ios-v147-fab-pin-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return; // Android: stop total
@@ -1046,7 +1112,7 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<script id="ios-v145-safe">
+<script id="ios-v147-safe">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return; // Android: stop total
@@ -1208,7 +1274,7 @@ function formatRiwayatDateOnly(isoDate){
 
 <div class="splash-screen-overlay active" id="splashScreenOverlay" style="display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:0;overflow:hidden">
   <!-- TOP: LOGO UP - CENTERED -->
-  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:10vh;width:100%">
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:20vh;width:100%">
     <div id="splashLogoWrap" class="splash-logo-glow" style="position:relative;margin:0 auto;z-index:2;width:120px;height:120px;display:flex;align-items:center;justify-content:center;animation:logoVContainerEntry 1.2s cubic-bezier(0.34,1.56,0.64,1) both"><img id="splashLogoImg" src="data:image/png;base64,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" style="width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(0,0,0,0.25));animation:logoVImgEntry 1.2s cubic-bezier(0.16,1,0.3,1) both, logoVFloat 3.5s ease-in-out 1.2s infinite, logoVGlow 2.8s ease-in-out 1.2s infinite" alt="V"></div>
   </div>
   <!-- MIDDLE: WELCOME CENTER TENGAH-TENGAH PERSIS - GARIS DIHAPUS -->
@@ -4089,6 +4155,76 @@ document.addEventListener('DOMContentLoaded', function(){
 });
 </script>
 
+
+<script id="venus-select-v147">
+/* Custom Select VENUS - iPhone + Android, ganti picker bawaan HP */
+(function(){
+  function buildVenusSelect(sel){
+    if(!sel || sel.dataset.venusDone) return;
+    sel.dataset.venusDone = '1';
+    var wrap = document.createElement('div');
+    wrap.className = 'venus-select';
+    sel.parentNode.insertBefore(wrap, sel);
+    wrap.appendChild(sel);
+    sel.style.display = 'none';
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'venus-select-btn';
+    var label = document.createElement('span');
+    label.className = 'venus-label';
+    var chev = document.createElement('span');
+    chev.className = 'venus-chevron';
+    chev.textContent = '▼';
+    btn.appendChild(label);
+    btn.appendChild(chev);
+    var list = document.createElement('div');
+    list.className = 'venus-select-list';
+    Array.from(sel.options).forEach(function(opt){
+      var o = document.createElement('div');
+      o.className = 'venus-select-opt' + (opt.selected ? ' selected' : '');
+      o.dataset.value = opt.value;
+      var t = document.createElement('span');
+      t.textContent = opt.textContent;
+      var c = document.createElement('span');
+      c.className = 'venus-check';
+      c.textContent = '✓';
+      o.appendChild(t);
+      o.appendChild(c);
+      o.addEventListener('click', function(e){
+        e.stopPropagation();
+        sel.value = opt.value;
+        label.textContent = opt.textContent;
+        list.querySelectorAll('.venus-select-opt').forEach(function(x){ x.classList.remove('selected'); });
+        o.classList.add('selected');
+        wrap.classList.remove('open');
+        sel.dispatchEvent(new Event('change', {bubbles:true}));
+      });
+      list.appendChild(o);
+    });
+    var cur = sel.options[sel.selectedIndex];
+    label.textContent = cur ? cur.textContent : '';
+    wrap.appendChild(btn);
+    wrap.appendChild(list);
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var isOpen = wrap.classList.contains('open');
+      document.querySelectorAll('.venus-select.open').forEach(function(x){ x.classList.remove('open'); });
+      if(!isOpen) wrap.classList.add('open');
+    });
+    document.addEventListener('click', function(){ wrap.classList.remove('open'); });
+  }
+  function init(){
+    ['fontSizeSelect','langSelect','autoLockSelect'].forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) buildVenusSelect(el);
+    });
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+  setTimeout(init, 500);
+})();
+</script>
+
 </body>
 <script>
 document.addEventListener('DOMContentLoaded', ()=>{
@@ -4613,5 +4749,75 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 
 
+
+
+<script id="venus-select-v147">
+/* Custom Select VENUS - iPhone + Android, ganti picker bawaan HP */
+(function(){
+  function buildVenusSelect(sel){
+    if(!sel || sel.dataset.venusDone) return;
+    sel.dataset.venusDone = '1';
+    var wrap = document.createElement('div');
+    wrap.className = 'venus-select';
+    sel.parentNode.insertBefore(wrap, sel);
+    wrap.appendChild(sel);
+    sel.style.display = 'none';
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'venus-select-btn';
+    var label = document.createElement('span');
+    label.className = 'venus-label';
+    var chev = document.createElement('span');
+    chev.className = 'venus-chevron';
+    chev.textContent = '▼';
+    btn.appendChild(label);
+    btn.appendChild(chev);
+    var list = document.createElement('div');
+    list.className = 'venus-select-list';
+    Array.from(sel.options).forEach(function(opt){
+      var o = document.createElement('div');
+      o.className = 'venus-select-opt' + (opt.selected ? ' selected' : '');
+      o.dataset.value = opt.value;
+      var t = document.createElement('span');
+      t.textContent = opt.textContent;
+      var c = document.createElement('span');
+      c.className = 'venus-check';
+      c.textContent = '✓';
+      o.appendChild(t);
+      o.appendChild(c);
+      o.addEventListener('click', function(e){
+        e.stopPropagation();
+        sel.value = opt.value;
+        label.textContent = opt.textContent;
+        list.querySelectorAll('.venus-select-opt').forEach(function(x){ x.classList.remove('selected'); });
+        o.classList.add('selected');
+        wrap.classList.remove('open');
+        sel.dispatchEvent(new Event('change', {bubbles:true}));
+      });
+      list.appendChild(o);
+    });
+    var cur = sel.options[sel.selectedIndex];
+    label.textContent = cur ? cur.textContent : '';
+    wrap.appendChild(btn);
+    wrap.appendChild(list);
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var isOpen = wrap.classList.contains('open');
+      document.querySelectorAll('.venus-select.open').forEach(function(x){ x.classList.remove('open'); });
+      if(!isOpen) wrap.classList.add('open');
+    });
+    document.addEventListener('click', function(){ wrap.classList.remove('open'); });
+  }
+  function init(){
+    ['fontSizeSelect','langSelect','autoLockSelect'].forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) buildVenusSelect(el);
+    });
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+  setTimeout(init, 500);
+})();
+</script>
 
 </body>
