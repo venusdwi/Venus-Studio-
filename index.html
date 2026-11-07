@@ -33,9 +33,9 @@ body{background:linear-gradient(180deg,#0A4DA3 0%,#0D3A8A 40%,#061A3A 100%) !imp
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<script id="ios-v147-prepaint">
-/* v147 PRE-PAINT: Tambah .ios-device SEBELUM first paint, biar tidak putih dulu */
-/* Biang bug v147: .ios-device baru ditambah di akhir body + setTimeout 100-1000ms, jadi first paint masih putih, biru baru nongol pas tab di-klik */
+<script id="ios-v149-prepaint">
+/* v148 PRE-PAINT: Tambah .ios-device SEBELUM first paint, biar tidak putih dulu */
+/* Biang bug v148: .ios-device baru ditambah di akhir body + setTimeout 100-1000ms, jadi first paint masih putih, biru baru nongol pas tab di-klik */
 (function(){
   try{
     var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -46,97 +46,7 @@ body{background:linear-gradient(180deg,#0A4DA3 0%,#0D3A8A 40%,#061A3A 100%) !imp
   }catch(e){}
 })();
 </script>
-<style id="ios-v147-prepaint-style">
-/* v147: html biru dari byte pertama, sebelum font / CSS lain load -> tidak ada kedip putih */
-html{ background: #0A4DA3 !important; background-color: #0A4DA3 !important; }
-html.ios-device, html.ios-device body{ background: #0A4DA3 !important; background-color: #0A4DA3 !important; }
-html.ios-device #splashScreenOverlay{
-  position: fixed !important;
-  inset: 0 !important;
-  width: 100vw !important;
-  height: 100dvh !important;
-  min-height: 100dvh !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important;
-  align-items: center !important;
-  gap: 16px !important;
-  padding: env(safe-area-inset-top, 44px) 20px env(safe-area-inset-bottom, 34px) 20px !important;
-  box-sizing: border-box !important;
-  background: linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%) !important;
-  overflow: hidden !important;
-  transform: none !important;
-}
-/* Custom Select VENUS - berlaku iPhone + Android, dari detik 0 */
-/* Light Mode: putih + biru (udah ok) */
-.venus-select{ position: relative !important; min-width: 110px !important; }
-.venus-select-btn{
-  width: 100% !important;
-  display: flex !important; align-items: center !important; justify-content: space-between !important; gap: 8px !important;
-  background: var(--card, #FFFFFF) !important; border: 1.5px solid #0A4DA3 !important; border-radius: 12px !important;
-  padding: 8px 10px !important; font-size: 12px !important; font-weight: 600 !important; color: #0A4DA3 !important;
-  cursor: pointer !important; touch-action: manipulation !important; -webkit-tap-highlight-color: transparent !important;
-}
-.venus-select-btn .venus-chevron{ font-size: 10px !important; transition: transform 0.15s !important; }
-.venus-select.open .venus-select-btn .venus-chevron{ transform: rotate(180deg) !important; }
-.venus-select-list{
-  position: absolute !important; left: 0 !important; right: 0 !important; top: calc(100% + 6px) !important;
-  background: var(--card, #FFFFFF) !important; border: 1px solid var(--border, #E2E8F0) !important; border-radius: 14px !important;
-  box-shadow: 0 12px 28px rgba(10,77,163,0.18) !important; overflow: hidden !important; z-index: 9999 !important;
-  display: none !important;
-}
-.venus-select.open .venus-select-list{ display: block !important; }
-.venus-select-opt{
-  padding: 10px 12px !important; font-size: 12px !important; font-weight: 600 !important; color: var(--text, #1E293B) !important;
-  display: flex !important; align-items: center !important; justify-content: space-between !important;
-  cursor: pointer !important; touch-action: manipulation !important;
-}
-.venus-select-opt:active{ background: var(--primary-light, #EFF6FF) !important; }
-.venus-select-opt.selected{ background: #0A4DA3 !important; color: #FFFFFF !important; }
-.venus-select-opt.selected .venus-check{ opacity: 1 !important; }
-.venus-check{ opacity: 0 !important; font-size: 12px !important; }
-/* DARK MODE - Kolom ikut item, jangan putih lagi */
-/* Tema dark: [data-theme="dark"] -> --card #101828, --text #F1F5F9, --border #1E293B */
-html[data-theme="dark"] .venus-select-btn,
-body[data-theme="dark"] .venus-select-btn,
-[data-theme="dark"] .venus-select-btn{
-  background: #101828 !important;
-  background-color: #101828 !important;
-  border-color: #3B82F6 !important; /* biru lebih terang biar keliatan di item */
-  color: #FFFFFF !important;
-}
-html[data-theme="dark"] .venus-select-list,
-body[data-theme="dark"] .venus-select-list,
-[data-theme="dark"] .venus-select-list{
-  background: #101828 !important;
-  background-color: #101828 !important;
-  border-color: #1E293B !important;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.5) !important;
-}
-html[data-theme="dark"] .venus-select-opt,
-body[data-theme="dark"] .venus-select-opt,
-[data-theme="dark"] .venus-select-opt{
-  color: #F1F5F9 !important;
-  background: transparent !important;
-}
-html[data-theme="dark"] .venus-select-opt:active,
-body[data-theme="dark"] .venus-select-opt:active,
-[data-theme="dark"] .venus-select-opt:active{
-  background: #172130 !important;
-}
-html[data-theme="dark"] .venus-select-opt.selected,
-body[data-theme="dark"] .venus-select-opt.selected,
-[data-theme="dark"] .venus-select-opt.selected{
-  background: #0A4DA3 !important;
-  color: #FFFFFF !important;
-}
-/* Native select fallback (kalau JS custom gagal) juga ikut dark */
-html[data-theme="dark"] select{
-  background: #101828 !important;
-  color: #F1F5F9 !important;
-  border-color: #1E293B !important;
-}
-</style>
+
 
 <meta name="theme-color" content="#0A4DA3">
 <link rel="icon" type="image/png" href="logo.png">
@@ -611,281 +521,10 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<style id="ios-xr-v147-splash-turun-biru-di-nav-setting-venus">
-/* ===== v147 iPhone ONLY (kecuali Setting Custom = iPhone + Android) - Splash turun, Biru di nav (bukan ::after), Android tab 0 perubahan ===== */
-.ios-device html, .ios-device body{
-  height: 100% !important;
-  position: fixed !important;
-  inset: 0 !important;
-  width: 100% !important;
-  overflow: hidden !important;
-  overscroll-behavior: none !important;
-  -webkit-text-size-adjust: 100% !important;
-  text-size-adjust: 100% !important;
-  touch-action: manipulation !important;
-  background: #0A4DA3 !important;
-  background-color: #0A4DA3 !important;
-}
-.ios-device body{ overflow: hidden !important; }
-.ios-device #mainAppContainer{
-  transform: none !important;
-  transition: none !important;
-  animation: none !important;
-  position: fixed !important;
-  inset: 0 !important;
-  left: 0 !important; right: 0 !important; top: 0 !important; bottom: 0 !important;
-  width: 100% !important;
-  height: 100dvh !important;
-  min-height: 100dvh !important;
-  max-height: none !important;
-  overflow: hidden !important;
-  display: flex !important;
-  flex-direction: column !important;
-  background: #0A4DA3 !important;
-}
-.ios-device .bank-content{
-  flex: 1 1 auto !important;
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
-  -webkit-overflow-scrolling: touch !important;
-  overscroll-behavior: contain !important;
-  touch-action: pan-y !important;
-  padding-bottom: 130px !important;
-  padding-left: 14px !important;
-  padding-right: 14px !important;
-  background: var(--bg) !important;
-}
-/* SPLASH - KURANG KE BAWAH: padding-top 20vh (dari 10vh) + konten tengah-bawah */
-.ios-device #splashScreenOverlay,
-.ios-device .splash-screen-overlay{
-  position: fixed !important;
-  inset: 0 !important;
-  width: 100vw !important;
-  height: 100dvh !important;
-  min-height: 100dvh !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: flex-start !important; /* dari center -> flex-start biar bisa didorong ke bawah pakai padding */
-  align-items: center !important;
-  text-align: center !important;
-  gap: 14px !important;
-  padding: calc(env(safe-area-inset-top, 44px) + 20vh) 20px env(safe-area-inset-bottom, 34px) 20px !important;
-  padding-left: calc(env(safe-area-inset-left, 0px) + 20px) !important;
-  padding-right: calc(env(safe-area-inset-right, 0px) + 20px) !important;
-  box-sizing: border-box !important;
-  background: linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%) !important;
-  overflow: hidden !important;
-  transform: none !important;
-  transition: none !important;
-}
-.ios-device #splashScreenOverlay .tap-here-btn,
-.ios-device #splashScreenOverlay #btnTapHere,
-.ios-device .splash-screen-overlay .tap-here-btn{
-  margin-top: auto !important;
-  margin-bottom: calc(env(safe-area-inset-bottom, 34px) + 24px) !important;
-  flex-shrink: 0 !important;
-}
-.ios-device .bank-header{
-  flex: 0 0 auto !important;
-  height: calc(62px + env(safe-area-inset-top, 44px)) !important;
-  min-height: calc(62px + env(safe-area-inset-top, 44px)) !important;
-  padding-top: env(safe-area-inset-top, 44px) !important;
-  padding-bottom: 0 !important;
-  padding-left: calc(env(safe-area-inset-left, 0px) + 18px) !important;
-  padding-right: calc(env(safe-area-inset-right, 0px) + 18px) !important;
-  align-items: center !important;
-  box-sizing: border-box !important;
-  background: linear-gradient(180deg, #0A4DA3 0%, #0A4DA3 env(safe-area-inset-top, 44px), var(--card) env(safe-area-inset-top, 44px), var(--card) 100%) !important;
-  border-bottom: 1px solid var(--border) !important;
-}
-/* BAWAH - Biru JADI BAGIAN NAV (bukan ::after yang ke-clip sama overflow hidden) */
-/* Biang bug v147: ::after top:100% di luar nav, ke-clip overflow hidden container, jadi putih dulu, baru nongol pas klik tab (reflow) */
-/* v147: nav tinggi 108px = 64px putih + 44px biru, biru di dalam nav, selalu ke-paint */
-.ios-device .bottom-nav{
-  position: fixed !important;
-  left: 0 !important; right: 0 !important; bottom: 0 !important;
-  width: 100% !important;
-  height: 108px !important;
-  min-height: 108px !important;
-  max-height: 108px !important;
-  padding: 6px 4px 44px 4px !important; /* bawah 44px = area biru, tab di atas (putih) */
-  padding-left: calc(env(safe-area-inset-left, 0px) + 4px) !important;
-  padding-right: calc(env(safe-area-inset-right, 0px) + 4px) !important;
-  align-items: flex-start !important; /* tab di atas (putih), bukan nempel bawah */
-  justify-content: space-around !important;
-  overflow: visible !important;
-  /* Putih 64px tempat tab, biru 44px di bawah - di dalam nav, bukan ::after */
-  background: linear-gradient(180deg, var(--card) 0%, var(--card) calc(100% - 44px), #0A4DA3 calc(100% - 44px), #0A4DA3 100%) !important;
-  box-shadow: 0 -1px 0 var(--border) !important;
-  z-index: 9999 !important;
-  box-sizing: border-box !important;
-  transform: none !important;
-  transition: none !important;
-}
-.ios-device .bottom-nav::after{
-  display: none !important; /* dimatikan, biang kedip */
-  pointer-events: none !important;
-}
-.ios-device .nav-item{
-  flex: 1 1 0 !important;
-  min-width: 0 !important;
-  max-width: 76px !important;
-  height: 52px !important;
-  min-height: 52px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 2px !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  color: inherit !important;
-  background: transparent !important;
-  overflow: visible !important;
-  line-height: 1.2 !important;
-  cursor: pointer !important;
-  pointer-events: auto !important;
-  touch-action: manipulation !important;
-}
-.ios-device .nav-item .ico,
-.ios-device .nav-item svg{
-  width: 24px !important;
-  height: 24px !important;
-  min-width: 24px !important;
-  min-height: 24px !important;
-  stroke-width: 1.8 !important;
-}
-.ios-device .nav-item.active{
-  color: var(--primary, #0A4DA3) !important;
-  background: transparent !important;
-}
-.ios-device .nav-label{
-  color: inherit !important;
-  font-size: 10px !important;
-  line-height: 1.2 !important;
-  white-space: nowrap !important;
-  overflow: visible !important;
-  margin: 0 !important;
-}
-.ios-device .bottom-nav .nav-fab,
-.ios-device .bottom-nav button.nav-fab,
-.ios-device .bottom-nav #navFabTambah,
-.ios-device #navFabTambah,
-.ios-device .nav-fab{
-  background: #0A4DA3 !important;
-  background-color: #0A4DA3 !important;
-  background-image: none !important;
-  color: #FFFFFF !important;
-  border: 2px solid #0A4DA3 !important;
-  border-color: #0A4DA3 !important;
-  box-shadow: 0 8px 20px rgba(10,77,163,0.35) !important;
-  margin: 0 !important;
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-  width: 52px !important;
-  height: 52px !important;
-  min-width: 52px !important;
-  min-height: 52px !important;
-  max-width: 52px !important;
-  max-height: 52px !important;
-  border-radius: 16px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  align-self: center !important;
-  cursor: pointer !important;
-  pointer-events: auto !important;
-  touch-action: manipulation !important;
-}
-.ios-device #navFabTambah svg,
-.ios-device .nav-fab svg,
-.ios-device .bottom-nav .nav-fab svg{
-  color: #FFFFFF !important;
-  stroke: #FFFFFF !important;
-  fill: none !important;
-  width: 26px !important;
-  height: 26px !important;
-}
-.ios-device #navFabTambah svg path,
-.ios-device .nav-fab svg path,
-.ios-device .bottom-nav .nav-fab svg path,
-.ios-device #navFabTambah svg line,
-.ios-device .nav-fab svg line{
-  stroke: #FFFFFF !important;
-  stroke-width: 2.5 !important;
-  fill: none !important;
-}
-.ios-device .pin-screen-overlay,
-.ios-device .personal-pin-overlay,
-.ios-device .debt-pin-overlay{
-  position: fixed !important;
-  top: calc(-1 * env(safe-area-inset-top, 0px)) !important;
-  left: calc(-1 * env(safe-area-inset-left, 0px)) !important;
-  right: calc(-1 * env(safe-area-inset-right, 0px)) !important;
-  bottom: calc(-1 * env(safe-area-inset-bottom, 0px)) !important;
-  width: auto !important; height: auto !important;
-  min-height: 100svh !important;
-  padding-top: env(safe-area-inset-top, 0px) !important;
-  padding-bottom: env(safe-area-inset-bottom, 0px) !important;
-  padding-left: env(safe-area-inset-left, 0px) !important;
-  padding-right: env(safe-area-inset-right, 0px) !important;
-  background: var(--bg) !important;
-  overscroll-behavior: none !important;
-  touch-action: manipulation !important;
-}
-.ios-device .keypad-btn,
-.ios-device .pin-box .keypad-btn,
-.ios-device button.keypad-btn{
-  touch-action: manipulation !important;
-  -webkit-tap-highlight-color: transparent !important;
-  -webkit-touch-callout: none !important;
-  user-select: none !important;
-  -webkit-user-select: none !important;
-  cursor: pointer !important;
-  pointer-events: auto !important;
-  height: 62px !important;
-  min-height: 62px !important;
-  font-size: 22px !important;
-  transition: transform 0.05s ease, background 0.05s ease !important;
-}
-.ios-device .keypad-btn:active,
-.ios-device .pin-box .keypad-btn:active{
-  transform: scale(0.94) !important;
-  background: rgba(10,77,163,0.12) !important;
-}
-.ios-device .pin-box{ transition: none !important; }
-.ios-device .pin-card{ margin-bottom: 0 !important; margin-top: 0 !important; }
-.ios-device #tab-tambah{
-  padding-bottom: calc(140px + 44px) !important;
-  pointer-events: auto !important;
-}
-.ios-device #tab-tambah input,
-.ios-device #tab-tambah .custom-select-box,
-.ios-device #tab-tambah button,
-.ios-device #transactionForm input,
-.ios-device #transactionForm button,
-.ios-device #transactionForm .custom-select-box{
-  pointer-events: auto !important;
-  touch-action: manipulation !important;
-  cursor: pointer !important;
-  -webkit-tap-highlight-color: transparent !important;
-}
-.ios-device.splash-active, .ios-device.splash-active body{
-  background: linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%) !important;
-  background-color: #061A3A !important;
-}
-.ios-device.pin-active, .ios-device.pin-active body{
-  background: var(--bg) !important;
-  background-color: var(--bg) !important;
-}
-.ios-device.main-active, .ios-device.main-active body{
-  background: #0A4DA3 !important;
-  background-color: #0A4DA3 !important;
-}
-</style>
 
 
-<script id="ios-v147-fab-pin-fix">
+
+<script id="ios-v149-fab-pin-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -933,7 +572,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v147-fab-pin-fix">
+<script id="ios-v149-fab-pin-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -968,7 +607,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v147-fab-pin-fix">
+<script id="ios-v149-fab-pin-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -993,7 +632,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v147-fab-pin-fix">
+<script id="ios-v149-fab-pin-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -1016,7 +655,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v147-fab-pin-fix">
+<script id="ios-v149-fab-pin-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -1039,7 +678,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v147-fab-pin-fix">
+<script id="ios-v149-fab-pin-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -1062,7 +701,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v147-fab-pin-fix">
+<script id="ios-v149-fab-pin-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -1085,7 +724,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v147-fab-pin-fix">
+<script id="ios-v149-fab-pin-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return; // Android: stop total
@@ -1112,7 +751,7 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<script id="ios-v147-safe">
+<script id="ios-v148-safe">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return; // Android: stop total
@@ -1269,6 +908,307 @@ function formatRiwayatDateOnly(isoDate){
 
 <style id="riwayat-align">.item-date{white-space:nowrap !important;font-variant-numeric:tabular-nums !important;letter-spacing:-0.2px !important}#activeFilterTotal{white-space:nowrap !important}</style>
 <style id="riwayat-breakdown"> #activeFilterBreakdown{font-size:9px !important;color:var(--text-2) !important;white-space:nowrap !important} </style>
+
+
+
+
+<style id="ios-xr-v149-biru-bawah-sama-persis-atas">
+/* ===== v149 iPhone ONLY - BERSIH, 1 style aja (hapus v144-v148 yang numpuk) ===== */
+/* Kunci: biru bawah = biru atas, pakai variabel SAMA: env(safe-area-inset-top) */
+/* Atas: biru = env(top). Bawah: biru = env(top) juga. Bukan 30px, bukan 44px + celah. */
+.ios-device html, .ios-device body{
+  height: 100% !important;
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100% !important;
+  overflow: hidden !important;
+  overscroll-behavior: none !important;
+  -webkit-text-size-adjust: 100% !important;
+  text-size-adjust: 100% !important;
+  touch-action: manipulation !important;
+  background: #0A4DA3 !important;
+}
+.ios-device body{ overflow: hidden !important; }
+.ios-device #mainAppContainer{
+  transform: none !important;
+  transition: none !important;
+  animation: none !important;
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100dvh !important;
+  min-height: 100dvh !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  background: #0A4DA3 !important;
+}
+.ios-device .bank-content{
+  flex: 1 1 auto !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior: contain !important;
+  touch-action: pan-y !important;
+  padding-bottom: 110px !important;
+  padding-left: 14px !important;
+  padding-right: 14px !important;
+  background: var(--bg) !important;
+}
+/* SPLASH - Turun (v146 dipertahankan) */
+.ios-device #splashScreenOverlay,
+.ios-device .splash-screen-overlay{
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100dvh !important;
+  min-height: 100dvh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+  text-align: center !important;
+  gap: 14px !important;
+  padding: calc(env(safe-area-inset-top, 44px) + 20vh) 20px env(safe-area-inset-bottom, 34px) 20px !important;
+  padding-left: calc(env(safe-area-inset-left, 0px) + 20px) !important;
+  padding-right: calc(env(safe-area-inset-right, 0px) + 20px) !important;
+  box-sizing: border-box !important;
+  background: linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%) !important;
+  overflow: hidden !important;
+  transform: none !important;
+  transition: none !important;
+}
+.ios-device #splashScreenOverlay .tap-here-btn,
+.ios-device #splashScreenOverlay #btnTapHere{
+  margin-top: auto !important;
+  margin-bottom: calc(env(safe-area-inset-bottom, 34px) + 24px) !important;
+}
+/* ATAS - Biru = env(safe-area-inset-top) */
+.ios-device .bank-header{
+  flex: 0 0 auto !important;
+  height: calc(62px + env(safe-area-inset-top, 44px)) !important;
+  min-height: calc(62px + env(safe-area-inset-top, 44px)) !important;
+  padding-top: env(safe-area-inset-top, 44px) !important;
+  padding-bottom: 0 !important;
+  padding-left: calc(env(safe-area-inset-left, 0px) + 18px) !important;
+  padding-right: calc(env(safe-area-inset-right, 0px) + 18px) !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+  background: linear-gradient(180deg, #0A4DA3 0%, #0A4DA3 env(safe-area-inset-top, 44px), var(--card) env(safe-area-inset-top, 44px), var(--card) 100%) !important;
+  border-bottom: 1px solid var(--border) !important;
+}
+/* BAWAH - Biru = SAMA PERSIS kayak atas: env(safe-area-inset-top) */
+/* Nav putih 64px, biru di bawah nav = env(top) = sama kayak biru atas */
+.ios-device .bottom-nav{
+  position: fixed !important;
+  left: 0 !important; right: 0 !important; bottom: 0 !important;
+  width: 100% !important;
+  height: 64px !important;
+  min-height: 64px !important;
+  max-height: 64px !important;
+  padding: 6px 4px 6px 4px !important;
+  padding-left: calc(env(safe-area-inset-left, 0px) + 4px) !important;
+  padding-right: calc(env(safe-area-inset-right, 0px) + 4px) !important;
+  align-items: center !important;
+  justify-content: space-around !important;
+  overflow: visible !important;
+  background: var(--card) !important;
+  background-color: var(--card) !important;
+  background-image: none !important;
+  box-shadow: 0 -1px 0 var(--border) !important;
+  z-index: 9999 !important;
+  box-sizing: border-box !important;
+  transform: none !important;
+  transition: none !important;
+}
+.ios-device .bottom-nav::after{
+  content: '' !important;
+  position: absolute !important;
+  left: 0 !important; right: 0 !important; top: 100% !important;
+  /* SAMAIN: tinggi = env(top) = sama persis kayak biru atas */
+  height: env(safe-area-inset-top, 44px) !important;
+  background: #0A4DA3 !important;
+  display: block !important;
+  pointer-events: none !important;
+}
+.ios-device .nav-item{
+  flex: 1 1 0 !important;
+  min-width: 0 !important;
+  max-width: 76px !important;
+  height: 52px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 2px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  color: inherit !important;
+  background: transparent !important;
+  overflow: visible !important;
+  line-height: 1.2 !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  touch-action: manipulation !important;
+}
+.ios-device .nav-item .ico,
+.ios-device .nav-item svg{
+  width: 24px !important;
+  height: 24px !important;
+  stroke-width: 1.8 !important;
+}
+.ios-device .nav-item.active{ color: var(--primary, #0A4DA3) !important; background: transparent !important; }
+.ios-device .nav-label{
+  color: inherit !important;
+  font-size: 10px !important;
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
+  margin: 0 !important;
+}
+.ios-device .bottom-nav .nav-fab,
+.ios-device #navFabTambah,
+.ios-device .nav-fab{
+  background: #0A4DA3 !important;
+  background-color: #0A4DA3 !important;
+  background-image: none !important;
+  color: #FFFFFF !important;
+  border: 2px solid #0A4DA3 !important;
+  box-shadow: 0 8px 20px rgba(10,77,163,0.35) !important;
+  margin: 0 !important;
+  width: 52px !important;
+  height: 52px !important;
+  min-width: 52px !important;
+  min-height: 52px !important;
+  border-radius: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  align-self: center !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  touch-action: manipulation !important;
+}
+.ios-device #navFabTambah svg,
+.ios-device .nav-fab svg{
+  color: #FFFFFF !important;
+  stroke: #FFFFFF !important;
+  fill: none !important;
+  width: 26px !important;
+  height: 26px !important;
+}
+.ios-device #navFabTambah svg path,
+.ios-device .nav-fab svg path{
+  stroke: #FFFFFF !important;
+  stroke-width: 2.5 !important;
+  fill: none !important;
+}
+.ios-device .pin-screen-overlay,
+.ios-device .personal-pin-overlay,
+.ios-device .debt-pin-overlay{
+  position: fixed !important;
+  top: calc(-1 * env(safe-area-inset-top, 0px)) !important;
+  left: calc(-1 * env(safe-area-inset-left, 0px)) !important;
+  right: calc(-1 * env(safe-area-inset-right, 0px)) !important;
+  bottom: calc(-1 * env(safe-area-inset-bottom, 0px)) !important;
+  width: auto !important; height: auto !important;
+  min-height: 100svh !important;
+  padding-top: env(safe-area-inset-top, 0px) !important;
+  padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+  padding-left: env(safe-area-inset-left, 0px) !important;
+  padding-right: env(safe-area-inset-right, 0px) !important;
+  background: var(--bg) !important;
+  overscroll-behavior: none !important;
+  touch-action: manipulation !important;
+}
+.ios-device .keypad-btn{
+  touch-action: manipulation !important;
+  -webkit-tap-highlight-color: transparent !important;
+  height: 62px !important;
+  min-height: 62px !important;
+  font-size: 22px !important;
+  transition: transform 0.05s ease, background 0.05s ease !important;
+}
+.ios-device .keypad-btn:active{
+  transform: scale(0.94) !important;
+  background: rgba(10,77,163,0.12) !important;
+}
+.ios-device .pin-box{ transition: none !important; }
+.ios-device .pin-card{ margin-bottom: 0 !important; margin-top: 0 !important; }
+.ios-device #tab-tambah{
+  padding-bottom: calc(140px + 0px) !important;
+  pointer-events: auto !important;
+}
+.ios-device #tab-tambah input,
+.ios-device #tab-tambah .custom-select-box,
+.ios-device #tab-tambah button,
+.ios-device #transactionForm input,
+.ios-device #transactionForm button{
+  pointer-events: auto !important;
+  touch-action: manipulation !important;
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+.ios-device.splash-active, .ios-device.splash-active body{
+  background: linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%) !important;
+  background-color: #061A3A !important;
+}
+.ios-device.pin-active, .ios-device.pin-active body{
+  background: var(--bg) !important;
+  background-color: var(--bg) !important;
+}
+/* MAIN: fondasi putih, biar celah di bawah ::after tidak ikut biru dan bikin biru keliatan gede */
+.ios-device.main-active, .ios-device.main-active body{
+  background: var(--card) !important;
+  background-color: var(--card) !important;
+}
+.ios-device.main-active #mainAppContainer{
+  background: var(--card) !important;
+}
+</style>
+<style id="ios-v149-prepaint-style">
+html{ background: #0A4DA3 !important; background-color: #0A4DA3 !important; }
+html.ios-device, html.ios-device body{ background: #0A4DA3 !important; background-color: #0A4DA3 !important; }
+/* Venus Select - Light + Dark (v147 dipertahankan) */
+.venus-select{ position: relative !important; min-width: 110px !important; }
+.venus-select-btn{
+  width: 100% !important;
+  display: flex !important; align-items: center !important; justify-content: space-between !important; gap: 8px !important;
+  background: var(--card, #FFFFFF) !important; border: 1.5px solid #0A4DA3 !important; border-radius: 12px !important;
+  padding: 8px 10px !important; font-size: 12px !important; font-weight: 600 !important; color: #0A4DA3 !important;
+  cursor: pointer !important; touch-action: manipulation !important; -webkit-tap-highlight-color: transparent !important;
+}
+.venus-select-btn .venus-chevron{ font-size: 10px !important; transition: transform 0.15s !important; }
+.venus-select.open .venus-select-btn .venus-chevron{ transform: rotate(180deg) !important; }
+.venus-select-list{
+  position: absolute !important; left: 0 !important; right: 0 !important; top: calc(100% + 6px) !important;
+  background: var(--card, #FFFFFF) !important; border: 1px solid var(--border, #E2E8F0) !important; border-radius: 14px !important;
+  box-shadow: 0 12px 28px rgba(10,77,163,0.18) !important; overflow: hidden !important; z-index: 9999 !important;
+  display: none !important;
+}
+.venus-select.open .venus-select-list{ display: block !important; }
+.venus-select-opt{
+  padding: 10px 12px !important; font-size: 12px !important; font-weight: 600 !important; color: var(--text, #1E293B) !important;
+  display: flex !important; align-items: center !important; justify-content: space-between !important;
+  cursor: pointer !important; touch-action: manipulation !important;
+}
+.venus-select-opt:active{ background: var(--primary-light, #EFF6FF) !important; }
+.venus-select-opt.selected{ background: #0A4DA3 !important; color: #FFFFFF !important; }
+.venus-select-opt.selected .venus-check{ opacity: 1 !important; }
+.venus-check{ opacity: 0 !important; font-size: 12px !important; }
+html[data-theme="dark"] .venus-select-btn{
+  background: #101828 !important; background-color: #101828 !important;
+  border-color: #3B82F6 !important; color: #FFFFFF !important;
+}
+html[data-theme="dark"] .venus-select-list{
+  background: #101828 !important; background-color: #101828 !important;
+  border-color: #1E293B !important; box-shadow: 0 12px 28px rgba(0,0,0,0.5) !important;
+}
+html[data-theme="dark"] .venus-select-opt{ color: #F1F5F9 !important; background: transparent !important; }
+html[data-theme="dark"] .venus-select-opt:active{ background: #172130 !important; }
+html[data-theme="dark"] .venus-select-opt.selected{ background: #0A4DA3 !important; color: #FFFFFF !important; }
+html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !important; border-color: #1E293B !important; }
+</style>
+
 </head>
 <body style="background:#0A4DA3">
 
@@ -4156,7 +4096,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<script id="venus-select-v147">
+<script id="venus-select-v149">
 /* Custom Select VENUS - iPhone + Android, ganti picker bawaan HP */
 (function(){
   function buildVenusSelect(sel){
@@ -4751,7 +4691,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 
 
-<script id="venus-select-v147">
+<script id="venus-select-v149">
 /* Custom Select VENUS - iPhone + Android, ganti picker bawaan HP */
 (function(){
   function buildVenusSelect(sel){
