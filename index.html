@@ -33,6 +33,42 @@ body{background:linear-gradient(180deg,#0A4DA3 0%,#0D3A8A 40%,#061A3A 100%) !imp
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<script id="ios-v145-prepaint">
+/* v145 PRE-PAINT: Tambah .ios-device SEBELUM first paint, biar tidak putih dulu */
+/* Biang bug v145: .ios-device baru ditambah di akhir body + setTimeout 100-1000ms, jadi first paint masih putih, biru baru nongol pas tab di-klik */
+(function(){
+  try{
+    var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    if(!isIOS) return; /* Android: stop total, 0 perubahan */
+    document.documentElement.classList.add('ios-device');
+    document.documentElement.style.background = '#0A4DA3';
+    document.documentElement.style.backgroundColor = '#0A4DA3';
+  }catch(e){}
+})();
+</script>
+<style id="ios-v145-prepaint-style">
+/* Pre-paint: html biru dari detik 0, jadi tidak ada kedip putih / hitam pas buka */
+html.ios-device, html.ios-device body{ background: #0A4DA3 !important; background-color: #0A4DA3 !important; }
+/* Splash langsung biru + presisi dari detik 0, bukan nunggu JS */
+html.ios-device #splashScreenOverlay{
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100dvh !important;
+  min-height: 100dvh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 16px !important;
+  padding: env(safe-area-inset-top, 44px) 20px env(safe-area-inset-bottom, 34px) 20px !important;
+  box-sizing: border-box !important;
+  background: linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%) !important;
+  overflow: hidden !important;
+  transform: none !important;
+}
+</style>
+
 <meta name="theme-color" content="#0A4DA3">
 <link rel="icon" type="image/png" href="logo.png">
 <title>VENUS STUDIO v90 PDF FULL PAGE 1793887564</title>
@@ -504,8 +540,9 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<style id="ios-xr-v144-putih-nempel-atas-plus-tab-rapi-pin-responsif">
-/* ===== v144 iPhone ONLY - Putih nempel sampe atas kotak +, Tab rapi sama ukuran, PIN responsif, Android 0 perubahan ===== */
+
+<style id="ios-xr-v145-splash-presisi-biru-langsung">
+/* ===== v145 iPhone ONLY - Splash presisi + Biru langsung muncul (tidak putih dulu / nunggu klik tab), Android 0 perubahan ===== */
 .ios-device html, .ios-device body{
   height: 100% !important;
   position: fixed !important;
@@ -548,6 +585,36 @@ window.addEventListener('unhandledrejection', function(e){
   padding-right: 14px !important;
   background: var(--bg) !important;
 }
+/* SPLASH PRESISI - Tengah persis, logo + teks + TAP HERE tidak geser */
+.ios-device #splashScreenOverlay,
+.ios-device .splash-screen-overlay{
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100dvh !important;
+  min-height: 100dvh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+  gap: 14px !important;
+  padding: env(safe-area-inset-top, 44px) 20px env(safe-area-inset-bottom, 34px) 20px !important;
+  padding-left: calc(env(safe-area-inset-left, 0px) + 20px) !important;
+  padding-right: calc(env(safe-area-inset-right, 0px) + 20px) !important;
+  box-sizing: border-box !important;
+  background: linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%) !important;
+  overflow: hidden !important;
+  transform: none !important;
+  transition: none !important;
+}
+.ios-device #splashScreenOverlay .tap-here-btn,
+.ios-device #splashScreenOverlay #btnTapHere,
+.ios-device .splash-screen-overlay .tap-here-btn{
+  margin-top: auto !important; /* TAP HERE nempel di bawah, tidak di tengah */
+  margin-bottom: calc(env(safe-area-inset-bottom, 34px) + 16px) !important;
+  flex-shrink: 0 !important;
+}
 .ios-device .bank-header{
   flex: 0 0 auto !important;
   height: calc(62px + env(safe-area-inset-top, 44px)) !important;
@@ -561,9 +628,7 @@ window.addEventListener('unhandledrejection', function(e){
   background: linear-gradient(180deg, #0A4DA3 0%, #0A4DA3 env(safe-area-inset-top, 44px), var(--card) env(safe-area-inset-top, 44px), var(--card) 100%) !important;
   border-bottom: 1px solid var(--border) !important;
 }
-/* BAWAH - Putih NEMPEL sampe atas kotak + (v144: kotak + nongol 10px di atas putih) */
-/* Kunci: margin-top FAB 0 (bukan -16px asli), nav align-items center, tinggi nav = FAB + padding */
-/* Jadi atas putih = atas kotak + (selisih cuma 6px padding, bukan 16px nongol) */
+/* BAWAH - Putih nempel sampe atas kotak + (v145 dipertahankan) + Biru langsung, tidak nunggu klik */
 .ios-device .bottom-nav{
   position: fixed !important;
   left: 0 !important; right: 0 !important; bottom: 0 !important;
@@ -574,7 +639,7 @@ window.addEventListener('unhandledrejection', function(e){
   padding: 6px 4px 6px 4px !important;
   padding-left: calc(env(safe-area-inset-left, 0px) + 4px) !important;
   padding-right: calc(env(safe-area-inset-right, 0px) + 4px) !important;
-  align-items: center !important; /* tengah vertikal, biar semua tab + kotak + sejajar */
+  align-items: center !important;
   justify-content: space-around !important;
   overflow: visible !important;
   background: var(--card) !important;
@@ -585,17 +650,17 @@ window.addEventListener('unhandledrejection', function(e){
   box-sizing: border-box !important;
   transform: none !important;
   transition: none !important;
+  /* Biru di bawah nav sudah ada dari detik 0 via ::after, tidak nunggu JS / klik */
 }
 .ios-device .bottom-nav::after{
   content: '' !important;
   position: absolute !important;
   left: 0 !important; right: 0 !important; top: 100% !important;
-  height: 44px !important; /* biru bawah tetep 44px = pas notch */
+  height: 44px !important;
   background: #0A4DA3 !important;
   display: block !important;
   pointer-events: none !important;
 }
-/* TAB RAPI - Semua tab ukuran sama: flex 1, tinggi 52px sama kayak kotak +, ikon 24px, label 10px */
 .ios-device .nav-item{
   flex: 1 1 0 !important;
   min-width: 0 !important;
@@ -637,7 +702,6 @@ window.addEventListener('unhandledrejection', function(e){
   overflow: visible !important;
   margin: 0 !important;
 }
-/* FAB - Ukuran disamain: 52px sama kayak tab, full biru, + putih */
 .ios-device .bottom-nav .nav-fab,
 .ios-device .bottom-nav button.nav-fab,
 .ios-device .bottom-nav #navFabTambah,
@@ -651,7 +715,7 @@ window.addEventListener('unhandledrejection', function(e){
   border-color: #0A4DA3 !important;
   box-shadow: 0 8px 20px rgba(10,77,163,0.35) !important;
   margin: 0 !important;
-  margin-top: 0 !important; /* matiin -16px asli yang bikin kotak + nongol */
+  margin-top: 0 !important;
   margin-bottom: 0 !important;
   width: 52px !important;
   height: 52px !important;
@@ -686,9 +750,6 @@ window.addEventListener('unhandledrejection', function(e){
   stroke-width: 2.5 !important;
   fill: none !important;
 }
-.ios-device #navFabTambah span,
-.ios-device .nav-fab span{ color: #FFFFFF !important; }
-/* PIN AKSES - RESPONSIF di iPhone (v144 delay karena 300ms tap + transition + tap-highlight) */
 .ios-device .pin-screen-overlay,
 .ios-device .personal-pin-overlay,
 .ios-device .debt-pin-overlay{
@@ -707,10 +768,6 @@ window.addEventListener('unhandledrejection', function(e){
   overscroll-behavior: none !important;
   touch-action: manipulation !important;
 }
-.ios-device .on-screen-keypad{
-  gap: 10px !important;
-  touch-action: manipulation !important;
-}
 .ios-device .keypad-btn,
 .ios-device .pin-box .keypad-btn,
 .ios-device button.keypad-btn{
@@ -724,7 +781,6 @@ window.addEventListener('unhandledrejection', function(e){
   height: 62px !important;
   min-height: 62px !important;
   font-size: 22px !important;
-  /* Feedback instan, tanpa delay 150ms */
   transition: transform 0.05s ease, background 0.05s ease !important;
 }
 .ios-device .keypad-btn:active,
@@ -749,25 +805,6 @@ window.addEventListener('unhandledrejection', function(e){
   cursor: pointer !important;
   -webkit-tap-highlight-color: transparent !important;
 }
-.ios-device #splashScreenOverlay{
-  position: fixed !important;
-  top: calc(-1 * env(safe-area-inset-top, 0px)) !important;
-  left: calc(-1 * env(safe-area-inset-left, 0px)) !important;
-  right: calc(-1 * env(safe-area-inset-right, 0px)) !important;
-  bottom: calc(-1 * env(safe-area-inset-bottom, 0px)) !important;
-  width: auto !important; height: auto !important;
-  min-height: 100svh !important;
-  padding-top: env(safe-area-inset-top, 0px) !important;
-  padding-bottom: env(safe-area-inset-bottom, 0px) !important;
-  padding-left: env(safe-area-inset-left, 0px) !important;
-  padding-right: env(safe-area-inset-right, 0px) !important;
-  background: linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%) !important;
-  overflow: hidden !important;
-}
-.ios-device #splashScreenOverlay .tap-here-btn,
-.ios-device #splashScreenOverlay #btnTapHere{
-  margin-bottom: calc(env(safe-area-inset-bottom, 0px) + 10px) !important;
-}
 .ios-device.splash-active, .ios-device.splash-active body{
   background: linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%) !important;
   background-color: #061A3A !important;
@@ -781,7 +818,8 @@ window.addEventListener('unhandledrejection', function(e){
   background-color: #0A4DA3 !important;
 }
 </style>
-<script id="ios-v144-fab-pin-fix">
+
+<script id="ios-v145-fab-pin-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -829,7 +867,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v144-fab-pin-fix">
+<script id="ios-v145-fab-pin-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -864,7 +902,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v144-fab-pin-fix">
+<script id="ios-v145-fab-pin-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -889,7 +927,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v144-fab-pin-fix">
+<script id="ios-v145-fab-pin-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -912,7 +950,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v144-fab-pin-fix">
+<script id="ios-v145-fab-pin-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -935,7 +973,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v144-fab-pin-fix">
+<script id="ios-v145-fab-pin-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -958,7 +996,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v144-fab-pin-fix">
+<script id="ios-v145-fab-pin-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -981,7 +1019,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v144-fab-pin-fix">
+<script id="ios-v145-fab-pin-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return; // Android: stop total
@@ -1008,7 +1046,7 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<script id="ios-v144-safe">
+<script id="ios-v145-safe">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return; // Android: stop total
