@@ -33,7 +33,7 @@ body{background:linear-gradient(180deg,#0A4DA3 0%,#0D3A8A 40%,#061A3A 100%) !imp
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<script id="ios-v149-prepaint">
+<script id="ios-v150-prepaint">
 /* v148 PRE-PAINT: Tambah .ios-device SEBELUM first paint, biar tidak putih dulu */
 /* Biang bug v148: .ios-device baru ditambah di akhir body + setTimeout 100-1000ms, jadi first paint masih putih, biru baru nongol pas tab di-klik */
 (function(){
@@ -524,7 +524,7 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<script id="ios-v149-fab-pin-fix">
+<script id="ios-v150-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -572,7 +572,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v149-fab-pin-fix">
+<script id="ios-v150-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -607,7 +607,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v149-fab-pin-fix">
+<script id="ios-v150-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -632,7 +632,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v149-fab-pin-fix">
+<script id="ios-v150-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -655,7 +655,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v149-fab-pin-fix">
+<script id="ios-v150-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -678,7 +678,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v149-fab-pin-fix">
+<script id="ios-v150-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -701,7 +701,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v149-fab-pin-fix">
+<script id="ios-v150-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -724,7 +724,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v149-fab-pin-fix">
+<script id="ios-v150-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return; // Android: stop total
@@ -912,10 +912,9 @@ function formatRiwayatDateOnly(isoDate){
 
 
 
-<style id="ios-xr-v149-biru-bawah-sama-persis-atas">
-/* ===== v149 iPhone ONLY - BERSIH, 1 style aja (hapus v144-v148 yang numpuk) ===== */
-/* Kunci: biru bawah = biru atas, pakai variabel SAMA: env(safe-area-inset-top) */
-/* Atas: biru = env(top). Bawah: biru = env(top) juga. Bukan 30px, bukan 44px + celah. */
+
+<style id="ios-xr-v150-splash-tengah-tap-no-kedip-biru-di-nav-pemasukan-2baris">
+/* ===== v150 iPhone ONLY - 4 fix: Splash tengah, TAP->PIN no kedip, Biru di nav (bukan ::after), Pemasukan 2 baris ===== */
 .ios-device html, .ios-device body{
   height: 100% !important;
   position: fixed !important;
@@ -950,12 +949,13 @@ function formatRiwayatDateOnly(isoDate){
   -webkit-overflow-scrolling: touch !important;
   overscroll-behavior: contain !important;
   touch-action: pan-y !important;
-  padding-bottom: 110px !important;
+  padding-bottom: 130px !important;
   padding-left: 14px !important;
   padding-right: 14px !important;
   background: var(--bg) !important;
 }
-/* SPLASH - Turun (v146 dipertahankan) */
+/* 1. SPLASH - BALIK TENGAH (v150 ngaco karena 20vh dobel: outer 20vh + inner 20vh = 40vh) */
+/* v150: outer tengah, inner padding-top 0, TAP HERE di bawah konten (bukan nempel teks) */
 .ios-device #splashScreenOverlay,
 .ios-device .splash-screen-overlay{
   position: fixed !important;
@@ -965,25 +965,58 @@ function formatRiwayatDateOnly(isoDate){
   min-height: 100dvh !important;
   display: flex !important;
   flex-direction: column !important;
-  justify-content: flex-start !important;
+  justify-content: center !important; /* dari flex-start -> center, biar V di tengah */
   align-items: center !important;
   text-align: center !important;
-  gap: 14px !important;
-  padding: calc(env(safe-area-inset-top, 44px) + 20vh) 20px env(safe-area-inset-bottom, 34px) 20px !important;
+  gap: 0 !important;
+  padding: env(safe-area-inset-top, 44px) 20px env(safe-area-inset-bottom, 34px) 20px !important;
   padding-left: calc(env(safe-area-inset-left, 0px) + 20px) !important;
   padding-right: calc(env(safe-area-inset-right, 0px) + 20px) !important;
   box-sizing: border-box !important;
   background: linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%) !important;
   overflow: hidden !important;
   transform: none !important;
-  transition: none !important;
+  /* Transisi splash pendek biar tidak kedip lama */
+  transition: opacity 0.25s ease !important;
 }
-.ios-device #splashScreenOverlay .tap-here-btn,
-.ios-device #splashScreenOverlay #btnTapHere{
-  margin-top: auto !important;
-  margin-bottom: calc(env(safe-area-inset-bottom, 34px) + 24px) !important;
+.ios-device #splashScreenOverlay > div:first-child{
+  padding-top: 0 !important; /* matiin 20vh di HTML yang bikin dobel */
+  flex: 0 0 auto !important;
+  justify-content: center !important;
 }
-/* ATAS - Biru = env(safe-area-inset-top) */
+.ios-device #splashScreenOverlay #btnTapHere,
+.ios-device #splashScreenOverlay .tap-here-btn{
+  margin-top: 24px !important; /* TAP HERE 24px di bawah VENUS STUDIO, bukan nempel */
+  margin-bottom: 0 !important;
+}
+.ios-device #splashScreenOverlay.hidden{
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+/* 2. TAP HERE -> PIN NO KEDIP - PIN langsung muncul, tanpa transisi, background langsung ganti */
+.ios-device .pin-screen-overlay,
+.ios-device .personal-pin-overlay,
+.ios-device .debt-pin-overlay{
+  position: fixed !important;
+  top: calc(-1 * env(safe-area-inset-top, 0px)) !important;
+  left: calc(-1 * env(safe-area-inset-left, 0px)) !important;
+  right: calc(-1 * env(safe-area-inset-right, 0px)) !important;
+  bottom: calc(-1 * env(safe-area-inset-bottom, 0px)) !important;
+  width: auto !important; height: auto !important;
+  min-height: 100svh !important;
+  padding-top: env(safe-area-inset-top, 0px) !important;
+  padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+  padding-left: env(safe-area-inset-left, 0px) !important;
+  padding-right: env(safe-area-inset-right, 0px) !important;
+  background: var(--bg) !important;
+  overscroll-behavior: none !important;
+  touch-action: manipulation !important;
+  transition: none !important; /* PIN no transisi, langsung muncul, tidak kedip putih */
+}
+.ios-device.pin-active, .ios-device.pin-active body{
+  background: var(--bg) !important;
+  background-color: var(--bg) !important;
+}
 .ios-device .bank-header{
   flex: 0 0 auto !important;
   height: calc(62px + env(safe-area-inset-top, 44px)) !important;
@@ -997,24 +1030,24 @@ function formatRiwayatDateOnly(isoDate){
   background: linear-gradient(180deg, #0A4DA3 0%, #0A4DA3 env(safe-area-inset-top, 44px), var(--card) env(safe-area-inset-top, 44px), var(--card) 100%) !important;
   border-bottom: 1px solid var(--border) !important;
 }
-/* BAWAH - Biru = SAMA PERSIS kayak atas: env(safe-area-inset-top) */
-/* Nav putih 64px, biru di bawah nav = env(top) = sama kayak biru atas */
+/* 3. BIRU BAWAH - JADI BAGIAN NAV (bukan ::after yang ke-clip overflow hidden jadi putih) */
+/* Biang putih lagi di v150: ::after top:100% di luar nav, ke-clip #mainAppContainer overflow hidden */
+/* v150: nav 108px = 64 putih + 44 biru (env(top)), biru di DALAM nav, tidak ke-clip, tidak gede karena fondasi main putih */
 .ios-device .bottom-nav{
   position: fixed !important;
   left: 0 !important; right: 0 !important; bottom: 0 !important;
   width: 100% !important;
-  height: 64px !important;
-  min-height: 64px !important;
-  max-height: 64px !important;
-  padding: 6px 4px 6px 4px !important;
+  height: 108px !important;
+  min-height: 108px !important;
+  max-height: 108px !important;
+  padding: 6px 4px 44px 4px !important; /* bawah 44px = area biru */
   padding-left: calc(env(safe-area-inset-left, 0px) + 4px) !important;
   padding-right: calc(env(safe-area-inset-right, 0px) + 4px) !important;
-  align-items: center !important;
+  align-items: flex-start !important; /* tab di atas (putih) */
   justify-content: space-around !important;
   overflow: visible !important;
-  background: var(--card) !important;
-  background-color: var(--card) !important;
-  background-image: none !important;
+  /* Putih 64px tempat tab, biru 44px (env(top)) di bawah - SAMA PERSIS kayak atas */
+  background: linear-gradient(180deg, var(--card) 0%, var(--card) calc(100% - env(safe-area-inset-top, 44px)), #0A4DA3 calc(100% - env(safe-area-inset-top, 44px)), #0A4DA3 100%) !important;
   box-shadow: 0 -1px 0 var(--border) !important;
   z-index: 9999 !important;
   box-sizing: border-box !important;
@@ -1022,13 +1055,7 @@ function formatRiwayatDateOnly(isoDate){
   transition: none !important;
 }
 .ios-device .bottom-nav::after{
-  content: '' !important;
-  position: absolute !important;
-  left: 0 !important; right: 0 !important; top: 100% !important;
-  /* SAMAIN: tinggi = env(top) = sama persis kayak biru atas */
-  height: env(safe-area-inset-top, 44px) !important;
-  background: #0A4DA3 !important;
-  display: block !important;
+  display: none !important; /* dimatikan, biang putih / kedip */
   pointer-events: none !important;
 }
 .ios-device .nav-item{
@@ -1102,23 +1129,31 @@ function formatRiwayatDateOnly(isoDate){
   stroke-width: 2.5 !important;
   fill: none !important;
 }
-.ios-device .pin-screen-overlay,
-.ios-device .personal-pin-overlay,
-.ios-device .debt-pin-overlay{
-  position: fixed !important;
-  top: calc(-1 * env(safe-area-inset-top, 0px)) !important;
-  left: calc(-1 * env(safe-area-inset-left, 0px)) !important;
-  right: calc(-1 * env(safe-area-inset-right, 0px)) !important;
-  bottom: calc(-1 * env(safe-area-inset-bottom, 0px)) !important;
-  width: auto !important; height: auto !important;
-  min-height: 100svh !important;
-  padding-top: env(safe-area-inset-top, 0px) !important;
-  padding-bottom: env(safe-area-inset-bottom, 0px) !important;
-  padding-left: env(safe-area-inset-left, 0px) !important;
-  padding-right: env(safe-area-inset-right, 0px) !important;
-  background: var(--bg) !important;
-  overscroll-behavior: none !important;
-  touch-action: manipulation !important;
+/* 4. PEMASUKAN vs PENGELUARAN - November di bawah, 2 baris, sama persis */
+/* Biang: PEMASUKAN (NOVEMBER) 1 baris muat, PENGELUARAN (NOVEMBER) kepanjangan jadi wrap 2 baris, jadi tidak sejajar */
+/* v150: paksa 2 baris untuk keduanya: judul baris 1, (BULAN) baris 2 */
+.ios-device .card-sub-bank h4{
+  font-size: 9px !important;
+  letter-spacing: 1px !important;
+  line-height: 1.4 !important;
+  min-height: 26px !important; /* 2 baris x 13px, biar tinggi kartu sama */
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  margin-bottom: 4px !important;
+}
+.ios-device .card-sub-bank h4 .venus-month{
+  display: block !important;
+  font-size: 8px !important;
+  letter-spacing: 1px !important;
+  opacity: 0.8 !important;
+  font-weight: 700 !important;
+}
+.ios-device .card-sub-bank{
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
 }
 .ios-device .keypad-btn{
   touch-action: manipulation !important;
@@ -1135,7 +1170,7 @@ function formatRiwayatDateOnly(isoDate){
 .ios-device .pin-box{ transition: none !important; }
 .ios-device .pin-card{ margin-bottom: 0 !important; margin-top: 0 !important; }
 .ios-device #tab-tambah{
-  padding-bottom: calc(140px + 0px) !important;
+  padding-bottom: calc(140px + 44px) !important;
   pointer-events: auto !important;
 }
 .ios-device #tab-tambah input,
@@ -1152,11 +1187,6 @@ function formatRiwayatDateOnly(isoDate){
   background: linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%) !important;
   background-color: #061A3A !important;
 }
-.ios-device.pin-active, .ios-device.pin-active body{
-  background: var(--bg) !important;
-  background-color: var(--bg) !important;
-}
-/* MAIN: fondasi putih, biar celah di bawah ::after tidak ikut biru dan bikin biru keliatan gede */
 .ios-device.main-active, .ios-device.main-active body{
   background: var(--card) !important;
   background-color: var(--card) !important;
@@ -1165,7 +1195,8 @@ function formatRiwayatDateOnly(isoDate){
   background: var(--card) !important;
 }
 </style>
-<style id="ios-v149-prepaint-style">
+
+<style id="ios-v150-prepaint-style">
 html{ background: #0A4DA3 !important; background-color: #0A4DA3 !important; }
 html.ios-device, html.ios-device body{ background: #0A4DA3 !important; background-color: #0A4DA3 !important; }
 /* Venus Select - Light + Dark (v147 dipertahankan) */
@@ -4096,7 +4127,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<script id="venus-select-v149">
+<script id="venus-select-v150">
 /* Custom Select VENUS - iPhone + Android, ganti picker bawaan HP */
 (function(){
   function buildVenusSelect(sel){
@@ -4162,6 +4193,61 @@ document.addEventListener('DOMContentLoaded', function(){
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
   setTimeout(init, 500);
+})();
+</script>
+
+
+<script id="ios-v150-fix">
+(function(){
+  var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  if(!isIOS) return;
+  // A. TAP HERE -> PIN no kedip: ganti background dulu, baru fade splash 0.25s
+  function fixTap(){
+    var btn = document.getElementById('btnTapHere');
+    if(!btn || btn.dataset.ios150) return;
+    btn.dataset.ios150 = '1';
+    btn.addEventListener('click', function(){
+      document.documentElement.classList.remove('splash-active');
+      document.documentElement.classList.add('pin-active');
+      var splash = document.getElementById('splashScreenOverlay');
+      var pin = document.getElementById('pinScreenOverlay');
+      if(pin) pin.classList.add('active');
+      if(splash){
+        splash.style.transition = 'opacity 0.25s ease';
+        splash.style.opacity = '0';
+        setTimeout(function(){ splash.style.display = 'none'; }, 260);
+      }
+    }, true);
+  }
+  // B. Pemasukan / Pengeluaran: paksa 2 baris, November di bawah
+  function fixLabels(){
+    ['labelPemasukanBulan','labelPengeluaranBulan'].forEach(function(id){
+      var el = document.getElementById(id);
+      if(!el || el.dataset.ios150) return;
+      el.dataset.ios150 = '1';
+      var txt = el.textContent || '';
+      var m = txt.match(/^(PEMASUKAN|PENGELUARAN)\s*\((.+)\)\s*$/);
+      if(m){
+        el.innerHTML = m[1] + '<span class="venus-month">(' + m[2] + ')</span>';
+      } else if(txt.indexOf('(') > -1){
+        var parts = txt.split('(');
+        el.innerHTML = parts[0].trim() + '<span class="venus-month">(' + parts[1].trim();
+      }
+    });
+  }
+  function fixFab(){
+    var fab = document.getElementById('navFabTambah') || document.querySelector('.nav-fab');
+    if(!fab) return;
+    fab.style.setProperty('background', '#0A4DA3', 'important');
+    fab.style.setProperty('color', '#FFFFFF', 'important');
+  }
+  function init(){ fixTap(); fixLabels(); fixFab(); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+  setTimeout(init, 300);
+  setTimeout(init, 1000);
+  // Labels bisa berubah pas ganti bulan, pantau terus
+  setInterval(function(){ fixLabels(); }, 1500);
 })();
 </script>
 
@@ -4691,7 +4777,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 
 
-<script id="venus-select-v149">
+<script id="venus-select-v150">
 /* Custom Select VENUS - iPhone + Android, ganti picker bawaan HP */
 (function(){
   function buildVenusSelect(sel){
@@ -4757,6 +4843,61 @@ document.addEventListener('DOMContentLoaded', ()=>{
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
   setTimeout(init, 500);
+})();
+</script>
+
+
+<script id="ios-v150-fix">
+(function(){
+  var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  if(!isIOS) return;
+  // A. TAP HERE -> PIN no kedip: ganti background dulu, baru fade splash 0.25s
+  function fixTap(){
+    var btn = document.getElementById('btnTapHere');
+    if(!btn || btn.dataset.ios150) return;
+    btn.dataset.ios150 = '1';
+    btn.addEventListener('click', function(){
+      document.documentElement.classList.remove('splash-active');
+      document.documentElement.classList.add('pin-active');
+      var splash = document.getElementById('splashScreenOverlay');
+      var pin = document.getElementById('pinScreenOverlay');
+      if(pin) pin.classList.add('active');
+      if(splash){
+        splash.style.transition = 'opacity 0.25s ease';
+        splash.style.opacity = '0';
+        setTimeout(function(){ splash.style.display = 'none'; }, 260);
+      }
+    }, true);
+  }
+  // B. Pemasukan / Pengeluaran: paksa 2 baris, November di bawah
+  function fixLabels(){
+    ['labelPemasukanBulan','labelPengeluaranBulan'].forEach(function(id){
+      var el = document.getElementById(id);
+      if(!el || el.dataset.ios150) return;
+      el.dataset.ios150 = '1';
+      var txt = el.textContent || '';
+      var m = txt.match(/^(PEMASUKAN|PENGELUARAN)\s*\((.+)\)\s*$/);
+      if(m){
+        el.innerHTML = m[1] + '<span class="venus-month">(' + m[2] + ')</span>';
+      } else if(txt.indexOf('(') > -1){
+        var parts = txt.split('(');
+        el.innerHTML = parts[0].trim() + '<span class="venus-month">(' + parts[1].trim();
+      }
+    });
+  }
+  function fixFab(){
+    var fab = document.getElementById('navFabTambah') || document.querySelector('.nav-fab');
+    if(!fab) return;
+    fab.style.setProperty('background', '#0A4DA3', 'important');
+    fab.style.setProperty('color', '#FFFFFF', 'important');
+  }
+  function init(){ fixTap(); fixLabels(); fixFab(); }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+  setTimeout(init, 300);
+  setTimeout(init, 1000);
+  // Labels bisa berubah pas ganti bulan, pantau terus
+  setInterval(function(){ fixLabels(); }, 1500);
 })();
 </script>
 
