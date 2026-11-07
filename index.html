@@ -498,8 +498,9 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<style id="ios-xr-v138-biru-bawah-tipis-sama-atas-tab-turun">
-/* ===== v138 iPhone ONLY - Biru bawah TIPIS 24px persis kayak biru atas + Tab turun mentok, Android 0 perubahan ===== */
+
+<style id="ios-xr-v139-biru-bawah-12px-sama-atas">
+/* ===== v139 iPhone ONLY - Biru bawah 12px tipis persis kayak atas, Android 0 perubahan ===== */
 .ios-device html, .ios-device body{
   height: 100% !important;
   position: fixed !important;
@@ -510,8 +511,9 @@ window.addEventListener('unhandledrejection', function(e){
   -webkit-text-size-adjust: 100% !important;
   text-size-adjust: 100% !important;
   touch-action: manipulation !important;
-  background: #0A4DA3 !important;
-  background-color: #0A4DA3 !important;
+  /* v139 salah: body biru bikin biru di bawah nav numpuk jadi tebel. v139: body putih, biru cuma dari nav */
+  background: var(--card) !important;
+  background-color: var(--card) !important;
 }
 .ios-device body{ overflow: hidden !important; }
 .ios-device #mainAppContainer{
@@ -522,13 +524,15 @@ window.addEventListener('unhandledrejection', function(e){
   inset: 0 !important;
   left: 0 !important; right: 0 !important; top: 0 !important; bottom: 0 !important;
   width: 100% !important;
-  height: 100svh !important;
-  min-height: 100svh !important;
+  /* Pakai dvh biar pas sama viewport asli Safari (svh kependekan, bikin celah biru di bawah) */
+  height: 100dvh !important;
+  min-height: 100dvh !important;
   max-height: none !important;
   overflow: hidden !important;
   display: flex !important;
   flex-direction: column !important;
-  background: #0A4DA3 !important;
+  /* Container putih, bukan biru, biar biru tidak numpuk */
+  background: var(--card) !important;
 }
 .ios-device .bank-content{
   flex: 1 1 auto !important;
@@ -537,12 +541,12 @@ window.addEventListener('unhandledrejection', function(e){
   -webkit-overflow-scrolling: touch !important;
   overscroll-behavior: contain !important;
   touch-action: pan-y !important;
-  padding-bottom: 110px !important;
+  padding-bottom: 100px !important;
   padding-left: 14px !important;
   padding-right: 14px !important;
   background: var(--bg) !important;
 }
-/* ATAS - Biru tipis di atas header, tebalnya = tinggi status bar yang keliatan (24px di foto) */
+/* ATAS - Biru tipis di atas header, di foto keliatan ~12px */
 .ios-device .bank-header{
   flex: 0 0 auto !important;
   height: calc(62px + env(safe-area-inset-top, 0px)) !important;
@@ -556,23 +560,22 @@ window.addEventListener('unhandledrejection', function(e){
   background: linear-gradient(180deg, #0A4DA3 0%, #0A4DA3 env(safe-area-inset-top, 44px), var(--card) env(safe-area-inset-top, 44px), var(--card) 100%) !important;
   border-bottom: 1px solid var(--border) !important;
 }
-/* BAWAH - DISAMAKAN persis kayak atas: biru cuma 24px tipis di bawah tab, bukan 106px full biru */
-/* v138 salah: nav 106px full biru -> keliatan makin lebar. v138: nav = 62px tab (putih) + 24px biru tipis = 86px total */
+/* BAWAH - Biru cuma 12px, persis kayak biru atas di foto (tipis, bukan 24px / 44px / 60px) */
 .ios-device .bottom-nav{
   position: fixed !important;
   left: 0 !important; right: 0 !important; bottom: 0 !important;
   width: 100% !important;
-  height: 86px !important;
-  min-height: 86px !important;
-  max-height: 86px !important;
-  /* Tab TURUN mentok: padding atas 14px, bawah 28px (24px biru + 4px gap) -> tab nempel di atas strip biru */
-  padding: 14px 4px 28px 4px !important;
+  height: 74px !important; /* 62px tab (putih) + 12px biru tipis = 74px total */
+  min-height: 74px !important;
+  max-height: 74px !important;
+  /* Tab TURUN lagi: atas 16px, bawah 16px (12px biru + 4px gap) -> tab nempel di atas biru */
+  padding: 16px 4px 16px 4px !important;
   padding-left: calc(env(safe-area-inset-left, 0px) + 4px) !important;
   padding-right: calc(env(safe-area-inset-right, 0px) + 4px) !important;
   align-items: flex-end !important;
   justify-content: space-around !important;
-  /* Putih 62px tempat tab, biru 24px tipis di bawah - persis kayak atas (biru 24px di atas header) */
-  background: linear-gradient(180deg, var(--card) 0%, var(--card) calc(100% - 24px), #0A4DA3 calc(100% - 24px), #0A4DA3 100%) !important;
+  /* Putih 62px tempat tab, biru 12px tipis di bawah - persis kayak atas */
+  background: linear-gradient(180deg, var(--card) 0%, var(--card) calc(100% - 12px), #0A4DA3 calc(100% - 12px), #0A4DA3 100%) !important;
   box-shadow: 0 -1px 0 var(--border) !important;
   z-index: 9999 !important;
   box-sizing: border-box !important;
@@ -583,7 +586,6 @@ window.addEventListener('unhandledrejection', function(e){
   display: none !important;
   pointer-events: none !important;
 }
-/* Tab balik ke warna asli (di atas putih, bukan di atas biru) */
 .ios-device .nav-item{
   color: inherit !important;
   background: transparent !important;
@@ -598,7 +600,6 @@ window.addEventListener('unhandledrejection', function(e){
   background: transparent !important;
 }
 .ios-device .nav-label{ color: inherit !important; }
-/* TOMBOL + - Tetep putih dengan + biru biar keliatan (fix v138 dipertahankan) */
 .ios-device .nav-fab{
   background: #FFFFFF !important;
   background-color: #FFFFFF !important;
@@ -627,9 +628,8 @@ window.addEventListener('unhandledrejection', function(e){
   stroke: #0A4DA3 !important;
   stroke-width: 2.5 !important;
 }
-/* HALAMAN TAMBAH - Tetep bisa diklik (fix v138 dipertahankan) */
 .ios-device #tab-tambah{
-  padding-bottom: calc(140px + 24px) !important;
+  padding-bottom: calc(140px + 12px) !important;
   pointer-events: auto !important;
 }
 .ios-device #tab-tambah input,
@@ -697,11 +697,11 @@ window.addEventListener('unhandledrejection', function(e){
   background-color: var(--bg) !important;
 }
 .ios-device.main-active, .ios-device.main-active body{
-  background: #0A4DA3 !important;
-  background-color: #0A4DA3 !important;
+  background: var(--card) !important;
+  background-color: var(--card) !important;
 }
 </style>
-<script id="ios-v138-fab-fix">
+<script id="ios-v139-fab-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -724,7 +724,30 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v138-fab-fix">
+<script id="ios-v139-fab-fix">
+(function(){
+  var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  if(!isIOS) return;
+  function fixFab(){
+    var fab = document.getElementById('navFabTambah');
+    if(!fab) return;
+    fab.style.setProperty('background', '#FFFFFF', 'important');
+    fab.style.setProperty('color', '#0A4DA3', 'important');
+    var svg = fab.querySelector('svg');
+    if(svg){
+      svg.style.setProperty('color', '#0A4DA3', 'important');
+      svg.style.setProperty('stroke', '#0A4DA3', 'important');
+      var paths = svg.querySelectorAll('path');
+      paths.forEach(function(p){ p.style.setProperty('stroke', '#0A4DA3', 'important'); });
+    }
+  }
+  document.addEventListener('DOMContentLoaded', fixFab);
+  setTimeout(fixFab, 300);
+  setTimeout(fixFab, 1000);
+})();
+</script>
+
+<script id="ios-v139-fab-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return; // Android: stop total
@@ -751,7 +774,7 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<script id="ios-v138-safe">
+<script id="ios-v139-safe">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return; // Android: stop total
