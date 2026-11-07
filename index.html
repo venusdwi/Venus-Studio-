@@ -33,7 +33,7 @@ body{background:linear-gradient(180deg,#0A4DA3 0%,#0D3A8A 40%,#061A3A 100%) !imp
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<script id="ios-v156-prepaint">
+<script id="ios-v158-prepaint">
 /* v148 PRE-PAINT: Tambah .ios-device SEBELUM first paint, biar tidak putih dulu */
 /* Biang bug v148: .ios-device baru ditambah di akhir body + setTimeout 100-1000ms, jadi first paint masih putih, biru baru nongol pas tab di-klik */
 (function(){
@@ -526,15 +526,15 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<script id="ios-v156-fix">
+<script id="ios-v158-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
   // Cuma 2 hal: TAP HERE no kedip + label 2 baris via observer (splash/nav JANGAN diutak-atik, udah bener v146)
   function fixTap(){
     var btn = document.getElementById('btnTapHere');
-    if(!btn || btn.dataset.ios156Tap) return;
-    btn.dataset.ios156Tap = '1';
+    if(!btn || btn.dataset.ios158Tap) return;
+    btn.dataset.ios158Tap = '1';
     btn.addEventListener('click', function(){
       document.documentElement.classList.remove('splash-active');
       document.documentElement.classList.add('pin-active');
@@ -562,8 +562,8 @@ window.addEventListener('unhandledrejection', function(e){
   function observe(){
     ['labelPemasukanBulan','labelPengeluaranBulan'].forEach(function(id){
       var el = document.getElementById(id);
-      if(!el || el.dataset.ios156Obs) return;
-      el.dataset.ios156Obs = '1';
+      if(!el || el.dataset.ios158Obs) return;
+      el.dataset.ios158Obs = '1';
       new MutationObserver(function(){ fixOneLabel(el); }).observe(el, {childList:true, characterData:true, subtree:true});
     });
   }
@@ -579,7 +579,7 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<script id="ios-v156-fix">
+<script id="ios-v158-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -614,7 +614,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v156-fix">
+<script id="ios-v158-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -639,7 +639,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v156-fix">
+<script id="ios-v158-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -662,7 +662,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v156-fix">
+<script id="ios-v158-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -685,7 +685,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v156-fix">
+<script id="ios-v158-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -708,7 +708,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v156-fix">
+<script id="ios-v158-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -731,7 +731,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v156-fix">
+<script id="ios-v158-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return; // Android: stop total
@@ -920,8 +920,8 @@ function formatRiwayatDateOnly(isoDate){
 
 
 
-<style id="ios-xr-v156-splash-tengah-tap-no-kedip-biru-di-nav-pemasukan-2baris">
-/* ===== v156 iPhone ONLY - 4 fix: Splash tengah, TAP->PIN no kedip, Biru di nav (bukan ::after), Pemasukan 2 baris ===== */
+<style id="ios-xr-v158-splash-tengah-tap-no-kedip-biru-di-nav-pemasukan-2baris">
+/* ===== v158 iPhone ONLY - 4 fix: Splash tengah, TAP->PIN no kedip, Biru di nav (bukan ::after), Pemasukan 2 baris ===== */
 .ios-device html, .ios-device body{
   height: 100% !important;
   position: fixed !important;
@@ -961,8 +961,8 @@ function formatRiwayatDateOnly(isoDate){
   padding-right: 14px !important;
   background: var(--bg) !important;
 }
-/* 1. SPLASH - BALIK TENGAH (v156 ngaco karena 20vh dobel: outer 20vh + inner 20vh = 40vh) */
-/* v156: outer tengah, inner padding-top 0, TAP HERE di bawah konten (bukan nempel teks) */
+/* 1. SPLASH - BALIK TENGAH (v158 ngaco karena 20vh dobel: outer 20vh + inner 20vh = 40vh) */
+/* v158: outer tengah, inner padding-top 0, TAP HERE di bawah konten (bukan nempel teks) */
 .ios-device #splashScreenOverlay,
 .ios-device .splash-screen-overlay{
   position: fixed !important;
@@ -1038,8 +1038,8 @@ function formatRiwayatDateOnly(isoDate){
   border-bottom: 1px solid var(--border) !important;
 }
 /* 3. BIRU BAWAH - JADI BAGIAN NAV (bukan ::after yang ke-clip overflow hidden jadi putih) */
-/* Biang putih lagi di v156: ::after top:100% di luar nav, ke-clip #mainAppContainer overflow hidden */
-/* v156: nav 108px = 64 putih + 44 biru (env(top)), biru di DALAM nav, tidak ke-clip, tidak gede karena fondasi main putih */
+/* Biang putih lagi di v158: ::after top:100% di luar nav, ke-clip #mainAppContainer overflow hidden */
+/* v158: nav 108px = 64 putih + 44 biru (env(top)), biru di DALAM nav, tidak ke-clip, tidak gede karena fondasi main putih */
 .ios-device .bottom-nav{
   position: fixed !important;
   left: 0 !important; right: 0 !important; bottom: 0 !important;
@@ -1138,7 +1138,7 @@ function formatRiwayatDateOnly(isoDate){
 }
 /* 4. PEMASUKAN vs PENGELUARAN - November di bawah, 2 baris, sama persis */
 /* Biang: PEMASUKAN (NOVEMBER) 1 baris muat, PENGELUARAN (NOVEMBER) kepanjangan jadi wrap 2 baris, jadi tidak sejajar */
-/* v156: paksa 2 baris untuk keduanya: judul baris 1, (BULAN) baris 2 */
+/* v158: paksa 2 baris untuk keduanya: judul baris 1, (BULAN) baris 2 */
 .ios-device .card-sub-bank h4{
   font-size: 9px !important;
   letter-spacing: 1px !important;
@@ -1203,7 +1203,7 @@ function formatRiwayatDateOnly(isoDate){
 }
 </style>
 
-<style id="ios-v156-prepaint-style">
+<style id="ios-v158-prepaint-style">
 html{ background: #0A4DA3 !important; background-color: #0A4DA3 !important; }
 html.ios-device, html.ios-device body{ background: #0A4DA3 !important; background-color: #0A4DA3 !important; }
 /* Venus Select - Light + Dark (v147 dipertahankan) */
@@ -1251,10 +1251,12 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
 
 
 
-<style id="ios-xr-v156-biru-bawah-sama-atas-tab-turun">
-/* ===== v156 iPhone ONLY - Biru bawah = biru atas (44px pas), tab turun tepat di atas biru ===== */
-/* Biang tebal di v156: body + #mainAppContainer biru semua, jadi biru nav 44px + biru body numpuk jadi ~150px */
-/* v156: Fondasi main balik ke var(--bg) / var(--card) (bukan biru), yang biru CUMA nav 44px di bawah. Top & bottom pakai angka FIX 44px yang sama, bukan env() yang bisa beda (top 44, bottom 34). */
+
+
+<style id="ios-xr-v158-putih-ilang-biru-tetap">
+/* ===== v158 iPhone ONLY - Putih bawah ILANG, Biru 44px TETAP ADA ===== */
+/* v158 salah: biru diilangin juga. v158: Balikin biru 44px, ilangin PUTIH di bawah biru aja. */
+/* Nav 108px = 64 putih tab + 44 biru. Nav bottom 0 = nempel bawah layar, putih bawah ketutup biru. Pill putih di atas biru tetap keliatan. */
 .ios-device html, .ios-device body{
   height: 100% !important;
   position: fixed !important;
@@ -1265,7 +1267,7 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
   -webkit-text-size-adjust: 100% !important;
   text-size-adjust: 100% !important;
   touch-action: manipulation !important;
-  background: #0A4DA3 !important;
+  background: #0A4DA3 !important; /* biru, biar celah di bawah nav biru, bukan putih */
 }
 .ios-device body{ overflow: hidden !important; }
 .ios-device #mainAppContainer{
@@ -1280,7 +1282,7 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
   overflow: hidden !important;
   display: flex !important;
   flex-direction: column !important;
-  background: var(--bg) !important; /* v156: BUKAN biru, biar biru bawah cuma dari nav, tidak numpuk */
+  background: var(--bg) !important;
 }
 .ios-device .bank-content{
   flex: 1 1 auto !important;
@@ -1345,10 +1347,10 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
   background: var(--bg) !important;
   background-color: var(--bg) !important;
 }
-/* HEADER - Biru atas FIX 44px (bukan env yang bisa 0) */
+/* HEADER - Biru atas 44px TETAP */
 .ios-device .bank-header{
   flex: 0 0 auto !important;
-  height: 106px !important; /* 62 putih + 44 biru */
+  height: 106px !important;
   min-height: 106px !important;
   padding-top: 44px !important;
   padding-bottom: 0 !important;
@@ -1359,17 +1361,18 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
   background: linear-gradient(180deg, #0A4DA3 0px, #0A4DA3 44px, var(--card) 44px, var(--card) 100%) !important;
   border-bottom: 1px solid var(--border) !important;
 }
-/* NAV - Biru bawah FIX 44px, SAMA PERSIS kayak atas. Tab TURUN tepat di atas biru. */
-/* Nav total 108px = 64 putih + 44 biru. Tab di bawah putih, nempel ke biru (bukan di atas putih). */
+/* NAV - v158: PUTIH 64 + BIRU 44, NO PUTIH di bawah biru. Tab turun tepat di atas biru. */
 .ios-device .bottom-nav{
   position: fixed !important;
   left: 0 !important; right: 0 !important; bottom: 0 !important;
   width: 100% !important;
-  height: 108px !important;
+  height: 108px !important; /* 64 putih + 44 biru */
   min-height: 108px !important;
   max-height: 108px !important;
-  padding: 0 4px 44px 4px !important; /* atas 0, bawah 44 = biru. Tab turun ke bawah putih */
-  align-items: flex-end !important; /* v156: flex-end = tab turun ke bawah, tepat di atas biru */
+  padding: 0 4px 44px 4px !important; /* bawah 44 = biru, tab di atas biru */
+  padding-left: 4px !important;
+  padding-right: 4px !important;
+  align-items: flex-end !important;
   justify-content: space-around !important;
   overflow: hidden !important;
   background: linear-gradient(180deg, var(--card) 0px, var(--card) 64px, #0A4DA3 64px, #0A4DA3 108px) !important; /* 64 putih + 44 biru FIX */
@@ -1387,11 +1390,11 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
   flex: 1 1 0 !important;
   min-width: 0 !important;
   max-width: 76px !important;
-  height: 58px !important; /* 64 putih - 6 bawah = tab nempel ke biru, sisa 6px gap */
+  height: 58px !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
-  justify-content: flex-end !important; /* ikon + label di bawah, nempel ke biru */
+  justify-content: flex-end !important;
   gap: 2px !important;
   padding: 0 0 4px 0 !important;
   margin: 0 0 2px 0 !important; /* 2px di atas biru */
@@ -1426,7 +1429,7 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
   color: #FFFFFF !important;
   border: 2px solid #0A4DA3 !important;
   box-shadow: 0 8px 20px rgba(10,77,163,0.35) !important;
-  margin: 0 0 2px 0 !important; /* sama kayak tab lain, 2px di atas biru */
+  margin: 0 0 2px 0 !important;
   width: 52px !important;
   height: 52px !important;
   min-width: 52px !important;
@@ -1435,7 +1438,7 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  align-self: flex-end !important; /* FAB juga turun, sejajar tab lain di atas biru */
+  align-self: flex-end !important;
   cursor: pointer !important;
   pointer-events: auto !important;
   touch-action: manipulation !important;
@@ -1494,7 +1497,7 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
 .ios-device .pin-box{ transition: none !important; }
 .ios-device .pin-card{ margin-bottom: 0 !important; margin-top: 0 !important; }
 .ios-device #tab-tambah{
-  padding-bottom: 130px !important;
+  padding-bottom: 120px !important;
   pointer-events: auto !important;
 }
 .ios-device #tab-tambah input,
@@ -1511,15 +1514,17 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
   background: linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%) !important;
   background-color: #061A3A !important;
 }
-/* MAIN - Fondasi balik ke putih (var(--card)), BUKAN biru. Yang biru cuma nav 44px, jadi tidak numpuk jadi tebal. Bilah pill putih di atas biru 44px tetap keliatan, tidak diilangin. */
+/* MAIN - Fondasi BIRU, biar celah di bawah nav (kalo ada) biru, bukan putih. Putih bawah ILANG, biru 44px TETAP. Pill putih di atas biru tetap keliatan. */
 .ios-device.main-active, .ios-device.main-active body{
-  background: var(--card) !important;
-  background-color: var(--card) !important;
+  background: #0A4DA3 !important;
+  background-color: #0A4DA3 !important;
 }
 .ios-device.main-active #mainAppContainer{
   background: var(--bg) !important;
 }
 </style>
+
+
 
 
 
@@ -4411,7 +4416,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<script id="venus-select-v156">
+<script id="venus-select-v158">
 /* Custom Select VENUS - iPhone + Android, ganti picker bawaan HP */
 (function(){
   function buildVenusSelect(sel){
@@ -4481,7 +4486,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<script id="ios-v156-fix">
+<script id="ios-v158-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -5061,7 +5066,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 
 
-<script id="venus-select-v156">
+<script id="venus-select-v158">
 /* Custom Select VENUS - iPhone + Android, ganti picker bawaan HP */
 (function(){
   function buildVenusSelect(sel){
@@ -5131,7 +5136,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 </script>
 
 
-<script id="ios-v156-fix">
+<script id="ios-v158-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
