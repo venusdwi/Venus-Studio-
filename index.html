@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html lang="id" style="background:#0A4DA3">
 <head>
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
-<style>html,body{background:linear-gradient(180deg,#0A4DA3 0%,#082a6b 40%,#061A3A 100%) !important}</style>
+<style>html,body{background:#0A4DA3 !important}</style>
 
 <style id="critical-pwa-splash">
 html,body{background:#0A4DA3 !important;margin:0;padding:0}
 body{background:linear-gradient(180deg,#0A4DA3 0%,#0D3A8A 40%,#061A3A 100%) !important}
 .splash-screen-overlay{position:fixed;inset:0;background:#0A4DA3 !important;background:linear-gradient(180deg,#0A4DA3 0%,#082a6b 40%,#061A3A 100%) !important;z-index:99999;display:flex;flex-direction:column;justify-content:center;align-items:center}
 @media (display-mode: standalone){
-  html,body{background:linear-gradient(180deg,#0A4DA3 0%,#082a6b 40%,#061A3A 100%) !important}
+  html,body{background:#0A4DA3 !important}
 }
 </style>
 
@@ -36,7 +33,7 @@ body{background:linear-gradient(180deg,#0A4DA3 0%,#0D3A8A 40%,#061A3A 100%) !imp
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<script id="ios-v171-prepaint">
+<script id="ios-v173-prepaint">
 /* v148 PRE-PAINT: Tambah .ios-device SEBELUM first paint, biar tidak putih dulu */
 /* Biang bug v148: .ios-device baru ditambah di akhir body + setTimeout 100-1000ms, jadi first paint masih putih, biru baru nongol pas tab di-klik */
 (function(){
@@ -529,15 +526,15 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<script id="ios-v171-fix">
+<script id="ios-v173-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
   // Cuma 2 hal: TAP HERE no kedip + label 2 baris via observer (splash/nav JANGAN diutak-atik, udah bener v146)
   function fixTap(){
     var btn = document.getElementById('btnTapHere');
-    if(!btn || btn.dataset.ios171Tap) return;
-    btn.dataset.ios171Tap = '1';
+    if(!btn || btn.dataset.ios173Tap) return;
+    btn.dataset.ios173Tap = '1';
     btn.addEventListener('click', function(){
       document.documentElement.classList.remove('splash-active');
       document.documentElement.classList.add('pin-active');
@@ -565,8 +562,8 @@ window.addEventListener('unhandledrejection', function(e){
   function observe(){
     ['labelPemasukanBulan','labelPengeluaranBulan'].forEach(function(id){
       var el = document.getElementById(id);
-      if(!el || el.dataset.ios171Obs) return;
-      el.dataset.ios171Obs = '1';
+      if(!el || el.dataset.ios173Obs) return;
+      el.dataset.ios173Obs = '1';
       new MutationObserver(function(){ fixOneLabel(el); }).observe(el, {childList:true, characterData:true, subtree:true});
     });
   }
@@ -582,7 +579,7 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<script id="ios-v171-fix">
+<script id="ios-v173-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -617,7 +614,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v171-fix">
+<script id="ios-v173-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -642,7 +639,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v171-fix">
+<script id="ios-v173-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -665,7 +662,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v171-fix">
+<script id="ios-v173-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -688,7 +685,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v171-fix">
+<script id="ios-v173-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -711,7 +708,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v171-fix">
+<script id="ios-v173-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -734,7 +731,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v171-fix">
+<script id="ios-v173-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return; // Android: stop total
@@ -923,8 +920,8 @@ function formatRiwayatDateOnly(isoDate){
 
 
 
-<style id="ios-xr-v171-splash-tengah-tap-no-kedip-biru-di-nav-pemasukan-2baris">
-/* ===== v171 iPhone ONLY - 4 fix: Splash tengah, TAP->PIN no kedip, Biru di nav (bukan ::after), Pemasukan 2 baris ===== */
+<style id="ios-xr-v173-splash-tengah-tap-no-kedip-biru-di-nav-pemasukan-2baris">
+/* ===== v173 iPhone ONLY - 4 fix: Splash tengah, TAP->PIN no kedip, Biru di nav (bukan ::after), Pemasukan 2 baris ===== */
 .ios-device html, .ios-device body{
   height: 100% !important;
   position: fixed !important;
@@ -964,8 +961,8 @@ function formatRiwayatDateOnly(isoDate){
   padding-right: 14px !important;
   background: var(--bg) !important;
 }
-/* 1. SPLASH - BALIK TENGAH (v171 ngaco karena 20vh dobel: outer 20vh + inner 20vh = 40vh) */
-/* v171: outer tengah, inner padding-top 0, TAP HERE di bawah konten (bukan nempel teks) */
+/* 1. SPLASH - BALIK TENGAH (v173 ngaco karena 20vh dobel: outer 20vh + inner 20vh = 40vh) */
+/* v173: outer tengah, inner padding-top 0, TAP HERE di bawah konten (bukan nempel teks) */
 .ios-device #splashScreenOverlay,
 .ios-device .splash-screen-overlay{
   position: fixed !important;
@@ -1041,8 +1038,8 @@ function formatRiwayatDateOnly(isoDate){
   border-bottom: 1px solid var(--border) !important;
 }
 /* 3. BIRU BAWAH - JADI BAGIAN NAV (bukan ::after yang ke-clip overflow hidden jadi putih) */
-/* Biang putih lagi di v171: ::after top:100% di luar nav, ke-clip #mainAppContainer overflow hidden */
-/* v171: nav 108px = 64 putih + 44 biru (env(top)), biru di DALAM nav, tidak ke-clip, tidak gede karena fondasi main putih */
+/* Biang putih lagi di v173: ::after top:100% di luar nav, ke-clip #mainAppContainer overflow hidden */
+/* v173: nav 108px = 64 putih + 44 biru (env(top)), biru di DALAM nav, tidak ke-clip, tidak gede karena fondasi main putih */
 .ios-device .bottom-nav{
   position: fixed !important;
   left: 0 !important; right: 0 !important; bottom: 0 !important;
@@ -1141,7 +1138,7 @@ function formatRiwayatDateOnly(isoDate){
 }
 /* 4. PEMASUKAN vs PENGELUARAN - November di bawah, 2 baris, sama persis */
 /* Biang: PEMASUKAN (NOVEMBER) 1 baris muat, PENGELUARAN (NOVEMBER) kepanjangan jadi wrap 2 baris, jadi tidak sejajar */
-/* v171: paksa 2 baris untuk keduanya: judul baris 1, (BULAN) baris 2 */
+/* v173: paksa 2 baris untuk keduanya: judul baris 1, (BULAN) baris 2 */
 .ios-device .card-sub-bank h4{
   font-size: 9px !important;
   letter-spacing: 1px !important;
@@ -1206,7 +1203,7 @@ function formatRiwayatDateOnly(isoDate){
 }
 </style>
 
-<style id="ios-v171-prepaint-style">
+<style id="ios-v173-prepaint-style">
 html{ background: #0A4DA3 !important; background-color: #0A4DA3 !important; }
 html.ios-device, html.ios-device body{ background: #0A4DA3 !important; background-color: #0A4DA3 !important; }
 /* Venus Select - Light + Dark (v147 dipertahankan) */
@@ -1258,10 +1255,10 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
 
 
 
-<style id="ios-xr-v171-biru-bawah-44-pas-tab-turun">
-/* ===== v171 iPhone XR ONLY - Biru bawah 44px PAS sama kayak atas, tab turun lagi nempel di atas biru ===== */
-/* Biang lebar di v171: Nav gradient 64 putih + 44 biru + body biru di bawah nav numpuk jadi 100px+ */
-/* v171: Pisah! Nav putih 64px di atas (bottom:44px), biru 44px bar sendiri di bawah (bottom:0) via ::after. Jadi biru total CUMA 44px, gak numpuk. */
+<style id="ios-xr-v173-biru-bawah-44-pas-tab-turun">
+/* ===== v173 iPhone XR ONLY - Biru bawah 44px PAS sama kayak atas, tab turun lagi nempel di atas biru ===== */
+/* Biang lebar di v173: Nav gradient 64 putih + 44 biru + body biru di bawah nav numpuk jadi 100px+ */
+/* v173: Pisah! Nav putih 64px di atas (bottom:44px), biru 44px bar sendiri di bawah (bottom:0) via ::after. Jadi biru total CUMA 44px, gak numpuk. */
 :root{ --venus-blue: #0A4DA3 !important; }
 .ios-device html, .ios-device body{
   height: 100% !important;
@@ -1370,10 +1367,10 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
   background-image: linear-gradient(180deg, #0A4DA3 0px, #0A4DA3 44px, var(--card) 44px, var(--card) 100%) !important;
   border-bottom: 1px solid var(--border) !important;
 }
-/* NAV - v171: PUTIH 64px di atas biru, bottom:44px (duduk di atas biru, bukan numpuk) */
+/* NAV - v173: PUTIH 64px di atas biru, bottom:44px (duduk di atas biru, bukan numpuk) */
 .ios-device .bottom-nav{
   position: fixed !important;
-  left: 0 !important; right: 0 !important; bottom: 44px !important; /* v171: Nav duduk di atas biru 44px, bukan di bawah layar */
+  left: 0 !important; right: 0 !important; bottom: 44px !important; /* v173: Nav duduk di atas biru 44px, bukan di bawah layar */
   width: 100% !important;
   height: 64px !important; /* CUMA putih 64px, birunya di ::after */
   min-height: 64px !important;
@@ -1523,7 +1520,7 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
 }
 .ios-device .pin-box{ transition: none !important; }
 .ios-device .pin-card{ margin-bottom: 0 !important; margin-top: 0 !important; }
-/* TAMBAH TRANSAKSI - Tetap bisa dipencet (dari v171) */
+/* TAMBAH TRANSAKSI - Tetap bisa dipencet (dari v173) */
 .ios-device #tab-tambah{
   padding-bottom: 130px !important;
   pointer-events: auto !important;
@@ -1623,160 +1620,14 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
 
 
 
-<style id="ios-v171-balik-v171-aman">
-/* v171 = BALIK KE V160 YANG AMAN. Tanpa pindah nav ke body, tanpa overscan, tanpa 92px. */
-/* FIX 1 - Splash full: body udah gradient sama kayak splash, jadi celah pinggir gak keliatan. Splash pakai 100svh + 100dvh + 100vh biar di Safari XR gak ke-potong. */
-.ios-device #splashScreenOverlay,
-.ios-device .splash-screen-overlay{
-  width: 100vw !important;
-  height: 100vh !important;
-  height: 100svh !important;
-  height: 100dvh !important;
-  min-height: 100svh !important;
-  top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
-  margin: 0 !important; border-radius: 0 !important;
-  background: linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%) !important;
-}
-/* FIX 2 - Tab turun dikit tapi AMAN: nav tetep di dalam container (biar ngumpet pas PIN/splash), cuma padding diilangin biar tab nempel ke biru. Dari 4px -> 0, item 56px -> 58px. */
-.ios-device .bottom-nav{
-  height: 58px !important;
-  min-height: 58px !important;
-  max-height: 58px !important;
-  padding: 0 4px 0 4px !important;
-}
-.ios-device .nav-item{
-  height: 58px !important;
-  padding: 0 0 0 0 !important;
-}
-.ios-device #navFabTambah{
-  margin: 0 !important;
-}
-.ios-device .bank-content{
-  padding-bottom: 112px !important; /* 58 nav + 44 biru + 10 gap */
-}
-</style>
-
-
-<style id="ios-v171-tuntas-iphone">
-/* ===== v171 iPhone ONLY - TUNTAS: Splash full (inset 0 tanpa dvh) + Tab mentok bawah (container inset 0) + PIN enteng (tanpa transition/interval) ===== */
-/* 1. SPLASH FULL: Jangan pakai height:100dvh (di Safari XR berubah pas toolbar naik/turun -> celah strip). Pakai inset:0 aja, height auto. */
-.ios-device html, .ios-device body{
-  height: 100% !important;
-  margin: 0 !important; padding: 0 !important;
-  overflow: hidden !important;
-  background: linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%) !important;
-  background-color: #0A4DA3 !important;
-}
-.ios-device #splashScreenOverlay,
-.ios-device .splash-screen-overlay{
-  position: fixed !important;
-  inset: 0 !important;
-  top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
-  width: 100% !important; height: auto !important; min-height: 0 !important;
-  margin: 0 !important; border-radius: 0 !important;
-  padding-top: env(safe-area-inset-top, 44px) !important;
-  padding-bottom: env(safe-area-inset-bottom, 34px) !important;
-  padding-left: env(safe-area-inset-left, 0px) !important;
-  padding-right: env(safe-area-inset-right, 0px) !important;
-  box-sizing: border-box !important;
-  background: linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%) !important;
-  background-color: #0A4DA3 !important;
-  overflow: hidden !important;
-  z-index: 99999 !important;
-}
-/* 2. CONTAINER FULL: Jangan height:100dvh (ke-potong toolbar Safari -> nav ngambang 50px di atas layar). Pakai inset:0, height auto. */
-.ios-device #mainAppContainer{
-  position: fixed !important;
-  inset: 0 !important;
-  top: 0 !important; left: 0 !important; right: 0 !important; bottom: 0 !important;
-  width: 100% !important; height: auto !important; min-height: 0 !important;
-  margin: 0 !important; border-radius: 0 !important;
-  display: flex !important; flex-direction: column !important;
-  overflow: hidden !important;
-  transform: none !important;
-  background: var(--bg) !important;
-}
-/* 3. TAB MENTOK BAWAH: Nav absolute di dalam container (bukan fixed ke-lock zoom), bottom:0, 92px = 58 putih + 34 biru safe-area. */
-.ios-device .bottom-nav{
-  position: absolute !important; /* di dalam container yang udah inset:0, jadi nempel ke bawah layar beneran */
-  left: 0 !important; right: 0 !important; bottom: 0 !important;
-  width: 100% !important;
-  height: 92px !important;
-  min-height: 92px !important; max-height: 92px !important;
-  padding: 0 4px 34px 4px !important; /* bawah 34 = biru safe-area */
-  align-items: flex-end !important;
-  justify-content: space-around !important;
-  overflow: hidden !important;
-  background: linear-gradient(180deg, var(--card) 0px, var(--card) 58px, #0A4DA3 58px, #0A4DA3 92px) !important;
-  background-color: var(--card) !important;
-  box-shadow: none !important;
-  border-top: 1px solid var(--border) !important;
-  border-radius: 0 !important;
-  margin: 0 !important;
-  z-index: 60 !important;
-  box-sizing: border-box !important;
-  transform: none !important;
-}
-.ios-device .bottom-nav::after{ display: none !important; }
-.ios-device .nav-item{
-  height: 54px !important;
-  justify-content: flex-end !important;
-  padding: 0 0 1px 0 !important;
-  margin: 0 !important;
-}
-.ios-device #navFabTambah{
-  margin: 0 0 1px 0 !important;
-  align-self: flex-end !important;
-}
-.ios-device .bank-content{
-  flex: 1 1 auto !important;
-  overflow-y: auto !important;
-  padding-bottom: 104px !important; /* 92 nav + 12 gap */
-  -webkit-overflow-scrolling: touch !important;
-}
-/* 4. PIN ENTENG: Matikan transition/animation yang bikin delay di iOS, pakai manipulation biar tap langsung respon, tanpa 300ms delay. */
-.ios-device .pin-screen-overlay,
-.ios-device .personal-pin-overlay,
-.ios-device .debt-pin-overlay{
-  position: fixed !important;
-  inset: 0 !important;
-  width: 100% !important; height: auto !important;
-  margin: 0 !important; border-radius: 0 !important;
-  padding-top: env(safe-area-inset-top, 44px) !important;
-  padding-bottom: env(safe-area-inset-bottom, 34px) !important;
-  box-sizing: border-box !important;
-  overflow: hidden !important;
-}
-.ios-device .keypad-btn,
-.ios-device .pin-key,
-.ios-device [class*="pin"] button,
-.ios-device [id*="pin"] button{
-  transition: none !important;
-  animation: none !important;
-  touch-action: manipulation !important;
-  -webkit-tap-highlight-color: transparent !important;
-  -webkit-user-select: none !important;
-  user-select: none !important;
-  -webkit-touch-callout: none !important;
-  cursor: pointer !important;
-}
-.ios-device .keypad-btn:active,
-.ios-device .pin-key:active{
-  transform: scale(0.96) !important;
-  transition: none !important;
-}
-/* Matikan interval pengganggu yang bikin PIN berat - cukup CSS, tanpa JS interval */
-</style>
-
-
-<style id="ios-v171-biru-bawah-44-sama-atas">
-/* ===== v171 iPhone ONLY - Tab persis Instagram ===== */
-/* Instagram (foto lu): nav 93px = 49px ikon + 44px safe-area. Ikon 24px, jarak ikon ke pill home indicator ~12px. Pill di 8px dari bawah layar. */
-/* Biang VENUS gagal: env(safe-area-inset-bottom) = 0 di Safari XR (bukan PWA) -> padding-bottom jadi 0 -> tab mental ke atas. Fix: hardcode 44px (safe-area XR), bukan env(). */
-/* Nav: fixed ke layar (bukan absolute di container), bottom:0, max-width 430px biar center kayak container. */
+<style id="ios-v173-iphone-only-android-aman">
+/* ===== v173 - KHUSUS iPhone, ANDROID SAMA SEKALI TIDAK DIUBAH ===== */
+/* Semua rule di bawah ini diawali .ios-device, jadi Android (tanpa class ios-device) TIDAK KENA sama sekali. */
+/* TANPA inline style, TANPA JS yang ngubah Android. */
+/* Tab kayak Instagram + biru bawah 44 sama kayak atas, CUMA iPhone. */
 .ios-device .bottom-nav{
   position: fixed !important;
-  left: 50% !important; right: auto !important;
+  left: 50% !important;
   transform: translateX(-50%) !important;
   bottom: 0 !important;
   width: 100% !important;
@@ -1784,11 +1635,9 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
   height: 93px !important;
   min-height: 93px !important;
   max-height: 93px !important;
-  padding: 0 0 44px 0 !important; /* bawah 34 = safe-area XR hardcode, kayak Instagram */
-  padding-bottom: 44px !important;
-  margin: 0 !important;
+  padding: 0 0 44px 0 !important; /* 49 ikon + 44 biru (sama kayak atas) */
   display: flex !important;
-  align-items: flex-start !important; /* ikon di atas, di 49px area putih */
+  align-items: flex-start !important;
   justify-content: space-around !important;
   overflow: hidden !important;
   background: linear-gradient(180deg, var(--card) 0px, var(--card) 49px, #0A4DA3 49px, #0A4DA3 93px) !important;
@@ -1796,11 +1645,12 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
   border-top: 0.5px solid var(--border) !important;
   box-shadow: none !important;
   border-radius: 0 !important;
+  margin: 0 !important;
   box-sizing: border-box !important;
   z-index: 9999 !important;
 }
 .ios-device .bottom-nav::after{ display: none !important; }
-/* Ikon kayak Instagram: 49px area, ikon 24px + label 10px, center di 49px */
+.ios-device .bottom-nav::before{ display: none !important; content: none !important; }
 .ios-device .nav-item{
   height: 49px !important;
   min-height: 49px !important;
@@ -1808,81 +1658,37 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
-  justify-content: center !important; /* center di 49px, kayak Instagram */
+  justify-content: center !important;
   padding: 0 !important;
   margin: 0 !important;
   gap: 2px !important;
   flex: 1 1 0 !important;
 }
 .ios-device .nav-item .ico{
-  width: 24px !important;
-  height: 24px !important;
-  margin: 0 !important;
+  width: 24px !important; height: 24px !important; margin: 0 !important;
 }
 .ios-device .nav-item .nav-label,
 .ios-device .nav-item .label{
-  font-size: 10px !important;
-  line-height: 1 !important;
-  margin: 0 !important;
-  padding: 0 !important;
+  font-size: 10px !important; line-height: 1 !important; margin: 0 !important; padding: 0 !important;
 }
-/* FAB + kayak Instagram: center di 49px juga */
 .ios-device #navFabTambah,
 .ios-device .nav-fab{
   width: 52px !important;
-  height: 49px !important; /* samain 49px, biar sejajar kayak Instagram */
-  min-height: 49px !important;
-  max-height: 49px !important;
-  margin: 0 !important;
-  padding: 0 !important;
+  height: 49px !important;
+  min-height: 49px !important; max-height: 49px !important;
+  margin: 0 !important; padding: 0 !important;
   align-self: flex-start !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+  display: flex !important; align-items: center !important; justify-content: center !important;
   border-radius: 16px !important;
 }
-/* Content biar gak ketutup nav 93px */
 .ios-device .bank-content{
-  padding-bottom: 105px !important; /* 83 nav + 12 gap */
+  padding-bottom: 105px !important; /* 93 nav + 12 gap, CUMA iPhone */
 }
-.ios-device #mainAppContainer{
-  padding-bottom: 0 !important;
-}
-</style>
-
-
-<style id="ios-v171-cache-bukti">
-/* v171: Badge bukti - kalau lu masih gak liat tulisan v171 di biru bawah, berarti file lama (PWA cache) yang kebuka, bukan v171 */
-.ios-device .bottom-nav::before{
-  content: "VENUS v171 • BIRU 44" !important;
-  position: absolute !important;
-  left: 0 !important; right: 0 !important; bottom: 12px !important;
-  text-align: center !important;
-  font-size: 10px !important;
-  font-weight: 700 !important;
-  letter-spacing: 1px !important;
-  color: rgba(255,255,255,0.95) !important;
-  pointer-events: none !important;
-  z-index: 10000 !important;
-}
-/* Nav tetep 93px = 49 ikon + 44 biru (sama kayak atas), kayak Instagram */
-.ios-device .bottom-nav{
-  position: fixed !important;
-  left: 50% !important; transform: translateX(-50%) !important;
-  bottom: 0 !important;
-  height: 93px !important;
-  min-height: 93px !important; max-height: 93px !important;
-  padding: 0 0 44px 0 !important;
-  background: linear-gradient(180deg, var(--card) 0px, var(--card) 49px, #0A4DA3 49px, #0A4DA3 93px) !important;
-}
-.ios-device .bottom-nav::after{ display: none !important; }
-.ios-device .nav-item{ height: 49px !important; justify-content: center !important; }
-.ios-device #navFabTambah{ height: 49px !important; }
-.ios-device .bank-content{ padding-bottom: 105px !important; }
+/* Android: TIDAK ADA rule tanpa .ios-device di file ini, jadi Android balik ke V160 asli. */
 </style>
 
 </head>
-<body style="background:linear-gradient(180deg,#0A4DA3 0%,#082a6b 40%,#061A3A 100%)">
+<body style="background:#0A4DA3">
 
 <div class="splash-screen-overlay active" id="splashScreenOverlay" style="display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:0;overflow:hidden">
   <!-- TOP: LOGO UP - CENTERED -->
@@ -2159,7 +1965,7 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
           <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Versi</span><span style="font-weight:700;color:#0F172A">v124 PRIVASI PIN DISEMBUNYIKAN</span></div>
           <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Firebase</span><span>venus-studio-e7086</span></div>
           <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Keamanan</span><span style="font-weight:700;color:var(--success)">Terproteksi ••••••</span></div>
-          <div style="display:flex;justify-content:space-between"><span>Update</span><span>v172 • 08 Nov 2026 • PIN Disembunyikan + Privasi</span></div>
+          <div style="display:flex;justify-content:space-between"><span>Update</span><span>06 Nov 2026 • PIN Disembunyikan + Privasi</span></div>
           <div style="margin-top:8px;padding-top:8px;border-top:1px solid #E2E8F0;font-size:9px">Fitur: PIN Disembunyikan (Privasi), Ikon Minimalis Line, PDF Multi-Page, Breakdown Masuk-Keluar, Search Pemasukan/Pengeluaran/Refund</div>
         </div>
         <button id="toggleAppViewBtn" style="display:none"></button><button id="closeCyberModalBtn" style="display:none"></button>
@@ -2167,8 +1973,7 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
     </div>
 </div>
   </div>
-  <div class="bottom-nav" style="position:fixed !important; left:50% !important; transform:translateX(-50%) !important; bottom:0 !important; width:100% !important; max-width:430px !important; height:93px !important; min-height:93px !important; padding:0 0 44px 0 !important; background:linear-gradient(180deg,#FFFFFF 0px,#FFFFFF 49px,#0A4DA3 49px,#0A4DA3 93px) !important; z-index:9999 !important; box-sizing:border-box !important;">
-    
+  <div class="bottom-nav">
     <div class="nav-item active" data-tab="dashboard"><svg class="ico" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg><div class="nav-label">Home</div></div>
     <div class="nav-item" data-tab="laporan"><svg class="ico" viewBox="0 0 24 24"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg><div class="nav-label">Laporan</div></div>
     <div class="nav-fab" id="navFabTambah"><svg class="ico" style="width:24px;height:24px;color:white;stroke-width:2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>
@@ -4769,7 +4574,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<script id="venus-select-v171">
+<script id="venus-select-v173">
 /* Custom Select VENUS - iPhone + Android, ganti picker bawaan HP */
 (function(){
   function buildVenusSelect(sel){
@@ -4839,7 +4644,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<script id="ios-v171-fix">
+<script id="ios-v173-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -4894,87 +4699,14 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<script id="ios-v171-once">
+<script id="ios-v173-iphone-only">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    if(!isIOS) return;
-    function once(){
-      // Pastin nav TETEP di dalam container (jangan dipindah ke body, biar ngumpet pas PIN/splash)
-      var container = document.getElementById('mainAppContainer');
-      var nav = document.querySelector('.bottom-nav');
-      if(container && nav && nav.parentNode !== container){
-        container.appendChild(nav);
-      }
-      // Pastin splash & pin inset 0 (tanpa dvh)
-      var splash = document.getElementById('splashScreenOverlay');
-      if(splash){
-        splash.style.setProperty('inset','0','important');
-        splash.style.setProperty('height','auto','important');
-      }
-      // PIN button enteng: matiin transition via style
-      document.querySelectorAll('.keypad-btn, .pin-key').forEach(function(b){
-        b.style.setProperty('transition','none','important');
-        b.style.setProperty('touch-action','manipulation','important');
-      });
-    }
-    if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', once);
-    else once();
-    window.addEventListener('load', once);
-    // TANPA setInterval - biar PIN enteng, gak ada yang ngacak DOM tiap 300ms
-  }catch(e){}
-})();
-</script>
-
-
-<script id="ios-v171-once">
-(function(){
-  try{
-    var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    if(!isIOS) return;
-    function once(){
-      var nav = document.querySelector('.bottom-nav');
-      if(nav){
-        // Pindah ke body biar fixed-nya ke layar (bukan ke container yang ke-zoom), tapi sembunyiin pas PIN/splash via parent container check
-        // JANGAN pindah permanen: cukup paksa style fixed, biar gak ngaco kayak v165
-        nav.style.setProperty('position','fixed','important');
-        nav.style.setProperty('left','50%','important');
-        nav.style.setProperty('transform','translateX(-50%)','important');
-        nav.style.setProperty('bottom','0','important');
-        nav.style.setProperty('height','83px','important');
-        nav.style.setProperty('padding-bottom','34px','important');
-      }
-      // Hapus blue bar lama v164
-      var oldBlue = document.getElementById('venus-bottom-blue-44');
-      if(oldBlue) oldBlue.remove();
-    }
-    if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', once);
-    else once();
-    window.addEventListener('load', once);
-    // TANPA setInterval - biar PIN enteng
-  }catch(e){}
-})();
-</script>
-
-
-<script id="ios-v171-version-check">
-(function(){
-  try{
-    var VER = 'v171';
-    window.VENUS_VERSION = VER;
-    // Tulis versi di Tentang (kalau ada) biar ketauan
-    document.addEventListener('DOMContentLoaded', function(){
-      var els = document.querySelectorAll('[id*="tentang"], [class*="tentang"]');
-      // Cari elemen Update di Tentang
-      var all = document.querySelectorAll('div, span');
-      for(var i=0;i<all.length;i++){
-        if((all[i].textContent||'').trim().indexOf('06 Nov 2026')===0){
-          all[i].textContent = all[i].textContent.replace('06 Nov 2026', 'v171 • 08 Nov 2026');
-          break;
-        }
-      }
-    });
-    console.log('VENUS ' + VER + ' loaded');
+    if(!isIOS) return; // ANDROID: langsung keluar, jangan ubah apa-apa
+    document.documentElement.classList.add('ios-device');
+    document.body.classList.add('ios-device');
+    // Cuma nambahin class, CSS yang kerja. Tanpa setInterval, tanpa inline style.
   }catch(e){}
 })();
 </script>
@@ -5505,7 +5237,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 
 
-<script id="venus-select-v171">
+<script id="venus-select-v173">
 /* Custom Select VENUS - iPhone + Android, ganti picker bawaan HP */
 (function(){
   function buildVenusSelect(sel){
@@ -5575,7 +5307,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 </script>
 
 
-<script id="ios-v171-fix">
+<script id="ios-v173-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -5630,87 +5362,14 @@ document.addEventListener('DOMContentLoaded', ()=>{
 </script>
 
 
-<script id="ios-v171-once">
+<script id="ios-v173-iphone-only">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    if(!isIOS) return;
-    function once(){
-      // Pastin nav TETEP di dalam container (jangan dipindah ke body, biar ngumpet pas PIN/splash)
-      var container = document.getElementById('mainAppContainer');
-      var nav = document.querySelector('.bottom-nav');
-      if(container && nav && nav.parentNode !== container){
-        container.appendChild(nav);
-      }
-      // Pastin splash & pin inset 0 (tanpa dvh)
-      var splash = document.getElementById('splashScreenOverlay');
-      if(splash){
-        splash.style.setProperty('inset','0','important');
-        splash.style.setProperty('height','auto','important');
-      }
-      // PIN button enteng: matiin transition via style
-      document.querySelectorAll('.keypad-btn, .pin-key').forEach(function(b){
-        b.style.setProperty('transition','none','important');
-        b.style.setProperty('touch-action','manipulation','important');
-      });
-    }
-    if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', once);
-    else once();
-    window.addEventListener('load', once);
-    // TANPA setInterval - biar PIN enteng, gak ada yang ngacak DOM tiap 300ms
-  }catch(e){}
-})();
-</script>
-
-
-<script id="ios-v171-once">
-(function(){
-  try{
-    var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    if(!isIOS) return;
-    function once(){
-      var nav = document.querySelector('.bottom-nav');
-      if(nav){
-        // Pindah ke body biar fixed-nya ke layar (bukan ke container yang ke-zoom), tapi sembunyiin pas PIN/splash via parent container check
-        // JANGAN pindah permanen: cukup paksa style fixed, biar gak ngaco kayak v165
-        nav.style.setProperty('position','fixed','important');
-        nav.style.setProperty('left','50%','important');
-        nav.style.setProperty('transform','translateX(-50%)','important');
-        nav.style.setProperty('bottom','0','important');
-        nav.style.setProperty('height','83px','important');
-        nav.style.setProperty('padding-bottom','34px','important');
-      }
-      // Hapus blue bar lama v164
-      var oldBlue = document.getElementById('venus-bottom-blue-44');
-      if(oldBlue) oldBlue.remove();
-    }
-    if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', once);
-    else once();
-    window.addEventListener('load', once);
-    // TANPA setInterval - biar PIN enteng
-  }catch(e){}
-})();
-</script>
-
-
-<script id="ios-v171-version-check">
-(function(){
-  try{
-    var VER = 'v171';
-    window.VENUS_VERSION = VER;
-    // Tulis versi di Tentang (kalau ada) biar ketauan
-    document.addEventListener('DOMContentLoaded', function(){
-      var els = document.querySelectorAll('[id*="tentang"], [class*="tentang"]');
-      // Cari elemen Update di Tentang
-      var all = document.querySelectorAll('div, span');
-      for(var i=0;i<all.length;i++){
-        if((all[i].textContent||'').trim().indexOf('06 Nov 2026')===0){
-          all[i].textContent = all[i].textContent.replace('06 Nov 2026', 'v171 • 08 Nov 2026');
-          break;
-        }
-      }
-    });
-    console.log('VENUS ' + VER + ' loaded');
+    if(!isIOS) return; // ANDROID: langsung keluar, jangan ubah apa-apa
+    document.documentElement.classList.add('ios-device');
+    document.body.classList.add('ios-device');
+    // Cuma nambahin class, CSS yang kerja. Tanpa setInterval, tanpa inline style.
   }catch(e){}
 })();
 </script>
