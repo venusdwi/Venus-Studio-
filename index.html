@@ -33,7 +33,7 @@ body{background:linear-gradient(180deg,#0A4DA3 0%,#0D3A8A 40%,#061A3A 100%) !imp
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<script id="ios-v179-prepaint">
+<script id="ios-v180-prepaint">
 /* v148 PRE-PAINT: Tambah .ios-device SEBELUM first paint, biar tidak putih dulu */
 /* Biang bug v148: .ios-device baru ditambah di akhir body + setTimeout 100-1000ms, jadi first paint masih putih, biru baru nongol pas tab di-klik */
 (function(){
@@ -526,15 +526,15 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<script id="ios-v179-fix">
+<script id="ios-v180-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
   // Cuma 2 hal: TAP HERE no kedip + label 2 baris via observer (splash/nav JANGAN diutak-atik, udah bener v146)
   function fixTap(){
     var btn = document.getElementById('btnTapHere');
-    if(!btn || btn.dataset.ios179Tap) return;
-    btn.dataset.ios179Tap = '1';
+    if(!btn || btn.dataset.ios180Tap) return;
+    btn.dataset.ios180Tap = '1';
     btn.addEventListener('click', function(){
       document.documentElement.classList.remove('splash-active');
       document.documentElement.classList.add('pin-active');
@@ -562,8 +562,8 @@ window.addEventListener('unhandledrejection', function(e){
   function observe(){
     ['labelPemasukanBulan','labelPengeluaranBulan'].forEach(function(id){
       var el = document.getElementById(id);
-      if(!el || el.dataset.ios179Obs) return;
-      el.dataset.ios179Obs = '1';
+      if(!el || el.dataset.ios180Obs) return;
+      el.dataset.ios180Obs = '1';
       new MutationObserver(function(){ fixOneLabel(el); }).observe(el, {childList:true, characterData:true, subtree:true});
     });
   }
@@ -579,7 +579,7 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<script id="ios-v179-fix">
+<script id="ios-v180-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -614,7 +614,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v179-fix">
+<script id="ios-v180-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -639,7 +639,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v179-fix">
+<script id="ios-v180-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -662,7 +662,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v179-fix">
+<script id="ios-v180-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -685,7 +685,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v179-fix">
+<script id="ios-v180-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -708,7 +708,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v179-fix">
+<script id="ios-v180-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -731,7 +731,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v179-fix">
+<script id="ios-v180-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return; // Android: stop total
@@ -920,8 +920,8 @@ function formatRiwayatDateOnly(isoDate){
 
 
 
-<style id="ios-xr-v179-splash-tengah-tap-no-kedip-biru-di-nav-pemasukan-2baris">
-/* ===== v179 iPhone ONLY - 4 fix: Splash tengah, TAP->PIN no kedip, Biru di nav (bukan ::after), Pemasukan 2 baris ===== */
+<style id="ios-xr-v180-splash-tengah-tap-no-kedip-biru-di-nav-pemasukan-2baris">
+/* ===== v180 iPhone ONLY - 4 fix: Splash tengah, TAP->PIN no kedip, Biru di nav (bukan ::after), Pemasukan 2 baris ===== */
 .ios-device html, .ios-device body{
   height: 100% !important;
   position: fixed !important;
@@ -961,8 +961,8 @@ function formatRiwayatDateOnly(isoDate){
   padding-right: 14px !important;
   background: var(--bg) !important;
 }
-/* 1. SPLASH - BALIK TENGAH (v179 ngaco karena 20vh dobel: outer 20vh + inner 20vh = 40vh) */
-/* v179: outer tengah, inner padding-top 0, TAP HERE di bawah konten (bukan nempel teks) */
+/* 1. SPLASH - BALIK TENGAH (v180 ngaco karena 20vh dobel: outer 20vh + inner 20vh = 40vh) */
+/* v180: outer tengah, inner padding-top 0, TAP HERE di bawah konten (bukan nempel teks) */
 .ios-device #splashScreenOverlay,
 .ios-device .splash-screen-overlay{
   position: fixed !important;
@@ -1038,8 +1038,8 @@ function formatRiwayatDateOnly(isoDate){
   border-bottom: 1px solid var(--border) !important;
 }
 /* 3. BIRU BAWAH - JADI BAGIAN NAV (bukan ::after yang ke-clip overflow hidden jadi putih) */
-/* Biang putih lagi di v179: ::after top:100% di luar nav, ke-clip #mainAppContainer overflow hidden */
-/* v179: nav 108px = 64 putih + 44 biru (env(top)), biru di DALAM nav, tidak ke-clip, tidak gede karena fondasi main putih */
+/* Biang putih lagi di v180: ::after top:100% di luar nav, ke-clip #mainAppContainer overflow hidden */
+/* v180: nav 108px = 64 putih + 44 biru (env(top)), biru di DALAM nav, tidak ke-clip, tidak gede karena fondasi main putih */
 .ios-device .bottom-nav{
   position: fixed !important;
   left: 0 !important; right: 0 !important; bottom: 0 !important;
@@ -1138,7 +1138,7 @@ function formatRiwayatDateOnly(isoDate){
 }
 /* 4. PEMASUKAN vs PENGELUARAN - November di bawah, 2 baris, sama persis */
 /* Biang: PEMASUKAN (NOVEMBER) 1 baris muat, PENGELUARAN (NOVEMBER) kepanjangan jadi wrap 2 baris, jadi tidak sejajar */
-/* v179: paksa 2 baris untuk keduanya: judul baris 1, (BULAN) baris 2 */
+/* v180: paksa 2 baris untuk keduanya: judul baris 1, (BULAN) baris 2 */
 .ios-device .card-sub-bank h4{
   font-size: 9px !important;
   letter-spacing: 1px !important;
@@ -1203,49 +1203,6 @@ function formatRiwayatDateOnly(isoDate){
 }
 </style>
 
-<style id="ios-v179-prepaint-style">
-html{ background: #0A4DA3 !important; background-color: #0A4DA3 !important; }
-html.ios-device, html.ios-device body{ background: #0A4DA3 !important; background-color: #0A4DA3 !important; }
-/* Venus Select - Light + Dark (v147 dipertahankan) */
-.venus-select{ position: relative !important; min-width: 110px !important; }
-.venus-select-btn{
-  width: 100% !important;
-  display: flex !important; align-items: center !important; justify-content: space-between !important; gap: 8px !important;
-  background: var(--card, #FFFFFF) !important; border: 1.5px solid #0A4DA3 !important; border-radius: 12px !important;
-  padding: 8px 10px !important; font-size: 12px !important; font-weight: 600 !important; color: #0A4DA3 !important;
-  cursor: pointer !important; touch-action: manipulation !important; -webkit-tap-highlight-color: transparent !important;
-}
-.venus-select-btn .venus-chevron{ font-size: 10px !important; transition: transform 0.15s !important; }
-.venus-select.open .venus-select-btn .venus-chevron{ transform: rotate(180deg) !important; }
-.venus-select-list{
-  position: absolute !important; left: 0 !important; right: 0 !important; top: calc(100% + 6px) !important;
-  background: var(--card, #FFFFFF) !important; border: 1px solid var(--border, #E2E8F0) !important; border-radius: 14px !important;
-  box-shadow: 0 12px 28px rgba(10,77,163,0.18) !important; overflow: hidden !important; z-index: 9999 !important;
-  display: none !important;
-}
-.venus-select.open .venus-select-list{ display: block !important; }
-.venus-select-opt{
-  padding: 10px 12px !important; font-size: 12px !important; font-weight: 600 !important; color: var(--text, #1E293B) !important;
-  display: flex !important; align-items: center !important; justify-content: space-between !important;
-  cursor: pointer !important; touch-action: manipulation !important;
-}
-.venus-select-opt:active{ background: var(--primary-light, #EFF6FF) !important; }
-.venus-select-opt.selected{ background: #0A4DA3 !important; color: #FFFFFF !important; }
-.venus-select-opt.selected .venus-check{ opacity: 1 !important; }
-.venus-check{ opacity: 0 !important; font-size: 12px !important; }
-html[data-theme="dark"] .venus-select-btn{
-  background: #101828 !important; background-color: #101828 !important;
-  border-color: #3B82F6 !important; color: #FFFFFF !important;
-}
-html[data-theme="dark"] .venus-select-list{
-  background: #101828 !important; background-color: #101828 !important;
-  border-color: #1E293B !important; box-shadow: 0 12px 28px rgba(0,0,0,0.5) !important;
-}
-html[data-theme="dark"] .venus-select-opt{ color: #F1F5F9 !important; background: transparent !important; }
-html[data-theme="dark"] .venus-select-opt:active{ background: #172130 !important; }
-html[data-theme="dark"] .venus-select-opt.selected{ background: #0A4DA3 !important; color: #FFFFFF !important; }
-html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !important; border-color: #1E293B !important; }
-</style>
 
 
 
@@ -1255,10 +1212,11 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
 
 
 
-<style id="ios-xr-v179-biru-bawah-44-pas-tab-turun">
-/* ===== v179 iPhone XR ONLY - Biru bawah 44px PAS sama kayak atas, tab turun lagi nempel di atas biru ===== */
-/* Biang lebar di v179: Nav gradient 64 putih + 44 biru + body biru di bawah nav numpuk jadi 100px+ */
-/* v179: Pisah! Nav putih 64px di atas (bottom:44px), biru 44px bar sendiri di bawah (bottom:0) via ::after. Jadi biru total CUMA 44px, gak numpuk. */
+
+<style id="ios-xr-v180-biru-bawah-44-pas-tab-turun">
+/* ===== v180 iPhone XR ONLY - Biru bawah 44px PAS sama kayak atas, tab turun lagi nempel di atas biru ===== */
+/* Biang lebar di v180: Nav gradient 64 putih + 44 biru + body biru di bawah nav numpuk jadi 100px+ */
+/* v180: Pisah! Nav putih 64px di atas (bottom:44px), biru 44px bar sendiri di bawah (bottom:0) via ::after. Jadi biru total CUMA 44px, gak numpuk. */
 :root{ --venus-blue: #0A4DA3 !important; }
 .ios-device html, .ios-device body{
   height: 100% !important;
@@ -1367,10 +1325,10 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
   background-image: linear-gradient(180deg, #0A4DA3 0px, #0A4DA3 44px, var(--card) 44px, var(--card) 100%) !important;
   border-bottom: 1px solid var(--border) !important;
 }
-/* NAV - v179: PUTIH 64px di atas biru, bottom:44px (duduk di atas biru, bukan numpuk) */
+/* NAV - v180: PUTIH 64px di atas biru, bottom:44px (duduk di atas biru, bukan numpuk) */
 .ios-device .bottom-nav{
   position: fixed !important;
-  left: 0 !important; right: 0 !important; bottom: 44px !important; /* v179: Nav duduk di atas biru 44px, bukan di bawah layar */
+  left: 0 !important; right: 0 !important; bottom: 44px !important; /* v180: Nav duduk di atas biru 44px, bukan di bawah layar */
   width: 100% !important;
   height: 64px !important; /* CUMA putih 64px, birunya di ::after */
   min-height: 64px !important;
@@ -1520,7 +1478,7 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
 }
 .ios-device .pin-box{ transition: none !important; }
 .ios-device .pin-card{ margin-bottom: 0 !important; margin-top: 0 !important; }
-/* TAMBAH TRANSAKSI - Tetap bisa dipencet (dari v179) */
+/* TAMBAH TRANSAKSI - Tetap bisa dipencet (dari v180) */
 .ios-device #tab-tambah{
   padding-bottom: 130px !important;
   pointer-events: auto !important;
@@ -1620,8 +1578,8 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
 
 
 
-<style id="ios-v179-iphone-only-android-aman">
-/* ===== v179 - KHUSUS iPhone, ANDROID SAMA SEKALI TIDAK DIUBAH ===== */
+<style id="ios-v180-iphone-only-android-aman">
+/* ===== v180 - KHUSUS iPhone, ANDROID SAMA SEKALI TIDAK DIUBAH ===== */
 /* Semua rule di bawah ini diawali .ios-device, jadi Android (tanpa class ios-device) TIDAK KENA sama sekali. */
 /* TANPA inline style, TANPA JS yang ngubah Android. */
 /* Tab kayak Instagram + biru bawah 44 sama kayak atas, CUMA iPhone. */
@@ -1688,8 +1646,8 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
 </style>
 
 
-<style id="ios-v179-nav-ke-body">
-/* ===== v179 iPhone ONLY, Android TIDAK DIUBAH ===== */
+<style id="ios-v180-nav-ke-body">
+/* ===== v180 iPhone ONLY, Android TIDAK DIUBAH ===== */
 /* Biang tab ngambang: nav di dalam #mainAppContainer yang kena zoom 1.10 -> fixed ke-lock ke container, bukan ke layar. Fix: nav dipindah ke body via JS, zoom container dimatiin di iPhone. */
 /* Nav di body, tapi SEMBUNYI pas PIN/splash (biar gak nimpa kayak v165) */
 .ios-device body:not(.main-active) .bottom-nav{
@@ -1760,8 +1718,8 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
 </style>
 
 
-<style id="ios-v179-tab-balik-biru-full">
-/* ===== v179 iPhone ONLY, Android TIDAK DIUBAH ===== */
+<style id="ios-v180-tab-balik-biru-full">
+/* ===== v180 iPhone ONLY, Android TIDAK DIUBAH ===== */
 /* FIX 1 - Tab ilang: hapus display:none pakai body.main-active (main-active nempelnya di #mainAppContainer, bukan body, jadi nav ke-hide terus). Ganti: nav z-index 60, splash 99999 + PIN 9998 di atas nav, jadi nav ketutup sendiri pas splash/PIN, tanpa display:none. */
 /* FIX 2 - Warna putih bukan biru: nav full biru #0A4DA3 (bukan putih 49 + biru 44), ikon + label putih di atas biru, biar nyatu sama biru bawah 44px. */
 .ios-device .bottom-nav{
@@ -1779,7 +1737,7 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
   align-items: flex-start !important;
   justify-content: space-around !important;
   overflow: hidden !important;
-  background: #0A4DA3 !important; /* v179: FULL BIRU, bukan putih */
+  background: #0A4DA3 !important; /* v180: FULL BIRU, bukan putih */
   background-color: #0A4DA3 !important;
   background-image: none !important;
   border-top: none !important;
@@ -1794,7 +1752,7 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
 .ios-device .bottom-nav::after{ display: none !important; }
 .ios-device .bottom-nav::before{ display: none !important; content: none !important; }
 .ios-device body:not(.main-active) .bottom-nav{
-  display: flex !important; /* v179: JANGAN display:none, biar tab gak ilang. Splash/PIN nutupin via z-index. */
+  display: flex !important; /* v180: JANGAN display:none, biar tab gak ilang. Splash/PIN nutupin via z-index. */
   visibility: visible !important;
 }
 .ios-device .nav-item{
@@ -1851,8 +1809,8 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
 </style>
 
 
-<style id="ios-v179-biru-bawah-pas-44">
-/* ===== v179 iPhone ONLY, Android TIDAK DIUBAH ===== */
+<style id="ios-v180-biru-bawah-pas-44">
+/* ===== v180 iPhone ONLY, Android TIDAK DIUBAH ===== */
 /* FIX: Biru bawah tebal 137px = height 93px + padding 44px (box-sizing content-box). Fix: height 93px SUDAH termasuk padding (border-box), tanpa transform, left 0 right 0 + margin auto (bukan translateX). */
 /* Atas: biru 44px. Bawah: biru 44px, SAMA PERSIS. Tab turun mentok, gak ngegantung. */
 .ios-device .bottom-nav{
@@ -1936,8 +1894,8 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
 </style>
 
 
-<style id="ios-v179-simpel-turun-mentok">
-/* ===== v179 iPhone ONLY, Android TIDAK DIUBAH - SIMPEL ===== */
+<style id="ios-v180-simpel-turun-mentok">
+/* ===== v180 iPhone ONLY, Android TIDAK DIUBAH - SIMPEL ===== */
 /* Maunya: tab turun mentok, biru bawah sama kayak biru atas 44px. */
 /* Cara simpel: Nav = 49px doang, bottom 0, full biru. Biru bawah = nav itu sendiri (49px), gak ada biru tambahan di bawahnya. Tanpa padding-bottom 44px, tanpa ::after, tanpa body biru numpuk. */
 .ios-device .bottom-nav{
@@ -2021,57 +1979,33 @@ html[data-theme="dark"] select{ background: #101828 !important; color: #F1F5F9 !
 </style>
 
 
-<style id="ios-v179-riwayat-custom-iphone">
-/* ===== v179 iPhone ONLY - Riwayat custom tanggal/bulan via bottom-sheet (bukan showPicker di display:none) ===== */
-.ios-device .ios-custom-sheet{
+
+
+
+<style id="ios-v180-riwayat-direct">
+/* ===== v180 iPhone ONLY - Samain kayak Android: klik ke-2 langsung picker ===== */
+/* Trik: input HARUS dirender (bukan display:none) biar showPicker() diizinin iPhone. */
+/* Tapi dibikin 1px + opacity 0.01 + di tengah layar, jadi mata gak liat, iPhone tetep anggap visible. */
+.ios-device .ios-direct-picker{
   position: fixed !important;
-  left: 0 !important; right: 0 !important; bottom: 0 !important;
-  width: 100% !important; max-width: 430px !important;
-  margin: 0 auto !important;
-  background: var(--card) !important;
-  border-radius: 20px 20px 0 0 !important;
-  padding: 16px 16px calc(16px + env(safe-area-inset-bottom, 0px)) 16px !important;
-  box-shadow: 0 -8px 30px rgba(0,0,0,0.2) !important;
-  z-index: 99999 !important;
-  display: none !important;
-  box-sizing: border-box !important;
-}
-.ios-device .ios-custom-sheet.open{
-  display: block !important;
-}
-.ios-device .ios-custom-backdrop{
-  position: fixed !important;
-  inset: 0 !important;
-  background: rgba(0,0,0,0.45) !important;
-  z-index: 99998 !important;
-  display: none !important;
-}
-.ios-device .ios-custom-backdrop.open{
-  display: block !important;
-}
-.ios-device .ios-custom-sheet input[type="date"],
-.ios-device .ios-custom-sheet input[type="month"]{
-  width: 100% !important;
-  height: 52px !important;
-  min-height: 52px !important;
-  font-size: 16px !important; /* 16px biar iOS gak zoom pas tap */
-  padding: 0 12px !important;
-  border: 1.5px solid var(--border) !important;
-  border-radius: 12px !important;
-  background: var(--card) !important;
-  color: var(--text) !important;
-  box-sizing: border-box !important;
-  touch-action: manipulation !important;
-  -webkit-appearance: none !important;
-  appearance: none !important;
-  display: block !important; /* HARUS keliatan, bukan display:none, biar picker iOS kebuka */
-  opacity: 1 !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%,-50%) !important;
+  width: 1px !important;
+  height: 1px !important;
+  min-width: 1px !important;
+  min-height: 1px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  opacity: 0.01 !important; /* JANGAN 0, harus 0.01 biar tetep dirender */
   visibility: visible !important;
-}
-.ios-device .ios-custom-sheet button{
-  touch-action: manipulation !important;
-  -webkit-tap-highlight-color: transparent !important;
-  min-height: 48px !important;
+  display: block !important;
+  pointer-events: none !important;
+  z-index: 99999 !important;
+  font-size: 16px !important;
+  background: transparent !important;
+  color: transparent !important;
 }
 </style>
 
@@ -4962,7 +4896,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<script id="venus-select-v179">
+<script id="venus-select-v180">
 /* Custom Select VENUS - iPhone + Android, ganti picker bawaan HP */
 (function(){
   function buildVenusSelect(sel){
@@ -5032,7 +4966,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<script id="ios-v179-fix">
+<script id="ios-v180-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -5087,7 +5021,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<script id="ios-v179-iphone-only">
+<script id="ios-v180-iphone-only">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -5100,7 +5034,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<script id="ios-v179-pindah-nav">
+<script id="ios-v180-pindah-nav">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -5129,7 +5063,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<script id="ios-v179-force">
+<script id="ios-v180-force">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -5165,7 +5099,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<script id="ios-v179-force-simpel">
+<script id="ios-v180-force-simpel">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -5199,104 +5133,81 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<!-- v179 iPhone ONLY - Bottom-sheet custom tanggal/bulan Riwayat -->
-<div id="iosCustomBackdrop" class="ios-custom-backdrop"></div>
-<div id="iosCustomDateSheet" class="ios-custom-sheet">
-  <div style="width:36px;height:5px;background:var(--border);border-radius:99px;margin:0 auto 12px auto;"></div>
-  <div style="font-size:14px;font-weight:800;margin-bottom:4px;">Custom Tanggal</div>
-  <div style="font-size:11px;color:var(--text-2);margin-bottom:12px;">Pilih tanggal untuk filter Riwayat. Tap input di bawah, picker iPhone akan kebuka.</div>
-  <input type="date" id="iosCustomDateInput">
-  <div style="display:flex;gap:8px;margin-top:12px;">
-    <button id="iosCustomDateCancel" style="flex:1;height:48px;border-radius:12px;border:1.5px solid var(--border);background:var(--card);font-weight:700;">Batal</button>
-    <button id="iosCustomDateApply" style="flex:1;height:48px;border-radius:12px;border:none;background:var(--primary);color:#fff;font-weight:800;">Terapkan</button>
-  </div>
-</div>
-<div id="iosCustomMonthSheet" class="ios-custom-sheet">
-  <div style="width:36px;height:5px;background:var(--border);border-radius:99px;margin:0 auto 12px auto;"></div>
-  <div style="font-size:14px;font-weight:800;margin-bottom:4px;">Custom Bulan</div>
-  <div style="font-size:11px;color:var(--text-2);margin-bottom:12px;">Pilih bulan untuk filter Riwayat. Tap input di bawah, picker iPhone akan kebuka.</div>
-  <input type="month" id="iosCustomMonthInput">
-  <div style="display:flex;gap:8px;margin-top:12px;">
-    <button id="iosCustomMonthCancel" style="flex:1;height:48px;border-radius:12px;border:1.5px solid var(--border);background:var(--card);font-weight:700;">Batal</button>
-    <button id="iosCustomMonthApply" style="flex:1;height:48px;border-radius:12px;border:none;background:var(--primary);color:#fff;font-weight:800;">Terapkan</button>
-  </div>
-</div>
 
 
 
 
 
-<script id="ios-v179-riwayat-fix">
+
+
+
+
+<!-- v180 iPhone ONLY - Input langsung kayak Android (dirender 1px, opacity 0.01) -->
+<input type="date" id="iosDirectDateInput" class="ios-direct-picker" aria-hidden="true" tabindex="-1">
+<input type="month" id="iosDirectMonthInput" class="ios-direct-picker" aria-hidden="true" tabindex="-1">
+
+
+<script id="ios-v180-riwayat-direct">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    if(!isIOS) return; // Android: jangan ubah apa-apa
+    if(!isIOS) return; // Android: jangan ubah apa-apa, biar showPicker lama tetep jalan
     function init(){
       var chipToday = document.getElementById('chipToday');
       var chipMonth = document.getElementById('chipMonth');
-      var backdrop = document.getElementById('iosCustomBackdrop');
-      var dateSheet = document.getElementById('iosCustomDateSheet');
-      var monthSheet = document.getElementById('iosCustomMonthSheet');
-      var dateInput = document.getElementById('iosCustomDateInput');
-      var monthInput = document.getElementById('iosCustomMonthInput');
+      var directDate = document.getElementById('iosDirectDateInput');
+      var directMonth = document.getElementById('iosDirectMonthInput');
       var hiddenDate = document.getElementById('filterCustomDateInput');
       var hiddenMonth = document.getElementById('filterCustomMonthInput');
-      function openSheet(sheet){
-        if(backdrop) backdrop.classList.add('open');
-        if(sheet) sheet.classList.add('open');
+      function openDirectPicker(input){
+        if(!input) return;
+        try{ input.focus(); }catch(e){}
+        try{
+          if(typeof input.showPicker === 'function') input.showPicker();
+          else input.click();
+        }catch(e){
+          try{ input.click(); }catch(e2){}
+        }
       }
-      function closeAll(){
-        if(backdrop) backdrop.classList.remove('open');
-        if(dateSheet) dateSheet.classList.remove('open');
-        if(monthSheet) monthSheet.classList.remove('open');
-      }
-      if(backdrop) backdrop.addEventListener('click', closeAll);
-      // CEGAT klik ke-2 di capture (sebelum handler lama showPicker display:none jalan)
-      // Cek .active di chip, bukan window.riwayatFilterMode (let, gak ada di window)
+      // Hari Ini: klik ke-1 = filter today (biarin handler lama), klik ke-2 (udah active) = langsung picker tanggal kayak Android
       if(chipToday){
         chipToday.addEventListener('click', function(e){
           if(chipToday.classList.contains('active')){
             e.stopImmediatePropagation();
             e.preventDefault();
-            if(hiddenDate && hiddenDate.value && dateInput) dateInput.value = hiddenDate.value;
-            openSheet(dateSheet);
+            if(hiddenDate && hiddenDate.value) directDate.value = hiddenDate.value;
+            openDirectPicker(directDate);
           }
-          // Kalau belum active, biarin handler lama jalan (apply today)
-        }, true); // capture: true, jalan duluan
+        }, true);
       }
+      // Bulan: klik ke-1 = filter month, klik ke-2 = langsung picker bulan kayak Android
       if(chipMonth){
         chipMonth.addEventListener('click', function(e){
           if(chipMonth.classList.contains('active')){
             e.stopImmediatePropagation();
             e.preventDefault();
-            if(hiddenMonth && hiddenMonth.value && monthInput) monthInput.value = hiddenMonth.value;
-            openSheet(monthSheet);
+            if(hiddenMonth && hiddenMonth.value) directMonth.value = hiddenMonth.value;
+            openDirectPicker(directMonth);
           }
         }, true);
       }
-      // Terapkan: isi hidden input + dispatch change, biar handler lama applyRiwayatFilter yang jalan (gak perlu window.*)
-      var dApply = document.getElementById('iosCustomDateApply');
-      if(dApply) dApply.addEventListener('click', function(){
-        var v = dateInput ? dateInput.value : '';
-        if(v && hiddenDate){
-          hiddenDate.value = v;
-          hiddenDate.dispatchEvent(new Event('change', {bubbles:true}));
-        }
-        closeAll();
-      });
-      var dCancel = document.getElementById('iosCustomDateCancel');
-      if(dCancel) dCancel.addEventListener('click', closeAll);
-      var mApply = document.getElementById('iosCustomMonthApply');
-      if(mApply) mApply.addEventListener('click', function(){
-        var v = monthInput ? monthInput.value : '';
-        if(v && hiddenMonth){
-          hiddenMonth.value = v;
-          hiddenMonth.dispatchEvent(new Event('change', {bubbles:true}));
-        }
-        closeAll();
-      });
-      var mCancel = document.getElementById('iosCustomMonthCancel');
-      if(mCancel) mCancel.addEventListener('click', closeAll);
+      // Kalau user pilih tanggal di picker langsung -> terusin ke hidden input biar filter jalan
+      if(directDate){
+        directDate.addEventListener('change', function(){
+          if(this.value && hiddenDate){
+            hiddenDate.value = this.value;
+            hiddenDate.dispatchEvent(new Event('change', {bubbles:true}));
+          }
+        });
+      }
+      if(directMonth){
+        directMonth.addEventListener('change', function(){
+          if(this.value && hiddenMonth){
+            hiddenMonth.value = this.value;
+            hiddenMonth.dispatchEvent(new Event('change', {bubbles:true}));
+          }
+        });
+      }
     }
     if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
     else init();
@@ -5831,7 +5742,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 
 
-<script id="venus-select-v179">
+<script id="venus-select-v180">
 /* Custom Select VENUS - iPhone + Android, ganti picker bawaan HP */
 (function(){
   function buildVenusSelect(sel){
@@ -5901,7 +5812,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 </script>
 
 
-<script id="ios-v179-fix">
+<script id="ios-v180-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -5956,7 +5867,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 </script>
 
 
-<script id="ios-v179-iphone-only">
+<script id="ios-v180-iphone-only">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -5969,7 +5880,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 </script>
 
 
-<script id="ios-v179-pindah-nav">
+<script id="ios-v180-pindah-nav">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -5998,7 +5909,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 </script>
 
 
-<script id="ios-v179-force">
+<script id="ios-v180-force">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -6034,7 +5945,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 </script>
 
 
-<script id="ios-v179-force-simpel">
+<script id="ios-v180-force-simpel">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -6068,104 +5979,81 @@ document.addEventListener('DOMContentLoaded', ()=>{
 </script>
 
 
-<!-- v179 iPhone ONLY - Bottom-sheet custom tanggal/bulan Riwayat -->
-<div id="iosCustomBackdrop" class="ios-custom-backdrop"></div>
-<div id="iosCustomDateSheet" class="ios-custom-sheet">
-  <div style="width:36px;height:5px;background:var(--border);border-radius:99px;margin:0 auto 12px auto;"></div>
-  <div style="font-size:14px;font-weight:800;margin-bottom:4px;">Custom Tanggal</div>
-  <div style="font-size:11px;color:var(--text-2);margin-bottom:12px;">Pilih tanggal untuk filter Riwayat. Tap input di bawah, picker iPhone akan kebuka.</div>
-  <input type="date" id="iosCustomDateInput">
-  <div style="display:flex;gap:8px;margin-top:12px;">
-    <button id="iosCustomDateCancel" style="flex:1;height:48px;border-radius:12px;border:1.5px solid var(--border);background:var(--card);font-weight:700;">Batal</button>
-    <button id="iosCustomDateApply" style="flex:1;height:48px;border-radius:12px;border:none;background:var(--primary);color:#fff;font-weight:800;">Terapkan</button>
-  </div>
-</div>
-<div id="iosCustomMonthSheet" class="ios-custom-sheet">
-  <div style="width:36px;height:5px;background:var(--border);border-radius:99px;margin:0 auto 12px auto;"></div>
-  <div style="font-size:14px;font-weight:800;margin-bottom:4px;">Custom Bulan</div>
-  <div style="font-size:11px;color:var(--text-2);margin-bottom:12px;">Pilih bulan untuk filter Riwayat. Tap input di bawah, picker iPhone akan kebuka.</div>
-  <input type="month" id="iosCustomMonthInput">
-  <div style="display:flex;gap:8px;margin-top:12px;">
-    <button id="iosCustomMonthCancel" style="flex:1;height:48px;border-radius:12px;border:1.5px solid var(--border);background:var(--card);font-weight:700;">Batal</button>
-    <button id="iosCustomMonthApply" style="flex:1;height:48px;border-radius:12px;border:none;background:var(--primary);color:#fff;font-weight:800;">Terapkan</button>
-  </div>
-</div>
 
 
 
 
 
-<script id="ios-v179-riwayat-fix">
+
+
+
+
+<!-- v180 iPhone ONLY - Input langsung kayak Android (dirender 1px, opacity 0.01) -->
+<input type="date" id="iosDirectDateInput" class="ios-direct-picker" aria-hidden="true" tabindex="-1">
+<input type="month" id="iosDirectMonthInput" class="ios-direct-picker" aria-hidden="true" tabindex="-1">
+
+
+<script id="ios-v180-riwayat-direct">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    if(!isIOS) return; // Android: jangan ubah apa-apa
+    if(!isIOS) return; // Android: jangan ubah apa-apa, biar showPicker lama tetep jalan
     function init(){
       var chipToday = document.getElementById('chipToday');
       var chipMonth = document.getElementById('chipMonth');
-      var backdrop = document.getElementById('iosCustomBackdrop');
-      var dateSheet = document.getElementById('iosCustomDateSheet');
-      var monthSheet = document.getElementById('iosCustomMonthSheet');
-      var dateInput = document.getElementById('iosCustomDateInput');
-      var monthInput = document.getElementById('iosCustomMonthInput');
+      var directDate = document.getElementById('iosDirectDateInput');
+      var directMonth = document.getElementById('iosDirectMonthInput');
       var hiddenDate = document.getElementById('filterCustomDateInput');
       var hiddenMonth = document.getElementById('filterCustomMonthInput');
-      function openSheet(sheet){
-        if(backdrop) backdrop.classList.add('open');
-        if(sheet) sheet.classList.add('open');
+      function openDirectPicker(input){
+        if(!input) return;
+        try{ input.focus(); }catch(e){}
+        try{
+          if(typeof input.showPicker === 'function') input.showPicker();
+          else input.click();
+        }catch(e){
+          try{ input.click(); }catch(e2){}
+        }
       }
-      function closeAll(){
-        if(backdrop) backdrop.classList.remove('open');
-        if(dateSheet) dateSheet.classList.remove('open');
-        if(monthSheet) monthSheet.classList.remove('open');
-      }
-      if(backdrop) backdrop.addEventListener('click', closeAll);
-      // CEGAT klik ke-2 di capture (sebelum handler lama showPicker display:none jalan)
-      // Cek .active di chip, bukan window.riwayatFilterMode (let, gak ada di window)
+      // Hari Ini: klik ke-1 = filter today (biarin handler lama), klik ke-2 (udah active) = langsung picker tanggal kayak Android
       if(chipToday){
         chipToday.addEventListener('click', function(e){
           if(chipToday.classList.contains('active')){
             e.stopImmediatePropagation();
             e.preventDefault();
-            if(hiddenDate && hiddenDate.value && dateInput) dateInput.value = hiddenDate.value;
-            openSheet(dateSheet);
+            if(hiddenDate && hiddenDate.value) directDate.value = hiddenDate.value;
+            openDirectPicker(directDate);
           }
-          // Kalau belum active, biarin handler lama jalan (apply today)
-        }, true); // capture: true, jalan duluan
+        }, true);
       }
+      // Bulan: klik ke-1 = filter month, klik ke-2 = langsung picker bulan kayak Android
       if(chipMonth){
         chipMonth.addEventListener('click', function(e){
           if(chipMonth.classList.contains('active')){
             e.stopImmediatePropagation();
             e.preventDefault();
-            if(hiddenMonth && hiddenMonth.value && monthInput) monthInput.value = hiddenMonth.value;
-            openSheet(monthSheet);
+            if(hiddenMonth && hiddenMonth.value) directMonth.value = hiddenMonth.value;
+            openDirectPicker(directMonth);
           }
         }, true);
       }
-      // Terapkan: isi hidden input + dispatch change, biar handler lama applyRiwayatFilter yang jalan (gak perlu window.*)
-      var dApply = document.getElementById('iosCustomDateApply');
-      if(dApply) dApply.addEventListener('click', function(){
-        var v = dateInput ? dateInput.value : '';
-        if(v && hiddenDate){
-          hiddenDate.value = v;
-          hiddenDate.dispatchEvent(new Event('change', {bubbles:true}));
-        }
-        closeAll();
-      });
-      var dCancel = document.getElementById('iosCustomDateCancel');
-      if(dCancel) dCancel.addEventListener('click', closeAll);
-      var mApply = document.getElementById('iosCustomMonthApply');
-      if(mApply) mApply.addEventListener('click', function(){
-        var v = monthInput ? monthInput.value : '';
-        if(v && hiddenMonth){
-          hiddenMonth.value = v;
-          hiddenMonth.dispatchEvent(new Event('change', {bubbles:true}));
-        }
-        closeAll();
-      });
-      var mCancel = document.getElementById('iosCustomMonthCancel');
-      if(mCancel) mCancel.addEventListener('click', closeAll);
+      // Kalau user pilih tanggal di picker langsung -> terusin ke hidden input biar filter jalan
+      if(directDate){
+        directDate.addEventListener('change', function(){
+          if(this.value && hiddenDate){
+            hiddenDate.value = this.value;
+            hiddenDate.dispatchEvent(new Event('change', {bubbles:true}));
+          }
+        });
+      }
+      if(directMonth){
+        directMonth.addEventListener('change', function(){
+          if(this.value && hiddenMonth){
+            hiddenMonth.value = this.value;
+            hiddenMonth.dispatchEvent(new Event('change', {bubbles:true}));
+          }
+        });
+      }
     }
     if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
     else init();
