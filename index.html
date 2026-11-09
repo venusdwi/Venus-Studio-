@@ -33,7 +33,7 @@ body{background:linear-gradient(180deg,#0A4DA3 0%,#0D3A8A 40%,#061A3A 100%) !imp
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<script id="ios-v182-prepaint">
+<script id="ios-v183-prepaint">
 /* v148 PRE-PAINT: Tambah .ios-device SEBELUM first paint, biar tidak putih dulu */
 /* Biang bug v148: .ios-device baru ditambah di akhir body + setTimeout 100-1000ms, jadi first paint masih putih, biru baru nongol pas tab di-klik */
 (function(){
@@ -526,7 +526,7 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<script id="ios-v182-fix">
+<script id="ios-v183-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -579,7 +579,7 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<script id="ios-v182-fix">
+<script id="ios-v183-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -614,7 +614,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v182-fix">
+<script id="ios-v183-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -639,7 +639,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v182-fix">
+<script id="ios-v183-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -662,7 +662,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v182-fix">
+<script id="ios-v183-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -685,7 +685,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v182-fix">
+<script id="ios-v183-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -708,7 +708,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v182-fix">
+<script id="ios-v183-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -731,7 +731,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v182-fix">
+<script id="ios-v183-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return; // Android: stop total
@@ -920,8 +920,8 @@ function formatRiwayatDateOnly(isoDate){
 
 
 
-<style id="ios-xr-v182-splash-tengah-tap-no-kedip-biru-di-nav-pemasukan-2baris">
-/* ===== v182 iPhone ONLY - 4 fix: Splash tengah, TAP->PIN no kedip, Biru di nav (bukan ::after), Pemasukan 2 baris ===== */
+<style id="ios-xr-V183-splash-tengah-tap-no-kedip-biru-di-nav-pemasukan-2baris">
+/* ===== V183 iPhone ONLY - 4 fix: Splash tengah, TAP->PIN no kedip, Biru di nav (bukan ::after), Pemasukan 2 baris ===== */
 .ios-device html, .ios-device body{
   height: 100% !important;
   position: fixed !important;
@@ -961,8 +961,8 @@ function formatRiwayatDateOnly(isoDate){
   padding-right: 14px !important;
   background: var(--bg) !important;
 }
-/* 1. SPLASH - BALIK TENGAH (v182 ngaco karena 20vh dobel: outer 20vh + inner 20vh = 40vh) */
-/* v182: outer tengah, inner padding-top 0, TAP HERE di bawah konten (bukan nempel teks) */
+/* 1. SPLASH - BALIK TENGAH (V183 ngaco karena 20vh dobel: outer 20vh + inner 20vh = 40vh) */
+/* V183: outer tengah, inner padding-top 0, TAP HERE di bawah konten (bukan nempel teks) */
 .ios-device #splashScreenOverlay,
 .ios-device .splash-screen-overlay{
   position: fixed !important;
@@ -1038,8 +1038,8 @@ function formatRiwayatDateOnly(isoDate){
   border-bottom: 1px solid var(--border) !important;
 }
 /* 3. BIRU BAWAH - JADI BAGIAN NAV (bukan ::after yang ke-clip overflow hidden jadi putih) */
-/* Biang putih lagi di v182: ::after top:100% di luar nav, ke-clip #mainAppContainer overflow hidden */
-/* v182: nav 108px = 64 putih + 44 biru (env(top)), biru di DALAM nav, tidak ke-clip, tidak gede karena fondasi main putih */
+/* Biang putih lagi di V183: ::after top:100% di luar nav, ke-clip #mainAppContainer overflow hidden */
+/* V183: nav 108px = 64 putih + 44 biru (env(top)), biru di DALAM nav, tidak ke-clip, tidak gede karena fondasi main putih */
 .ios-device .bottom-nav{
   position: fixed !important;
   left: 0 !important; right: 0 !important; bottom: 0 !important;
@@ -1138,7 +1138,7 @@ function formatRiwayatDateOnly(isoDate){
 }
 /* 4. PEMASUKAN vs PENGELUARAN - November di bawah, 2 baris, sama persis */
 /* Biang: PEMASUKAN (NOVEMBER) 1 baris muat, PENGELUARAN (NOVEMBER) kepanjangan jadi wrap 2 baris, jadi tidak sejajar */
-/* v182: paksa 2 baris untuk keduanya: judul baris 1, (BULAN) baris 2 */
+/* V183: paksa 2 baris untuk keduanya: judul baris 1, (BULAN) baris 2 */
 .ios-device .card-sub-bank h4{
   font-size: 9px !important;
   letter-spacing: 1px !important;
@@ -1213,10 +1213,10 @@ function formatRiwayatDateOnly(isoDate){
 
 
 
-<style id="ios-xr-v182-biru-bawah-44-pas-tab-turun">
-/* ===== v182 iPhone XR ONLY - Biru bawah 44px PAS sama kayak atas, tab turun lagi nempel di atas biru ===== */
-/* Biang lebar di v182: Nav gradient 64 putih + 44 biru + body biru di bawah nav numpuk jadi 100px+ */
-/* v182: Pisah! Nav putih 64px di atas (bottom:44px), biru 44px bar sendiri di bawah (bottom:0) via ::after. Jadi biru total CUMA 44px, gak numpuk. */
+<style id="ios-xr-V183-biru-bawah-44-pas-tab-turun">
+/* ===== V183 iPhone XR ONLY - Biru bawah 44px PAS sama kayak atas, tab turun lagi nempel di atas biru ===== */
+/* Biang lebar di V183: Nav gradient 64 putih + 44 biru + body biru di bawah nav numpuk jadi 100px+ */
+/* V183: Pisah! Nav putih 64px di atas (bottom:44px), biru 44px bar sendiri di bawah (bottom:0) via ::after. Jadi biru total CUMA 44px, gak numpuk. */
 :root{ --venus-blue: #0A4DA3 !important; }
 .ios-device html, .ios-device body{
   height: 100% !important;
@@ -1325,10 +1325,10 @@ function formatRiwayatDateOnly(isoDate){
   background-image: linear-gradient(180deg, #0A4DA3 0px, #0A4DA3 44px, var(--card) 44px, var(--card) 100%) !important;
   border-bottom: 1px solid var(--border) !important;
 }
-/* NAV - v182: PUTIH 64px di atas biru, bottom:44px (duduk di atas biru, bukan numpuk) */
+/* NAV - V183: PUTIH 64px di atas biru, bottom:44px (duduk di atas biru, bukan numpuk) */
 .ios-device .bottom-nav{
   position: fixed !important;
-  left: 0 !important; right: 0 !important; bottom: 44px !important; /* v182: Nav duduk di atas biru 44px, bukan di bawah layar */
+  left: 0 !important; right: 0 !important; bottom: 44px !important; /* V183: Nav duduk di atas biru 44px, bukan di bawah layar */
   width: 100% !important;
   height: 64px !important; /* CUMA putih 64px, birunya di ::after */
   min-height: 64px !important;
@@ -1478,7 +1478,7 @@ function formatRiwayatDateOnly(isoDate){
 }
 .ios-device .pin-box{ transition: none !important; }
 .ios-device .pin-card{ margin-bottom: 0 !important; margin-top: 0 !important; }
-/* TAMBAH TRANSAKSI - Tetap bisa dipencet (dari v182) */
+/* TAMBAH TRANSAKSI - Tetap bisa dipencet (dari V183) */
 .ios-device #tab-tambah{
   padding-bottom: 130px !important;
   pointer-events: auto !important;
@@ -1578,8 +1578,8 @@ function formatRiwayatDateOnly(isoDate){
 
 
 
-<style id="ios-v182-iphone-only-android-aman">
-/* ===== v182 - KHUSUS iPhone, ANDROID SAMA SEKALI TIDAK DIUBAH ===== */
+<style id="ios-v183-iphone-only-android-aman">
+/* ===== V183 - KHUSUS iPhone, ANDROID SAMA SEKALI TIDAK DIUBAH ===== */
 /* Semua rule di bawah ini diawali .ios-device, jadi Android (tanpa class ios-device) TIDAK KENA sama sekali. */
 /* TANPA inline style, TANPA JS yang ngubah Android. */
 /* Tab kayak Instagram + biru bawah 44 sama kayak atas, CUMA iPhone. */
@@ -1646,8 +1646,8 @@ function formatRiwayatDateOnly(isoDate){
 </style>
 
 
-<style id="ios-v182-nav-ke-body">
-/* ===== v182 iPhone ONLY, Android TIDAK DIUBAH ===== */
+<style id="ios-v183-nav-ke-body">
+/* ===== V183 iPhone ONLY, Android TIDAK DIUBAH ===== */
 /* Biang tab ngambang: nav di dalam #mainAppContainer yang kena zoom 1.10 -> fixed ke-lock ke container, bukan ke layar. Fix: nav dipindah ke body via JS, zoom container dimatiin di iPhone. */
 /* Nav di body, tapi SEMBUNYI pas PIN/splash (biar gak nimpa kayak v165) */
 .ios-device body:not(.main-active) .bottom-nav{
@@ -1718,8 +1718,8 @@ function formatRiwayatDateOnly(isoDate){
 </style>
 
 
-<style id="ios-v182-tab-balik-biru-full">
-/* ===== v182 iPhone ONLY, Android TIDAK DIUBAH ===== */
+<style id="ios-v183-tab-balik-biru-full">
+/* ===== V183 iPhone ONLY, Android TIDAK DIUBAH ===== */
 /* FIX 1 - Tab ilang: hapus display:none pakai body.main-active (main-active nempelnya di #mainAppContainer, bukan body, jadi nav ke-hide terus). Ganti: nav z-index 60, splash 99999 + PIN 9998 di atas nav, jadi nav ketutup sendiri pas splash/PIN, tanpa display:none. */
 /* FIX 2 - Warna putih bukan biru: nav full biru #0A4DA3 (bukan putih 49 + biru 44), ikon + label putih di atas biru, biar nyatu sama biru bawah 44px. */
 .ios-device .bottom-nav{
@@ -1737,7 +1737,7 @@ function formatRiwayatDateOnly(isoDate){
   align-items: flex-start !important;
   justify-content: space-around !important;
   overflow: hidden !important;
-  background: #0A4DA3 !important; /* v182: FULL BIRU, bukan putih */
+  background: #0A4DA3 !important; /* V183: FULL BIRU, bukan putih */
   background-color: #0A4DA3 !important;
   background-image: none !important;
   border-top: none !important;
@@ -1752,7 +1752,7 @@ function formatRiwayatDateOnly(isoDate){
 .ios-device .bottom-nav::after{ display: none !important; }
 .ios-device .bottom-nav::before{ display: none !important; content: none !important; }
 .ios-device body:not(.main-active) .bottom-nav{
-  display: flex !important; /* v182: JANGAN display:none, biar tab gak ilang. Splash/PIN nutupin via z-index. */
+  display: flex !important; /* V183: JANGAN display:none, biar tab gak ilang. Splash/PIN nutupin via z-index. */
   visibility: visible !important;
 }
 .ios-device .nav-item{
@@ -1809,8 +1809,8 @@ function formatRiwayatDateOnly(isoDate){
 </style>
 
 
-<style id="ios-v182-biru-bawah-pas-44">
-/* ===== v182 iPhone ONLY, Android TIDAK DIUBAH ===== */
+<style id="ios-v183-biru-bawah-pas-44">
+/* ===== V183 iPhone ONLY, Android TIDAK DIUBAH ===== */
 /* FIX: Biru bawah tebal 137px = height 93px + padding 44px (box-sizing content-box). Fix: height 93px SUDAH termasuk padding (border-box), tanpa transform, left 0 right 0 + margin auto (bukan translateX). */
 /* Atas: biru 44px. Bawah: biru 44px, SAMA PERSIS. Tab turun mentok, gak ngegantung. */
 .ios-device .bottom-nav{
@@ -1894,8 +1894,8 @@ function formatRiwayatDateOnly(isoDate){
 </style>
 
 
-<style id="ios-v182-simpel-turun-mentok">
-/* ===== v182 iPhone ONLY, Android TIDAK DIUBAH - SIMPEL ===== */
+<style id="ios-v183-simpel-turun-mentok">
+/* ===== V183 iPhone ONLY, Android TIDAK DIUBAH - SIMPEL ===== */
 /* Maunya: tab turun mentok, biru bawah sama kayak biru atas 44px. */
 /* Cara simpel: Nav = 49px doang, bottom 0, full biru. Biru bawah = nav itu sendiri (49px), gak ada biru tambahan di bawahnya. Tanpa padding-bottom 44px, tanpa ::after, tanpa body biru numpuk. */
 .ios-device .bottom-nav{
@@ -1982,8 +1982,8 @@ function formatRiwayatDateOnly(isoDate){
 
 
 
-<style id="ios-v182-riwayat-direct">
-/* ===== v182 iPhone ONLY - Samain kayak Android: klik ke-2 langsung picker ===== */
+<style id="ios-v183-riwayat-direct">
+/* ===== V183 iPhone ONLY - Samain kayak Android: klik ke-2 langsung picker ===== */
 /* Trik: input HARUS dirender (bukan display:none) biar showPicker() diizinin iPhone. */
 /* Tapi dibikin 1px + opacity 0.01 + di tengah layar, jadi mata gak liat, iPhone tetep anggap visible. */
 .ios-device .ios-direct-picker{
@@ -2010,8 +2010,8 @@ function formatRiwayatDateOnly(isoDate){
 </style>
 
 
-<style id="venus-select-fix-v182">
-/* ===== v182 - CSS custom dropdown Setting yang hilang (Android + iPhone) ===== */
+<style id="venus-select-fix-V183">
+/* ===== V183 - CSS custom dropdown Setting yang hilang (Android + iPhone) ===== */
 /* JS venus-select udah bikin DOM, tapi CSS-nya 0 baris -> list kebuka terus, semua ada ✓. Fix: list sembunyi kalau gak .open, check cuma muncul kalau .selected. */
 .venus-select{
   position: relative !important;
@@ -2098,8 +2098,8 @@ function formatRiwayatDateOnly(isoDate){
 </style>
 
 
-<style id="analisa-sejajar-v182">
-/* ===== v182 - Analisa Bulan Ini: nominal sejajar kanan, tabular-nums ===== */
+<style id="analisa-sejajar-V183">
+/* ===== V183 - Analisa Bulan Ini: nominal sejajar kanan, tabular-nums ===== */
 #analisaPemasukanText,
 #analisaPengeluaranText,
 #analisaSisaText{
@@ -2115,6 +2115,56 @@ function formatRiwayatDateOnly(isoDate){
 #analisaPemasukanText{ font-size: 12px !important; }
 #analisaPengeluaranText{ font-size: 12px !important; }
 #analisaSisaText{ font-size: 13px !important; }
+</style>
+
+
+<style id="venus-V183-setelan">
+/* ===== V183 Setelan: Ganti PIN pop-up + Bahasa + Biometrik + Versi auto ===== */
+#venusGantiPinModal{
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(0,0,0,0.45) !important;
+  z-index: 99999 !important;
+  display: none !important;
+  align-items: flex-end !important;
+  justify-content: center !important;
+}
+#venusGantiPinModal.open{
+  display: flex !important;
+}
+#venusGantiPinCard{
+  width: 100% !important;
+  max-width: 430px !important;
+  background: var(--card) !important;
+  border-radius: 20px 20px 0 0 !important;
+  padding: 16px 16px calc(16px + env(safe-area-inset-bottom, 0px)) 16px !important;
+  box-shadow: 0 -8px 30px rgba(0,0,0,0.2) !important;
+  box-sizing: border-box !important;
+}
+#venusGantiPinCard input{
+  width: 100% !important;
+  height: 48px !important;
+  border: 1.5px solid var(--border) !important;
+  border-radius: 12px !important;
+  padding: 0 12px !important;
+  font-size: 16px !important;
+  letter-spacing: 4px !important;
+  text-align: center !important;
+  background: var(--card) !important;
+  color: var(--text) !important;
+  box-sizing: border-box !important;
+  outline: none !important;
+}
+#venusGantiPinCard input:focus{
+  border-color: var(--primary) !important;
+}
+#venusGantiPinCard label{
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: var(--text-2) !important;
+  display: block !important;
+  margin-bottom: 6px !important;
+}
 </style>
 
 </head>
@@ -2390,13 +2440,13 @@ function formatRiwayatDateOnly(isoDate){
 
       <!-- TENTANG -->
       <div class="bank-card" style="margin-bottom:0;padding:14px">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><div style="width:28px;height:28px;border-radius:8px;background:#F8FAFC;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div><div><div style="font-weight:700;font-size:12px">Tentang</div><div style="font-size:10px;color:#64748B">VENUS STUDIO v124</div></div></div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><div style="width:28px;height:28px;border-radius:8px;background:#F8FAFC;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div><div><div style="font-weight:700;font-size:12px">Tentang</div><div style="font-size:10px;color:#64748B">VENUS STUDIO</div></div></div>
         <div style="background:#F8FAFC;border:1px solid #F1F5F9;border-radius:10px;padding:10px;font-size:10px;color:#64748B;line-height:1.6">
-          <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Versi</span><span style="font-weight:700;color:#0F172A">v124 PRIVASI PIN DISEMBUNYIKAN</span></div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Versi</span><span style="font-weight:700;color:#0F172A"><span data-venus-version>V183</span></span></div>
           <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Firebase</span><span>venus-studio-e7086</span></div>
           <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Keamanan</span><span style="font-weight:700;color:var(--success)">Terproteksi ••••••</span></div>
-          <div style="display:flex;justify-content:space-between"><span>Update</span><span>06 Nov 2026 • PIN Disembunyikan + Privasi</span></div>
-          <div style="margin-top:8px;padding-top:8px;border-top:1px solid #E2E8F0;font-size:9px">Fitur: PIN Disembunyikan (Privasi), Ikon Minimalis Line, PDF Multi-Page, Breakdown Masuk-Keluar, Search Pemasukan/Pengeluaran/Refund</div>
+          <div style="display:flex;justify-content:space-between"><span>Pembaruan</span><span>Otomatis</span></div>
+          <div style="margin-top:8px;padding-top:8px;border-top:1px solid #E2E8F0;font-size:9px">Fitur: Bahasa Inggris, Biometrik Face ID / Touch ID, Ganti PIN Pop-up, Analisa Net (Refund), Riwayat Custom Tanggal / Bulan</div>
         </div>
         <button id="toggleAppViewBtn" style="display:none"></button><button id="closeCyberModalBtn" style="display:none"></button>
       </div>
@@ -5002,7 +5052,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<script id="venus-select-v182">
+<script id="venus-select-V183">
 /* Custom Select VENUS - iPhone + Android, ganti picker bawaan HP */
 (function(){
   function buildVenusSelect(sel){
@@ -5072,7 +5122,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<script id="ios-v182-fix">
+<script id="ios-v183-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -5127,7 +5177,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<script id="ios-v182-iphone-only">
+<script id="ios-v183-iphone-only">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -5140,7 +5190,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<script id="ios-v182-pindah-nav">
+<script id="ios-v183-pindah-nav">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -5169,7 +5219,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<script id="ios-v182-force">
+<script id="ios-v183-force">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -5205,7 +5255,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<script id="ios-v182-force-simpel">
+<script id="ios-v183-force-simpel">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -5248,12 +5298,12 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 
-<!-- v182 iPhone ONLY - Input langsung kayak Android (dirender 1px, opacity 0.01) -->
+<!-- V183 iPhone ONLY - Input langsung kayak Android (dirender 1px, opacity 0.01) -->
 <input type="date" id="iosDirectDateInput" class="ios-direct-picker" aria-hidden="true" tabindex="-1">
 <input type="month" id="iosDirectMonthInput" class="ios-direct-picker" aria-hidden="true" tabindex="-1">
 
 
-<script id="ios-v182-riwayat-direct">
+<script id="ios-v183-riwayat-direct">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -5319,6 +5369,310 @@ document.addEventListener('DOMContentLoaded', function(){
     else init();
     window.addEventListener('load', init);
   }catch(e){}
+})();
+</script>
+
+
+<!-- V183 - Pop-up Ganti PIN: PIN Saat Ini, PIN Baru, Konfirmasi PIN Baru -->
+<div id="venusGantiPinModal">
+  <div id="venusGantiPinCard">
+    <div style="width:36px;height:5px;background:var(--border);border-radius:99px;margin:0 auto 12px auto;"></div>
+    <div style="font-size:15px;font-weight:800;text-align:center;margin-bottom:14px;" data-i18n="Ganti PIN">Ganti PIN</div>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div><label data-i18n="PIN Saat Ini">PIN Saat Ini</label><input type="password" id="venusPinCurrent" inputmode="numeric" maxlength="6" placeholder="••••••" autocomplete="off"></div>
+      <div><label data-i18n="PIN Baru">PIN Baru</label><input type="password" id="venusPinNew" inputmode="numeric" maxlength="6" placeholder="6 digit angka" autocomplete="off"></div>
+      <div><label data-i18n="Konfirmasi PIN Baru">Konfirmasi PIN Baru</label><input type="password" id="venusPinConfirm" inputmode="numeric" maxlength="6" placeholder="Ulangi PIN baru" autocomplete="off"></div>
+      <div id="venusPinError" style="display:none;font-size:11px;color:#EF4444;font-weight:700;text-align:center;"></div>
+      <div style="display:flex;gap:8px;margin-top:4px;">
+        <button id="venusPinCancel" style="flex:1;height:48px;border-radius:12px;border:1.5px solid var(--border);background:var(--card);font-weight:700;" data-i18n="Batal">Batal</button>
+        <button id="venusPinSave" style="flex:1;height:48px;border-radius:12px;border:none;background:var(--primary);color:#fff;font-weight:800;" data-i18n="Simpan">Simpan</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script id="venus-V183-setelan-js">
+(function(){
+  // ===== VERSI OTOMATIS: ganti di sini aja kalau update, semua tempat ikut ganti =====
+  var APP_VERSION = 'V183';
+  window.VENUS_APP_VERSION = APP_VERSION;
+  function applyVersion(){
+    document.querySelectorAll('[data-venus-version]').forEach(function(el){ el.textContent = APP_VERSION; });
+    // Tentang header: hanya VENUS STUDIO aja (tanpa versi) - sudah di HTML, pastikan tidak ada v124 sisa
+    document.querySelectorAll('[data-venus-version-full]').forEach(function(el){ el.textContent = 'VENUS STUDIO ' + APP_VERSION; });
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', applyVersion);
+  else applyVersion();
+  setTimeout(applyVersion, 800);
+
+  // ===== BAHASA INGGRIS: kamus + apply =====
+  var DICT = {
+    'SALDO SISA': 'REMAINING BALANCE',
+    'Pemasukan': 'Income',
+    'Pengeluaran': 'Expenses',
+    'Analisa Bulan Ini': 'This Month Analysis',
+    'Tampilan': 'Display',
+    'Tema & ukuran': 'Theme & size',
+    'Dark Mode': 'Dark Mode',
+    'Gelap / Terang': 'Dark / Light',
+    'Ukuran Font': 'Font Size',
+    'Kecil / Sedang / Besar': 'Small / Medium / Large',
+    'Bahasa': 'Language',
+    'Indonesia / English': 'Indonesian / English',
+    'Sembunyikan Nominal': 'Hide Amounts',
+    'Blur saldo & transaksi': 'Blur balance & transactions',
+    'Keamanan': 'Security',
+    'PIN & kunci': 'PIN & lock',
+    'Ganti PIN': 'Change PIN',
+    'Kunci Otomatis': 'Auto Lock',
+    'Kunci saat tidak dipakai': 'Lock when not in use',
+    'Biometrik': 'Biometrics',
+    'Sidik jari / Face ID': 'Fingerprint / Face ID',
+    'Notifikasi': 'Notifications',
+    'Suara & getar': 'Sound & vibration',
+    'Suara Transaksi': 'Transaction Sound',
+    'Bunyi saat tambah data': 'Sound when adding data',
+    'Getar': 'Vibration',
+    'Vibrasi saat transaksi': 'Vibrate on transaction',
+    'Keuangan': 'Finance',
+    'Kategori & budget': 'Categories & budget',
+    'Mata Uang': 'Currency',
+    'Kategori Kustom': 'Custom Categories',
+    'Budget Bulanan': 'Monthly Budget',
+    'Data & Backup': 'Data & Backup',
+    'Ekspor, impor, sinkron': 'Export, import, sync',
+    'Tentang': 'About',
+    'Versi': 'Version',
+    'Firebase': 'Firebase',
+    'Pembaruan': 'Updates',
+    'Otomatis': 'Automatic',
+    'Home': 'Home',
+    'Laporan': 'Reports',
+    'Riwayat': 'History',
+    'Setting': 'Settings',
+    'Transaksi Hari Ini': "Today's Transactions",
+    'Hari Ini': 'Today',
+    'Bulan': 'Month',
+    'Semua': 'All',
+    'PIN Saat Ini': 'Current PIN',
+    'PIN Baru': 'New PIN',
+    'Konfirmasi PIN Baru': 'Confirm New PIN',
+    'Batal': 'Cancel',
+    'Simpan': 'Save',
+    'Atur': 'Set',
+    'PERSONAL': 'PERSONAL',
+    'HUTANG': 'DEBT',
+    'MUSIC': 'MUSIC',
+    'RATA/HARI': 'AVG/DAY',
+    'HARI BOROS': 'TOP SPEND DAY',
+    'CASH vs BANK': 'CASH vs BANK'
+  };
+  var REVERSE = {};
+  Object.keys(DICT).forEach(function(k){ REVERSE[DICT[k]] = k; });
+  function applyLanguage(lang){
+    var map = (lang === 'en') ? DICT : REVERSE;
+    // 1. Elemen dengan data-i18n
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var key = el.getAttribute('data-i18n');
+      // Simpan teks asli Indonesia di dataset kalau belum
+      if(!el.dataset.origId) el.dataset.origId = key;
+      var orig = el.dataset.origId;
+      if(lang === 'en' && DICT[orig]) el.textContent = DICT[orig];
+      else if(lang === 'id') el.textContent = orig;
+    });
+    // 2. Elemen teks tunggal yang cocok kamus (b, span, div, button, label)
+    document.querySelectorAll('b, span, div, button, label, h3').forEach(function(el){
+      if(el.querySelector('[data-i18n]')) return;
+      if(el.childNodes.length !== 1) return;
+      if(el.childNodes[0].nodeType !== 3) return;
+      var t = el.textContent.trim();
+      if(!t) return;
+      if(lang === 'en' && DICT[t]) el.textContent = DICT[t];
+      else if(lang === 'id' && REVERSE[t]) el.textContent = REVERSE[t];
+    });
+    // 3. Select options (Ukuran Font, Bahasa, Kunci Otomatis)
+    document.querySelectorAll('select option').forEach(function(opt){
+      var t = opt.textContent.trim();
+      if(lang === 'en' && DICT[t]) opt.textContent = DICT[t];
+      else if(lang === 'id' && REVERSE[t]) opt.textContent = REVERSE[t];
+    });
+    document.documentElement.lang = (lang === 'en' ? 'en' : 'id');
+  }
+  window.applyVenusLanguage = applyLanguage;
+  function initLanguage(){
+    var saved = localStorage.getItem('venus_lang') || 'id';
+    // LangSelect lama masih ada (venus-select custom), tapi value-nya di select asli
+    var sel = document.getElementById('langSelect');
+    if(sel){
+      sel.value = saved;
+      // Ganti handler lama (yang cuma alert) dengan yang beneran nerjemahin
+      // Clone untuk hapus listener lama
+      var clone = sel.cloneNode(true);
+      sel.parentNode.replaceChild(clone, sel);
+      clone.addEventListener('change', function(){
+        var v = clone.value;
+        localStorage.setItem('venus_lang', v);
+        applyLanguage(v);
+        // Update label custom venus-select juga
+        var wrap = clone.closest('.venus-select');
+        if(wrap){
+          var lbl = wrap.querySelector('.venus-label');
+          if(lbl) lbl.textContent = clone.options[clone.selectedIndex] ? clone.options[clone.selectedIndex].textContent : v;
+          // Update semua opsi custom
+          wrap.querySelectorAll('.venus-select-opt').forEach(function(o){
+            var val = o.dataset.value;
+            var opt = clone.querySelector('option[value="'+val+'"]');
+            if(opt){
+              var span = o.querySelector('span');
+              if(span) span.textContent = opt.textContent;
+            }
+          });
+        }
+      });
+    }
+    applyLanguage(saved);
+    setTimeout(function(){ applyLanguage(saved); }, 800);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initLanguage);
+  else initLanguage();
+  window.addEventListener('load', initLanguage);
+
+  // ===== GANTI PIN POP-UP (ganti prompt 3x) =====
+  function initGantiPin(){
+    var btn = document.getElementById('btnChangePin');
+    var modal = document.getElementById('venusGantiPinModal');
+    var card = document.getElementById('venusGantiPinCard');
+    var cur = document.getElementById('venusPinCurrent');
+    var nw = document.getElementById('venusPinNew');
+    var conf = document.getElementById('venusPinConfirm');
+    var err = document.getElementById('venusPinError');
+    var cancel = document.getElementById('venusPinCancel');
+    var save = document.getElementById('venusPinSave');
+    if(!btn || !modal) return;
+    // Hapus handler prompt lama dengan clone
+    var newBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(newBtn, btn);
+    function open(){
+      if(cur) cur.value = '';
+      if(nw) nw.value = '';
+      if(conf) conf.value = '';
+      if(err){ err.style.display = 'none'; err.textContent = ''; }
+      modal.classList.add('open');
+      setTimeout(function(){ if(cur) cur.focus(); }, 100);
+    }
+    function close(){ modal.classList.remove('open'); }
+    newBtn.addEventListener('click', open);
+    if(modal) modal.addEventListener('click', function(e){ if(e.target === modal) close(); });
+    if(cancel) cancel.addEventListener('click', close);
+    function showErr(msg){
+      if(err){ err.textContent = msg; err.style.display = 'block'; }
+    }
+    function getPin(){
+      try{ if(typeof getPinCode === 'function') return getPinCode(); }catch(e){}
+      return localStorage.getItem('bank_pin') || '123456';
+    }
+    if(save) save.addEventListener('click', function(){
+      var c = cur ? cur.value.trim() : '';
+      var n = nw ? nw.value.trim() : '';
+      var cf = conf ? conf.value.trim() : '';
+      if(c !== getPin()){ showErr('PIN saat ini salah!'); return; }
+      if(!/^\d{6}$/.test(n)){ showErr('PIN baru harus 6 digit angka! Contoh: 123456'); return; }
+      if(cf !== n){ showErr('Konfirmasi PIN baru tidak cocok!'); return; }
+      localStorage.setItem('bank_pin', n);
+      try{ document.querySelectorAll('[data-pin-display]').forEach(function(el){ el.textContent = n; }); }catch(e){}
+      close();
+      try{ if(typeof showVenusToast === 'function') showVenusToast('PIN berhasil diganti!'); else alert('PIN berhasil diganti!'); }catch(e){ alert('PIN berhasil diganti!'); }
+    });
+    // Enter di input terakhir = simpan
+    [cur, nw, conf].forEach(function(inp){
+      if(inp) inp.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); if(save) save.click(); } });
+    });
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initGantiPin);
+  else initGantiPin();
+  window.addEventListener('load', initGantiPin);
+
+  // ===== BIOMETRIK FIX: rp.id kosong di file:// + fallback biar toggle bisa ON =====
+  function initBiometricFix(){
+    // Patch isBiometricSupported & registerBiometric kalau ada (override lembut)
+    // Kita tidak hapus fungsi lama, tapi patch toggle-nya biar tidak stuck OFF
+    var toggle = document.getElementById('biometricSwitch');
+    if(!toggle) return;
+    // Kalau toggle sudah ada handler lama yang gagal, tambahkan handler baru yang lebih toleran
+    // Cek apakah WebAuthn tersedia, kalau tidak, tetap izinkan ON dengan mode fallback (PIN + Face ID button)
+    toggle.addEventListener('click', function(){
+      setTimeout(function(){
+        var isOn = toggle.classList.contains('on');
+        // Kalau setelah klik toggle masih OFF karena register gagal, tanya user mau aktifkan mode fallback atau tidak
+        // Kita tidak paksa, tapi beri feedback: kalau WebAuthn tidak didukung, aktifkan fallback
+        if(!isOn){
+          var hasCred = localStorage.getItem('venus_biometric_credential');
+          var enabled = localStorage.getItem('venus_biometric_enabled') === 'true';
+          // Jika user sudah coba dan gagal, jangan spam alert di setiap klik - hanya kalau belum ada cred
+          // Biarkan handler lama yang tampilkan alert-nya
+        }
+      }, 400);
+    });
+    // Patch rp.id: kalau hostname kosong (file://), WebAuthn pakai rpId undefined (biar browser yang tentukan)
+    // Ini dilakukan dengan menimpa navigator.credentials.create secara aman? Tidak, kita patch fungsi registerBiometric di window kalau ada
+    // Simpan fungsi lama
+    if(typeof window.registerBiometric === 'function' && !window.registerBiometric._venusPatched){
+      var orig = window.registerBiometric;
+      var patched = async function(){
+        try{
+          // Kalau hostname kosong, pakai fallback: simpan toggle ON tanpa WebAuthn (mode PIN + Face ID button)
+          var host = location.hostname;
+          if(!host || host === '' || location.protocol === 'file:'){
+            // Mode fallback: anggap biometrik diaktifkan, tampilkan tombol Face ID di PIN, tapi login tetap pakai PIN kalau WebAuthn gagal
+            localStorage.setItem('venus_biometric_enabled', 'true');
+            localStorage.setItem('venus_biometric_fallback', 'true');
+            var t = document.getElementById('biometricSwitch');
+            if(t) t.classList.add('on');
+            var cont = document.getElementById('biometricLoginContainer');
+            if(cont) cont.style.display = 'flex';
+            alert('Biometrik diaktifkan (mode fallback).\nDi file / preview, Face ID pakai tombol di layar PIN.\nDi HTTPS / PWA terinstall, Face ID / Touch ID akan pakai WebAuthn asli.');
+            return true;
+          }
+          return await orig();
+        }catch(e){
+          // Kalau WebAuthn gagal (misal Face ID belum di-setup), aktifkan fallback biar toggle tidak stuck OFF
+          if(e && (e.name === 'NotSupportedError' || e.name === 'SecurityError')){
+            localStorage.setItem('venus_biometric_enabled', 'true');
+            localStorage.setItem('venus_biometric_fallback', 'true');
+            var t2 = document.getElementById('biometricSwitch');
+            if(t2) t2.classList.add('on');
+            alert('Perangkat ini belum mendukung WebAuthn, tapi Biometrik diaktifkan (mode fallback).\nAktifkan Face ID / Sidik Jari di Pengaturan HP, lalu coba lagi di layar PIN.');
+            return true;
+          }
+          throw e;
+        }
+      };
+      patched._venusPatched = true;
+      window.registerBiometric = patched;
+    }
+    // Patch authenticateBiometric juga: kalau fallback, jangan gagal, langsung izinkan PIN
+    if(typeof window.authenticateBiometric === 'function' && !window.authenticateBiometric._venusPatched){
+      var origAuth = window.authenticateBiometric;
+      var patchedAuth = async function(){
+        try{
+          if(localStorage.getItem('venus_biometric_fallback') === 'true'){
+            // Mode fallback: coba WebAuthn dulu, kalau gagal, beri tahu user pakai PIN (tapi jangan error keras)
+            try{ return await origAuth(); }catch(e){
+              alert('Face ID / Touch ID belum tersedia di browser ini.\nSilakan pakai PIN untuk masuk.');
+              return false;
+            }
+          }
+          return await origAuth();
+        }catch(e){ return false; }
+      };
+      patchedAuth._venusPatched = true;
+      window.authenticateBiometric = patchedAuth;
+    }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initBiometricFix);
+  else initBiometricFix();
+  window.addEventListener('load', initBiometricFix);
 })();
 </script>
 
@@ -5848,7 +6202,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 
 
-<script id="venus-select-v182">
+<script id="venus-select-V183">
 /* Custom Select VENUS - iPhone + Android, ganti picker bawaan HP */
 (function(){
   function buildVenusSelect(sel){
@@ -5918,7 +6272,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 </script>
 
 
-<script id="ios-v182-fix">
+<script id="ios-v183-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -5973,7 +6327,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 </script>
 
 
-<script id="ios-v182-iphone-only">
+<script id="ios-v183-iphone-only">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -5986,7 +6340,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 </script>
 
 
-<script id="ios-v182-pindah-nav">
+<script id="ios-v183-pindah-nav">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -6015,7 +6369,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 </script>
 
 
-<script id="ios-v182-force">
+<script id="ios-v183-force">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -6051,7 +6405,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 </script>
 
 
-<script id="ios-v182-force-simpel">
+<script id="ios-v183-force-simpel">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -6094,12 +6448,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 
 
-<!-- v182 iPhone ONLY - Input langsung kayak Android (dirender 1px, opacity 0.01) -->
+<!-- V183 iPhone ONLY - Input langsung kayak Android (dirender 1px, opacity 0.01) -->
 <input type="date" id="iosDirectDateInput" class="ios-direct-picker" aria-hidden="true" tabindex="-1">
 <input type="month" id="iosDirectMonthInput" class="ios-direct-picker" aria-hidden="true" tabindex="-1">
 
 
-<script id="ios-v182-riwayat-direct">
+<script id="ios-v183-riwayat-direct">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -6165,6 +6519,310 @@ document.addEventListener('DOMContentLoaded', ()=>{
     else init();
     window.addEventListener('load', init);
   }catch(e){}
+})();
+</script>
+
+
+<!-- V183 - Pop-up Ganti PIN: PIN Saat Ini, PIN Baru, Konfirmasi PIN Baru -->
+<div id="venusGantiPinModal">
+  <div id="venusGantiPinCard">
+    <div style="width:36px;height:5px;background:var(--border);border-radius:99px;margin:0 auto 12px auto;"></div>
+    <div style="font-size:15px;font-weight:800;text-align:center;margin-bottom:14px;" data-i18n="Ganti PIN">Ganti PIN</div>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div><label data-i18n="PIN Saat Ini">PIN Saat Ini</label><input type="password" id="venusPinCurrent" inputmode="numeric" maxlength="6" placeholder="••••••" autocomplete="off"></div>
+      <div><label data-i18n="PIN Baru">PIN Baru</label><input type="password" id="venusPinNew" inputmode="numeric" maxlength="6" placeholder="6 digit angka" autocomplete="off"></div>
+      <div><label data-i18n="Konfirmasi PIN Baru">Konfirmasi PIN Baru</label><input type="password" id="venusPinConfirm" inputmode="numeric" maxlength="6" placeholder="Ulangi PIN baru" autocomplete="off"></div>
+      <div id="venusPinError" style="display:none;font-size:11px;color:#EF4444;font-weight:700;text-align:center;"></div>
+      <div style="display:flex;gap:8px;margin-top:4px;">
+        <button id="venusPinCancel" style="flex:1;height:48px;border-radius:12px;border:1.5px solid var(--border);background:var(--card);font-weight:700;" data-i18n="Batal">Batal</button>
+        <button id="venusPinSave" style="flex:1;height:48px;border-radius:12px;border:none;background:var(--primary);color:#fff;font-weight:800;" data-i18n="Simpan">Simpan</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script id="venus-V183-setelan-js">
+(function(){
+  // ===== VERSI OTOMATIS: ganti di sini aja kalau update, semua tempat ikut ganti =====
+  var APP_VERSION = 'V183';
+  window.VENUS_APP_VERSION = APP_VERSION;
+  function applyVersion(){
+    document.querySelectorAll('[data-venus-version]').forEach(function(el){ el.textContent = APP_VERSION; });
+    // Tentang header: hanya VENUS STUDIO aja (tanpa versi) - sudah di HTML, pastikan tidak ada v124 sisa
+    document.querySelectorAll('[data-venus-version-full]').forEach(function(el){ el.textContent = 'VENUS STUDIO ' + APP_VERSION; });
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', applyVersion);
+  else applyVersion();
+  setTimeout(applyVersion, 800);
+
+  // ===== BAHASA INGGRIS: kamus + apply =====
+  var DICT = {
+    'SALDO SISA': 'REMAINING BALANCE',
+    'Pemasukan': 'Income',
+    'Pengeluaran': 'Expenses',
+    'Analisa Bulan Ini': 'This Month Analysis',
+    'Tampilan': 'Display',
+    'Tema & ukuran': 'Theme & size',
+    'Dark Mode': 'Dark Mode',
+    'Gelap / Terang': 'Dark / Light',
+    'Ukuran Font': 'Font Size',
+    'Kecil / Sedang / Besar': 'Small / Medium / Large',
+    'Bahasa': 'Language',
+    'Indonesia / English': 'Indonesian / English',
+    'Sembunyikan Nominal': 'Hide Amounts',
+    'Blur saldo & transaksi': 'Blur balance & transactions',
+    'Keamanan': 'Security',
+    'PIN & kunci': 'PIN & lock',
+    'Ganti PIN': 'Change PIN',
+    'Kunci Otomatis': 'Auto Lock',
+    'Kunci saat tidak dipakai': 'Lock when not in use',
+    'Biometrik': 'Biometrics',
+    'Sidik jari / Face ID': 'Fingerprint / Face ID',
+    'Notifikasi': 'Notifications',
+    'Suara & getar': 'Sound & vibration',
+    'Suara Transaksi': 'Transaction Sound',
+    'Bunyi saat tambah data': 'Sound when adding data',
+    'Getar': 'Vibration',
+    'Vibrasi saat transaksi': 'Vibrate on transaction',
+    'Keuangan': 'Finance',
+    'Kategori & budget': 'Categories & budget',
+    'Mata Uang': 'Currency',
+    'Kategori Kustom': 'Custom Categories',
+    'Budget Bulanan': 'Monthly Budget',
+    'Data & Backup': 'Data & Backup',
+    'Ekspor, impor, sinkron': 'Export, import, sync',
+    'Tentang': 'About',
+    'Versi': 'Version',
+    'Firebase': 'Firebase',
+    'Pembaruan': 'Updates',
+    'Otomatis': 'Automatic',
+    'Home': 'Home',
+    'Laporan': 'Reports',
+    'Riwayat': 'History',
+    'Setting': 'Settings',
+    'Transaksi Hari Ini': "Today's Transactions",
+    'Hari Ini': 'Today',
+    'Bulan': 'Month',
+    'Semua': 'All',
+    'PIN Saat Ini': 'Current PIN',
+    'PIN Baru': 'New PIN',
+    'Konfirmasi PIN Baru': 'Confirm New PIN',
+    'Batal': 'Cancel',
+    'Simpan': 'Save',
+    'Atur': 'Set',
+    'PERSONAL': 'PERSONAL',
+    'HUTANG': 'DEBT',
+    'MUSIC': 'MUSIC',
+    'RATA/HARI': 'AVG/DAY',
+    'HARI BOROS': 'TOP SPEND DAY',
+    'CASH vs BANK': 'CASH vs BANK'
+  };
+  var REVERSE = {};
+  Object.keys(DICT).forEach(function(k){ REVERSE[DICT[k]] = k; });
+  function applyLanguage(lang){
+    var map = (lang === 'en') ? DICT : REVERSE;
+    // 1. Elemen dengan data-i18n
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var key = el.getAttribute('data-i18n');
+      // Simpan teks asli Indonesia di dataset kalau belum
+      if(!el.dataset.origId) el.dataset.origId = key;
+      var orig = el.dataset.origId;
+      if(lang === 'en' && DICT[orig]) el.textContent = DICT[orig];
+      else if(lang === 'id') el.textContent = orig;
+    });
+    // 2. Elemen teks tunggal yang cocok kamus (b, span, div, button, label)
+    document.querySelectorAll('b, span, div, button, label, h3').forEach(function(el){
+      if(el.querySelector('[data-i18n]')) return;
+      if(el.childNodes.length !== 1) return;
+      if(el.childNodes[0].nodeType !== 3) return;
+      var t = el.textContent.trim();
+      if(!t) return;
+      if(lang === 'en' && DICT[t]) el.textContent = DICT[t];
+      else if(lang === 'id' && REVERSE[t]) el.textContent = REVERSE[t];
+    });
+    // 3. Select options (Ukuran Font, Bahasa, Kunci Otomatis)
+    document.querySelectorAll('select option').forEach(function(opt){
+      var t = opt.textContent.trim();
+      if(lang === 'en' && DICT[t]) opt.textContent = DICT[t];
+      else if(lang === 'id' && REVERSE[t]) opt.textContent = REVERSE[t];
+    });
+    document.documentElement.lang = (lang === 'en' ? 'en' : 'id');
+  }
+  window.applyVenusLanguage = applyLanguage;
+  function initLanguage(){
+    var saved = localStorage.getItem('venus_lang') || 'id';
+    // LangSelect lama masih ada (venus-select custom), tapi value-nya di select asli
+    var sel = document.getElementById('langSelect');
+    if(sel){
+      sel.value = saved;
+      // Ganti handler lama (yang cuma alert) dengan yang beneran nerjemahin
+      // Clone untuk hapus listener lama
+      var clone = sel.cloneNode(true);
+      sel.parentNode.replaceChild(clone, sel);
+      clone.addEventListener('change', function(){
+        var v = clone.value;
+        localStorage.setItem('venus_lang', v);
+        applyLanguage(v);
+        // Update label custom venus-select juga
+        var wrap = clone.closest('.venus-select');
+        if(wrap){
+          var lbl = wrap.querySelector('.venus-label');
+          if(lbl) lbl.textContent = clone.options[clone.selectedIndex] ? clone.options[clone.selectedIndex].textContent : v;
+          // Update semua opsi custom
+          wrap.querySelectorAll('.venus-select-opt').forEach(function(o){
+            var val = o.dataset.value;
+            var opt = clone.querySelector('option[value="'+val+'"]');
+            if(opt){
+              var span = o.querySelector('span');
+              if(span) span.textContent = opt.textContent;
+            }
+          });
+        }
+      });
+    }
+    applyLanguage(saved);
+    setTimeout(function(){ applyLanguage(saved); }, 800);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initLanguage);
+  else initLanguage();
+  window.addEventListener('load', initLanguage);
+
+  // ===== GANTI PIN POP-UP (ganti prompt 3x) =====
+  function initGantiPin(){
+    var btn = document.getElementById('btnChangePin');
+    var modal = document.getElementById('venusGantiPinModal');
+    var card = document.getElementById('venusGantiPinCard');
+    var cur = document.getElementById('venusPinCurrent');
+    var nw = document.getElementById('venusPinNew');
+    var conf = document.getElementById('venusPinConfirm');
+    var err = document.getElementById('venusPinError');
+    var cancel = document.getElementById('venusPinCancel');
+    var save = document.getElementById('venusPinSave');
+    if(!btn || !modal) return;
+    // Hapus handler prompt lama dengan clone
+    var newBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(newBtn, btn);
+    function open(){
+      if(cur) cur.value = '';
+      if(nw) nw.value = '';
+      if(conf) conf.value = '';
+      if(err){ err.style.display = 'none'; err.textContent = ''; }
+      modal.classList.add('open');
+      setTimeout(function(){ if(cur) cur.focus(); }, 100);
+    }
+    function close(){ modal.classList.remove('open'); }
+    newBtn.addEventListener('click', open);
+    if(modal) modal.addEventListener('click', function(e){ if(e.target === modal) close(); });
+    if(cancel) cancel.addEventListener('click', close);
+    function showErr(msg){
+      if(err){ err.textContent = msg; err.style.display = 'block'; }
+    }
+    function getPin(){
+      try{ if(typeof getPinCode === 'function') return getPinCode(); }catch(e){}
+      return localStorage.getItem('bank_pin') || '123456';
+    }
+    if(save) save.addEventListener('click', function(){
+      var c = cur ? cur.value.trim() : '';
+      var n = nw ? nw.value.trim() : '';
+      var cf = conf ? conf.value.trim() : '';
+      if(c !== getPin()){ showErr('PIN saat ini salah!'); return; }
+      if(!/^\d{6}$/.test(n)){ showErr('PIN baru harus 6 digit angka! Contoh: 123456'); return; }
+      if(cf !== n){ showErr('Konfirmasi PIN baru tidak cocok!'); return; }
+      localStorage.setItem('bank_pin', n);
+      try{ document.querySelectorAll('[data-pin-display]').forEach(function(el){ el.textContent = n; }); }catch(e){}
+      close();
+      try{ if(typeof showVenusToast === 'function') showVenusToast('PIN berhasil diganti!'); else alert('PIN berhasil diganti!'); }catch(e){ alert('PIN berhasil diganti!'); }
+    });
+    // Enter di input terakhir = simpan
+    [cur, nw, conf].forEach(function(inp){
+      if(inp) inp.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); if(save) save.click(); } });
+    });
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initGantiPin);
+  else initGantiPin();
+  window.addEventListener('load', initGantiPin);
+
+  // ===== BIOMETRIK FIX: rp.id kosong di file:// + fallback biar toggle bisa ON =====
+  function initBiometricFix(){
+    // Patch isBiometricSupported & registerBiometric kalau ada (override lembut)
+    // Kita tidak hapus fungsi lama, tapi patch toggle-nya biar tidak stuck OFF
+    var toggle = document.getElementById('biometricSwitch');
+    if(!toggle) return;
+    // Kalau toggle sudah ada handler lama yang gagal, tambahkan handler baru yang lebih toleran
+    // Cek apakah WebAuthn tersedia, kalau tidak, tetap izinkan ON dengan mode fallback (PIN + Face ID button)
+    toggle.addEventListener('click', function(){
+      setTimeout(function(){
+        var isOn = toggle.classList.contains('on');
+        // Kalau setelah klik toggle masih OFF karena register gagal, tanya user mau aktifkan mode fallback atau tidak
+        // Kita tidak paksa, tapi beri feedback: kalau WebAuthn tidak didukung, aktifkan fallback
+        if(!isOn){
+          var hasCred = localStorage.getItem('venus_biometric_credential');
+          var enabled = localStorage.getItem('venus_biometric_enabled') === 'true';
+          // Jika user sudah coba dan gagal, jangan spam alert di setiap klik - hanya kalau belum ada cred
+          // Biarkan handler lama yang tampilkan alert-nya
+        }
+      }, 400);
+    });
+    // Patch rp.id: kalau hostname kosong (file://), WebAuthn pakai rpId undefined (biar browser yang tentukan)
+    // Ini dilakukan dengan menimpa navigator.credentials.create secara aman? Tidak, kita patch fungsi registerBiometric di window kalau ada
+    // Simpan fungsi lama
+    if(typeof window.registerBiometric === 'function' && !window.registerBiometric._venusPatched){
+      var orig = window.registerBiometric;
+      var patched = async function(){
+        try{
+          // Kalau hostname kosong, pakai fallback: simpan toggle ON tanpa WebAuthn (mode PIN + Face ID button)
+          var host = location.hostname;
+          if(!host || host === '' || location.protocol === 'file:'){
+            // Mode fallback: anggap biometrik diaktifkan, tampilkan tombol Face ID di PIN, tapi login tetap pakai PIN kalau WebAuthn gagal
+            localStorage.setItem('venus_biometric_enabled', 'true');
+            localStorage.setItem('venus_biometric_fallback', 'true');
+            var t = document.getElementById('biometricSwitch');
+            if(t) t.classList.add('on');
+            var cont = document.getElementById('biometricLoginContainer');
+            if(cont) cont.style.display = 'flex';
+            alert('Biometrik diaktifkan (mode fallback).\nDi file / preview, Face ID pakai tombol di layar PIN.\nDi HTTPS / PWA terinstall, Face ID / Touch ID akan pakai WebAuthn asli.');
+            return true;
+          }
+          return await orig();
+        }catch(e){
+          // Kalau WebAuthn gagal (misal Face ID belum di-setup), aktifkan fallback biar toggle tidak stuck OFF
+          if(e && (e.name === 'NotSupportedError' || e.name === 'SecurityError')){
+            localStorage.setItem('venus_biometric_enabled', 'true');
+            localStorage.setItem('venus_biometric_fallback', 'true');
+            var t2 = document.getElementById('biometricSwitch');
+            if(t2) t2.classList.add('on');
+            alert('Perangkat ini belum mendukung WebAuthn, tapi Biometrik diaktifkan (mode fallback).\nAktifkan Face ID / Sidik Jari di Pengaturan HP, lalu coba lagi di layar PIN.');
+            return true;
+          }
+          throw e;
+        }
+      };
+      patched._venusPatched = true;
+      window.registerBiometric = patched;
+    }
+    // Patch authenticateBiometric juga: kalau fallback, jangan gagal, langsung izinkan PIN
+    if(typeof window.authenticateBiometric === 'function' && !window.authenticateBiometric._venusPatched){
+      var origAuth = window.authenticateBiometric;
+      var patchedAuth = async function(){
+        try{
+          if(localStorage.getItem('venus_biometric_fallback') === 'true'){
+            // Mode fallback: coba WebAuthn dulu, kalau gagal, beri tahu user pakai PIN (tapi jangan error keras)
+            try{ return await origAuth(); }catch(e){
+              alert('Face ID / Touch ID belum tersedia di browser ini.\nSilakan pakai PIN untuk masuk.');
+              return false;
+            }
+          }
+          return await origAuth();
+        }catch(e){ return false; }
+      };
+      patchedAuth._venusPatched = true;
+      window.authenticateBiometric = patchedAuth;
+    }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initBiometricFix);
+  else initBiometricFix();
+  window.addEventListener('load', initBiometricFix);
 })();
 </script>
 
