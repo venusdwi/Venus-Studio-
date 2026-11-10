@@ -7113,4 +7113,73 @@ html[data-theme="dark"] div:has(> #financialAnalyticsChart),
   top: calc(env(safe-area-inset-top, 0px) + 32px) !important;
 }
 </style>
+
+<style id="venus-iphone-bottom-fullblue-v200">
+/* ===== v200: KHUSUS iPhone - BAWAH LAYAR FULL BIRU, PUTIH BAWAH HILANG ===== */
+/* Biang di screenshot: rule lama "html.ios-device.pin-active body { background: var(--bg) #F2F5F9 }" */
+/* spesifikasinya LEBIH TINGGI dari fix v199, jadi body di balik overlay PIN tetap terang. */
+/* Area safe-area-inset-bottom di bawah overlay yang gak ke-cover jadi keliatan PUTIH. */
+/* Fix ini ditaruh PALING AKHIR + pakai selektor "html.ios-device..." yang lebih spesifik, */
+/* jadi MENANG tanpa ubah layout, ukuran, posisi, warna card, atau fungsi apa pun. */
+/* Semua rule diawali html.ios-device -> Android (tanpa class itu) TIDAK KENA sama sekali. */
+
+/* 1. AKAR: Safari gambar putih dari background html/body di luar 100dvh. */
+/* Kasih warna ujung bawah gradient (#061A3A) biar celah yang sisa nyatu, bukan putih. */
+html.ios-device,
+html.ios-device.pin-active,
+html.ios-device.splash-active,
+html.ios-device.main-active{
+  background: #061A3A !important;
+  background-color: #061A3A !important;
+}
+html.ios-device body,
+html.ios-device.pin-active body,
+html.ios-device.splash-active body,
+html.ios-device.main-active body{
+  background: #061A3A !important;
+  background-color: #061A3A !important;
+  background-image: none !important;
+}
+
+/* 2. PIN (PIN ACCESS + Personal + Debt): kunci ke layar + cat biru 120px di bawahnya. */
+/* top/bottom 0 + min-height 100dvh biar nutup layar penuh. */
+/* box-shadow 0 120px 0 120px #061A3A = cat biru 120px di bawah overlay, */
+/* nutup celah putih safe-area walau Safari ngitung dvh-nya geser. Card PIN TIDAK diubah. */
+html.ios-device .pin-screen-overlay,
+html.ios-device .personal-pin-overlay,
+html.ios-device .debt-pin-overlay{
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  height: auto !important;
+  min-height: 100dvh !important;
+  min-height: 100svh !important;
+  padding-top: calc(env(safe-area-inset-top, 44px) + 12px) !important;
+  padding-bottom: calc(env(safe-area-inset-bottom, 34px) + 24px) !important;
+  background: linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%) !important;
+  background-color: #061A3A !important;
+  box-shadow: 0 120px 0 120px #061A3A !important;
+}
+
+/* 3. SPLASH: sama kayak PIN, biar pas buka awal juga gak ada putih bawah. */
+html.ios-device #splashScreenOverlay,
+html.ios-device .splash-screen-overlay{
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  height: auto !important;
+  min-height: 100dvh !important;
+  min-height: 100svh !important;
+  padding-bottom: calc(env(safe-area-inset-bottom, 34px) + 24px) !important;
+  background: linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%) !important;
+  background-color: #061A3A !important;
+  box-shadow: 0 120px 0 120px #061A3A !important;
+}
+
+/* 4. MAIN APP: JANGAN ubah #mainAppContainer / .bank-content / .bank-card / .bottom-nav. */
+/* Cukup akar (no.1) yang biru, jadi kalau ada celah di bawah nav, yang nongol biru, bukan putih. */
+/* Konten di dalam container tetap pakai background-nya sendiri (var(--bg)), tidak berubah. */
+</style>
 </body>
