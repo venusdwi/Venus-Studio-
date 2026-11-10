@@ -7182,4 +7182,71 @@ html.ios-device .splash-screen-overlay{
 /* Cukup akar (no.1) yang biru, jadi kalau ada celah di bawah nav, yang nongol biru, bukan putih. */
 /* Konten di dalam container tetap pakai background-nya sendiri (var(--bg)), tidak berubah. */
 </style>
+
+<style id="venus-iphone-splash-rata-biru-v201">
+/* ===== v201: KHUSUS iPhone - SPLASH bawah SAMA kayak atas, rata biru #0A4DA3 ===== */
+/* Biang di screenshot: splash pakai gradient #0A4DA3 (atas) -> #061A3A (bawah) */
+/* + ::before radial HITAM di bawah (rgba(0,0,0,0.35) at 50% 120%) yang bikin bawah */
+/* keliatan jauh lebih gelap / kehitaman, tidak sama kayak atas. */
+/* + html/body v200 #061A3A bikin safe-area di bawah splash makin gelap. */
+/* Fix: splash iPhone jadi 1 warna SOLID #0A4DA3 dari atas sampai bawah + safe-area, */
+/* matiin glow hitam bawah + garis stripes, biar rata. PIN TIDAK diubah, tetap gradient lama. */
+/* Semua rule diawali html.ios-device -> Android (tanpa class itu) TIDAK KENA sama sekali. */
+
+/* 1. Akar pas splash: safe-area di balik splash harus #0A4DA3 juga, bukan #061A3A lagi. */
+/* Selektor splash-active (lebih spesifik dari v200) + ditaruh PALING AKHIR, jadi menang. */
+html.ios-device.splash-active{
+  background: #0A4DA3 !important;
+  background-color: #0A4DA3 !important;
+  background-image: none !important;
+}
+html.ios-device.splash-active body{
+  background: #0A4DA3 !important;
+  background-color: #0A4DA3 !important;
+  background-image: none !important;
+}
+
+/* 2. Splash-nya sendiri: SATU warna solid #0A4DA3, tanpa gradient. */
+/* box-shadow bawah juga #0A4DA3, biar perpanjangan di bawah splash sama warnanya. */
+html.ios-device #splashScreenOverlay,
+html.ios-device .splash-screen-overlay{
+  background: #0A4DA3 !important;
+  background-color: #0A4DA3 !important;
+  background-image: none !important;
+  box-shadow: 0 120px 0 120px #0A4DA3 !important;
+}
+
+/* 3. Matiin biang gelap bawah: ::before glow hitam + ::after garis stripes. */
+/* Kalau dibiarkan, bawah tetap keliatan lebih gelap dari atas walau background sudah solid. */
+/* Logo V, WELCOME TO / VENUS STUDIO, TAP HERE TIDAK diubah - itu elemen HTML, bukan ::before/::after. */
+html.ios-device #splashScreenOverlay::before,
+html.ios-device .splash-screen-overlay::before,
+html.ios-device #splashScreenOverlay::after,
+html.ios-device .splash-screen-overlay::after{
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  background-image: none !important;
+  animation: none !important;
+}
+
+/* 4. PIN tetap seperti v200 (gradient + bawah #061A3A), jangan ikut jadi solid. */
+/* html cuma punya 1 state (splash-active / pin-active / main-active), jadi tidak bentrok. */
+html.ios-device.pin-active{
+  background: #061A3A !important;
+  background-color: #061A3A !important;
+}
+html.ios-device.pin-active body{
+  background: #061A3A !important;
+  background-color: #061A3A !important;
+  background-image: none !important;
+}
+html.ios-device.pin-active .pin-screen-overlay,
+html.ios-device.pin-active .personal-pin-overlay,
+html.ios-device.pin-active .debt-pin-overlay{
+  background: linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%) !important;
+  background-color: #061A3A !important;
+  box-shadow: 0 120px 0 120px #061A3A !important;
+}
+</style>
 </body>
