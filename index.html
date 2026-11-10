@@ -33,7 +33,7 @@ body{background:linear-gradient(180deg,#0A4DA3 0%,#0D3A8A 40%,#061A3A 100%) !imp
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<script id="ios-v192-prepaint">
+<script id="ios-v195-prepaint">
 /* v148 PRE-PAINT: Tambah .ios-device SEBELUM first paint, biar tidak putih dulu */
 /* Biang bug v148: .ios-device baru ditambah di akhir body + setTimeout 100-1000ms, jadi first paint masih putih, biru baru nongol pas tab di-klik */
 (function(){
@@ -526,7 +526,7 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<script id="ios-v192-fix">
+<script id="ios-v195-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -579,7 +579,7 @@ window.addEventListener('unhandledrejection', function(e){
 
 
 
-<script id="ios-v192-fix">
+<script id="ios-v195-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -614,7 +614,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v192-fix">
+<script id="ios-v195-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -639,7 +639,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v192-fix">
+<script id="ios-v195-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -662,7 +662,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v192-fix">
+<script id="ios-v195-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -685,7 +685,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v192-fix">
+<script id="ios-v195-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -708,7 +708,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v192-fix">
+<script id="ios-v195-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -731,7 +731,7 @@ window.addEventListener('unhandledrejection', function(e){
 })();
 </script>
 
-<script id="ios-v192-fix">
+<script id="ios-v195-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return; // Android: stop total
@@ -920,8 +920,8 @@ function formatRiwayatDateOnly(isoDate){
 
 
 
-<style id="ios-xr-V192-splash-tengah-tap-no-kedip-biru-di-nav-pemasukan-2baris">
-/* ===== V192 iPhone ONLY - 4 fix: Splash tengah, TAP->PIN no kedip, Biru di nav (bukan ::after), Pemasukan 2 baris ===== */
+<style id="ios-xr-V195-splash-tengah-tap-no-kedip-biru-di-nav-pemasukan-2baris">
+/* ===== V195 iPhone ONLY - 4 fix: Splash tengah, TAP->PIN no kedip, Biru di nav (bukan ::after), Pemasukan 2 baris ===== */
 .ios-device html, .ios-device body{
   height: 100% !important;
   position: fixed !important;
@@ -961,8 +961,8 @@ function formatRiwayatDateOnly(isoDate){
   padding-right: 14px !important;
   background: var(--bg) !important;
 }
-/* 1. SPLASH - BALIK TENGAH (V192 ngaco karena 20vh dobel: outer 20vh + inner 20vh = 40vh) */
-/* V192: outer tengah, inner padding-top 0, TAP HERE di bawah konten (bukan nempel teks) */
+/* 1. SPLASH - BALIK TENGAH (V195 ngaco karena 20vh dobel: outer 20vh + inner 20vh = 40vh) */
+/* V195: outer tengah, inner padding-top 0, TAP HERE di bawah konten (bukan nempel teks) */
 .ios-device #splashScreenOverlay,
 .ios-device .splash-screen-overlay{
   position: fixed !important;
@@ -1038,8 +1038,8 @@ function formatRiwayatDateOnly(isoDate){
   border-bottom: 1px solid var(--border) !important;
 }
 /* 3. BIRU BAWAH - JADI BAGIAN NAV (bukan ::after yang ke-clip overflow hidden jadi putih) */
-/* Biang putih lagi di V192: ::after top:100% di luar nav, ke-clip #mainAppContainer overflow hidden */
-/* V192: nav 108px = 64 putih + 44 biru (env(top)), biru di DALAM nav, tidak ke-clip, tidak gede karena fondasi main putih */
+/* Biang putih lagi di V195: ::after top:100% di luar nav, ke-clip #mainAppContainer overflow hidden */
+/* V195: nav 108px = 64 putih + 44 biru (env(top)), biru di DALAM nav, tidak ke-clip, tidak gede karena fondasi main putih */
 .ios-device .bottom-nav{
   position: fixed !important;
   left: 0 !important; right: 0 !important; bottom: 0 !important;
@@ -1138,7 +1138,7 @@ function formatRiwayatDateOnly(isoDate){
 }
 /* 4. PEMASUKAN vs PENGELUARAN - November di bawah, 2 baris, sama persis */
 /* Biang: PEMASUKAN (NOVEMBER) 1 baris muat, PENGELUARAN (NOVEMBER) kepanjangan jadi wrap 2 baris, jadi tidak sejajar */
-/* V192: paksa 2 baris untuk keduanya: judul baris 1, (BULAN) baris 2 */
+/* V195: paksa 2 baris untuk keduanya: judul baris 1, (BULAN) baris 2 */
 .ios-device .card-sub-bank h4{
   font-size: 9px !important;
   letter-spacing: 1px !important;
@@ -1213,10 +1213,10 @@ function formatRiwayatDateOnly(isoDate){
 
 
 
-<style id="ios-xr-V192-biru-bawah-44-pas-tab-turun">
-/* ===== V192 iPhone XR ONLY - Biru bawah 44px PAS sama kayak atas, tab turun lagi nempel di atas biru ===== */
-/* Biang lebar di V192: Nav gradient 64 putih + 44 biru + body biru di bawah nav numpuk jadi 100px+ */
-/* V192: Pisah! Nav putih 64px di atas (bottom:44px), biru 44px bar sendiri di bawah (bottom:0) via ::after. Jadi biru total CUMA 44px, gak numpuk. */
+<style id="ios-xr-V195-biru-bawah-44-pas-tab-turun">
+/* ===== V195 iPhone XR ONLY - Biru bawah 44px PAS sama kayak atas, tab turun lagi nempel di atas biru ===== */
+/* Biang lebar di V195: Nav gradient 64 putih + 44 biru + body biru di bawah nav numpuk jadi 100px+ */
+/* V195: Pisah! Nav putih 64px di atas (bottom:44px), biru 44px bar sendiri di bawah (bottom:0) via ::after. Jadi biru total CUMA 44px, gak numpuk. */
 :root{ --venus-blue: #0A4DA3 !important; }
 .ios-device html, .ios-device body{
   height: 100% !important;
@@ -1325,10 +1325,10 @@ function formatRiwayatDateOnly(isoDate){
   background-image: linear-gradient(180deg, #0A4DA3 0px, #0A4DA3 44px, var(--card) 44px, var(--card) 100%) !important;
   border-bottom: 1px solid var(--border) !important;
 }
-/* NAV - V192: PUTIH 64px di atas biru, bottom:44px (duduk di atas biru, bukan numpuk) */
+/* NAV - V195: PUTIH 64px di atas biru, bottom:44px (duduk di atas biru, bukan numpuk) */
 .ios-device .bottom-nav{
   position: fixed !important;
-  left: 0 !important; right: 0 !important; bottom: 44px !important; /* V192: Nav duduk di atas biru 44px, bukan di bawah layar */
+  left: 0 !important; right: 0 !important; bottom: 44px !important; /* V195: Nav duduk di atas biru 44px, bukan di bawah layar */
   width: 100% !important;
   height: 64px !important; /* CUMA putih 64px, birunya di ::after */
   min-height: 64px !important;
@@ -1478,7 +1478,7 @@ function formatRiwayatDateOnly(isoDate){
 }
 .ios-device .pin-box{ transition: none !important; }
 .ios-device .pin-card{ margin-bottom: 0 !important; margin-top: 0 !important; }
-/* TAMBAH TRANSAKSI - Tetap bisa dipencet (dari V192) */
+/* TAMBAH TRANSAKSI - Tetap bisa dipencet (dari V195) */
 .ios-device #tab-tambah{
   padding-bottom: 130px !important;
   pointer-events: auto !important;
@@ -1578,8 +1578,8 @@ function formatRiwayatDateOnly(isoDate){
 
 
 
-<style id="ios-v192-iphone-only-android-aman">
-/* ===== V192 - KHUSUS iPhone, ANDROID SAMA SEKALI TIDAK DIUBAH ===== */
+<style id="ios-v195-iphone-only-android-aman">
+/* ===== V195 - KHUSUS iPhone, ANDROID SAMA SEKALI TIDAK DIUBAH ===== */
 /* Semua rule di bawah ini diawali .ios-device, jadi Android (tanpa class ios-device) TIDAK KENA sama sekali. */
 /* TANPA inline style, TANPA JS yang ngubah Android. */
 /* Tab kayak Instagram + biru bawah 44 sama kayak atas, CUMA iPhone. */
@@ -1646,8 +1646,8 @@ function formatRiwayatDateOnly(isoDate){
 </style>
 
 
-<style id="ios-v192-nav-ke-body">
-/* ===== V192 iPhone ONLY, Android TIDAK DIUBAH ===== */
+<style id="ios-v195-nav-ke-body">
+/* ===== V195 iPhone ONLY, Android TIDAK DIUBAH ===== */
 /* Biang tab ngambang: nav di dalam #mainAppContainer yang kena zoom 1.10 -> fixed ke-lock ke container, bukan ke layar. Fix: nav dipindah ke body via JS, zoom container dimatiin di iPhone. */
 /* Nav di body, tapi SEMBUNYI pas PIN/splash (biar gak nimpa kayak v165) */
 .ios-device body:not(.main-active) .bottom-nav{
@@ -1718,8 +1718,8 @@ function formatRiwayatDateOnly(isoDate){
 </style>
 
 
-<style id="ios-v192-tab-balik-biru-full">
-/* ===== V192 iPhone ONLY, Android TIDAK DIUBAH ===== */
+<style id="ios-v195-tab-balik-biru-full">
+/* ===== V195 iPhone ONLY, Android TIDAK DIUBAH ===== */
 /* FIX 1 - Tab ilang: hapus display:none pakai body.main-active (main-active nempelnya di #mainAppContainer, bukan body, jadi nav ke-hide terus). Ganti: nav z-index 60, splash 99999 + PIN 9998 di atas nav, jadi nav ketutup sendiri pas splash/PIN, tanpa display:none. */
 /* FIX 2 - Warna putih bukan biru: nav full biru #0A4DA3 (bukan putih 49 + biru 44), ikon + label putih di atas biru, biar nyatu sama biru bawah 44px. */
 .ios-device .bottom-nav{
@@ -1737,7 +1737,7 @@ function formatRiwayatDateOnly(isoDate){
   align-items: flex-start !important;
   justify-content: space-around !important;
   overflow: hidden !important;
-  background: #0A4DA3 !important; /* V192: FULL BIRU, bukan putih */
+  background: #0A4DA3 !important; /* V195: FULL BIRU, bukan putih */
   background-color: #0A4DA3 !important;
   background-image: none !important;
   border-top: none !important;
@@ -1752,7 +1752,7 @@ function formatRiwayatDateOnly(isoDate){
 .ios-device .bottom-nav::after{ display: none !important; }
 .ios-device .bottom-nav::before{ display: none !important; content: none !important; }
 .ios-device body:not(.main-active) .bottom-nav{
-  display: flex !important; /* V192: JANGAN display:none, biar tab gak ilang. Splash/PIN nutupin via z-index. */
+  display: flex !important; /* V195: JANGAN display:none, biar tab gak ilang. Splash/PIN nutupin via z-index. */
   visibility: visible !important;
 }
 .ios-device .nav-item{
@@ -1809,8 +1809,8 @@ function formatRiwayatDateOnly(isoDate){
 </style>
 
 
-<style id="ios-v192-biru-bawah-pas-44">
-/* ===== V192 iPhone ONLY, Android TIDAK DIUBAH ===== */
+<style id="ios-v195-biru-bawah-pas-44">
+/* ===== V195 iPhone ONLY, Android TIDAK DIUBAH ===== */
 /* FIX: Biru bawah tebal 137px = height 93px + padding 44px (box-sizing content-box). Fix: height 93px SUDAH termasuk padding (border-box), tanpa transform, left 0 right 0 + margin auto (bukan translateX). */
 /* Atas: biru 44px. Bawah: biru 44px, SAMA PERSIS. Tab turun mentok, gak ngegantung. */
 .ios-device .bottom-nav{
@@ -1894,8 +1894,8 @@ function formatRiwayatDateOnly(isoDate){
 </style>
 
 
-<style id="ios-v192-simpel-turun-mentok">
-/* ===== V192 iPhone ONLY, Android TIDAK DIUBAH - SIMPEL ===== */
+<style id="ios-v195-simpel-turun-mentok">
+/* ===== V195 iPhone ONLY, Android TIDAK DIUBAH - SIMPEL ===== */
 /* Maunya: tab turun mentok, biru bawah sama kayak biru atas 44px. */
 /* Cara simpel: Nav = 49px doang, bottom 0, full biru. Biru bawah = nav itu sendiri (49px), gak ada biru tambahan di bawahnya. Tanpa padding-bottom 44px, tanpa ::after, tanpa body biru numpuk. */
 .ios-device .bottom-nav{
@@ -1982,8 +1982,8 @@ function formatRiwayatDateOnly(isoDate){
 
 
 
-<style id="ios-v192-riwayat-direct">
-/* ===== V192 iPhone ONLY - Samain kayak Android: klik ke-2 langsung picker ===== */
+<style id="ios-v195-riwayat-direct">
+/* ===== V195 iPhone ONLY - Samain kayak Android: klik ke-2 langsung picker ===== */
 /* Trik: input HARUS dirender (bukan display:none) biar showPicker() diizinin iPhone. */
 /* Tapi dibikin 1px + opacity 0.01 + di tengah layar, jadi mata gak liat, iPhone tetep anggap visible. */
 .ios-device .ios-direct-picker{
@@ -2010,8 +2010,8 @@ function formatRiwayatDateOnly(isoDate){
 </style>
 
 
-<style id="venus-select-fix-V192">
-/* ===== V192 - CSS custom dropdown Setting yang hilang (Android + iPhone) ===== */
+<style id="venus-select-fix-V195">
+/* ===== V195 - CSS custom dropdown Setting yang hilang (Android + iPhone) ===== */
 /* JS venus-select udah bikin DOM, tapi CSS-nya 0 baris -> list kebuka terus, semua ada ✓. Fix: list sembunyi kalau gak .open, check cuma muncul kalau .selected. */
 .venus-select{
   position: relative !important;
@@ -2098,8 +2098,8 @@ function formatRiwayatDateOnly(isoDate){
 </style>
 
 
-<style id="analisa-sejajar-V192">
-/* ===== V192 - Analisa Bulan Ini: nominal sejajar kanan, tabular-nums ===== */
+<style id="analisa-sejajar-V195">
+/* ===== V195 - Analisa Bulan Ini: nominal sejajar kanan, tabular-nums ===== */
 #analisaPemasukanText,
 #analisaPengeluaranText,
 #analisaSisaText{
@@ -2118,15 +2118,15 @@ function formatRiwayatDateOnly(isoDate){
 </style>
 
 
-<style id="venus-V192-setelan">
-/* ===== V192 Setelan: Ganti PIN pop-up + Bahasa + Biometrik + Versi auto ===== */
+<style id="venus-V195-setelan">
+/* ===== V195 Setelan: Ganti PIN pop-up + Bahasa + Biometrik + Versi auto ===== */
 #venusGantiPinModal{
   position: fixed !important;
   inset: 0 !important;
   background: rgba(0,0,0,0.45) !important;
   z-index: 99999 !important;
   display: none !important;
-  align-items: center !important; /* v192: TENGAH, bukan bawah, biar gak ketutup keyboard */
+  align-items: center !important; /* v195: TENGAH, bukan bawah, biar gak ketutup keyboard */
   justify-content: center !important;
   padding: 16px !important;
   box-sizing: border-box !important;
@@ -2138,7 +2138,7 @@ function formatRiwayatDateOnly(isoDate){
   width: 100% !important;
   max-width: 380px !important;
   background: var(--card) !important;
-  border-radius: 20px !important; /* v192: full rounded, tengah */
+  border-radius: 20px !important; /* v195: full rounded, tengah */
   max-height: 90vh !important;
   overflow-y: auto !important;
   padding: 16px 16px calc(16px + env(safe-area-inset-bottom, 0px)) 16px !important;
@@ -2172,8 +2172,8 @@ function formatRiwayatDateOnly(isoDate){
 </style>
 
 
-<style id="venus-pin-blue-v192">
-/* ===== v192 PIN ACCESS: background biru kayak splash screen ===== */
+<style id="venus-pin-blue-v195">
+/* ===== v195 PIN ACCESS: background biru kayak splash screen ===== */
 .pin-screen-overlay{
   background: linear-gradient(180deg, #0A4DA3 0%, #082a6b 40%, #061A3A 100%) !important;
 }
@@ -2207,8 +2207,8 @@ function formatRiwayatDateOnly(isoDate){
 </style>
 
 
-<style id="venus-check-anim-v192">
-/* ===== v192: Animasi ceklis biru minimalis (ganti lonceng) ===== */
+<style id="venus-check-anim-v195">
+/* ===== v195: Animasi ceklis biru minimalis (ganti lonceng) ===== */
 .venus-check-anim{
   animation: venusCheckPop 0.45s cubic-bezier(0.2,0.9,0.3,1.4) both;
 }
@@ -2314,8 +2314,7 @@ function formatRiwayatDateOnly(isoDate){
 
 <div class="cyber-scanner-flash" id="cyberScannerFlash"><div class="hacker-terminal-box" style="display:none"></div></div></div>
 
-<div class="pin-screen-overlay" id="pinScreenOverlay">
-  <div class="pin-card"><div class="pin-icon-box"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="pin-title">PIN ACCESS</div><div class="pin-subtitle">Masukkan 6-Digit PIN</div><div class="pin-inputs-container" id="pinInputsContainer"><div class="pin-box active" data-index="0"></div><div class="pin-box" data-index="1"></div><div class="pin-box" data-index="2"></div><div class="pin-box" data-index="3"></div><div class="pin-box" data-index="4"></div><div class="pin-box" data-index="5"></div></div><div class="pin-error-msg" id="pinErrorMsg"></div><div class="on-screen-keypad"><button type="button" class="keypad-btn" onclick="pressKey('1')">1</button><button type="button" class="keypad-btn" onclick="pressKey('2')">2</button><button type="button" class="keypad-btn" onclick="pressKey('3')">3</button><button type="button" class="keypad-btn" onclick="pressKey('4')">4</button><button type="button" class="keypad-btn" onclick="pressKey('5')">5</button><button type="button" class="keypad-btn" onclick="pressKey('6')">6</button><button type="button" class="keypad-btn" onclick="pressKey('7')">7</button><button type="button" class="keypad-btn" onclick="pressKey('8')">8</button><button type="button" class="keypad-btn" onclick="pressKey('9')">9</button><button type="button" class="keypad-btn action-btn" onclick="clearAllPin()">C</button><button type="button" class="keypad-btn" onclick="pressKey('0')">0</button><button type="button" class="keypad-btn action-btn" onclick="deletePin()">⌫</button></div></div>
+<div class="pin-screen-overlay" id="pinScreenOverlay"><div class="pin-card"><div class="pin-icon-box"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="pin-title">PIN ACCESS</div><div class="pin-subtitle">Masukkan 6-Digit PIN</div><div class="pin-inputs-container" id="pinInputsContainer"><div class="pin-box active" data-index="0"></div><div class="pin-box" data-index="1"></div><div class="pin-box" data-index="2"></div><div class="pin-box" data-index="3"></div><div class="pin-box" data-index="4"></div><div class="pin-box" data-index="5"></div></div><div class="pin-error-msg" id="pinErrorMsg"></div><div class="on-screen-keypad"><button type="button" class="keypad-btn" onclick="pressKey('1')">1</button><button type="button" class="keypad-btn" onclick="pressKey('2')">2</button><button type="button" class="keypad-btn" onclick="pressKey('3')">3</button><button type="button" class="keypad-btn" onclick="pressKey('4')">4</button><button type="button" class="keypad-btn" onclick="pressKey('5')">5</button><button type="button" class="keypad-btn" onclick="pressKey('6')">6</button><button type="button" class="keypad-btn" onclick="pressKey('7')">7</button><button type="button" class="keypad-btn" onclick="pressKey('8')">8</button><button type="button" class="keypad-btn" onclick="pressKey('9')">9</button><button type="button" class="keypad-btn action-btn" onclick="clearAllPin()">C</button><button type="button" class="keypad-btn" onclick="pressKey('0')">0</button><button type="button" class="keypad-btn action-btn" onclick="deletePin()">⌫</button></div></div>
 </div>
 
 <div class="personal-pin-overlay" id="personalPinOverlay"><div class="pin-card"><div class="pin-icon-box"><svg class="ico" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div class="pin-title">PERSONAL DATA</div><div class="pin-subtitle">Verifikasi PIN</div><div class="pin-inputs-container" id="personalPinInputsContainer"><div class="pin-box active" data-personal-pin-index="0"></div><div class="pin-box" data-personal-pin-index="1"></div><div class="pin-box" data-personal-pin-index="2"></div><div class="pin-box" data-personal-pin-index="3"></div><div class="pin-box" data-personal-pin-index="4"></div><div class="pin-box" data-personal-pin-index="5"></div></div><div class="pin-error-msg" id="personalPinErrorMsg"></div><div class="on-screen-keypad"><button type="button" class="keypad-btn" onclick="pressPersonalPinKey('1')">1</button><button type="button" class="keypad-btn" onclick="pressPersonalPinKey('2')">2</button><button type="button" class="keypad-btn" onclick="pressPersonalPinKey('3')">3</button><button type="button" class="keypad-btn" onclick="pressPersonalPinKey('4')">4</button><button type="button" class="keypad-btn" onclick="pressPersonalPinKey('5')">5</button><button type="button" class="keypad-btn" onclick="pressPersonalPinKey('6')">6</button><button type="button" class="keypad-btn" onclick="pressPersonalPinKey('7')">7</button><button type="button" class="keypad-btn" onclick="pressPersonalPinKey('8')">8</button><button type="button" class="keypad-btn" onclick="pressPersonalPinKey('9')">9</button><button type="button" class="keypad-btn action-btn" onclick="clearPersonalPin()">C</button><button type="button" class="keypad-btn" onclick="pressPersonalPinKey('0')">0</button><button type="button" class="keypad-btn action-btn" onclick="deletePersonalPin()">⌫</button></div><button id="cancelPersonalPinBtn" class="bank-btn secondary" style="width:100%;margin-top:10px">Batal</button></div></div>
@@ -2511,7 +2510,7 @@ function formatRiwayatDateOnly(isoDate){
       <div class="bank-card" style="margin-bottom:0;padding:14px">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><div style="width:28px;height:28px;border-radius:8px;background:#F8FAFC;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div><div><div style="font-weight:700;font-size:12px">Tentang</div><div style="font-size:10px;color:#64748B">VENUS STUDIO</div></div></div>
         <div style="background:#F8FAFC;border:1px solid #F1F5F9;border-radius:10px;padding:10px;font-size:10px;color:#64748B;line-height:1.6">
-          <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Versi</span><span style="font-weight:700;color:#0F172A"><span data-venus-version>V192</span></span></div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Versi</span><span style="font-weight:700;color:#0F172A"><span data-venus-version>V195</span></span></div>
           <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Firebase</span><span>venus-studio-e7086</span></div>
           <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Keamanan</span><span style="font-weight:700;color:var(--success)">Terproteksi ••••••</span></div>
           <div style="display:flex;justify-content:space-between"><span>Pembaruan</span><span>Otomatis</span></div>
@@ -5121,7 +5120,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<script id="venus-select-V192">
+<script id="venus-select-V195">
 /* Custom Select VENUS - iPhone + Android, ganti picker bawaan HP */
 (function(){
   function buildVenusSelect(sel){
@@ -5191,7 +5190,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<script id="ios-v192-fix">
+<script id="ios-v195-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -5246,7 +5245,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<script id="ios-v192-iphone-only">
+<script id="ios-v195-iphone-only">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -5259,7 +5258,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<script id="ios-v192-pindah-nav">
+<script id="ios-v195-pindah-nav">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -5288,7 +5287,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<script id="ios-v192-force">
+<script id="ios-v195-force">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -5324,7 +5323,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<script id="ios-v192-force-simpel">
+<script id="ios-v195-force-simpel">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -5367,12 +5366,12 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 
-<!-- V192 iPhone ONLY - Input langsung kayak Android (dirender 1px, opacity 0.01) -->
+<!-- V195 iPhone ONLY - Input langsung kayak Android (dirender 1px, opacity 0.01) -->
 <input type="date" id="iosDirectDateInput" class="ios-direct-picker" aria-hidden="true" tabindex="-1">
 <input type="month" id="iosDirectMonthInput" class="ios-direct-picker" aria-hidden="true" tabindex="-1">
 
 
-<script id="ios-v192-riwayat-direct">
+<script id="ios-v195-riwayat-direct">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -5442,7 +5441,7 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<!-- V192 - Pop-up Ganti PIN: PIN Saat Ini, PIN Baru, Konfirmasi PIN Baru -->
+<!-- V195 - Pop-up Ganti PIN: PIN Saat Ini, PIN Baru, Konfirmasi PIN Baru -->
 <div id="venusGantiPinModal">
   <div id="venusGantiPinCard">
     <div style="width:36px;height:5px;background:var(--border);border-radius:99px;margin:0 auto 12px auto;"></div>
@@ -5461,9 +5460,9 @@ document.addEventListener('DOMContentLoaded', function(){
 </div>
 
 
-<script id="venus-V192-clean">
+<script id="venus-V195-clean">
 (function(){
-  // ===== V192 CLEAN: 1 translate idempotent + 1 popup smooth =====
+  // ===== V195 CLEAN: 1 translate idempotent + 1 popup smooth =====
   var DICT = {
     'SALDO SISA': 'REMAINING BALANCE', 'Pemasukan': 'Income', 'Pengeluaran': 'Expenses',
     'Analisa Bulan Ini': 'This Month Analysis', 'Tampilan': 'Display', 'Tema & ukuran': 'Theme & size',
@@ -5539,7 +5538,7 @@ document.addEventListener('DOMContentLoaded', function(){
   }
   window.applyVenusLanguage = applyLanguage;
   // Versi otomatis
-  var APP_VERSION = 'V192';
+  var APP_VERSION = 'V195';
   window.VENUS_APP_VERSION = APP_VERSION;
   function applyVersion(){
     document.querySelectorAll('[data-venus-version]').forEach(function(el){ el.textContent = APP_VERSION; });
@@ -5688,14 +5687,14 @@ document.addEventListener('DOMContentLoaded', function(){
 </script>
 
 
-<!-- v192: venus-custom-alert-v192 dihapus, sudah di V192 clean -->
+<!-- v195: venus-custom-alert-v195 dihapus, sudah di V195 clean -->
 
 
-<!-- v192: venus-alert-override-v192 dihapus, sudah di V192 clean -->
+<!-- v195: venus-alert-override-v195 dihapus, sudah di V195 clean -->
 
 
-<style id="venus-pin-blue-v192-final">
-/* ===== v192 PIN ACCESS: biru splash, taruh PALING AKHIR biar gak ke-timpa CSS 141780 ===== */
+<style id="venus-pin-blue-v195-final">
+/* ===== v195 PIN ACCESS: biru splash, taruh PALING AKHIR biar gak ke-timpa CSS 141780 ===== */
 /* Spesifitas lebih tinggi: html body .pin-screen-overlay */
 html body .pin-screen-overlay,
 html body .personal-pin-overlay,
@@ -5712,7 +5711,7 @@ html body .debt-pin-overlay .pin-card{
   border-radius: 28px !important;
 }
 </style>
-<script id="venus-pin-blue-js-v192">
+<script id="venus-pin-blue-js-v195">
 (function(){
   // Paksa via JS juga (setProperty important) biar gak ke-timpa lagi sama CSS manapun
   function forcePinBlue(){
@@ -5724,10 +5723,10 @@ html body .debt-pin-overlay .pin-card{
       }
     });
   }
-  // v192: forcePinBlue cukup sekali, tanpa setTimeout berulang
+  // v195: forcePinBlue cukup sekali, tanpa setTimeout berulang
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', forcePinBlue);
   else forcePinBlue();
-  // v192: Observer DIHAPUS - bikin loop freeze di splash. Cukup CSS paling akhir + force sekali.
+  // v195: Observer DIHAPUS - bikin loop freeze di splash. Cukup CSS paling akhir + force sekali.
 })();
 </script>
 
@@ -5851,7 +5850,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   }
   resetAutoLock();
 
-  // v192: Biometric mock DIHAPUS
+  // v195: Biometric mock DIHAPUS
 
   // Sound
   initSwitch('soundSwitch', 'venus_sound', true, null);
@@ -6251,10 +6250,10 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 
 
-<!-- v192: duplikat venus-select-V192 ke-2 dihapus -->
+<!-- v195: duplikat venus-select-V195 ke-2 dihapus -->
 
 
-<script id="ios-v192-fix">
+<script id="ios-v195-fix">
 (function(){
   var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if(!isIOS) return;
@@ -6309,7 +6308,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 </script>
 
 
-<script id="ios-v192-iphone-only">
+<script id="ios-v195-iphone-only">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -6322,7 +6321,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 </script>
 
 
-<script id="ios-v192-pindah-nav">
+<script id="ios-v195-pindah-nav">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -6351,7 +6350,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 </script>
 
 
-<script id="ios-v192-force">
+<script id="ios-v195-force">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -6387,7 +6386,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 </script>
 
 
-<script id="ios-v192-force-simpel">
+<script id="ios-v195-force-simpel">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -6430,12 +6429,12 @@ document.addEventListener('DOMContentLoaded', ()=>{
 
 
 
-<!-- V192 iPhone ONLY - Input langsung kayak Android (dirender 1px, opacity 0.01) -->
+<!-- V195 iPhone ONLY - Input langsung kayak Android (dirender 1px, opacity 0.01) -->
 <input type="date" id="iosDirectDateInput" class="ios-direct-picker" aria-hidden="true" tabindex="-1">
 <input type="month" id="iosDirectMonthInput" class="ios-direct-picker" aria-hidden="true" tabindex="-1">
 
 
-<script id="ios-v192-riwayat-direct">
+<script id="ios-v195-riwayat-direct">
 (function(){
   try{
     var isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
@@ -6505,7 +6504,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 </script>
 
 
-<!-- V192 - Pop-up Ganti PIN: PIN Saat Ini, PIN Baru, Konfirmasi PIN Baru -->
+<!-- V195 - Pop-up Ganti PIN: PIN Saat Ini, PIN Baru, Konfirmasi PIN Baru -->
 <div id="venusGantiPinModal">
   <div id="venusGantiPinCard">
     <div style="width:36px;height:5px;background:var(--border);border-radius:99px;margin:0 auto 12px auto;"></div>
@@ -6524,17 +6523,17 @@ document.addEventListener('DOMContentLoaded', ()=>{
 </div>
 
 
-<!-- v192: duplikat venus-V192-setelan-js ke-2 dihapus -->
+<!-- v195: duplikat venus-V195-setelan-js ke-2 dihapus -->
 
 
-<!-- v192: duplikat venus-custom-alert-v192 ke-2 dihapus -->
+<!-- v195: duplikat venus-custom-alert-v195 ke-2 dihapus -->
 
 
-<!-- v192: duplikat venus-alert-override-v192 ke-2 dihapus -->
+<!-- v195: duplikat venus-alert-override-v195 ke-2 dihapus -->
 
 
-<style id="venus-pin-blue-v192-final">
-/* ===== v192 PIN ACCESS: biru splash, taruh PALING AKHIR biar gak ke-timpa CSS 141780 ===== */
+<style id="venus-pin-blue-v195-final">
+/* ===== v195 PIN ACCESS: biru splash, taruh PALING AKHIR biar gak ke-timpa CSS 141780 ===== */
 /* Spesifitas lebih tinggi: html body .pin-screen-overlay */
 html body .pin-screen-overlay,
 html body .personal-pin-overlay,
@@ -6551,11 +6550,11 @@ html body .debt-pin-overlay .pin-card{
   border-radius: 28px !important;
 }
 </style>
-<!-- v192: duplikat venus-pin-blue-js-v192 ke-2 dihapus -->
+<!-- v195: duplikat venus-pin-blue-js-v195 ke-2 dihapus -->
 
 
-<style id="venus-pin-blue-final-v192">
-/* v192 FINAL: taruh paling akhir file, biar menang lawan semua CSS pin sebelumnya */
+<style id="venus-pin-blue-final-v195">
+/* v195 FINAL: taruh paling akhir file, biar menang lawan semua CSS pin sebelumnya */
 html body .pin-screen-overlay,
 html body .personal-pin-overlay,
 html body .debt-pin-overlay{
@@ -6572,8 +6571,8 @@ html body .debt-pin-overlay .pin-card{
 }
 </style>
 
-<style id="venus-dark-fix-v192">
-/* ===== v192: Dark Mode keseluruhan (override hardcode putih) ===== */
+<style id="venus-dark-fix-v195">
+/* ===== v195: Dark Mode keseluruhan (override hardcode putih) ===== */
 /* Dropdown venus-select: Sedang / Indonesia / 30 detik + opsi-nya */
 [data-theme="dark"] .venus-select-btn{
   background: #101828 !important;
@@ -6658,8 +6657,8 @@ html body .debt-pin-overlay .pin-card{
 }
 </style>
 
-<style id="venus-dark-black-blue-v192">
-/* ===== v192: Dark Mode - pop-up HITAM + tombol BIRU (request user) ===== */
+<style id="venus-dark-black-blue-v195">
+/* ===== v195: Dark Mode - pop-up HITAM + tombol BIRU (request user) ===== */
 /* PIN ACCESS: card HITAM pekat, bukan lagi #101828 */
 [data-theme="dark"] html body .pin-screen-overlay .pin-card,
 [data-theme="dark"] html body .personal-pin-overlay .pin-card,
@@ -6781,8 +6780,8 @@ html body .debt-pin-overlay .pin-card{
 }
 </style>
 
-<style id="venus-dark-fix-v192">
-/* ===== v192: DARK MODE ONLY - fix selector + hierarki tombol ===== */
+<style id="venus-dark-fix-v195">
+/* ===== v195: DARK MODE ONLY - fix selector + hierarki tombol ===== */
 /* FIX: data-theme nempel di <html>, jadi pakai html[data-theme="dark"], BUKAN [data-theme] html */
 /* Card PIN: HITAM pekat */
 html[data-theme="dark"] body .pin-screen-overlay .pin-card,
@@ -6888,4 +6887,56 @@ html[data-theme="dark"] #venusGantiPinCard input,
   border-color: #2A2A2A !important;
 }
 </style>
+
+
+
+<style id="venus-pin-top-v195">
+/* v195: VENUS STUDIO naik ke atas (absolute top) + logo minimalis + footer di dalam overlay */
+.pin-screen-overlay, .personal-pin-overlay, .debt-pin-overlay{ position: fixed !important; }
+.venus-pin-top{
+  position: absolute !important;
+  top: 32px !important; /* samain kayak footer bottom:32px */
+  left: 0 !important; right: 0 !important;
+  display: flex !important; flex-direction: column !important; align-items: center !important;
+  gap: 0 !important; pointer-events: none !important; z-index: 3 !important;
+}
+.venus-pin-brand{
+  font-size: 15px !important; font-weight: 800 !important; letter-spacing: 4px !important;
+  color: #FFFFFF !important; text-align: center !important; text-shadow: 0 2px 10px rgba(0,0,0,0.3) !important;
+}
+.venus-pin-footer{
+  position: absolute !important; bottom: 32px !important; left: 0 !important; right: 0 !important;
+  display: flex !important; align-items: center !important; justify-content: center !important; gap: 5px !important;
+  font-size: 10px !important; font-weight: 600 !important; letter-spacing: 0.6px !important;
+  color: rgba(255,255,255,0.75) !important; pointer-events: none !important; z-index: 3 !important;
+}
+.venus-pin-footer svg{ width: 12px !important; height: 12px !important; flex-shrink: 0 !important; }
+</style>
+<script id="venus-pin-inject-v195">
+(function(){
+  // Injek TOP + FOOTER ke dalam overlay (pasti di dalam, bukan di luar)
+  function inject(){
+    ['pinScreenOverlay','personalPinOverlay','debtPinOverlay'].forEach(function(id){
+      var ov = document.getElementById(id);
+      if(!ov) return;
+      if(!ov.querySelector('.venus-pin-top')){
+        var top = document.createElement('div');
+        top.className = 'venus-pin-top';
+        top.innerHTML = '<div class="venus-pin-brand">VENUS STUDIO</div>';
+        ov.insertBefore(top, ov.firstChild);
+      }
+      if(!ov.querySelector('.venus-pin-footer')){
+        var foot = document.createElement('div');
+        foot.className = 'venus-pin-footer';
+        foot.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg><span>security access code</span>';
+        ov.appendChild(foot);
+      }
+    });
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', inject);
+  else inject();
+  window.addEventListener('load', inject);
+  setTimeout(inject, 500);
+})();
+</script>
 </body>
