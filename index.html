@@ -2533,7 +2533,7 @@ function formatRiwayatDateOnly(isoDate){
 <!-- PERSONAL & DEBT MODALS -->
 <div class="personal-modal-overlay" id="personalModalOverlay"><div class="personal-modal-card bank-card"><div class="modal-header"><b>Personal Data</b><button id="closePersonalModalBtn" class="bank-btn secondary" style="width:32px;height:32px">✕</button></div><div id="mainPersonalListContainer"><div id="accountTitlesList" style="display:flex;flex-direction:column;gap:8px"></div><button id="btnAddAccountModal" class="bank-btn" style="width:100%;margin-top:10px">+ Tambah Akun</button><div style="display:flex;gap:8px;margin-top:10px"><button id="openAllHistoryBtn" class="bank-btn secondary" style="flex:1">History</button></div></div></div></div>
 
-<div id="subAccountModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:90;align-items:center;justify-content:center;padding:16px"><div class="bank-card" style="width:100%;max-width:380px"><div style="display:flex;justify-content:space-between;margin-bottom:10px"><div id="subModalHeading" style="font-weight:800">Tambah Akun</div><button id="closeSubModalBtn" class="bank-btn secondary" style="width:32px;height:32px">✕</button></div><form id="subAccountForm" style="display:flex;flex-direction:column;gap:12px"><input type="hidden" id="subEditIndex"><div class="form-group"><label>Username</label><input type="text" id="subAccountUsername" required></div><div class="form-group"><label>Password</label><input type="text" id="subAccountPassword" required></div><button type="submit" id="btnSaveSubAccount" class="bank-btn"><span id="btnSubText">Simpan</span></button><div id="subAccountHistoryList" style="margin-top:8px"></div><button type="button" id="btnDeleteAccountItem" class="bank-btn secondary" style="width:100%;display:none">Hapus Akun</button></form></div></div>
+<div id="subAccountModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:90;align-items:center;justify-content:center;padding:16px"><div class="bank-card" style="width:100%;max-width:380px"><div style="display:flex;justify-content:space-between;margin-bottom:10px"><div id="subModalHeading" style="font-weight:800">Tambah Akun</div><button id="closeSubModalBtn" class="bank-btn secondary" style="width:32px;height:32px">✕</button></div><form id="subAccountForm" style="display:flex;flex-direction:column;gap:12px"><input type="hidden" id="subEditIndex"><div class="form-group"><label>Label / Nama Akun</label><input type="text" id="subAccountLabel" placeholder="contoh: Akun Google"></div><div class="form-group"><label>Username</label><input type="text" id="subAccountUsername" required></div><div class="form-group"><label>Password</label><input type="text" id="subAccountPassword" required></div><button type="submit" id="btnSaveSubAccount" class="bank-btn"><span id="btnSubText">Simpan</span></button><button type="button" id="btnAddAnotherGoogleAccount" class="bank-btn secondary" style="width:100%;display:none">+ Tambah Akun Google Lagi</button><div id="subAccountHistoryList" style="margin-top:8px"></div><button type="button" id="btnDeleteAccountItem" class="bank-btn secondary" style="width:100%;display:none">Hapus Akun</button></form></div></div>
 
 <div id="allHistoryModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:91;align-items:center;justify-content:center;padding:16px"><div class="bank-card" style="width:100%;max-width:420px;max-height:80vh;overflow:auto"><div style="display:flex;justify-content:space-between;margin-bottom:10px"><b>Semua History</b><button id="closeAllHistoryModalBtn" class="bank-btn secondary" style="width:32px;height:32px">✕</button></div><div id="fullHistoryListContainer"></div></div></div>
 
@@ -3738,7 +3738,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active')); const tabDash=document.getElementById('tab-dashboard'); if(tabDash) tabDash.classList.add('active');
       form.dataset.venusSaving = '';
       // Sembunyikan loading dulu, baru tampilkan popup + sound (tidak numpuk)
-      if(typeof showVenusSuccess === 'function') showVenusSuccess({type: type, amount: amount, description: desc, method: method, date: selectedDateValue, time: selectedTimeValue});
+      if(typeof showVenusSuccess === 'function') showVenusSuccess({type: type, amount: amount, description: desc, method: method, date: newTx.date, time: newTx.time});
     }, 3000);
   });
 
@@ -8047,6 +8047,211 @@ body[data-font-size="large"] #venusConfirmModal{ zoom: 1.25 !important; }
       closeHistModal();
       refreshAfterHistChange(ids.debtIdx);
     });
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+
+<script id="venus-realtime-google-v205">
+/* ===== v205-A: JAM REAL-TIME + BALIK KE JAM SEKARANG ABIS TRANSAKSI BERHASIL ===== */
+/* Masalah lama: selectedDateValue/selectedTimeValue cuma di-set SEKALI pas aplikasi dibuka. */
+/* Kalau aplikasi dibiarin kebuka 1 jam, Jam-nya tetap di jam pas buka (misal 13.00 terus, padahal udah 14.45). */
+/* Abis transaksi berhasil, variabelnya di-reset ke jam sekarang tapi TAMPILAN-nya nggak ikut ke-update. */
+/* Fix v205: */
+/* - Interval 1 detik: kalau user NGGAK ngubah jam manual & tanggalnya hari ini, Jam ngikutin jam sekarang (real-time). */
+/* - Kalau user ngubah jam manual (misal input 13.00 padahal sekarang 14.45), jam itu DIPAKE buat transaksi itu, */
+/*   dibekuin (nggak auto-update), lalu ABIS transaksi berhasil otomatis balik ke jam sekarang. */
+/* - Kalau user ngubah tanggal ke kemarin/lusa, jam dibekuin juga (biar tanggal + jam-nya konsisten). */
+/* - Abis transaksi berhasil, Tanggal + Jam di-reset ke sekarang (variabel + input + tampilan, semuanya). */
+/* Cara nyantol: input #inputTime/#inputDate di-set + di-dispatch 'change' biar handler asli yang update */
+/* variabel selectedTimeValue/selectedDateValue-nya. Sukses dideteksi dari showVenusSuccess (cuma dipanggil */
+/* pas transaksi berhasil kesimpen). Prompt / handler asli NGGAK diutak-atik. */
+(function(){
+  var timeManual = false;
+  var dateManual = false;
+  var autoGuard = false;
+  function nowHHMM(){ return new Date().toTimeString().slice(0, 5); }
+  function todayIso(){
+    if(typeof getLocalIsoDate === 'function') return getLocalIsoDate(new Date());
+    var d = new Date();
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
+  function setTime(hhmm){
+    var disp = document.getElementById('timeDisplayText');
+    if(disp) disp.textContent = hhmm;
+    var inp = document.getElementById('inputTime');
+    if(inp){
+      autoGuard = true;
+      try{ inp.value = hhmm; inp.dispatchEvent(new Event('change', {bubbles: true})); }catch(e){}
+      autoGuard = false;
+    }
+  }
+  function setDate(iso){
+    var disp = document.getElementById('dateDisplayText');
+    if(disp) disp.textContent = iso.split('-').reverse().join('/');
+    var inp = document.getElementById('inputDate');
+    if(inp){
+      autoGuard = true;
+      try{ inp.value = iso; inp.dispatchEvent(new Event('change', {bubbles: true})); }catch(e){}
+      autoGuard = false;
+    }
+  }
+  function resetToNow(){
+    timeManual = false;
+    dateManual = false;
+    setDate(todayIso());
+    setTime(nowHHMM());
+  }
+  function init(){
+    var inpT = document.getElementById('inputTime');
+    var inpD = document.getElementById('inputDate');
+    if(inpT) inpT.addEventListener('change', function(){ if(autoGuard) return; timeManual = true; });
+    if(inpD) inpD.addEventListener('change', function(){ if(autoGuard) return; dateManual = true; });
+    setInterval(function(){
+      try{
+        var dEl = document.getElementById('inputDate');
+        var tEl = document.getElementById('inputTime');
+        if(!dEl || !tEl) return;
+        var today = todayIso();
+        var now = nowHHMM();
+        if(!dateManual && dEl.value !== today) setDate(today);
+        if(!timeManual && dEl.value === today && tEl.value !== now) setTime(now);
+      }catch(e){}
+    }, 1000);
+    if(typeof window.showVenusSuccess === 'function'){
+      var orig = window.showVenusSuccess;
+      window.showVenusSuccess = function(tx){
+        try{ orig(tx); }catch(e){}
+        resetToNow();
+      };
+    }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+
+/* ===== v205-B: PERSONAL - TAMBAH AKUN GOOGLE LAGI DARI DALAM AKUN GOOGLE ===== */
+/* Masalah lama: nambah akun baru cuma lewat prompt('Nama Label Akun...') yang kecil + gampang kelewat. */
+/* Dari dalam detail Akun Google, NGGAK ADA cara nambah akun Google lagi - harus balik ke list, */
+/* tap + Tambah Akun, lalu ketik label lewat prompt. */
+/* Fix v205: */
+/* 1. Form Tambah/Edit Akun sekarang punya input "Label / Nama Akun" (keliatan di form, bukan prompt). */
+/*    Prompt label yang lama dicegat & diganti baca dari input ini. Prompt lain (Ganti PIN, Kategori, */
+/*    Budget) tetap jalan normal, nggak kena cegat. */
+/* 2. Di dalam modal EDIT akun, ada tombol "+ Tambah [label] Lagi" (misal: "+ Tambah Akun Google Lagi"). */
+/*    Tap itu -> buka form tambah baru, Label-nya udah keisi "Akun Google", tinggal isi username/password. */
+/*    Akun baru cuma ke-simpan pas tap Simpan (nggak ada akun kosong yang nyangkut kalau batal). */
+/* 3. Di list Personal, di bawah tiap label sekarang ditampilin username-nya, biar 2 Akun Google bisa */
+/*    dibedain (yang satu user1@gmail.com, yang satu user2@gmail.com). */
+/* 4. Label juga bisa diganti dari form edit (disimpen abis Simpan). Handler asli NGGAK diutak-atik, */
+/*    v205 cuma nambahin di sekelilingnya (wrap openSubAccountModal/renderPersonal + prompt). */
+(function(){
+  var origPrompt = window.prompt;
+  window.prompt = function(msg){
+    if(msg && String(msg).indexOf('Nama Label Akun') !== -1){
+      var li = document.getElementById('subAccountLabel');
+      var v = li ? li.value.trim() : '';
+      return v || 'Akun Baru';
+    }
+    return origPrompt.apply(window, arguments);
+  };
+  function currentLabel(){
+    var li = document.getElementById('subAccountLabel');
+    return li ? li.value.trim() : '';
+  }
+  function syncAnotherBtn(){
+    var btn = document.getElementById('btnAddAnotherGoogleAccount');
+    if(!btn) return;
+    var idxEl = document.getElementById('subEditIndex');
+    var isEdit = idxEl && idxEl.value !== '';
+    var label = currentLabel() || 'Akun';
+    btn.textContent = '+ Tambah ' + label + ' Lagi';
+    btn.style.display = isEdit ? 'block' : 'none';
+  }
+  function init(){
+    if(typeof window.openSubAccountModal === 'function'){
+      var origOpen = window.openSubAccountModal;
+      window.openSubAccountModal = function(idx){
+        origOpen(idx);
+        try{
+          var acc = getStoredAccounts()[idx];
+          var li = document.getElementById('subAccountLabel');
+          if(li) li.value = acc ? (acc.label || '') : '';
+        }catch(e){}
+        syncAnotherBtn();
+      };
+    }
+    if(typeof window.renderPersonal === 'function'){
+      var origRender = window.renderPersonal;
+      window.renderPersonal = function(){
+        origRender();
+        try{
+          var accounts = getStoredAccounts();
+          var cards = document.querySelectorAll('#accountTitlesList .account-title-card');
+          cards.forEach(function(card, i){
+            var acc = accounts[i];
+            if(!acc || !acc.username) return;
+            var nameEl = card.querySelector('.account-title-name');
+            if(!nameEl) return;
+            var wrap = document.createElement('div');
+            wrap.style.cssText = 'display:flex;flex-direction:column;gap:2px;min-width:0;flex:1';
+            var userEl = document.createElement('div');
+            userEl.textContent = acc.username;
+            userEl.style.cssText = 'font-size:11px;color:var(--text-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap';
+            nameEl.parentNode.insertBefore(wrap, nameEl);
+            wrap.appendChild(nameEl);
+            wrap.appendChild(userEl);
+          });
+        }catch(e){}
+      };
+    }
+    var btnAdd = document.getElementById('btnAddAccountModal');
+    if(btnAdd) btnAdd.addEventListener('click', function(){
+      var li = document.getElementById('subAccountLabel');
+      if(li) li.value = '';
+      syncAnotherBtn();
+    });
+    var btnAnother = document.getElementById('btnAddAnotherGoogleAccount');
+    if(btnAnother) btnAnother.addEventListener('click', function(){
+      var label = currentLabel() || 'Akun Google';
+      var idxEl = document.getElementById('subEditIndex');
+      if(idxEl) idxEl.value = '';
+      var head = document.getElementById('subModalHeading');
+      if(head) head.textContent = 'TAMBAH AKUN - ' + label.toUpperCase();
+      var li = document.getElementById('subAccountLabel');
+      if(li) li.value = label;
+      var u = document.getElementById('subAccountUsername');
+      if(u) u.value = '';
+      var pw = document.getElementById('subAccountPassword');
+      if(pw) pw.value = '';
+      var st = document.getElementById('btnSubText');
+      if(st) st.textContent = 'Simpan';
+      var del = document.getElementById('btnDeleteAccountItem');
+      if(del) del.style.display = 'none';
+      var hist = document.getElementById('subAccountHistoryList');
+      if(hist) hist.innerHTML = '';
+      syncAnotherBtn();
+    });
+    var form = document.getElementById('subAccountForm');
+    if(form) form.addEventListener('submit', function(){
+      try{
+        var idxEl = document.getElementById('subEditIndex');
+        if(!idxEl || idxEl.value === '') return;
+        var i = parseInt(idxEl.value, 10);
+        if(isNaN(i)) return;
+        var accounts = getStoredAccounts();
+        if(!accounts[i]) return;
+        var newLabel = currentLabel();
+        if(newLabel && newLabel !== accounts[i].label){
+          accounts[i].label = newLabel;
+          localStorage.setItem('venus_password_manager_data', JSON.stringify(accounts));
+          renderPersonal();
+        }
+      }catch(e){}
+    });
+    var li = document.getElementById('subAccountLabel');
+    if(li) li.addEventListener('input', syncAnotherBtn);
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
