@@ -2543,7 +2543,7 @@ function formatRiwayatDateOnly(isoDate){
 
 <div id="editDebtModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.42);z-index:86;align-items:center;justify-content:center;padding:16px"><div class="bank-card" style="width:100%;max-width:380px"><div style="display:flex;justify-content:space-between;margin-bottom:10px"><b id="editDebtModalTitle">Edit Hutang</b><button id="closeEditDebtModalBtn" class="bank-btn secondary" style="width:32px;height:32px">✕</button></div><input type="hidden" id="editDebtIndex"><div class="form-group"><label>Nama</label><input id="editDebtNameInput"></div><div class="form-group"><label>Jumlah</label><input id="editDebtAmountInput"></div><div class="form-group"><label>Sudah Dibayar</label><input id="editDebtPaidInput"></div><div style="display:flex;gap:8px;margin-top:10px"><button id="btnDeleteDebtItem" class="bank-btn secondary" style="flex:1">Hapus</button><button id="btnSaveDebtItem" class="bank-btn" style="flex:1">Simpan</button></div></div></div>
 
-<div id="editDebtHistoryModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.42);z-index:87;align-items:center;justify-content:center;padding:16px"><div class="bank-card" style="width:100%;max-width:380px"><input type="hidden" id="editDebtHistoryDebtIndex"><input type="hidden" id="editDebtHistoryIndex"><div class="form-group"><label>Jumlah Cicilan</label><input id="editDebtHistoryAmount"></div><div class="form-group"><label>Status</label><div class="custom-select-box" id="btnEditDebtHistoryStatus"><span id="editDebtHistoryStatusValue">cicil</span></div></div><div style="display:flex;gap:8px;margin-top:10px"><button id="btnDeleteDebtHistoryItem" class="bank-btn secondary" style="flex:1">Hapus</button><button id="btnSaveDebtHistoryItem" class="bank-btn" style="flex:1">Simpan</button></div></div></div>
+<div id="editDebtHistoryModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.42);z-index:87;align-items:center;justify-content:center;padding:16px"><div class="bank-card" style="width:100%;max-width:380px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><b>Edit Riwayat</b><button id="closeEditDebtHistoryModalBtn" class="bank-btn secondary" style="width:32px;height:32px">✕</button></div><input type="hidden" id="editDebtHistoryDebtIndex"><input type="hidden" id="editDebtHistoryIndex"><div class="form-group"><label>Jumlah Cicilan</label><input id="editDebtHistoryAmount"></div><div class="form-group"><label>Status</label><div class="custom-select-box" id="btnEditDebtHistoryStatus"><span id="editDebtHistoryStatusValue">cicil</span></div></div><div style="display:flex;gap:8px;margin-top:10px"><button id="btnDeleteDebtHistoryItem" class="bank-btn secondary" style="flex:1">Hapus</button><button id="btnSaveDebtHistoryItem" class="bank-btn" style="flex:1">Simpan</button></div></div></div>
 
 <div id="modalSelectType" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:90;align-items:flex-end;justify-content:center"><div class="bank-card" style="width:100%;max-width:460px;border-radius:20px 20px 0 0"><button data-value="in" style="width:100%;padding:14px;border-radius:12px;border:1px solid var(--border);background:var(--card);font-weight:700">Pemasukan</button><button data-value="out" style="width:100%;padding:14px;border-radius:12px;border:1px solid var(--border);background:var(--card);font-weight:700;margin-top:8px">Pengeluaran</button><button data-value="refund" style="width:100%;padding:14px;border-radius:12px;border:1px solid var(--border);background:var(--card);font-weight:700;margin-top:8px">Refund</button></div></div>
 <div id="modalSelectMethod" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:90;align-items:flex-end;justify-content:center"><div class="bank-card" style="width:100%;max-width:460px;border-radius:20px 20px 0 0"><button data-value="CASH" style="width:100%;padding:14px;border-radius:12px;border:1px solid var(--border);background:var(--card);font-weight:700">CASH</button><button data-value="TRANSFER" style="width:100%;padding:14px;border-radius:12px;border:1px solid var(--border);background:var(--card);font-weight:700;margin-top:8px">BANK / QRIS</button><button data-value="DUAL" style="width:100%;padding:14px;border-radius:12px;border:1px solid var(--border);background:var(--card);font-weight:700;margin-top:8px">SPLIT CASH+BANK</button></div></div>
@@ -7249,4 +7249,807 @@ html.ios-device.pin-active .debt-pin-overlay{
   box-shadow: 0 120px 0 120px #061A3A !important;
 }
 </style>
+
+<style id="venus-debt-fullpage-v202">
+/* ===== v202: DEBT TRACKER FULL HALAMAN ===== */
+/* Sebelumnya: bottom-sheet (card 86vh, radius atas, belakang blur + app utama ngintip). */
+/* Sekarang: halaman penuh, background solid var(--bg), app utama tidak keliatan lagi. */
+/* Scope HANYA #debtModalOverlay + #viewDebtModal + #editDebtModal + #editDebtHistoryModal. */
+/* Personal / Music TIDAK disentuh - mereka tetap bottom-sheet seperti semula. */
+
+/* 1. LIST Debt Tracker - full halaman */
+#debtModalOverlay{
+  background: var(--bg) !important;
+  background-color: var(--bg) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  align-items: stretch !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+#debtModalOverlay .personal-modal-card{
+  width: 100% !important;
+  max-width: 480px !important;
+  max-height: none !important;
+  height: 100dvh !important;
+  height: 100svh !important;
+  min-height: 100dvh !important;
+  border-radius: 0 !important;
+  box-sizing: border-box !important;
+  padding: calc(env(safe-area-inset-top, 44px) + 10px) 18px calc(env(safe-area-inset-bottom, 34px) + 18px) 18px !important;
+  background: var(--bg) !important;
+  background-color: var(--bg) !important;
+  overflow-y: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+#debtModalOverlay .personal-modal-card .modal-header{
+  background: var(--bg) !important;
+  background-color: var(--bg) !important;
+}
+#debtModalOverlay #debtListContainer{ flex: 1 1 auto !important; }
+#debtModalOverlay #btnAddDebtModal{
+  position: sticky !important;
+  bottom: 0 !important;
+  margin-top: 14px !important;
+  z-index: 2 !important;
+}
+
+/* 2. DETAIL BAYAR (cicil/lunas) + TAMBAH/EDIT + EDIT RIWAYAT - juga full halaman, biar konsisten. */
+/* Sebelumnya: kartu kecil di tengah + belakang dim gelap. Sekarang: halaman penuh kayak list-nya. */
+#viewDebtModal, #editDebtModal, #editDebtHistoryModal{
+  background: var(--bg) !important;
+  background-color: var(--bg) !important;
+  padding: 0 !important;
+  align-items: stretch !important;
+  justify-content: center !important;
+}
+#viewDebtModal > .bank-card, #editDebtModal > .bank-card, #editDebtHistoryModal > .bank-card{
+  width: 100% !important;
+  max-width: 480px !important;
+  max-height: none !important;
+  height: 100dvh !important;
+  height: 100svh !important;
+  border-radius: 0 !important;
+  box-sizing: border-box !important;
+  padding: calc(env(safe-area-inset-top, 44px) + 14px) 18px calc(env(safe-area-inset-bottom, 34px) + 18px) 18px !important;
+  background: var(--bg) !important;
+  background-color: var(--bg) !important;
+  overflow-y: auto !important;
+  box-shadow: none !important;
+  margin: 0 auto !important;
+}
+</style>
+
+<!-- POPUP SUKSES HUTANG v202 - Desain SAMA PERSIS kayak #venusSuccessPopup (transaksi utama), isinya versi hutang -->
+<div id="venusDebtSuccessPopup" style="display:none;position:fixed;inset:0;background:rgba(7,11,21,0.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);z-index:10001;align-items:center;justify-content:center;padding:20px">
+  <div style="background:white;width:100%;max-width:320px;border-radius:28px;overflow:hidden;text-align:center;animation:venusPop 0.45s cubic-bezier(0.34,1.56,0.64,1) both;box-shadow:0 24px 60px rgba(0,0,0,0.35)">
+    <div style="background:linear-gradient(135deg,#0A4DA3 0%,#1A6CFF 100%);padding:22px 20px 28px;color:white;position:relative">
+      <div style="width:64px;height:64px;margin:0 auto;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;animation:venusPulse 1.2s ease-out infinite">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5" style="stroke-dasharray:40;animation:venusCheck 0.6s ease forwards"/></svg>
+      </div>
+      <div style="font-weight:900;font-size:17px;margin-top:14px">Pembayaran Berhasil!</div>
+      <div style="font-size:11px;opacity:0.85;margin-top:3px">Tersimpan di Cloud</div>
+    </div>
+    <div style="padding:18px 20px 20px">
+      <div id="venusDebtSuccessAmount" style="font-size:22px;font-weight:900;color:#EF4444;letter-spacing:-0.5px;line-height:1.2">Rp 0</div>
+      <div id="venusDebtSuccessDesc" style="font-size:12px;color:#64748B;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">-</div>
+      <div style="background:#F8FAFC;border-radius:16px;padding:12px 14px;margin-top:14px;text-align:left;display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:#94A3B8">Status</span><span id="venusDebtSuccessStatus" style="font-weight:800;color:#0F172A">Cicilan</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:#94A3B8">Sisa</span><span id="venusDebtSuccessRemaining" style="font-weight:800;color:#0F172A">Rp 0</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:#94A3B8">Tanggal</span><span id="venusDebtSuccessDate" style="font-weight:800;color:#0F172A">-</span></div>
+      </div>
+      <button onclick="document.getElementById('venusDebtSuccessPopup').style.display='none'" style="width:100%;height:50px;margin-top:16px;background:linear-gradient(135deg,#0A4DA3,#1A6CFF);color:white;border:none;border-radius:14px;font-weight:800;font-size:14px">Selesai</button>
+    </div>
+  </div>
+</div>
+
+<script id="venus-debt-payment-v202">
+/* ===== v202: SIMPAN CICILAN / LUNAS - Loading 3 detik + Pop-up Selesai + Sound, SAMA kayak transaksi utama ===== */
+/* Alur utama (v117+v125) yang disamain: showVenusLoading(detail) 3 detik -> save -> showVenusSuccess + playVenusSuccessSound(). */
+/* Di sini: showVenusLoading(detail hutang) 3 detik -> save (LOGIKA LAMA PERSIS, tidak diubah) -> #venusDebtSuccessPopup + playVenusSuccessSound() yang SAMA. */
+/* HANYA #btnSaveDebtPayment (Simpan di Detail Hutang) yang diubah. Tambah Hutang / Edit / Hapus TIDAK diubah. */
+(function(){
+  function init(){
+    var btn = document.getElementById('btnSaveDebtPayment');
+    if(!btn) return;
+    if(btn.dataset.venusDebtV202) return;
+    /* Cabut handler lama (yang langsung save tanpa loading) pakai clone - teknik yang sama dipakai Ganti PIN di file ini. */
+    /* Harus di DOMContentLoaded (setelah handler lama terpasang), biar handler lama ikut kehapus dan tidak double-save. */
+    var fresh = btn.cloneNode(true);
+    fresh.dataset.venusDebtV202 = '1';
+    if(btn.parentNode) btn.parentNode.replaceChild(fresh, btn);
+    btn = fresh;
+    var saving = false;
+    btn.addEventListener('click', function(){
+      if(saving) return; /* cegah double-tap saat loading jalan, sama kayak form transaksi utama */
+      if(typeof currentViewDebtIndex === 'undefined' || currentViewDebtIndex === null) return;
+      var amount = parseFloat((document.getElementById('viewDebtPayInput')?.value || '').replace(/\./g,'') || '0') || 0;
+      var statusRaw = (document.getElementById('paymentStatusValue')?.textContent || 'cicil');
+      var status = String(statusRaw).trim().toLowerCase();
+      if(amount <= 0){ alert('Jumlah tidak valid'); return; }
+      var debts0 = (typeof getStoredDebts === 'function') ? getStoredDebts() : [];
+      var debt0 = debts0[currentViewDebtIndex];
+      if(!debt0) return;
+      var isLunas = (status === 'lunas');
+      /* Judul loading sementara jadi "Menyimpan Pembayaran", balik lagi ke "Menyimpan Transaksi" setelah selesai. */
+      var loadingOverlay = document.getElementById('venusLoadingOverlay');
+      var loadingTitle = null;
+      if(loadingOverlay){
+        var divs = loadingOverlay.querySelectorAll('div');
+        for(var i = 0; i < divs.length; i++){ if(divs[i].textContent.trim() === 'Menyimpan Transaksi'){ loadingTitle = divs[i]; break; } }
+        if(loadingTitle) loadingTitle.textContent = 'Menyimpan Pembayaran';
+      }
+      var detail = (debt0.name || 'Hutang') + ' \u2022 ' + (isLunas ? 'Lunas' : 'Cicilan') + ' Rp ' + amount.toLocaleString('id-ID');
+      saving = true;
+      btn.disabled = true;
+      var debtPop = document.getElementById('venusDebtSuccessPopup');
+      if(debtPop) debtPop.style.display = 'none';
+      if(typeof showVenusLoading === 'function') showVenusLoading(detail);
+      setTimeout(function(){
+        try{
+          /* ===== LOGIKA SIMPAN LAMA - PERSIS, tidak diubah ===== */
+          var debts = getStoredDebts();
+          var debt = debts[currentViewDebtIndex];
+          if(!debt) return;
+          debt.paid = (debt.paid || 0) + amount;
+          if(!debt.history) debt.history = [];
+          var now = new Date();
+          var timeStr = String(now.getDate()).padStart(2,'0') + '/' + String(now.getMonth()+1).padStart(2,'0') + '/' + now.getFullYear() + ' ' + String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0');
+          debt.history.push({amount: amount, status: status, timestamp: timeStr});
+          if(status === 'lunas'){ debt.paid = debt.amount; }
+          saveDebts(debts);
+          renderDebts();
+          openViewDebtModal(currentViewDebtIndex); /* ini juga reset input Bayar + status balik ke cicil, seperti semula */
+          /* ===== Isi pop-up sukses hutang ===== */
+          var remaining = Math.max(0, debt.amount - (debt.paid || 0));
+          var amountEl = document.getElementById('venusDebtSuccessAmount');
+          if(amountEl){ amountEl.textContent = '- Rp ' + amount.toLocaleString('id-ID'); amountEl.style.color = '#EF4444'; }
+          var descEl = document.getElementById('venusDebtSuccessDesc');
+          if(descEl) descEl.textContent = debt.name || 'Pembayaran hutang tersimpan';
+          var statusEl = document.getElementById('venusDebtSuccessStatus');
+          if(statusEl) statusEl.textContent = isLunas ? 'Lunas' : 'Cicilan';
+          var remainEl = document.getElementById('venusDebtSuccessRemaining');
+          if(remainEl) remainEl.textContent = 'Rp ' + remaining.toLocaleString('id-ID');
+          var dateEl = document.getElementById('venusDebtSuccessDate');
+          if(dateEl) dateEl.textContent = timeStr + ' WIB';
+        }catch(e){}
+        saving = false;
+        btn.disabled = false;
+        if(loadingTitle) loadingTitle.textContent = 'Menyimpan Transaksi';
+        /* Sembunyikan loading dulu, baru pop-up + sound (tidak numpuk) - sama kayak alur utama. */
+        if(typeof hideVenusLoading === 'function') hideVenusLoading();
+        var pop = document.getElementById('venusDebtSuccessPopup');
+        if(pop) pop.style.display = 'flex';
+        /* Sound SAMA kayak transaksi utama: playVenusSuccessSound() (chime 659Hz + 880Hz + getar). */
+        try{
+          if(typeof playVenusSuccessSound === 'function') playVenusSuccessSound();
+          else if(typeof playSuccessChimeSound === 'function') playSuccessChimeSound();
+        }catch(e){}
+      }, 3000);
+    });
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+
+<style id="venus-debt-group-v203">
+/* ===== v203: (1) TOTAL/SISA HUTANG BERWARNA (2) GROUP PER PEMBERI HUTANG (3) PERSONAL DATA FULL HALAMAN ===== */
+/* WARNA: TOTAL = biru Venus #0A4DA3. SISA = merah #EF4444 kalau masih ada sisa, hijau #16A34A kalau sudah LUNAS (0). */
+/* Warna SISA diatur JS (inline style) sesuai sisa, jadi di CSS ini TIDAK pakai !important untuk warna nominal - biar JS bisa ganti merah/hijau. */
+/* GROUP: hanya tampilan. Data TIDAK digabung/dijumlah paksa - tiap pinjaman + riwayatnya tetap utuh, yang digabung cuma tampilannya per nama. */
+/* PERSONAL: full halaman kayak Debt Tracker v202. MUSIC tidak disentuh. */
+
+/* --- Warna nominal Debt Tracker (fallback sebelum JS jalan) --- */
+#totalDebtAmount{ color:#0A4DA3; }
+#remainingDebtAmount{ color:#EF4444; }
+#debtGroupTotal{ color:#0A4DA3; }
+#debtGroupRemaining{ color:#EF4444; }
+#viewDebtTotal{ color:#0A4DA3; }
+
+/* --- Modal detail 1 PEMBERI HUTANG (group) - full halaman, z 84 (di bawah Detail Bayar z 85 / Edit z 86) --- */
+#debtGroupModal{
+  background: var(--bg) !important;
+  background-color: var(--bg) !important;
+  padding: 0 !important;
+  align-items: stretch !important;
+  justify-content: center !important;
+}
+#debtGroupModal > .bank-card{
+  width: 100% !important;
+  max-width: 480px !important;
+  max-height: none !important;
+  height: 100dvh !important;
+  height: 100svh !important;
+  border-radius: 0 !important;
+  box-sizing: border-box !important;
+  padding: calc(env(safe-area-inset-top, 44px) + 14px) 18px calc(env(safe-area-inset-bottom, 34px) + 18px) 18px !important;
+  background: var(--bg) !important;
+  background-color: var(--bg) !important;
+  overflow-y: auto !important;
+  box-shadow: none !important;
+  margin: 0 auto !important;
+}
+
+/* --- PERSONAL DATA full halaman --- */
+#personalModalOverlay{
+  background: var(--bg) !important;
+  background-color: var(--bg) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  align-items: stretch !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+#personalModalOverlay .personal-modal-card{
+  width: 100% !important;
+  max-width: 480px !important;
+  max-height: none !important;
+  height: 100dvh !important;
+  height: 100svh !important;
+  min-height: 100dvh !important;
+  border-radius: 0 !important;
+  box-sizing: border-box !important;
+  padding: calc(env(safe-area-inset-top, 44px) + 10px) 18px calc(env(safe-area-inset-bottom, 34px) + 18px) 18px !important;
+  background: var(--bg) !important;
+  background-color: var(--bg) !important;
+  overflow-y: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+#personalModalOverlay .personal-modal-card .modal-header{
+  background: var(--bg) !important;
+  background-color: var(--bg) !important;
+}
+#personalModalOverlay #mainPersonalListContainer{ flex: 1 1 auto !important; }
+#personalModalOverlay #btnAddAccountModal{
+  position: sticky !important;
+  bottom: 0 !important;
+  margin-top: 10px !important;
+  z-index: 2 !important;
+}
+/* Sub-modal Personal (Tambah/Edit Akun, Semua History, Edit History) juga full halaman biar konsisten. */
+/* Modal PIN Hapus Akun (#deleteAccountPinModal) TIDAK diubah - tetap pop-up tengah. */
+#subAccountModal, #allHistoryModal, #editHistoryItemModal{
+  background: var(--bg) !important;
+  background-color: var(--bg) !important;
+  padding: 0 !important;
+  align-items: stretch !important;
+  justify-content: center !important;
+}
+#subAccountModal > .bank-card, #allHistoryModal > .bank-card, #editHistoryItemModal > .bank-card{
+  width: 100% !important;
+  max-width: 480px !important;
+  max-height: none !important;
+  height: 100dvh !important;
+  height: 100svh !important;
+  border-radius: 0 !important;
+  box-sizing: border-box !important;
+  padding: calc(env(safe-area-inset-top, 44px) + 14px) 18px calc(env(safe-area-inset-bottom, 34px) + 18px) 18px !important;
+  background: var(--bg) !important;
+  background-color: var(--bg) !important;
+  overflow-y: auto !important;
+  box-shadow: none !important;
+  margin: 0 auto !important;
+}
+</style>
+
+<!-- DETAIL 1 PEMBERI HUTANG (GROUP) v203 - full halaman -->
+<div id="debtGroupModal" style="display:none;position:fixed;inset:0;background:var(--bg);z-index:84;align-items:stretch;justify-content:center;padding:0">
+  <div class="bank-card" style="width:100%;max-width:480px;height:100dvh;overflow-y:auto;padding:18px;background:var(--bg);border-radius:0;margin:0 auto;box-sizing:border-box">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><b id="debtGroupName" style="font-size:16px">Pemberi Hutang</b><button id="closeDebtGroupModalBtn" class="bank-btn secondary" style="width:32px;height:32px">✕</button></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+      <div class="card-sub-bank"><h4>TOTAL</h4><p id="debtGroupTotal" style="color:#0A4DA3">Rp 0</p></div>
+      <div class="card-sub-bank"><h4>SISA</h4><p id="debtGroupRemaining" style="color:#EF4444">Rp 0</p></div>
+    </div>
+    <div id="debtGroupItemsContainer" style="display:flex;flex-direction:column;gap:8px"></div>
+    <button id="btnAddDebtToGroup" class="bank-btn" style="width:100%;margin-top:10px">+ Tambah Hutang</button>
+    <button id="btnDeleteDebtGroup" class="bank-btn secondary" style="width:100%;margin-top:8px;color:var(--danger);display:none">Hapus</button>
+    <div id="debtGroupDeleteHint" style="font-size:11px;color:var(--text-2);text-align:center;margin-top:8px;line-height:1.5">Hapus nama baru bisa setelah semua hutang orang ini LUNAS.</div>
+  </div>
+</div>
+
+<!-- PIN KONFIRMASI HAPUS HUTANG v203 - tampilan SAMA kayak PIN Debt Tracker (gradient biru + pin-card putih) -->
+<div class="debt-pin-overlay" id="venusDebtDeletePinOverlay">
+  <div class="pin-card">
+    <div class="pin-icon-box"><svg class="ico" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
+    <div class="pin-title" id="venusDebtDeletePinTitle">HAPUS HUTANG</div>
+    <div class="pin-subtitle" id="venusDebtDeletePinSubtitle">Masukkan PIN akses untuk konfirmasi hapus.</div>
+    <div class="pin-inputs-container" id="venusDebtDeletePinInputsContainer"><div class="pin-box"></div><div class="pin-box"></div><div class="pin-box"></div><div class="pin-box"></div><div class="pin-box"></div><div class="pin-box"></div></div>
+    <div class="pin-error-msg" id="venusDebtDeletePinErrorMsg"></div>
+    <div class="on-screen-keypad">
+      <button type="button" class="keypad-btn" onclick="venusPressDebtDeletePinKey('1')">1</button><button type="button" class="keypad-btn" onclick="venusPressDebtDeletePinKey('2')">2</button><button type="button" class="keypad-btn" onclick="venusPressDebtDeletePinKey('3')">3</button>
+      <button type="button" class="keypad-btn" onclick="venusPressDebtDeletePinKey('4')">4</button><button type="button" class="keypad-btn" onclick="venusPressDebtDeletePinKey('5')">5</button><button type="button" class="keypad-btn" onclick="venusPressDebtDeletePinKey('6')">6</button>
+      <button type="button" class="keypad-btn" onclick="venusPressDebtDeletePinKey('7')">7</button><button type="button" class="keypad-btn" onclick="venusPressDebtDeletePinKey('8')">8</button><button type="button" class="keypad-btn" onclick="venusPressDebtDeletePinKey('9')">9</button>
+      <button type="button" class="keypad-btn action-btn" onclick="venusClearDebtDeletePin()">C</button><button type="button" class="keypad-btn" onclick="venusPressDebtDeletePinKey('0')">0</button><button type="button" class="keypad-btn action-btn" onclick="venusDeleteDebtDeletePin()">⌫</button>
+    </div>
+    <button id="cancelVenusDebtDeletePinBtn" class="bank-btn secondary" style="width:100%;margin-top:10px">Batal</button>
+  </div>
+</div>
+
+<script id="venus-debt-group-v203">
+/* ===== v203: GROUP PER PEMBERI HUTANG + WARNA TOTAL/SISA + HAPUS PAKAI PIN AKSES ===== */
+/* 1. GROUP: nama sama (tidak peduli besar/kecil huruf, misal "teh ati" = "Teh Ati" = "TEH ATI") jadi 1 kartu. */
+/*    Di dalamnya: TOTAL + SISA gabungan, daftar tiap pinjaman, tombol "+ Tambah Hutang dengan [nama]". */
+/*    Data TIDAK digabung paksa - tiap pinjaman + riwayatnya tetap utuh, yang digabung cuma tampilannya. */
+/* 2. WARNA: TOTAL biru #0A4DA3. SISA merah #EF4444 kalau masih ada sisa, hijau #16A34A kalau sudah 0 / LUNAS. */
+/* 3. HAPUS: Hapus NAMA (semua hutang orang itu) HANYA kalau sudah LUNAS + PIN akses. Hapus 1 HUTANG (dari detail) pakai PIN akses (biar salah input bisa dibenerin). */
+/*    Tombol Hapus di Detail / Edit selama ini belum ada handler-nya (mati) - di v203 dihidupin pakai PIN. */
+/* 4. PERSONAL DATA full halaman diatur CSS v203 di atas. Logika Personal TIDAK diubah. */
+(function(){
+  var COL_TOTAL = '#0A4DA3';
+  var COL_SISA = '#EF4444';
+  var COL_LUNAS = '#16A34A';
+  var currentGroupKey = null;
+  var pendingDelete = null;
+  var deletePinInput = '';
+
+  function esc(s){ return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+  function groupKeyOf(name){ return String(name || '').trim().toLowerCase(); }
+  function money(n){ try{ return formatRupiah(n); }catch(e){ return 'Rp ' + Number(n || 0).toLocaleString('id-ID'); } }
+  function sisaColor(rem){ return rem <= 0 ? COL_LUNAS : COL_SISA; }
+
+  function getGroups(){
+    var debts = (typeof getStoredDebts === 'function') ? getStoredDebts() : [];
+    var map = {};
+    var order = [];
+    debts.forEach(function(d, idx){
+      var k = groupKeyOf(d.name);
+      if(!map[k]){
+        map[k] = {key: k, displayName: String(d.name || '').trim() || 'Tanpa Nama', indices: [], total: 0, paid: 0, remaining: 0, count: 0};
+        order.push(map[k]);
+      }
+      var g = map[k];
+      g.indices.push(idx);
+      g.total += (d.amount || 0);
+      g.paid += (d.paid || 0);
+      g.remaining += Math.max(0, (d.amount || 0) - (d.paid || 0));
+      g.count++;
+    });
+    order.forEach(function(g){ g.allLunas = g.remaining <= 0; });
+    order.sort(function(a, b){ return Math.max.apply(null, b.indices) - Math.max.apply(null, a.indices); });
+    return order;
+  }
+  function findGroup(key){
+    var gs = getGroups();
+    for(var i = 0; i < gs.length; i++){ if(gs[i].key === key) return gs[i]; }
+    return null;
+  }
+
+  /* --- Render isi modal group (dipanggil tiap renderDebts, jadi selalu fresh abis bayar / tambah / hapus) --- */
+  function renderGroupModal(){
+    var modal = document.getElementById('debtGroupModal');
+    if(!modal || modal.style.display !== 'flex' || !currentGroupKey) return;
+    var g = findGroup(currentGroupKey);
+    if(!g){ modal.style.display = 'none'; currentGroupKey = null; return; }
+    var nameEl = document.getElementById('debtGroupName');
+    if(nameEl) nameEl.textContent = g.displayName;
+    var totEl = document.getElementById('debtGroupTotal');
+    if(totEl){ totEl.textContent = money(g.total); totEl.style.color = COL_TOTAL; }
+    var remEl = document.getElementById('debtGroupRemaining');
+    if(remEl){ remEl.textContent = money(g.remaining); remEl.style.color = sisaColor(g.remaining); }
+    var list = document.getElementById('debtGroupItemsContainer');
+    if(list){
+      list.innerHTML = '';
+      var debts = getStoredDebts();
+      g.indices.slice().reverse().forEach(function(origIdx){
+        var d = debts[origIdx];
+        if(!d) return;
+        var paid = d.paid || 0;
+        var sisa = Math.max(0, (d.amount || 0) - paid);
+        var lunas = sisa <= 0;
+        var itemNum = g.indices.indexOf(origIdx) + 1;
+        var div = document.createElement('div');
+        div.className = 'account-title-card';
+        div.style.cssText = 'flex-direction:column;align-items:stretch;gap:6px;cursor:pointer;';
+        div.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px"><div style="display:flex;align-items:center;gap:8px"><span class="account-title-name">Hutang ' + itemNum + '</span>' + (lunas ? '<span class="debt-paid-badge">LUNAS</span>' : '') + '</div><span class="account-title-arrow">›</span></div>'
+          + '<div style="display:flex;justify-content:space-between;gap:8px;font-size:11px"><span style="color:var(--text-2)">Total <b style="color:' + COL_TOTAL + '">' + esc(money(d.amount)) + '</b></span><span style="color:var(--text-2)">Sisa <b style="color:' + sisaColor(sisa) + '">' + esc(money(sisa)) + '</b></span></div>'
+          + '<div style="font-size:10px;color:var(--text-3)">' + ((d.history || []).length) + ' pembayaran • Tap untuk bayar / lihat riwayat</div>';
+        (function(idx){ div.addEventListener('click', function(){ if(typeof openViewDebtModal === 'function') openViewDebtModal(idx); }); })(origIdx);
+        list.appendChild(div);
+      });
+    }
+    var addBtn = document.getElementById('btnAddDebtToGroup');
+    if(addBtn) addBtn.textContent = '+ Tambah Hutang dengan ' + g.displayName;
+    var delBtn = document.getElementById('btnDeleteDebtGroup');
+    if(delBtn){ delBtn.textContent = 'Hapus ' + g.displayName; delBtn.style.display = g.allLunas ? 'block' : 'none'; }
+    var hint = document.getElementById('debtGroupDeleteHint');
+    if(hint) hint.textContent = g.allLunas ? 'Sudah LUNAS. Hapus nama ini pakai PIN akses untuk konfirmasi.' : 'Hapus nama baru bisa setelah semua hutang orang ini LUNAS.';
+  }
+
+  function openGroupModal(key){
+    currentGroupKey = key;
+    var modal = document.getElementById('debtGroupModal');
+    if(modal) modal.style.display = 'flex';
+    renderGroupModal();
+  }
+  window.openVenusDebtGroupModal = openGroupModal;
+
+  /* --- PIN konfirmasi hapus --- */
+  function closeDeletePinUI(){
+    deletePinInput = '';
+    if(typeof updatePinDisplay === 'function') updatePinDisplay('venusDebtDeletePinInputsContainer', '');
+    var err = document.getElementById('venusDebtDeletePinErrorMsg');
+    if(err) err.textContent = '';
+    var ov = document.getElementById('venusDebtDeletePinOverlay');
+    if(ov) ov.classList.remove('active');
+  }
+  function showDeletePin(pending, title, subtitle){
+    pendingDelete = pending;
+    deletePinInput = '';
+    var tEl = document.getElementById('venusDebtDeletePinTitle');
+    if(tEl) tEl.textContent = title;
+    var sEl = document.getElementById('venusDebtDeletePinSubtitle');
+    if(sEl) sEl.textContent = subtitle;
+    if(typeof updatePinDisplay === 'function') updatePinDisplay('venusDebtDeletePinInputsContainer', '');
+    var err = document.getElementById('venusDebtDeletePinErrorMsg');
+    if(err) err.textContent = '';
+    var ov = document.getElementById('venusDebtDeletePinOverlay');
+    if(ov) ov.classList.add('active');
+  }
+  function doPendingDelete(){
+    var pd = pendingDelete;
+    pendingDelete = null;
+    if(!pd) return;
+    try{
+      var debts = getStoredDebts();
+      if(pd.type === 'group'){
+        var kept = debts.filter(function(d){ return groupKeyOf(d.name) !== pd.key; });
+        saveDebts(kept);
+        if(typeof renderDebts === 'function') renderDebts();
+        var gm = document.getElementById('debtGroupModal');
+        if(gm) gm.style.display = 'none';
+        currentGroupKey = null;
+        if(typeof showVenusCustomAlert === 'function') showVenusCustomAlert('Berhasil', 'Nama ' + pd.name + ' berhasil dihapus.');
+      } else if(pd.type === 'item'){
+        if(debts[pd.index]){ debts.splice(pd.index, 1); saveDebts(debts); if(typeof renderDebts === 'function') renderDebts(); }
+        var vm = document.getElementById('viewDebtModal');
+        if(vm) vm.style.display = 'none';
+        var em = document.getElementById('editDebtModal');
+        if(em) em.style.display = 'none';
+        if(typeof showVenusCustomAlert === 'function') showVenusCustomAlert('Berhasil', 'Hutang ' + pd.name + ' berhasil dihapus.');
+      }
+      try{ if(typeof playPinSuccessSound === 'function') playPinSuccessSound(); }catch(e){}
+    }catch(e){}
+  }
+  function pressDeletePin(d){
+    if(deletePinInput.length >= 6) return;
+    deletePinInput += d;
+    if(typeof updatePinDisplay === 'function') updatePinDisplay('venusDebtDeletePinInputsContainer', deletePinInput);
+    if(deletePinInput.length === 6){
+      if(deletePinInput === getPinCode()){
+        closeDeletePinUI();
+        doPendingDelete();
+      } else {
+        var err = document.getElementById('venusDebtDeletePinErrorMsg');
+        if(err) err.textContent = 'PIN Salah!';
+        setTimeout(function(){
+          deletePinInput = '';
+          if(typeof updatePinDisplay === 'function') updatePinDisplay('venusDebtDeletePinInputsContainer', '');
+          if(err) err.textContent = '';
+        }, 800);
+      }
+    }
+  }
+  /* Keypad pakai onclick inline di HTML, jadi fungsinya harus global. */
+  window.venusPressDebtDeletePinKey = pressDeletePin;
+  window.venusClearDebtDeletePin = function(){
+    deletePinInput = '';
+    if(typeof updatePinDisplay === 'function') updatePinDisplay('venusDebtDeletePinInputsContainer', '');
+  };
+  window.venusDeleteDebtDeletePin = function(){
+    deletePinInput = deletePinInput.slice(0, -1);
+    if(typeof updatePinDisplay === 'function') updatePinDisplay('venusDebtDeletePinInputsContainer', deletePinInput);
+  };
+
+  function init(){
+    /* 1. renderDebts diganti versi GROUP (list per pemberi hutang + warna TOTAL/SISA). */
+    /*    Dipasang di sini (DOMContentLoaded, setelah handler lama) biar semua pemanggil renderDebts */
+    /*    (PIN masuk, simpan bayar v202, simpan tambah, sync Cloud) otomatis pakai versi group. */
+    var _origRenderDebts = window.renderDebts;
+    window.renderDebts = function(){
+      var container = document.getElementById('debtListContainer');
+      var totalEl = document.getElementById('totalDebtAmount');
+      var remainEl = document.getElementById('remainingDebtAmount');
+      if(!container){ if(typeof _origRenderDebts === 'function') _origRenderDebts(); return; }
+      var debts = getStoredDebts();
+      var total = 0, remain = 0;
+      debts.forEach(function(d){ total += (d.amount || 0); remain += Math.max(0, (d.amount || 0) - (d.paid || 0)); });
+      container.innerHTML = '';
+      var groups = getGroups();
+      if(groups.length === 0){
+        container.innerHTML = '<div style="text-align:center;color:var(--text-2);font-size:12px;padding:12px">Belum ada hutang</div>';
+      } else {
+        groups.forEach(function(g){
+          var div = document.createElement('div');
+          div.className = 'account-title-card';
+          div.style.cssText = 'flex-direction:column;align-items:stretch;gap:8px;cursor:pointer;';
+          div.innerHTML = '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px"><div style="display:flex;align-items:center;gap:8px"><span class="account-title-name">' + esc(g.displayName) + '</span>' + (g.allLunas ? '<span class="debt-paid-badge">LUNAS</span>' : '') + '</div><span class="account-title-arrow">›</span></div>'
+            + '<div style="display:flex;justify-content:space-between;gap:8px;font-size:11px"><span style="color:var(--text-2)">Total <b style="color:' + COL_TOTAL + '">' + esc(money(g.total)) + '</b></span><span style="color:var(--text-2)">Sisa <b style="color:' + sisaColor(g.remaining) + '">' + esc(money(g.remaining)) + '</b></span></div>'
+            + '<div style="font-size:10px;color:var(--text-3)">' + g.count + ' hutang • Tap untuk detail</div>';
+          (function(k){ div.addEventListener('click', function(){ openGroupModal(k); }); })(g.key);
+          container.appendChild(div);
+        });
+      }
+      if(totalEl){ totalEl.textContent = money(total); totalEl.style.color = COL_TOTAL; }
+      if(remainEl){ remainEl.textContent = money(remain); remainEl.style.color = sisaColor(remain); }
+      renderGroupModal();
+    };
+
+    /* 2. Detail Bayar per hutang: warnain Total/Sisa-nya juga (bungkus fungsi lama, logikanya tidak diubah). */
+    if(typeof window.openViewDebtModal === 'function'){
+      var _origOpenView = window.openViewDebtModal;
+      window.openViewDebtModal = function(idx){
+        if(typeof _origOpenView === 'function') _origOpenView(idx);
+        try{
+          var debts = getStoredDebts();
+          var d = debts[idx];
+          var tEl = document.getElementById('viewDebtTotal');
+          if(tEl) tEl.style.color = COL_TOTAL;
+          var rEl = document.getElementById('viewDebtRemaining');
+          if(rEl && d){ rEl.style.color = sisaColor(Math.max(0, (d.amount || 0) - (d.paid || 0))); }
+        }catch(e){}
+      };
+    }
+
+    /* 3. Tombol-tombol di modal group. */
+    var closeGroup = document.getElementById('closeDebtGroupModalBtn');
+    if(closeGroup) closeGroup.addEventListener('click', function(){
+      var m = document.getElementById('debtGroupModal');
+      if(m) m.style.display = 'none';
+      currentGroupKey = null;
+    });
+    var addToGroup = document.getElementById('btnAddDebtToGroup');
+    if(addToGroup) addToGroup.addEventListener('click', function(){
+      var g = currentGroupKey ? findGroup(currentGroupKey) : null;
+      if(!g) return;
+      var idxEl = document.getElementById('editDebtIndex');
+      if(idxEl) idxEl.value = '';
+      var titleEl = document.getElementById('editDebtModalTitle');
+      if(titleEl) titleEl.textContent = 'TAMBAH HUTANG';
+      var nameEl = document.getElementById('editDebtNameInput');
+      if(nameEl) nameEl.value = g.displayName;
+      var amtEl = document.getElementById('editDebtAmountInput');
+      if(amtEl) amtEl.value = '';
+      var paidEl = document.getElementById('editDebtPaidInput');
+      if(paidEl) paidEl.value = '';
+      var em = document.getElementById('editDebtModal');
+      if(em) em.style.display = 'flex';
+    });
+    var delGroup = document.getElementById('btnDeleteDebtGroup');
+    if(delGroup) delGroup.addEventListener('click', function(){
+      var g = currentGroupKey ? findGroup(currentGroupKey) : null;
+      if(!g) return;
+      if(!g.allLunas) return;
+      showDeletePin(
+        {type: 'group', key: g.key, name: g.displayName},
+        'HAPUS PEMBERI HUTANG',
+        'Hapus semua hutang ' + g.displayName + '? Sudah LUNAS. Masukkan PIN akses untuk konfirmasi.'
+      );
+    });
+
+    /* 4. Tombol Hapus 1 hutang (di Detail + di Edit) - sebelumnya mati, sekarang hidup pakai PIN akses. */
+    /*    Sengaja TIDAK disyaratin LUNAS, biar salah input masih bisa dibenerin. Yang disyaratin LUNAS cuma Hapus NAMA. */
+    var delFromView = document.getElementById('btnDeleteDebtItemFromView');
+    if(delFromView) delFromView.addEventListener('click', function(){
+      if(typeof currentViewDebtIndex === 'undefined' || currentViewDebtIndex === null) return;
+      var debts = getStoredDebts();
+      var d = debts[currentViewDebtIndex];
+      if(!d) return;
+      showDeletePin(
+        {type: 'item', index: currentViewDebtIndex, name: d.name},
+        'HAPUS HUTANG',
+        'Hapus hutang ' + (d.name || '') + ' - ' + money(d.amount) + '? Masukkan PIN akses.'
+      );
+    });
+    var delFromEdit = document.getElementById('btnDeleteDebtItem');
+    if(delFromEdit) delFromEdit.addEventListener('click', function(){
+      var idxStr = document.getElementById('editDebtIndex') ? document.getElementById('editDebtIndex').value : '';
+      if(idxStr === '' || idxStr == null){ var em2 = document.getElementById('editDebtModal'); if(em2) em2.style.display = 'none'; return; }
+      var idx = parseInt(idxStr, 10);
+      var debts = getStoredDebts();
+      var d = debts[idx];
+      if(!d) return;
+      showDeletePin(
+        {type: 'item', index: idx, name: d.name},
+        'HAPUS HUTANG',
+        'Hapus hutang ' + (d.name || '') + ' - ' + money(d.amount) + '? Masukkan PIN akses.'
+      );
+    });
+
+    /* 5. Batal PIN hapus. */
+    var cancelPin = document.getElementById('cancelVenusDebtDeletePinBtn');
+    if(cancelPin) cancelPin.addEventListener('click', function(){ pendingDelete = null; closeDeletePinUI(); });
+
+    /* 6. Langsung render ulang biar grouping + warna kepake dari awal, tanpa nunggu ada perubahan data. */
+    if(typeof window.renderDebts === 'function') window.renderDebts();
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+
+<style id="venus-font-sync-v204">
+/* ===== v204: FONT Personal + Debt ngikutin Setting (Ukuran Font: Kecil / Sedang / Besar) ===== */
+/* Setting (#fontSizeSelect) nyimpen ke localStorage 'venus_font_size' + body[data-font-size]. */
+/* applyFontSize di Setting nge-zoom #mainAppContainer: Kecil = 1, Sedang = 1.10, Besar = 1.25. */
+/* Masalahnya: semua modal Personal + Debt itu DI LUAR #mainAppContainer, jadi nggak kena zoom - font-nya nggak berubah. */
+/* Fix: kasih zoom yang SAMA PERSIS ke semua overlay Personal + Debt, dikunci ke body[data-font-size]. */
+/* Jadi ganti Setting -> main app + Personal + Debt berubah bareng, otomatis, tanpa ubah layout / fungsi lain. */
+/* #venusConfirmModal + #modalSelectPaymentStatus ikut disertakan karena kepake di alur Debt/Personal */
+/* (konfirmasi Hapus Riwayat + pilih status CICIL/LUNAS) biar font-nya nggak jomplang. */
+body[data-font-size="small"] #personalModalOverlay,
+body[data-font-size="small"] #subAccountModal,
+body[data-font-size="small"] #allHistoryModal,
+body[data-font-size="small"] #editHistoryItemModal,
+body[data-font-size="small"] #deleteAccountPinModal,
+body[data-font-size="small"] #personalPinOverlay,
+body[data-font-size="small"] #debtModalOverlay,
+body[data-font-size="small"] #viewDebtModal,
+body[data-font-size="small"] #editDebtModal,
+body[data-font-size="small"] #editDebtHistoryModal,
+body[data-font-size="small"] #debtGroupModal,
+body[data-font-size="small"] #debtPinOverlay,
+body[data-font-size="small"] #venusDebtDeletePinOverlay,
+body[data-font-size="small"] #modalSelectPaymentStatus,
+body[data-font-size="small"] #venusDebtSuccessPopup,
+body[data-font-size="small"] #venusConfirmModal{ zoom: 1 !important; }
+body[data-font-size="medium"] #personalModalOverlay,
+body[data-font-size="medium"] #subAccountModal,
+body[data-font-size="medium"] #allHistoryModal,
+body[data-font-size="medium"] #editHistoryItemModal,
+body[data-font-size="medium"] #deleteAccountPinModal,
+body[data-font-size="medium"] #personalPinOverlay,
+body[data-font-size="medium"] #debtModalOverlay,
+body[data-font-size="medium"] #viewDebtModal,
+body[data-font-size="medium"] #editDebtModal,
+body[data-font-size="medium"] #editDebtHistoryModal,
+body[data-font-size="medium"] #debtGroupModal,
+body[data-font-size="medium"] #debtPinOverlay,
+body[data-font-size="medium"] #venusDebtDeletePinOverlay,
+body[data-font-size="medium"] #modalSelectPaymentStatus,
+body[data-font-size="medium"] #venusDebtSuccessPopup,
+body[data-font-size="medium"] #venusConfirmModal{ zoom: 1.10 !important; }
+body[data-font-size="large"] #personalModalOverlay,
+body[data-font-size="large"] #subAccountModal,
+body[data-font-size="large"] #allHistoryModal,
+body[data-font-size="large"] #editHistoryItemModal,
+body[data-font-size="large"] #deleteAccountPinModal,
+body[data-font-size="large"] #personalPinOverlay,
+body[data-font-size="large"] #debtModalOverlay,
+body[data-font-size="large"] #viewDebtModal,
+body[data-font-size="large"] #editDebtModal,
+body[data-font-size="large"] #editDebtHistoryModal,
+body[data-font-size="large"] #debtGroupModal,
+body[data-font-size="large"] #debtPinOverlay,
+body[data-font-size="large"] #venusDebtDeletePinOverlay,
+body[data-font-size="large"] #modalSelectPaymentStatus,
+body[data-font-size="large"] #venusDebtSuccessPopup,
+body[data-font-size="large"] #venusConfirmModal{ zoom: 1.25 !important; }
+</style>
+
+<script id="venus-debt-history-v204">
+/* ===== v204: RIWAYAT CICIL BISA DIHAPUS + ADA X + STATUS BISA DIGANTI ===== */
+/* Masalah di screenshot: modal Edit Riwayat (Jumlah Cicilan + Status + Hapus/Simpan) */
+/* - Tombol Hapus & Simpan belum ada handler-nya (mati, dipencet nggak ngapa-ngapain). */
+/* - Nggak ada tombol X buat batal / tutup tanpa simpan. */
+/* - Kotak Status (CICIL v) juga nggak ada handler-nya (dipencet nggak ngapa-ngapain). */
+/* Fix v204: X nutup tanpa simpan. Simpan ngubah jumlah + status + hitung ulang Sudah Dibayar. */
+/* Hapus nanya konfirmasi dulu (showVenusConfirm), baru hapus + hitung ulang Sudah Dibayar. */
+/* Status: tap kotaknya buat ganti CICIL <-> LUNAS. */
+/* Hitung ulang Sudah Dibayar: */
+/* - "Sudah Dibayar awal" (yang nggak ada riwayatnya, misal diisi di form Tambah Hutang) dipertahanin. */
+/*   Caranya: base = paid lama - jumlah semua riwayat lama. */
+/* - Kalau masih ada 1 aja riwayat berstatus LUNAS -> Sudah Dibayar = Total (sama kayak aturan Bayar v202). */
+/* - Kalau nggak ada yang LUNAS -> Sudah Dibayar = base + jumlah semua riwayat baru, dikunci 0..Total. */
+/* Jadi edit/hapus 1 riwayat nggak ngerusak total, dan nggak ngilangin bayaran awal yang tanpa riwayat. */
+(function(){
+  function parseAmt(str){ return parseFloat(String(str || '').replace(/\./g, '')) || 0; }
+  function readHistStatus(){
+    var btn = document.getElementById('btnEditDebtHistoryStatus');
+    if(!btn) return 'cicil';
+    var txt = (btn.textContent || '').replace('▼', '').trim().toLowerCase();
+    return (txt === 'lunas') ? 'lunas' : 'cicil';
+  }
+  function recalcPaid(debt, paidOld, sumOld){
+    var base = (paidOld || 0) - (sumOld || 0);
+    var sumNew = 0;
+    var hasLunas = false;
+    (debt.history || []).forEach(function(h){
+      sumNew += (h.amount || 0);
+      if(String(h.status || '').toLowerCase() === 'lunas') hasLunas = true;
+    });
+    var paid = hasLunas ? (debt.amount || 0) : (base + sumNew);
+    return Math.max(0, Math.min(debt.amount || 0, paid));
+  }
+  function closeHistModal(){
+    var m = document.getElementById('editDebtHistoryModal');
+    if(m) m.style.display = 'none';
+  }
+  function refreshAfterHistChange(debtIdx){
+    try{ if(typeof renderDebts === 'function') renderDebts(); }catch(e){}
+    try{ if(typeof openViewDebtModal === 'function') openViewDebtModal(debtIdx); }catch(e){}
+  }
+  function readHistIndices(){
+    var dEl = document.getElementById('editDebtHistoryDebtIndex');
+    var hEl = document.getElementById('editDebtHistoryIndex');
+    var debtIdx = dEl ? parseInt(dEl.value, 10) : NaN;
+    var histIdx = hEl ? parseInt(hEl.value, 10) : NaN;
+    return {debtIdx: debtIdx, histIdx: histIdx};
+  }
+  function init(){
+    /* 1. X - batal, tutup tanpa simpan. */
+    var closeBtn = document.getElementById('closeEditDebtHistoryModalBtn');
+    if(closeBtn) closeBtn.addEventListener('click', closeHistModal);
+
+    /* 2. Status - tap kotaknya buat ganti CICIL <-> LUNAS. */
+    var statusBtn = document.getElementById('btnEditDebtHistoryStatus');
+    if(statusBtn) statusBtn.addEventListener('click', function(){
+      var cur = readHistStatus();
+      var next = (cur === 'lunas') ? 'cicil' : 'lunas';
+      statusBtn.textContent = next.toUpperCase() + ' \u25BC';
+    });
+
+    /* 3. Simpan - ubah jumlah + status, hitung ulang Sudah Dibayar. */
+    var saveBtn = document.getElementById('btnSaveDebtHistoryItem');
+    if(saveBtn) saveBtn.addEventListener('click', function(){
+      var ids = readHistIndices();
+      if(isNaN(ids.debtIdx) || isNaN(ids.histIdx)) return;
+      var debts = getStoredDebts();
+      var debt = debts[ids.debtIdx];
+      if(!debt || !debt.history || !debt.history[ids.histIdx]) return;
+      var amtInput = document.getElementById('editDebtHistoryAmount');
+      var newAmount = parseAmt(amtInput ? amtInput.value : '');
+      if(newAmount <= 0){ alert('Jumlah tidak valid'); return; }
+      var newStatus = readHistStatus();
+      var paidOld = debt.paid || 0;
+      var sumOld = 0;
+      debt.history.forEach(function(h){ sumOld += (h.amount || 0); });
+      debt.history[ids.histIdx].amount = newAmount;
+      debt.history[ids.histIdx].status = newStatus;
+      debt.paid = recalcPaid(debt, paidOld, sumOld);
+      saveDebts(debts);
+      closeHistModal();
+      refreshAfterHistChange(ids.debtIdx);
+    });
+
+    /* 4. Hapus - konfirmasi dulu, baru hapus + hitung ulang Sudah Dibayar. */
+    var delBtn = document.getElementById('btnDeleteDebtHistoryItem');
+    if(delBtn) delBtn.addEventListener('click', async function(){
+      var ids = readHistIndices();
+      if(isNaN(ids.debtIdx) || isNaN(ids.histIdx)) return;
+      var debts = getStoredDebts();
+      var debt = debts[ids.debtIdx];
+      if(!debt || !debt.history || !debt.history[ids.histIdx]) return;
+      var item = debt.history[ids.histIdx];
+      var detail = '';
+      try{ detail = formatRupiah(item.amount) + ' \u2022 ' + (item.status || 'cicil'); }catch(e){ detail = ''; }
+      var ok = false;
+      try{
+        ok = await showVenusConfirm({
+          title: 'Hapus Riwayat?',
+          message: 'Riwayat cicilan ini akan dihapus. Sudah dibayar akan dihitung ulang.',
+          detail: detail,
+          confirmText: 'Hapus',
+          danger: true
+        });
+      }catch(e){ ok = confirm('Hapus riwayat ini?'); }
+      if(!ok) return;
+      var paidOld = debt.paid || 0;
+      var sumOld = 0;
+      debt.history.forEach(function(h){ sumOld += (h.amount || 0); });
+      debt.history.splice(ids.histIdx, 1);
+      debt.paid = recalcPaid(debt, paidOld, sumOld);
+      saveDebts(debts);
+      closeHistModal();
+      refreshAfterHistChange(ids.debtIdx);
+    });
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
 </body>
