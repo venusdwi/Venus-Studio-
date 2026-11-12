@@ -2250,7 +2250,7 @@ function formatRiwayatDateOnly(isoDate){
   <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:14vh;width:100%">
     <button type="button" class="tap-here-btn" id="btnTapHere">TAP HERE</button>
   </div>
-  </div><div style="font-size:10px;color:rgba(255,255,255,0.45);letter-spacing:3px;font-weight:700;text-align:center;line-height:1">SECURE VENUS STUDIO • v213</div></div>
+  </div><div style="font-size:10px;color:rgba(255,255,255,0.45);letter-spacing:3px;font-weight:700;text-align:center;line-height:1">SECURE VENUS STUDIO • v214</div></div>
 </div>
 <style>
 @keyframes dotPulse{0%,100%{opacity:0.3; transform:scale(1)}50%{opacity:1; transform:scale(1.3)}}
@@ -9159,6 +9159,150 @@ async function authenticateBiometric(opts){
         if(pinOverlay) pinOverlay.classList.remove('active','exiting');
         if(main) main.classList.remove('bio-enter');
       }, 500);
+      return true;
+    }
+  }catch(e){
+    hideBioPrePrompt();
+    console.log('Biometric auth error', e);
+    if(!silent){
+      var msg = (e && e.message) ? e.message : 'Batal';
+      if(e && e.name === 'NotAllowedError'){
+        msg = 'Biometrik dibatalkan. Pakai PIN aja kalau mau.';
+      }
+      showVenusCustomAlert('Biometrik Gagal', msg);
+    }
+    return false;
+  }
+  hideBioPrePrompt();
+  return false;
+}
+</script>
+
+<style id="venus-smooth-v214">
+/* ===== v214: DIALOG BIOMETRIK BISA DI-KETUK + TRANSISI FULL BERURUTAN ===== */
+/* (1) v213: dialog custom cuma pajangan (nggak bisa di-ketuk) + nunggu 400ms baru */
+/* manggil prompt sistem - kerasa "nggak berfungsi". Fix: card + tombol "Mulai Scan" */
+/* BISA DI-KETUK -> prompt sistem langsung muncul (tanpa nunggu). Kalau nggak di-ketuk, */
+/* tetep auto-muncul 400ms kemudian. */
+/* (2) v213: transisi PIN->Home masih overlap 150ms (PIN + Home keliatan bareng = */
+/* ghosting frame 8.18s). Fix: FULL berurutan - PIN fade-out 0.3s SAMPAI HABIS, baru */
+/* Home fade-in. Nol overlap, nol blank (PIN kelar pas Home mulai). */
+.pin-screen-overlay.exiting{transition:opacity .3s ease !important;filter:none !important}
+#mainAppContainer.bio-enter{transition:opacity .35s ease !important;transform:none !important}
+.venus-bio-pre-start{background:#0A4DA3;color:#fff;border:none;border-radius:999px;font-size:14px;font-weight:800;padding:12px 20px;width:100%;cursor:pointer;margin-bottom:8px}
+.venus-bio-pre-hint{font-size:11px;color:#94A3B8;margin-bottom:10px}
+.venus-bio-pre-card{cursor:pointer}
+</style>
+<script id="venus-smooth-js-v214">
+/* ===== v214: BIOMETRIK CUSTOM BISA DI-KETUK (REDEFINE authenticateBiometric) ===== */
+/* Dialog custom v213 cuma pajangan + nunggu 400ms -> kerasa nggak berfungsi. v214: */
+/* card + tombol "Mulai Scan" BISA DI-KETUK -> prompt sistem langsung muncul. Kalau */
+/* nggak di-ketuk, auto-muncul 400ms kemudian. Guard scanStarted cegah double-call. */
+/* Tombol Batal stopPropagation (biar nggak ikut nge-trigger scan). Transisi sukses */
+/* FULL berurutan: PIN fade-out 0.3s sampai habis, baru Home fade-in (nol overlap). */
+/* Opsi silent + pesan error v209-v213 dipertahanin semua. */
+function showBioPrePrompt(){
+  var old = document.getElementById('venusBioPrePrompt');
+  if(old) old.remove();
+  var el = document.createElement('div');
+  el.id = 'venusBioPrePrompt';
+  el.innerHTML = '<div class="venus-bio-pre-card">' +
+    '<div class="venus-bio-pre-icon">' +
+      '<svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#0A4DA3" stroke-width="1.8" stroke-linecap="round">' +
+        '<path d="M12 3c2.2 0 4 1.8 4 4 0 1.8-.8 3.4-1.6 4.9-.6 1.2-1.1 2.2-1.4 3.6"/>' +
+        '<path d="M12 3c1.1 0 2 .9 2 2 0 1.5-.6 2.8-1.2 4.1"/>' +
+        '<path d="M12 3v2c0 1.2-.5 2.3-1 3.4"/>' +
+        '<path d="M9.8 4.4A4 4 0 0 1 12 3"/>' +
+        '<path d="M7.9 6.8A6 6 0 0 1 9.8 4.4"/>' +
+        '<path d="M6.7 10a8 8 0 0 1 1.2-3.2"/>' +
+        '<path d="M6.2 13.5a10 10 0 0 1 .5-3.5"/>' +
+        '<path d="M6.5 17a12 12 0 0 1-.3-3.5"/>' +
+        '<path d="M8 21c-.6-1.2-1-2.5-1.2-4"/>' +
+        '<path d="M10.5 21c-.4-1.2-.6-2.5-.7-4"/>' +
+        '<path d="M13 21c-.2-1.2-.3-2.5-.3-4"/>' +
+        '<path d="M15.5 21c0-1.2.1-2.5.4-3.8"/>' +
+      '</svg>' +
+    '</div>' +
+    '<div class="venus-bio-pre-title">Verifikasi Biometrik</div>' +
+    '<div class="venus-bio-pre-sub">Tempel sidik jari kamu di sensor<br>untuk membuka VENUS STUDIO</div>' +
+    '<button type="button" class="venus-bio-pre-start" id="venusBioPreStart">Mulai Scan Sidik Jari</button>' +
+    '<div class="venus-bio-pre-hint">atau ketuk card ini &bull; scan otomatis dalam sekejap</div>' +
+    '<button type="button" class="venus-bio-pre-cancel" id="venusBioPreCancel">Batal</button>' +
+    '</div>';
+  document.body.appendChild(el);
+  return el;
+}
+function hideBioPrePrompt(){
+  var el = document.getElementById('venusBioPrePrompt');
+  if(el) el.remove();
+}
+async function authenticateBiometric(opts){
+  var silent = !!(opts && opts.silent);
+  try{
+    var credIdB64 = localStorage.getItem('venus_biometric_credential');
+    if(!credIdB64){
+      if(!silent) showVenusCustomAlert('Belum Daftar', 'Aktifkan dulu di Setting > Biometrik');
+      return false;
+    }
+    var supported = await isBiometricSupported();
+    if(!supported){
+      if(!silent) showVenusCustomAlert('Biometrik Tidak Didukung', biometricUnavailableMsg());
+      return false;
+    }
+    var preEl = showBioPrePrompt();
+    var scanStarted = false;
+    var cancelled = false;
+    var resolveWait = null;
+    var waitPromise = new Promise(function(res){ resolveWait = res; });
+    var timer = setTimeout(function(){ if(resolveWait) resolveWait('timeout'); }, 400);
+    function triggerScan(){
+      if(scanStarted) return;
+      scanStarted = true;
+      clearTimeout(timer);
+      if(resolveWait) resolveWait('tap');
+    }
+    function cancelScan(){
+      cancelled = true;
+      clearTimeout(timer);
+      if(resolveWait) resolveWait('cancel');
+    }
+    var card = preEl.querySelector('.venus-bio-pre-card');
+    if(card) card.addEventListener('click', triggerScan);
+    var startBtn = preEl.querySelector('#venusBioPreStart');
+    if(startBtn) startBtn.addEventListener('click', function(e){ e.stopPropagation(); triggerScan(); });
+    var cancelBtn = preEl.querySelector('#venusBioPreCancel');
+    if(cancelBtn) cancelBtn.addEventListener('click', function(e){ e.stopPropagation(); cancelScan(); });
+    await waitPromise;
+    if(cancelled){
+      hideBioPrePrompt();
+      return false;
+    }
+    var challenge = new Uint8Array(32); window.crypto.getRandomValues(challenge);
+    var allowCreds = [{id: base64url2buf(credIdB64), type:"public-key", transports:["internal"]}];
+    var publicKey = {challenge: challenge, allowCredentials: allowCreds, userVerification:"required", timeout:60000};
+    if(location.hostname) publicKey.rpId = location.hostname;
+    var assertion = await navigator.credentials.get({publicKey: publicKey});
+    hideBioPrePrompt();
+    if(assertion){
+      if(window.playPinSuccessSound) playPinSuccessSound();
+      var pinOverlay = document.getElementById('pinScreenOverlay');
+      var main = document.getElementById('mainAppContainer');
+      if(pinOverlay) pinOverlay.classList.add('exiting');
+      setTimeout(function(){
+        if(pinOverlay) pinOverlay.classList.remove('active','exiting');
+        if(main){
+          main.classList.add('bio-enter');
+          main.classList.add('active');
+        }
+        if(typeof updateUI === 'function'){ try{ updateUI(); }catch(e){} }
+        setTimeout(function(){
+          if(main) main.classList.remove('bio-enter');
+        }, 400);
+      }, 300);
+      setTimeout(function(){
+        if(pinOverlay) pinOverlay.classList.remove('active','exiting');
+        if(main) main.classList.remove('bio-enter');
+      }, 700);
       return true;
     }
   }catch(e){
