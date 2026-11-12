@@ -8796,4 +8796,98 @@ async function authenticateBiometric(opts){
   if(pinOverlay.classList.contains('active')) maybePrompt();
 })();
 </script>
+
+<style id="venus-smooth-v210">
+/* ===== v210: ENTRY + TRANSISI SMOOTH (Android) ===== */
+/* (1) Biru polos di bawah splash pas masuk: cat awal body di <head> tengahnya #0D3A8A, */
+/* sementara gradient splash #082a6b - beda tipis, jadi first paint -> splash ada lompat warna. */
+/* Fix: body disamain PERSIS kayak gradient splash, jadi first paint udah = splash, nggak ada */
+/* lagi bidang biru polos yang keganti. Main app / PIN ketutup container-nya sendiri, jadi */
+/* gradient body ini cuma keliatan pas transisi / first paint, nggak ngerusak halaman lain. */
+html,body{background:linear-gradient(180deg,#0A4DA3 0%,#082a6b 40%,#061A3A 100%) !important}
+/* (1b) Konten splash fade-in halus. Overlay-nya NGGAK diapa-apain (biar .hidden tetap jalan), */
+/* cuma anak-anaknya (logo, teks, tombol) yang fade-in, jadi masuk splash nggak jedag-jedug. */
+#splashScreenOverlay > div, #splashScreenOverlay > button{animation:venusSplashContentIn .55s ease both}
+@keyframes venusSplashContentIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+/* (2b) Hapus blur di exiting - blur full-screen berat di Android, bikin frame drop / goyangan. */
+.pin-screen-overlay.exiting{filter:none !important}
+</style>
+<script id="venus-smooth-js-v210">
+/* ===== v210: TRANSISI SMOOTH - SIDIK JARI + TAP HERE ===== */
+/* (2) Goyangan abis sidik jari: jalur sidik jari (v209) langsung main.classList.add('active') */
+/* TANPA trik pre-enter kayak jalur PIN, timeout cuma 400ms padahal fade-out PIN 550ms. */
+/* Akibatnya PIN ilang mendadak (baru 73% fade), Home muncul telat (delay 0.2s) sambil geser */
+/* naik 20px + scale - itu lompatannya. Fix: REDEFINE authenticateBiometric, suksesnya */
+/* disamain PERSIS kayak jalur PIN: 500ms + pre-enter + reflow + active. Handler asli NGGAK */
+/* diutak-atik, script ini jalan duluan sebelum initBiometric() dipanggil, jadi initBiometric() */
+/* otomatis pake versi baru. Opsi silent + pesan error v209 dipertahanin semua. */
+async function authenticateBiometric(opts){
+  var silent = !!(opts && opts.silent);
+  try{
+    var credIdB64 = localStorage.getItem('venus_biometric_credential');
+    if(!credIdB64){
+      if(!silent) showVenusCustomAlert('Belum Daftar', 'Aktifkan dulu di Setting > Biometrik');
+      return false;
+    }
+    var supported = await isBiometricSupported();
+    if(!supported){
+      if(!silent) showVenusCustomAlert('Biometrik Tidak Didukung', biometricUnavailableMsg());
+      return false;
+    }
+    var challenge = new Uint8Array(32); window.crypto.getRandomValues(challenge);
+    var allowCreds = [{id: base64url2buf(credIdB64), type:"public-key", transports:["internal"]}];
+    var publicKey = {challenge: challenge, allowCredentials: allowCreds, userVerification:"required", timeout:60000};
+    if(location.hostname) publicKey.rpId = location.hostname;
+    var assertion = await navigator.credentials.get({publicKey: publicKey});
+    if(assertion){
+      if(window.playPinSuccessSound) playPinSuccessSound();
+      var pinOverlay = document.getElementById('pinScreenOverlay');
+      if(pinOverlay) pinOverlay.classList.add('exiting');
+      setTimeout(function(){
+        if(pinOverlay) pinOverlay.classList.remove('active','exiting');
+        var main = document.getElementById('mainAppContainer');
+        if(main){
+          main.classList.add('pre-enter');
+          void main.offsetWidth;
+          main.classList.add('active');
+          main.classList.remove('pre-enter');
+        }
+        if(typeof updateUI === 'function') updateUI();
+      },500);
+      return true;
+    }
+  }catch(e){
+    console.log('Biometric auth error', e);
+    if(!silent){
+      var msg = (e && e.message) ? e.message : 'Batal';
+      if(e && e.name === 'NotAllowedError'){
+        msg = 'Biometrik dibatalkan. Pakai PIN aja kalau mau.';
+      }
+      showVenusCustomAlert('Biometrik Gagal', msg);
+    }
+    return false;
+  }
+  return false;
+}
+/* (3) Teks splash numpuk PIN card (frame 4.31s): splash fade-out 0.25s, PIN fade-in 0.55s, */
+/* jadi 0.3 detik keduanya keliatan bareng - WELCOME / TAP HERE kebaca di belakang PIN card. */
+/* Fix: capture listener di TAP HERE (jalan SEBELUM handler asli yang bubble) - splash */
+/* diilangin INSTAN (display:none !important ngalahin display:flex !important di CSS splash), */
+/* jadi pas PIN fade-in mulai, splash udah nggak ada. Khusus non-iOS (iOS udah ada fix-nya */
+/* sendiri di ios-v199-fix). Setelah 800ms, inline !important dibersihin biar rapi. */
+(function(){
+  var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  if(isIOS) return;
+  var btn = document.getElementById('btnTapHere');
+  var splash = document.getElementById('splashScreenOverlay');
+  if(!btn || !splash) return;
+  btn.addEventListener('click', function(){
+    splash.style.setProperty('display','none','important');
+    setTimeout(function(){
+      splash.style.removeProperty('display');
+      splash.style.display = 'none';
+    }, 800);
+  }, true);
+})();
+</script>
 </body>
