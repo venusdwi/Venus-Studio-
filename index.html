@@ -2250,7 +2250,7 @@ function formatRiwayatDateOnly(isoDate){
   <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:14vh;width:100%">
     <button type="button" class="tap-here-btn" id="btnTapHere">TAP HERE</button>
   </div>
-  </div><div style="font-size:10px;color:rgba(255,255,255,0.45);letter-spacing:3px;font-weight:700;text-align:center;line-height:1">SECURE VENUS STUDIO • v216</div></div>
+  </div><div style="font-size:10px;color:rgba(255,255,255,0.45);letter-spacing:3px;font-weight:700;text-align:center;line-height:1">SECURE VENUS STUDIO • v218</div></div>
 </div>
 <style>
 @keyframes dotPulse{0%,100%{opacity:0.3; transform:scale(1)}50%{opacity:1; transform:scale(1.3)}}
@@ -9753,6 +9753,343 @@ async function authenticateBiometric(opts){
       );
       if(wantRe && typeof registerBiometric === 'function'){
         try{ await registerBiometric(); }catch(_){}
+      }
+    } else {
+      showBioReregisterBanner();
+    }
+    return false;
+  }
+  hideBioPrePrompt();
+  return false;
+}
+</script>
+
+<style id="venus-smooth-v217">
+/* ===== v217: PALET SOFT / MUTED (NGGAK LAGI MENCOLOK) ===== */
+/* v208: CASH amber nyala #D97706, BANK cyan nyala #0891B2, Laporan solid hijau/merah/ */
+/* amber - semua saturated, kerasa "njerit". v217: mute saturasinya. */
+/* Pill CASH/BANK (nempel di kartu biru, ikon dipaksa putih) -> tetep gelap, tapi */
+/* PEKAT MUTED (bukan nyala). Laporan (nempel di bg putih) -> PASTEL (bg terang + */
+/* teks gelap). SELISIH positif = ungu pastel (biar nggak bentrok sama CASH yang */
+/* amber); SELISIH negatif = merah pastel (via data-selisih, di-set JS v217). */
+/* Semua pake !important biar ngalahin inline style HTML + JS paintSelisih v208. */
+.hero-pill.pill-cash{background:#92400E !important;border-color:rgba(255,255,255,0.45) !important;color:#fff !important}
+.hero-pill.pill-bank{background:#0F766E !important;border-color:rgba(255,255,255,0.45) !important;color:#fff !important}
+#laporanCardIn{background:#DCFCE7 !important;color:#166534 !important;border-color:rgba(22,101,52,0.25) !important}
+#laporanCardOut{background:#FEE2E2 !important;color:#991B1B !important;border-color:rgba(153,27,27,0.25) !important}
+#laporanCardSelisih{background:#EDE9FE !important;color:#5B21B6 !important;border-color:rgba(91,33,182,0.25) !important}
+#laporanCardSelisih[data-selisih="negatif"]{background:#FEE2E2 !important;color:#991B1B !important;border-color:rgba(153,27,27,0.25) !important}
+</style>
+<script id="venus-smooth-js-v217">
+/* ===== v217: SELISIH DINAMIS VERSI PASTEL (WRAP renderLaporan) ===== */
+/* paintSelisih v208 set card.style.background = '#B91C1C' (minus) / '#D97706' */
+/* (positif) - tapi CSS v217 !important ngalahin inline itu. Jadi v217 nggak */
+/* ngutak-atik paintSelisih v208; sebagai gantinya, wrapper ini (dipasang SETELAH */
+/* wrapper v208, jadi jalan belakangan) set data-selisih + warna label % - CSS */
+/* v217 yang baca data-selisih buat milih ungu pastel (positif) / merah pastel */
+/* (negatif). Label % "dari pemasukan" tadinya putih (ilang di bg pastel) -> */
+/* diubah jadi ungu tua / merah tua (muted). Handler asli NGGAK diutak-atik. */
+(function(){
+  function fixLaporanColors(){
+    try{
+      var elSel = document.getElementById('laporanSelisih');
+      var cardSel = document.getElementById('laporanCardSelisih');
+      var elPct = document.getElementById('laporanSelisihPct');
+      if(!elSel || !cardSel) return;
+      var txt = elSel.textContent || '';
+      if(txt.indexOf('\u2022') >= 0) return;
+      var v = parseFloat(txt.replace(/[^0-9\-]/g, '')) || 0;
+      var neg = (v < 0);
+      cardSel.dataset.selisih = neg ? 'negatif' : 'positif';
+      if(elPct){
+        elPct.style.color = neg ? 'rgba(153,27,27,0.75)' : 'rgba(91,33,182,0.75)';
+      }
+    }catch(e){}
+  }
+  function init(){
+    if(typeof window.renderLaporan === 'function'){
+      var orig = window.renderLaporan;
+      window.renderLaporan = function(){ orig(); fixLaporanColors(); };
+    }
+    fixLaporanColors();
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+
+<style id="venus-smooth-v218">
+/* ===== v218: NOMINAL SELISIH UNGU + BIOMETRIK ROBUST ===== */
+/* (1) Nominal SELISIH: renderLaporan set elSel.style.color = 'white' (positif) / */
+/* '#FECACA' (negatif) - nimpa warna ungu v217, nominal ilang di bg pastel. Fix: */
+/* JS v218 override jadi ungu tua #5B21B6 (positif) / merah tua #991B1B (negatif). */
+/* (2) Biometrik: transports:["internal"] dihapus (terlalu ketat, authenticator */
+/* kadang nggak match) + daftar ulang bersihin kredensial lama dulu (clean slate) */
+/* + cek isSecureContext: kalau dibuka via content:// / file:// (file manager), */
+/* WebAuthn NGGAK AKAN PERNAH jalan - langsung kasih pesan "buka lewat GitHub */
+/* Pages / PWA", bukan dialog yang ujung-ujungnya gagal. */
+</style>
+<script id="venus-smooth-js-v218">
+/* ===== v218: SELISIH UNGU + BIOMETRIK ROBUST (REDEFINE authenticateBiometric + WRAP renderLaporan) ===== */
+/* SELISIH: wrapper renderLaporan v218 set elSel.style.color (nominal) + elPct */
+/* (label %) + data-selisih. Jalan SETELAH renderLaporan asli (yang set putih), */
+/* jadi menang. */
+/* BIOMETRIK: (a) cek isSecureContext DULUAN - kalau content:// / file://, jangan */
+/* tampilkan dialog (pasti gagal); manual -> alert biometricUnavailableMsg(), */
+/* silent -> toast "buka lewat GitHub Pages / PWA". (b) transports dihapus dari */
+/* allowCredentials. (c) semua jalur DAFTAR ULANG (banner, link dialog, konfirmasi) */
+/* hapus kredensial lama dari localStorage DULU, baru registerBiometric() - clean */
+/* slate, biar nggak ada ID stale yang nyangkut. Transisi sukses tetep full */
+/* berurutan v214. */
+(function(){
+  function fixLaporanColors(){
+    try{
+      var elSel = document.getElementById('laporanSelisih');
+      var cardSel = document.getElementById('laporanCardSelisih');
+      var elPct = document.getElementById('laporanSelisihPct');
+      if(!elSel || !cardSel) return;
+      var txt = elSel.textContent || '';
+      if(txt.indexOf('\u2022') >= 0) return;
+      var v = parseFloat(txt.replace(/[^0-9\-]/g, '')) || 0;
+      var neg = (v < 0);
+      cardSel.dataset.selisih = neg ? 'negatif' : 'positif';
+      elSel.style.color = neg ? '#991B1B' : '#5B21B6';
+      if(elPct){
+        elPct.style.color = neg ? 'rgba(153,27,27,0.75)' : 'rgba(91,33,182,0.75)';
+      }
+    }catch(e){}
+  }
+  function init(){
+    if(typeof window.renderLaporan === 'function'){
+      var orig = window.renderLaporan;
+      window.renderLaporan = function(){ orig(); fixLaporanColors(); };
+    }
+    fixLaporanColors();
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+function bioClearOldCredential(){
+  try{
+    localStorage.removeItem('venus_biometric_credential');
+    localStorage.removeItem('venus_biometric_enabled');
+  }catch(e){}
+}
+async function bioReregister(){
+  bioClearOldCredential();
+  if(typeof registerBiometric === 'function'){
+    try{ return await registerBiometric(); }catch(e){ return false; }
+  }
+  return false;
+}
+function showBioReregisterBanner(){
+  var old = document.getElementById('venusBioReregisterBanner');
+  if(old) return old;
+  var anchor = document.getElementById('biometricLoginContainer');
+  if(!anchor) anchor = document.getElementById('pinScreenOverlay');
+  if(!anchor) return null;
+  var el = document.createElement('div');
+  el.id = 'venusBioReregisterBanner';
+  el.className = 'venus-bio-reregister-banner';
+  el.innerHTML = '<div class="venus-bio-reregister-text">' +
+    '<div class="venus-bio-reregister-title">Sidik jari bermasalah?</div>' +
+    '<div class="venus-bio-reregister-sub">Daftar ulang biar bisa login pakai sidik jari.</div>' +
+    '</div>' +
+    '<button type="button" class="venus-bio-reregister-btn" id="venusBioReregisterBtn">Daftar Ulang</button>' +
+    '<button type="button" class="venus-bio-reregister-close" id="venusBioReregisterClose">✕</button>';
+  if(anchor.id === 'biometricLoginContainer' && anchor.parentNode){
+    anchor.parentNode.insertBefore(el, anchor.nextSibling);
+  } else {
+    anchor.appendChild(el);
+  }
+  var btn = el.querySelector('#venusBioReregisterBtn');
+  if(btn){
+    btn.addEventListener('click', async function(){
+      var ok = await bioReregister();
+      if(ok) hideBioReregisterBanner();
+    });
+  }
+  var closeBtn = el.querySelector('#venusBioReregisterClose');
+  if(closeBtn){
+    closeBtn.addEventListener('click', function(){ hideBioReregisterBanner(); });
+  }
+  return el;
+}
+function hideBioReregisterBanner(){
+  var el = document.getElementById('venusBioReregisterBanner');
+  if(el) el.remove();
+}
+function showBioPrePrompt(){
+  var old = document.getElementById('venusBioPrePrompt');
+  if(old) old.remove();
+  var el = document.createElement('div');
+  el.id = 'venusBioPrePrompt';
+  el.innerHTML = '<div class="venus-bio-pre-card">' +
+    '<div class="venus-bio-pre-icon">' +
+      '<svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#0A4DA3" stroke-width="1.8" stroke-linecap="round">' +
+        '<path d="M12 3c2.2 0 4 1.8 4 4 0 1.8-.8 3.4-1.6 4.9-.6 1.2-1.1 2.2-1.4 3.6"/>' +
+        '<path d="M12 3c1.1 0 2 .9 2 2 0 1.5-.6 2.8-1.2 4.1"/>' +
+        '<path d="M12 3v2c0 1.2-.5 2.3-1 3.4"/>' +
+        '<path d="M9.8 4.4A4 4 0 0 1 12 3"/>' +
+        '<path d="M7.9 6.8A6 6 0 0 1 9.8 4.4"/>' +
+        '<path d="M6.7 10a8 8 0 0 1 1.2-3.2"/>' +
+        '<path d="M6.2 13.5a10 10 0 0 1 .5-3.5"/>' +
+        '<path d="M6.5 17a12 12 0 0 1-.3-3.5"/>' +
+        '<path d="M8 21c-.6-1.2-1-2.5-1.2-4"/>' +
+        '<path d="M10.5 21c-.4-1.2-.6-2.5-.7-4"/>' +
+        '<path d="M13 21c-.2-1.2-.3-2.5-.3-4"/>' +
+        '<path d="M15.5 21c0-1.2.1-2.5.4-3.8"/>' +
+      '</svg>' +
+    '</div>' +
+    '<div class="venus-bio-pre-title">Verifikasi Biometrik</div>' +
+    '<div class="venus-bio-pre-sub">Tempel sidik jari kamu di sensor<br>untuk membuka VENUS STUDIO</div>' +
+    '<button type="button" class="venus-bio-pre-start" id="venusBioPreStart">Mulai Scan Sidik Jari</button>' +
+    '<div class="venus-bio-pre-hint">atau ketuk card ini &bull; scan otomatis dalam sekejap</div>' +
+    '<button type="button" class="venus-bio-pre-cancel" id="venusBioPreCancel">Batal</button>' +
+    '<div class="venus-bio-pre-reregister" id="venusBioPreReregister">Sidik jari tidak berfungsi? Daftar ulang di sini</div>' +
+    '</div>';
+  document.body.appendChild(el);
+  return el;
+}
+function hideBioPrePrompt(){
+  var el = document.getElementById('venusBioPrePrompt');
+  if(el) el.remove();
+}
+function showBioToast(msg){
+  var old = document.getElementById('venusBioToast');
+  if(old) old.remove();
+  var el = document.createElement('div');
+  el.id = 'venusBioToast';
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(function(){ if(el) el.remove(); }, 3500);
+}
+function showBioConfirm(title, message, confirmText){
+  return new Promise(function(resolve){
+    var old = document.getElementById('venusBioConfirm');
+    if(old) old.remove();
+    var el = document.createElement('div');
+    el.id = 'venusBioConfirm';
+    el.innerHTML = '<div class="venus-bio-confirm-card">' +
+      '<div class="venus-bio-confirm-title">' + title + '</div>' +
+      '<div class="venus-bio-confirm-msg">' + message + '</div>' +
+      '<div class="venus-bio-confirm-btns">' +
+        '<button type="button" class="venus-bio-confirm-no" id="venusBioConfirmNo">Pakai PIN</button>' +
+        '<button type="button" class="venus-bio-confirm-yes" id="venusBioConfirmYes">' + confirmText + '</button>' +
+      '</div>' +
+    '</div>';
+    document.body.appendChild(el);
+    function done(v){ if(el) el.remove(); resolve(v); }
+    el.querySelector('#venusBioConfirmYes').addEventListener('click', function(){ done(true); });
+    el.querySelector('#venusBioConfirmNo').addEventListener('click', function(){ done(false); });
+  });
+}
+async function authenticateBiometric(opts){
+  var silent = !!(opts && opts.silent);
+  try{
+    var credIdB64 = localStorage.getItem('venus_biometric_credential');
+    if(!credIdB64){
+      if(!silent) showVenusCustomAlert('Belum Daftar', 'Aktifkan dulu di Setting > Biometrik');
+      return false;
+    }
+    var supported = await isBiometricSupported();
+    if(!supported){
+      if(!silent) showVenusCustomAlert('Biometrik Tidak Didukung', biometricUnavailableMsg());
+      return false;
+    }
+    if(!window.isSecureContext || location.protocol === 'file:' || location.protocol === 'content:'){
+      if(!silent){
+        showVenusCustomAlert('Biometrik Tidak Didukung', biometricUnavailableMsg());
+      } else {
+        showBioToast('Biometrik tidak jalan di file manager. Buka lewat GitHub Pages / ikon PWA.');
+      }
+      return false;
+    }
+    var preEl = showBioPrePrompt();
+    var scanStarted = false;
+    var cancelled = false;
+    var reregister = false;
+    var resolveWait = null;
+    var waitPromise = new Promise(function(res){ resolveWait = res; });
+    var timer = setTimeout(function(){ if(resolveWait) resolveWait('timeout'); }, 400);
+    function triggerScan(){
+      if(scanStarted) return;
+      scanStarted = true;
+      clearTimeout(timer);
+      if(resolveWait) resolveWait('tap');
+    }
+    function cancelScan(){
+      cancelled = true;
+      clearTimeout(timer);
+      if(resolveWait) resolveWait('cancel');
+    }
+    function doReregister(){
+      reregister = true;
+      clearTimeout(timer);
+      if(resolveWait) resolveWait('reregister');
+    }
+    var card = preEl.querySelector('.venus-bio-pre-card');
+    if(card) card.addEventListener('click', triggerScan);
+    var startBtn = preEl.querySelector('#venusBioPreStart');
+    if(startBtn) startBtn.addEventListener('click', function(e){ e.stopPropagation(); triggerScan(); });
+    var cancelBtn = preEl.querySelector('#venusBioPreCancel');
+    if(cancelBtn) cancelBtn.addEventListener('click', function(e){ e.stopPropagation(); cancelScan(); });
+    var relink = preEl.querySelector('#venusBioPreReregister');
+    if(relink) relink.addEventListener('click', function(e){ e.stopPropagation(); doReregister(); });
+    await waitPromise;
+    if(cancelled){
+      hideBioPrePrompt();
+      return false;
+    }
+    if(reregister){
+      hideBioPrePrompt();
+      await bioReregister();
+      return false;
+    }
+    var challenge = new Uint8Array(32); window.crypto.getRandomValues(challenge);
+    var allowCreds = [{id: base64url2buf(credIdB64), type:"public-key"}];
+    var publicKey = {challenge: challenge, allowCredentials: allowCreds, userVerification:"required", timeout:60000};
+    if(location.hostname) publicKey.rpId = location.hostname;
+    var assertion = await navigator.credentials.get({publicKey: publicKey});
+    hideBioPrePrompt();
+    if(assertion){
+      hideBioReregisterBanner();
+      if(window.playPinSuccessSound) playPinSuccessSound();
+      var pinOverlay = document.getElementById('pinScreenOverlay');
+      var main = document.getElementById('mainAppContainer');
+      if(pinOverlay) pinOverlay.classList.add('exiting');
+      setTimeout(function(){
+        if(pinOverlay) pinOverlay.classList.remove('active','exiting');
+        if(main){
+          main.classList.add('bio-enter');
+          main.classList.add('active');
+        }
+        if(typeof updateUI === 'function'){ try{ updateUI(); }catch(e){} }
+        setTimeout(function(){
+          if(main) main.classList.remove('bio-enter');
+        }, 400);
+      }, 300);
+      setTimeout(function(){
+        if(pinOverlay) pinOverlay.classList.remove('active','exiting');
+        if(main) main.classList.remove('bio-enter');
+      }, 700);
+      return true;
+    }
+  }catch(e){
+    hideBioPrePrompt();
+    console.log('Biometric auth error', e);
+    if(!silent){
+      var msg = (e && e.message) ? e.message : 'Batal';
+      if(e && e.name === 'NotAllowedError'){
+        msg = 'Biometrik dibatalkan atau sidik jari tidak ditemukan di alamat ini.';
+      }
+      var wantRe = await showBioConfirm(
+        'Biometrik Gagal',
+        msg + ' Daftar ulang sidik jari di alamat ini?',
+        'Daftar Ulang'
+      );
+      if(wantRe){
+        await bioReregister();
       }
     } else {
       showBioReregisterBanner();
