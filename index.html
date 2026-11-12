@@ -2314,7 +2314,7 @@ function formatRiwayatDateOnly(isoDate){
 
 <div class="cyber-scanner-flash" id="cyberScannerFlash"><div class="hacker-terminal-box" style="display:none"></div></div></div>
 
-<div class="pin-screen-overlay" id="pinScreenOverlay"><div class="pin-card"><div class="pin-icon-box"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="pin-title">PIN ACCESS</div><div class="pin-subtitle">Masukkan 6-Digit PIN</div><div class="pin-inputs-container" id="pinInputsContainer"><div class="pin-box active" data-index="0"></div><div class="pin-box" data-index="1"></div><div class="pin-box" data-index="2"></div><div class="pin-box" data-index="3"></div><div class="pin-box" data-index="4"></div><div class="pin-box" data-index="5"></div></div><div class="pin-error-msg" id="pinErrorMsg"></div><div class="on-screen-keypad"><button type="button" class="keypad-btn" onclick="pressKey('1')">1</button><button type="button" class="keypad-btn" onclick="pressKey('2')">2</button><button type="button" class="keypad-btn" onclick="pressKey('3')">3</button><button type="button" class="keypad-btn" onclick="pressKey('4')">4</button><button type="button" class="keypad-btn" onclick="pressKey('5')">5</button><button type="button" class="keypad-btn" onclick="pressKey('6')">6</button><button type="button" class="keypad-btn" onclick="pressKey('7')">7</button><button type="button" class="keypad-btn" onclick="pressKey('8')">8</button><button type="button" class="keypad-btn" onclick="pressKey('9')">9</button><button type="button" class="keypad-btn action-btn" onclick="clearAllPin()">C</button><button type="button" class="keypad-btn" onclick="pressKey('0')">0</button><button type="button" class="keypad-btn action-btn" onclick="deletePin()">⌫</button></div></div>
+<div class="pin-screen-overlay" id="pinScreenOverlay"><div class="pin-card"><div class="pin-icon-box"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div class="pin-title">PIN ACCESS</div><div class="pin-subtitle">Masukkan 6-Digit PIN</div><div class="pin-inputs-container" id="pinInputsContainer"><div class="pin-box active" data-index="0"></div><div class="pin-box" data-index="1"></div><div class="pin-box" data-index="2"></div><div class="pin-box" data-index="3"></div><div class="pin-box" data-index="4"></div><div class="pin-box" data-index="5"></div></div><div class="pin-error-msg" id="pinErrorMsg"></div><div class="on-screen-keypad"><button type="button" class="keypad-btn" onclick="pressKey('1')">1</button><button type="button" class="keypad-btn" onclick="pressKey('2')">2</button><button type="button" class="keypad-btn" onclick="pressKey('3')">3</button><button type="button" class="keypad-btn" onclick="pressKey('4')">4</button><button type="button" class="keypad-btn" onclick="pressKey('5')">5</button><button type="button" class="keypad-btn" onclick="pressKey('6')">6</button><button type="button" class="keypad-btn" onclick="pressKey('7')">7</button><button type="button" class="keypad-btn" onclick="pressKey('8')">8</button><button type="button" class="keypad-btn" onclick="pressKey('9')">9</button><button type="button" class="keypad-btn action-btn" onclick="clearAllPin()">C</button><button type="button" class="keypad-btn" onclick="pressKey('0')">0</button><button type="button" class="keypad-btn action-btn" onclick="deletePin()">⌫</button></div><div id="biometricLoginContainer" style="display:none;margin-top:14px;flex-direction:column;align-items:center;gap:8px"><div style="display:flex;align-items:center;gap:8px;width:100%"><div style="flex:1;height:1px;background:var(--border)"></div><span style="font-size:10px;color:var(--text-2)">atau</span><div style="flex:1;height:1px;background:var(--border)"></div></div><button type="button" id="biometricLoginBtn" style="width:100%;height:48px;border:none;border-radius:14px;background:var(--primary);color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>Buka dengan Sidik Jari / Face ID</button><span style="font-size:10px;color:var(--text-2)">Biometrik gagal? Masukkan PIN di atas.</span></div></div>
 </div>
 
 <div class="personal-pin-overlay" id="personalPinOverlay"><div class="pin-card"><div class="pin-icon-box"><svg class="ico" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div class="pin-title">PERSONAL DATA</div><div class="pin-subtitle">Verifikasi PIN</div><div class="pin-inputs-container" id="personalPinInputsContainer"><div class="pin-box active" data-personal-pin-index="0"></div><div class="pin-box" data-personal-pin-index="1"></div><div class="pin-box" data-personal-pin-index="2"></div><div class="pin-box" data-personal-pin-index="3"></div><div class="pin-box" data-personal-pin-index="4"></div><div class="pin-box" data-personal-pin-index="5"></div></div><div class="pin-error-msg" id="personalPinErrorMsg"></div><div class="on-screen-keypad"><button type="button" class="keypad-btn" onclick="pressPersonalPinKey('1')">1</button><button type="button" class="keypad-btn" onclick="pressPersonalPinKey('2')">2</button><button type="button" class="keypad-btn" onclick="pressPersonalPinKey('3')">3</button><button type="button" class="keypad-btn" onclick="pressPersonalPinKey('4')">4</button><button type="button" class="keypad-btn" onclick="pressPersonalPinKey('5')">5</button><button type="button" class="keypad-btn" onclick="pressPersonalPinKey('6')">6</button><button type="button" class="keypad-btn" onclick="pressPersonalPinKey('7')">7</button><button type="button" class="keypad-btn" onclick="pressPersonalPinKey('8')">8</button><button type="button" class="keypad-btn" onclick="pressPersonalPinKey('9')">9</button><button type="button" class="keypad-btn action-btn" onclick="clearPersonalPin()">C</button><button type="button" class="keypad-btn" onclick="pressPersonalPinKey('0')">0</button><button type="button" class="keypad-btn action-btn" onclick="deletePersonalPin()">⌫</button></div><button id="cancelPersonalPinBtn" class="bank-btn secondary" style="width:100%;margin-top:10px">Batal</button></div></div>
@@ -2327,7 +2327,7 @@ function formatRiwayatDateOnly(isoDate){
   <div class="bank-header"><div class="header-left"><div class="header-logo"><img src="data:image/png;base64,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" style="width:100%;height:100%;object-fit:contain" alt="V"></div><div><div class="header-title">VENUS STUDIO</div><div class="header-sub">STUDIO DIGITAL</div></div></div><div style="display:flex;gap:8px;align-items:center"><div class="sync-status-badge"><div class="sync-dot"></div><span id="syncStatusText">Cloud: Connect</span></div></div></div>
   <div class="bank-content">
     <div class="tab-panel active" id="tab-dashboard">
-      <div class="card-hero-bank"><div style="display:flex;align-items:center;justify-content:space-between"><h4>SALDO SISA</h4><button id="eyeSaldoBtn" style="width:28px;height:28px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.2);border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;cursor:pointer"><svg class="ico" viewBox="0 0 24 24" style="width:16px;height:16px;stroke:white"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div><p id="totalSaldo">Rp 0</p><div class="hero-pills"><div class="hero-pill"><svg class="ico" style="width:14px;height:14px" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/></svg> <span id="totalSaldoCash">Rp 0</span> CASH</div><div class="hero-pill"><svg class="ico" style="width:14px;height:14px" viewBox="0 0 24 24"><path d="M3 10h18M7 15h1M12 15h1"/></svg> <span id="totalSaldoBank">Rp 0</span> BANK</div></div></div>
+      <div class="card-hero-bank"><div style="display:flex;align-items:center;justify-content:space-between"><h4>SALDO SISA</h4><button id="eyeSaldoBtn" style="width:28px;height:28px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.2);border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;cursor:pointer"><svg class="ico" viewBox="0 0 24 24" style="width:16px;height:16px;stroke:white"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div><p id="totalSaldo">Rp 0</p><div class="hero-pills"><div class="hero-pill pill-cash"><svg class="ico" style="width:14px;height:14px" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/></svg> <span id="totalSaldoCash">Rp 0</span> CASH</div><div class="hero-pill pill-bank"><svg class="ico" style="width:14px;height:14px" viewBox="0 0 24 24"><path d="M3 10h18M7 15h1M12 15h1"/></svg> <span id="totalSaldoBank">Rp 0</span> BANK</div></div></div>
       <div class="sub-dashboard"><div class="card-sub-bank pemasukan"><h4 id="labelPemasukanBulan">PEMASUKAN</h4><p id="totalPemasukan">Rp 0</p></div><div class="card-sub-bank pengeluaran"><h4 id="labelPengeluaranBulan">PENGELUARAN</h4><p id="totalPengeluaran">Rp 0</p></div></div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:12px 0">
         <button class="bank-card" id="openPersonalModalPanel" style="padding:14px;text-align:center"><div style="display:flex;justify-content:center"><svg class="ico" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div style="font-size:10px;font-weight:800;margin-top:6px">PERSONAL</div></button>
@@ -2382,9 +2382,9 @@ function formatRiwayatDateOnly(isoDate){
             <div style="background:rgba(255,255,255,0.18);padding:6px 10px;border-radius:999px;font-size:10px;font-weight:700;border:1px solid rgba(255,255,255,0.2)" id="laporanPeriodBadge">NOVEMBER 2026</div>
           </div>
           <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:14px">
-            <div style="background:rgba(255,255,255,0.12);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.18);border-radius:14px;padding:9px 8px;min-width:0;display:flex;flex-direction:column;justify-content:space-between;min-height:64px"><div style="font-size:8px;opacity:.7;letter-spacing:.5px;white-space:nowrap">PEMASUKAN</div><div id="laporanTotalIn" class="laporan-amount" style="font-size:12px;font-weight:800;margin-top:4px;white-space:nowrap;letter-spacing:-0.3px;line-height:1.2;font-variant-numeric:tabular-nums;overflow:hidden;text-overflow:ellipsis">Rp 0</div><div id="laporanTrendIn" style="font-size:8px;margin-top:3px;opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">--</div></div>
-            <div style="background:rgba(255,255,255,0.12);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.18);border-radius:14px;padding:9px 8px;min-width:0;display:flex;flex-direction:column;justify-content:space-between;min-height:64px"><div style="font-size:8px;opacity:.7;letter-spacing:.5px;white-space:nowrap">PENGELUARAN</div><div id="laporanTotalOut" class="laporan-amount" style="font-size:12px;font-weight:800;margin-top:4px;white-space:nowrap;letter-spacing:-0.3px;line-height:1.2;font-variant-numeric:tabular-nums;overflow:hidden;text-overflow:ellipsis">Rp 0</div><div id="laporanTrendOut" style="font-size:8px;margin-top:3px;opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">--</div></div>
-            <div style="background:rgba(255,255,255,0.12);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.18);border-radius:14px;padding:9px 8px;min-width:0;display:flex;flex-direction:column;justify-content:space-between;min-height:64px"><div style="font-size:8px;opacity:.7;letter-spacing:.5px;white-space:nowrap">SELISIH</div><div id="laporanSelisih" class="laporan-amount" style="font-size:12px;font-weight:800;margin-top:4px;white-space:nowrap;letter-spacing:-0.3px;line-height:1.2;font-variant-numeric:tabular-nums;overflow:hidden;text-overflow:ellipsis">Rp 0</div><div id="laporanSelisihPct" style="font-size:8px;margin-top:3px;opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">--</div></div>
+            <div id="laporanCardIn" style="background:#16A34A;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.35);border-radius:14px;padding:9px 8px;min-width:0;display:flex;flex-direction:column;justify-content:space-between;min-height:64px;color:white"><div style="font-size:8px;opacity:.85;letter-spacing:.5px;white-space:nowrap">PEMASUKAN</div><div id="laporanTotalIn" class="laporan-amount" style="font-size:12px;font-weight:800;margin-top:4px;white-space:nowrap;letter-spacing:-0.3px;line-height:1.2;font-variant-numeric:tabular-nums;overflow:hidden;text-overflow:ellipsis">Rp 0</div><div id="laporanTrendIn" style="font-size:8px;margin-top:3px;opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">--</div></div>
+            <div id="laporanCardOut" style="background:#DC2626;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.35);border-radius:14px;padding:9px 8px;min-width:0;display:flex;flex-direction:column;justify-content:space-between;min-height:64px;color:white"><div style="font-size:8px;opacity:.85;letter-spacing:.5px;white-space:nowrap">PENGELUARAN</div><div id="laporanTotalOut" class="laporan-amount" style="font-size:12px;font-weight:800;margin-top:4px;white-space:nowrap;letter-spacing:-0.3px;line-height:1.2;font-variant-numeric:tabular-nums;overflow:hidden;text-overflow:ellipsis">Rp 0</div><div id="laporanTrendOut" style="font-size:8px;margin-top:3px;opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">--</div></div>
+            <div id="laporanCardSelisih" style="background:#D97706;backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.35);border-radius:14px;padding:9px 8px;min-width:0;display:flex;flex-direction:column;justify-content:space-between;min-height:64px;color:white"><div style="font-size:8px;opacity:.85;letter-spacing:.5px;white-space:nowrap">SELISIH</div><div id="laporanSelisih" class="laporan-amount" style="font-size:12px;font-weight:800;margin-top:4px;white-space:nowrap;letter-spacing:-0.3px;line-height:1.2;font-variant-numeric:tabular-nums;overflow:hidden;text-overflow:ellipsis">Rp 0</div><div id="laporanSelisihPct" style="font-size:8px;margin-top:3px;opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">--</div></div>
           </div>
         </div>
         
@@ -8609,6 +8609,191 @@ body[data-font-size="large"] #venusConfirmModal{ zoom: 1.25 !important; }
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
+})();
+</script>
+
+<style id="venus-colors-v208">
+/* ===== v208: WARNA CASH / BANK + LAPORAN ===== */
+/* Home - SALDO SISA: tadinya 2 pill sama persis (translucent putih), susah bedain. */
+/* Sekarang CASH = amber (warna uang kertas, sama kayak CASH di chart Metode), */
+/* BANK = cyan (kontras sama kartu biru, beda jelas dari amber). */
+/* Sengaja pake background GELAP + teks putih, soalnya ikon .ico di pill dipaksa putih */
+/* pake !important sama tema lain - kalau pill-nya terang + teks gelap, ikonnya jadi belang. */
+.hero-pill.pill-cash{ background:#D97706 !important; border-color:rgba(255,255,255,0.45) !important; color:#fff !important; }
+.hero-pill.pill-bank{ background:#0891B2 !important; border-color:rgba(255,255,255,0.45) !important; color:#fff !important; }
+</style>
+<script id="venus-laporan-colors-v208">
+/* ===== v208: SELISIH LAPORAN DINAMIS ===== */
+/* 3 kartu Laporan udah dikasih warna solid di HTML: PEMASUKAN hijau, PENGELUARAN merah, */
+/* SELISIH amber (default, kalau positif). Blok ini cuma ngurus SELISIH: kalau selisih-nya */
+/* minus (pengeluaran > pemasukan), kartunya berubah jadi merah gelap. */
+/* Cara baca nilainya: parse teks #laporanSelisih (formatRupiah bikin minus jadi "Rp -1.000", */
+/* jadi minus-nya kebaca). Kalau nominal lagi disembunyiin (Rp ••••••), warnanya nggak diubah. */
+/* renderLaporan() di-wrap biar tiap laporan ke-render ulang (ganti bulan/tahun/filter), */
+/* warna selisih ikut ke-update. Handler asli NGGAK diutak-atik. */
+(function(){
+  function paintSelisih(){
+    try{
+      var el = document.getElementById('laporanSelisih');
+      var card = document.getElementById('laporanCardSelisih');
+      if(!el || !card) return;
+      var txt = el.textContent || '';
+      if(txt.indexOf('\u2022') >= 0) return;
+      var v = parseFloat(txt.replace(/[^0-9\-]/g, '')) || 0;
+      card.style.background = (v < 0) ? '#B91C1C' : '#D97706';
+    }catch(e){}
+  }
+  function init(){
+    if(typeof window.renderLaporan === 'function'){
+      var orig = window.renderLaporan;
+      window.renderLaporan = function(){ orig(); paintSelisih(); };
+    }
+    paintSelisih();
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+
+<script id="venus-biometric-v209">
+/* ===== v209: BIOMETRIK BENERAN JALAN BUAT BUKA APLIKASI ===== */
+/* Biang 1 - TOMBOLNYA NGGAK PERNAH ADA: initBiometric() nyari #biometricLoginContainer + */
+/* #biometricLoginBtn, tapi 0 elemen itu di HTML layar PIN. Jadi walau udah di-ON-in di */
+/* Setting, di layar PIN nggak ada tombolnya - nggak ada yang bisa dipencet. Fix: tombolnya */
+/* ditambahin di HTML (di bawah keypad, di atas tutup pin-card). */
+/* Biang 2 - rp.id KOSONG: registerBiometric() pake rp:{id: location.hostname}. File ini dibuka */
+/* via content:// / file:// (kayak di screenshot), hostname-nya "" - WebAuthn nolak RP ID kosong. */
+/* Fix: rp.id cuma dikirim kalau hostname ada. Kalau kosong, di-omit biar browser pake origin */
+/* asal. Hal yang sama buat rpId pas authenticate (create & get harus pake RP ID yang sama). */
+/* Biang 3 - NGGAK AUTO-PROMPT: walau tombolnya ada, user masih harus neken tombol dulu. */
+/* Fix: MutationObserver di #pinScreenOverlay - begitu layar PIN muncul (class active) dan */
+/* biometrik udah aktif, prompt sidik jari langsung muncul sendiri (delay 700ms biar UI settle). */
+/* Kalau user batalin, nggak di-prompt lagi sampai layar PIN dibuka ulang (flag prompted), */
+/* dan NGGAK ada alert - tinggal ketik PIN aja. Tombol manual tetap bisa dipencet kapan aja. */
+/* Fungsi-fungsi di bawah ini REDEFINE versi v92 (script ini jalan duluan sebelum initBiometric() */
+/* dipanggil, jadi initBiometric() otomatis pake versi baru). Handler asli NGGAK diutak-atik. */
+function biometricUnavailableMsg(){
+  if(!window.isSecureContext || location.protocol === 'file:' || location.protocol === 'content:'){
+    return 'File ini dibuka lewat penampil file / file lokal, jadi browser tidak mengizinkan biometrik di sini. Buka file-nya di Chrome (ketik file:/// di address bar atau lewat menu Buka), atau taruh di hosting HTTPS / localhost, lalu aktifkan lagi. Sementara pakai PIN dulu.';
+  }
+  return 'Coba di Chrome Android / iOS Safari terbaru, dan pastikan Face ID / Sidik Jari aktif di Pengaturan HP.';
+}
+async function isBiometricSupported(){
+  try{
+    if(!window.isSecureContext) return false;
+    if(!window.PublicKeyCredential) return false;
+    if(PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable){
+      var avail = await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
+      return avail;
+    }
+    return true;
+  }catch(e){ return false; }
+}
+async function registerBiometric(){
+  try{
+    var supported = await isBiometricSupported();
+    if(!supported){
+      showVenusCustomAlert('Biometrik Tidak Didukung', biometricUnavailableMsg());
+      return false;
+    }
+    var challenge = new Uint8Array(32); window.crypto.getRandomValues(challenge);
+    var userId = new Uint8Array(16); window.crypto.getRandomValues(userId);
+    var rp = {name:"VENUS STUDIO"};
+    if(location.hostname) rp.id = location.hostname;
+    var publicKey = {
+      challenge: challenge,
+      rp: rp,
+      user: {id:userId, name:"venus_user", displayName:"Venus User"},
+      pubKeyCredParams: [{type:"public-key", alg:-7},{type:"public-key", alg:-257}],
+      authenticatorSelection: {authenticatorAttachment:"platform", userVerification:"required", requireResidentKey:false},
+      timeout: 60000,
+      attestation: "none"
+    };
+    var cred = await navigator.credentials.create({publicKey: publicKey});
+    if(cred){
+      var rawId = cred.rawId;
+      localStorage.setItem('venus_biometric_credential', buf2base64url(rawId));
+      localStorage.setItem('venus_biometric_enabled','true');
+      showVenusCustomAlert('Biometrik Aktif', 'Sekarang bisa buka aplikasi pakai Sidik Jari / Face ID, tanpa ketik PIN.');
+      return true;
+    }
+  }catch(e){
+    console.log('Biometric register error', e);
+    var msg = (e && e.message) ? e.message : String(e);
+    if(e && e.name === 'NotAllowedError'){
+      msg = 'Pendaftaran dibatalkan. Coba lagi dan izinkan saat prompt biometrik muncul.';
+    } else if(e && (e.name === 'SecurityError' || e.name === 'NotSupportedError')){
+      msg = biometricUnavailableMsg();
+    }
+    showVenusCustomAlert('Gagal Daftar Biometrik', msg);
+    return false;
+  }
+  return false;
+}
+async function authenticateBiometric(opts){
+  var silent = !!(opts && opts.silent);
+  try{
+    var credIdB64 = localStorage.getItem('venus_biometric_credential');
+    if(!credIdB64){
+      if(!silent) showVenusCustomAlert('Belum Daftar', 'Aktifkan dulu di Setting > Biometrik');
+      return false;
+    }
+    var supported = await isBiometricSupported();
+    if(!supported){
+      if(!silent) showVenusCustomAlert('Biometrik Tidak Didukung', biometricUnavailableMsg());
+      return false;
+    }
+    var challenge = new Uint8Array(32); window.crypto.getRandomValues(challenge);
+    var allowCreds = [{id: base64url2buf(credIdB64), type:"public-key", transports:["internal"]}];
+    var publicKey = {challenge: challenge, allowCredentials: allowCreds, userVerification:"required", timeout:60000};
+    if(location.hostname) publicKey.rpId = location.hostname;
+    var assertion = await navigator.credentials.get({publicKey: publicKey});
+    if(assertion){
+      if(window.playPinSuccessSound) playPinSuccessSound();
+      var pinOverlay = document.getElementById('pinScreenOverlay');
+      if(pinOverlay) pinOverlay.classList.add('exiting');
+      setTimeout(function(){
+        if(pinOverlay) pinOverlay.classList.remove('active','exiting');
+        var main = document.getElementById('mainAppContainer');
+        if(main){ main.classList.add('active'); }
+        if(typeof updateUI === 'function') updateUI();
+      },400);
+      return true;
+    }
+  }catch(e){
+    console.log('Biometric auth error', e);
+    if(!silent){
+      var msg = (e && e.message) ? e.message : 'Batal';
+      if(e && e.name === 'NotAllowedError'){
+        msg = 'Biometrik dibatalkan. Pakai PIN aja kalau mau.';
+      }
+      showVenusCustomAlert('Biometrik Gagal', msg);
+    }
+    return false;
+  }
+  return false;
+}
+(function setupBiometricAutoPrompt(){
+  var prompted = false;
+  var pinOverlay = document.getElementById('pinScreenOverlay');
+  if(!pinOverlay) return;
+  function maybePrompt(){
+    if(prompted) return;
+    var enabled = localStorage.getItem('venus_biometric_enabled') === 'true' && localStorage.getItem('venus_biometric_credential');
+    if(!enabled) return;
+    prompted = true;
+    setTimeout(function(){
+      if(!pinOverlay.classList.contains('active')) return;
+      authenticateBiometric({silent:true});
+    }, 700);
+  }
+  function onMutations(){
+    if(pinOverlay.classList.contains('active')){ maybePrompt(); }
+    else { prompted = false; }
+  }
+  var obs = new MutationObserver(onMutations);
+  obs.observe(pinOverlay, {attributes:true, attributeFilter:['class']});
+  if(pinOverlay.classList.contains('active')) maybePrompt();
 })();
 </script>
 </body>
