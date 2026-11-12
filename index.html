@@ -2250,7 +2250,7 @@ function formatRiwayatDateOnly(isoDate){
   <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:14vh;width:100%">
     <button type="button" class="tap-here-btn" id="btnTapHere">TAP HERE</button>
   </div>
-  </div><div style="font-size:10px;color:rgba(255,255,255,0.45);letter-spacing:3px;font-weight:700;text-align:center;line-height:1">SECURE VENUS STUDIO • v218</div></div>
+  </div><div style="font-size:10px;color:rgba(255,255,255,0.45);letter-spacing:3px;font-weight:700;text-align:center;line-height:1">SECURE VENUS STUDIO • v219</div></div>
 </div>
 <style>
 @keyframes dotPulse{0%,100%{opacity:0.3; transform:scale(1)}50%{opacity:1; transform:scale(1.3)}}
@@ -10098,6 +10098,61 @@ async function authenticateBiometric(opts){
   }
   hideBioPrePrompt();
   return false;
+}
+</script>
+
+<style id="venus-smooth-v219">
+/* ===== v219: DIALOG BIOMETRIK JELASIN PROMPT BAWAAN ===== */
+/* Salah paham user: ngira prompt sidik jari bawaan Android = custom-nya gagal. */
+/* Padahal prompt bawaan WAJIB muncul (WebAuthn / keamanan Android - sidik jari */
+/* NGGAK PERNAH dibaca web page, selalu diverifikasi OS). Dialog custom cuma */
+/* PEMBUKA: ketuk Mulai Scan -> prompt bawaan muncul -> tempel jari di sana. */
+/* Fix v219: teks dialog dibenerin biar nggak misleading ("Tempel di sensor" */
+/* kesannya dialog custom yang scan) + hint jelas kalau prompt bawaan bakal */
+/* muncul dan itu normal & aman. Fungsi asli NGGAK diutak-atik, cuma teks. */
+.venus-bio-pre-sub{font-size:12.5px !important;line-height:1.55 !important}
+.venus-bio-pre-hint{font-size:10.5px !important;line-height:1.5 !important;color:#64748B !important}
+</style>
+<script id="venus-smooth-js-v219">
+/* ===== v219: REDEFINE showBioPrePrompt - TEKS JELASIN PROMPT BAWAAN ===== */
+/* showBioPrePrompt v218 (dan sebelumnya) teksnya: "Tempel sidik jari kamu di */
+/* sensor" + "atau ketuk card ini - scan otomatis". Itu misleading: bikin user */
+/* ngira dialog custom yang scan sidik jari, padahal yang scan = prompt bawaan */
+/* Android (wajib, WebAuthn). v219 redefine showBioPrePrompt (yang TERAKHIR */
+/* menang, jadi dipake authenticateBiometric v218) dengan teks yang jujur: */
+/* ketuk Mulai Scan -> prompt bawaan Android muncul -> tempel jari di sana. */
+/* Alur, tombol, handler, transisi NGGAK diubah sama sekali - cuma teks. */
+function showBioPrePrompt(){
+  var old = document.getElementById('venusBioPrePrompt');
+  if(old) old.remove();
+  var el = document.createElement('div');
+  el.id = 'venusBioPrePrompt';
+  el.innerHTML = '<div class="venus-bio-pre-card">' +
+    '<div class="venus-bio-pre-icon">' +
+      '<svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#0A4DA3" stroke-width="1.8" stroke-linecap="round">' +
+        '<path d="M12 3c2.2 0 4 1.8 4 4 0 1.8-.8 3.4-1.6 4.9-.6 1.2-1.1 2.2-1.4 3.6"/>' +
+        '<path d="M12 3c1.1 0 2 .9 2 2 0 1.5-.6 2.8-1.2 4.1"/>' +
+        '<path d="M12 3v2c0 1.2-.5 2.3-1 3.4"/>' +
+        '<path d="M9.8 4.4A4 4 0 0 1 12 3"/>' +
+        '<path d="M7.9 6.8A6 6 0 0 1 9.8 4.4"/>' +
+        '<path d="M6.7 10a8 8 0 0 1 1.2-3.2"/>' +
+        '<path d="M6.2 13.5a10 10 0 0 1 .5-3.5"/>' +
+        '<path d="M6.5 17a12 12 0 0 1-.3-3.5"/>' +
+        '<path d="M8 21c-.6-1.2-1-2.5-1.2-4"/>' +
+        '<path d="M10.5 21c-.4-1.2-.6-2.5-.7-4"/>' +
+        '<path d="M13 21c-.2-1.2-.3-2.5-.3-4"/>' +
+        '<path d="M15.5 21c0-1.2.1-2.5.4-3.8"/>' +
+      '</svg>' +
+    '</div>' +
+    '<div class="venus-bio-pre-title">Verifikasi Biometrik</div>' +
+    '<div class="venus-bio-pre-sub">Ketuk Mulai Scan, lalu tempel sidik jari<br>di prompt bawaan Android yang muncul.</div>' +
+    '<button type="button" class="venus-bio-pre-start" id="venusBioPreStart">Mulai Scan Sidik Jari</button>' +
+    '<div class="venus-bio-pre-hint">Prompt bawaan Android pasti muncul &mdash; itu normal &amp; aman.<br>Sidik jari tidak pernah dibaca aplikasi, hanya diverifikasi Android.</div>' +
+    '<button type="button" class="venus-bio-pre-cancel" id="venusBioPreCancel">Batal</button>' +
+    '<div class="venus-bio-pre-reregister" id="venusBioPreReregister">Sidik jari tidak berfungsi? Daftar ulang di sini</div>' +
+    '</div>';
+  document.body.appendChild(el);
+  return el;
 }
 </script>
 </body>
