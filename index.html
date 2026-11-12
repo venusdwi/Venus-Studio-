@@ -2549,7 +2549,9 @@ function formatRiwayatDateOnly(isoDate){
 <div id="modalSelectMethod" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:90;align-items:flex-end;justify-content:center"><div class="bank-card" style="width:100%;max-width:460px;border-radius:20px 20px 0 0"><button data-value="CASH" style="width:100%;padding:14px;border-radius:12px;border:1px solid var(--border);background:var(--card);font-weight:700">CASH</button><button data-value="TRANSFER" style="width:100%;padding:14px;border-radius:12px;border:1px solid var(--border);background:var(--card);font-weight:700;margin-top:8px">BANK / QRIS</button><button data-value="DUAL" style="width:100%;padding:14px;border-radius:12px;border:1px solid var(--border);background:var(--card);font-weight:700;margin-top:8px">SPLIT CASH+BANK</button></div></div>
 <div id="modalSelectPaymentStatus" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:90;align-items:flex-end;justify-content:center"><div class="bank-card" style="width:100%;max-width:460px;border-radius:20px 20px 0 0"><button data-value="cicil" style="width:100%;padding:14px;border-radius:12px;border:1px solid var(--border);background:var(--card);font-weight:700">CICIL</button><button data-value="lunas" style="width:100%;padding:14px;border-radius:12px;border:1px solid var(--border);background:var(--card);font-weight:700;margin-top:8px">LUNAS</button></div></div>
 
-<div id="detailTransactionModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:85;align-items:center;justify-content:center;padding:16px"><div class="bank-card" style="width:100%;max-width:380px;max-height:85vh;overflow-y:auto"><div style="display:flex;justify-content:space-between;margin-bottom:12px;align-items:center"><b style="font-size:14px">Detail Transaksi</b><button id="closeDetailModalBtn" class="bank-btn secondary" style="width:32px;height:32px">✕</button></div><div class="form-group"><label>Jumlah</label><input id="editAmount"></div><div class="form-group"><label>Keterangan</label><input id="editDescription"></div><div class="form-group"><label>Tanggal</label><input id="editDate" type="date"></div><div class="form-group"><label>Jam</label><input id="editTime" type="time"></div><div class="form-group" id="detailProofGroup" style="display:none"><label>Bukti Transfer</label><img id="detailProofImage" style="width:100%;border-radius:12px;border:1px solid var(--border);max-height:200px;object-fit:contain;background:#F8FAFC" alt="Bukti"><div style="display:flex;gap:8px;margin-top:8px"><button type="button" id="btnViewProofFull" class="bank-btn secondary" style="flex:1;height:36px;font-size:10px">Lihat Full</button><button type="button" id="btnDeleteProof" class="bank-btn secondary" style="flex:1;height:36px;font-size:10px;color:var(--danger)">Hapus Bukti</button></div></div><div style="display:flex;gap:8px;margin-top:12px"><button id="btnDeleteTransaction" class="bank-btn secondary" style="flex:1;color:var(--danger)">Hapus</button><button id="btnUpdateTransaction" class="bank-btn" style="flex:1">Update</button></div></div></div>
+<div id="detailTransactionModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:85;align-items:center;justify-content:center;padding:16px"><div class="bank-card" style="width:100%;max-width:380px;max-height:85vh;overflow-y:auto"><div style="display:flex;justify-content:space-between;margin-bottom:12px;align-items:center"><b style="font-size:14px">Detail Transaksi</b><button id="closeDetailModalBtn" class="bank-btn secondary" style="width:32px;height:32px">✕</button></div><div class="form-group"><label>Jumlah</label><input id="editAmount"></div><div class="form-group"><label>Keterangan</label><input id="editDescription"></div><div class="form-group"><label>Tanggal</label><input id="editDate" type="date"></div><div class="form-group"><label>Jam</label><input id="editTime" type="time"></div><div class="form-group"><label>Metode</label><div class="custom-select-box" id="detailEditMethodBtn"><span id="detailEditMethodText">CASH</span></div><input type="hidden" id="detailEditMethod"></div><div class="form-group" id="detailDualGroup" style="display:none"><label>Split Detail</label><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><input type="text" id="detailDualCash" placeholder="Cash"><input type="text" id="detailDualBank" placeholder="Bank"></div><small id="detailDualInfo" style="color:var(--text-2);font-size:10px"></small></div><div class="form-group" id="detailProofGroup" style="display:none"><label>Bukti Transfer</label><div id="detailProofEmpty" style="display:none;padding:14px;text-align:center;border:1px dashed var(--border);border-radius:12px;font-size:11px;color:var(--text-2)">Belum ada bukti transfer</div><img id="detailProofImage" style="width:100%;border-radius:12px;border:1px solid var(--border);max-height:200px;object-fit:contain;background:#F8FAFC" alt="Bukti"><input type="file" id="detailProofInput" accept="image/*" style="display:none"><div id="detailProofActions" style="display:flex;gap:8px;margin-top:8px"><button type="button" id="btnViewProofFull" class="bank-btn secondary" style="flex:1;height:36px;font-size:10px">Lihat Full</button><button type="button" id="btnChangeProof" class="bank-btn secondary" style="flex:1;height:36px;font-size:10px">Ganti Bukti</button><button type="button" id="btnDeleteProof" class="bank-btn secondary" style="flex:1;height:36px;font-size:10px;color:var(--danger)">Hapus Bukti</button></div><button type="button" id="btnAddProof" class="bank-btn secondary" style="width:100%;margin-top:8px;display:none">+ Tambah Bukti Transfer</button></div><div style="display:flex;gap:8px;margin-top:12px"><button id="btnDeleteTransaction" class="bank-btn secondary" style="flex:1;color:var(--danger)">Hapus</button><button id="btnUpdateTransaction" class="bank-btn" style="flex:1">Update</button></div></div></div>
+
+<div id="detailEditMethodModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:90;align-items:flex-end;justify-content:center"><div class="bank-card" style="width:100%;max-width:460px;border-radius:20px 20px 0 0"><button data-value="CASH" style="width:100%;padding:14px;border-radius:12px;border:1px solid var(--border);background:var(--card);font-weight:700">CASH</button><button data-value="TRANSFER" style="width:100%;padding:14px;border-radius:12px;border:1px solid var(--border);background:var(--card);font-weight:700;margin-top:8px">BANK / QRIS</button><button data-value="DUAL" style="width:100%;padding:14px;border-radius:12px;border:1px solid var(--border);background:var(--card);font-weight:700;margin-top:8px">SPLIT CASH+BANK</button></div></div>
 
 <div id="monthlyHistoryModalOverlay" style="position:fixed;inset:0;background:var(--bg);z-index:90;display:none;flex-direction:column">
   <div style="height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:var(--card);border-bottom:1px solid var(--border);flex-shrink:0">
@@ -8252,6 +8254,358 @@ body[data-font-size="large"] #venusConfirmModal{ zoom: 1.25 !important; }
     });
     var li = document.getElementById('subAccountLabel');
     if(li) li.addEventListener('input', syncAnotherBtn);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+
+<script id="venus-detail-proof-v206">
+/* ===== v206: DETAIL TRANSAKSI BISA TAMBAH / GANTI BUKTI TRANSFER ===== */
+/* Masalah di screenshot: Detail Transaksi cuma ada Jumlah, Keterangan, Tanggal, Jam, Hapus, Update. */
+/* Kalau transaksi ADA bukti, seksi Bukti muncul (gambar + Lihat Full + Hapus Bukti). */
+/* Kalau transaksi NGGAK ADA bukti (lupa pas input), seksi Bukti-nya display:none - nggak ada cara nambah. */
+/* Fix v206: */
+/* - Di mode EDIT (dari tab Riwayat), kolom Bukti Transfer SELALU keliatan. */
+/*   Kalau belum ada bukti: muncul "Belum ada bukti transfer" + tombol "+ Tambah Bukti Transfer". */
+/*   Kalau udah ada bukti: muncul preview + Lihat Full + Ganti Bukti + Hapus Bukti. */
+/* - Tambah / Ganti: pilih gambar (max 2MB, sama kayak form utama) -> langsung ke-preview, */
+/*   tapi BARU kesimpen pas tap Update. Tap X = batal, bukti lama tetap aman. */
+/* - Hapus Bukti: dulu langsung hapus + simpen (nggak bisa dibatalin). Sekarang jadi PENDING: */
+/*   preview ilang, baru kehapus beneran pas tap Update. Tap X = batal, bukti lama tetap ada. */
+/* - Di mode TAMPILAN (dari Laporan, viewOnly), kolom Bukti tetap cuma buat liat doang: */
+/*   kalau ada bukti, preview + Lihat Full; kalau nggak ada, seksi-nya tetep disembunyiin. */
+/* - Lihat Full + tap thumbnail tetap jalan (baca dari preview, jadi bukti baru yang belum disimpen pun bisa diliat). */
+/* Handler asli NGGAK diutak-atik: v206 cuma wrap openDetailModal, ganti handler Hapus Bukti lewat clone */
+/* tombol (biar listener aslinya kelepas), dan nambah listener Update yang jalan SETELAH handler asli. */
+(function(){
+  var detailProofNew = null;
+  var detailProofRemoved = false;
+  function getTx(){
+    try{ return transactions.find(function(x){ return x.id === currentDetailId; }); }catch(e){ return null; }
+  }
+  function renderProofSection(viewOnly){
+    var group = document.getElementById('detailProofGroup');
+    if(!group) return;
+    var img = document.getElementById('detailProofImage');
+    var empty = document.getElementById('detailProofEmpty');
+    var actions = document.getElementById('detailProofActions');
+    var addBtn = document.getElementById('btnAddProof');
+    var viewBtn = document.getElementById('btnViewProofFull');
+    var changeBtn = document.getElementById('btnChangeProof');
+    var delBtn = document.getElementById('btnDeleteProof');
+    var tx = getTx();
+    if(viewOnly){
+      if(tx && tx.proof){
+        if(img){ img.src = tx.proof; img.style.display = 'block'; }
+        if(empty) empty.style.display = 'none';
+        if(actions) actions.style.display = 'flex';
+        if(viewBtn) viewBtn.style.display = 'block';
+        if(changeBtn) changeBtn.style.display = 'none';
+        if(delBtn) delBtn.style.display = 'none';
+        if(addBtn) addBtn.style.display = 'none';
+        group.style.display = 'block';
+      } else {
+        group.style.display = 'none';
+      }
+      return;
+    }
+    group.style.display = 'block';
+    var hasProof = false;
+    var src = null;
+    if(detailProofNew){ hasProof = true; src = detailProofNew; }
+    else if(tx && tx.proof && !detailProofRemoved){ hasProof = true; src = tx.proof; }
+    if(hasProof){
+      if(img){ img.src = src; img.style.display = 'block'; }
+      if(empty) empty.style.display = 'none';
+      if(actions) actions.style.display = 'flex';
+      if(viewBtn) viewBtn.style.display = 'block';
+      if(changeBtn) changeBtn.style.display = 'block';
+      if(delBtn) delBtn.style.display = 'block';
+      if(addBtn) addBtn.style.display = 'none';
+    } else {
+      if(img) img.style.display = 'none';
+      if(empty) empty.style.display = 'block';
+      if(actions) actions.style.display = 'none';
+      if(addBtn) addBtn.style.display = 'block';
+    }
+  }
+  function init(){
+    if(typeof window.openDetailModal === 'function'){
+      var origOpen = window.openDetailModal;
+      window.openDetailModal = function(id, viewOnly){
+        detailProofNew = null;
+        detailProofRemoved = false;
+        var inp = document.getElementById('detailProofInput');
+        if(inp) inp.value = '';
+        origOpen(id, viewOnly);
+        renderProofSection(!!viewOnly);
+      };
+    }
+    var oldDel = document.getElementById('btnDeleteProof');
+    if(oldDel){
+      var newDel = oldDel.cloneNode(true);
+      oldDel.parentNode.replaceChild(newDel, oldDel);
+      newDel.addEventListener('click', async function(){
+        var ok = false;
+        try{
+          ok = await showVenusConfirm({
+            title: 'Hapus Bukti?',
+            message: 'Bukti transfer ini akan dihapus. Transaksinya tetap ada.',
+            confirmText: 'Hapus',
+            danger: true
+          });
+        }catch(e){ ok = confirm('Hapus bukti ini?'); }
+        if(!ok) return;
+        detailProofNew = null;
+        detailProofRemoved = true;
+        renderProofSection(false);
+      });
+    }
+    function openPicker(){
+      var inp = document.getElementById('detailProofInput');
+      if(inp) inp.click();
+    }
+    var btnAdd = document.getElementById('btnAddProof');
+    if(btnAdd) btnAdd.addEventListener('click', openPicker);
+    var btnChange = document.getElementById('btnChangeProof');
+    if(btnChange) btnChange.addEventListener('click', openPicker);
+    var inp = document.getElementById('detailProofInput');
+    if(inp) inp.addEventListener('change', function(){
+      var file = inp.files && inp.files[0];
+      if(!file) return;
+      if(file.size > 2 * 1024 * 1024){ alert('File terlalu besar, max 2MB'); inp.value = ''; return; }
+      var reader = new FileReader();
+      reader.onload = function(e){
+        detailProofNew = e.target.result;
+        detailProofRemoved = false;
+        renderProofSection(false);
+      };
+      reader.readAsDataURL(file);
+    });
+    var btnUpd = document.getElementById('btnUpdateTransaction');
+    if(btnUpd) btnUpd.addEventListener('click', function(){
+      try{
+        if(!detailProofNew && !detailProofRemoved) return;
+        var tx = getTx();
+        if(!tx) return;
+        if(detailProofRemoved) tx.proof = null;
+        else if(detailProofNew) tx.proof = detailProofNew;
+        saveAndSync();
+        updateUI();
+        detailProofNew = null;
+        detailProofRemoved = false;
+      }catch(e){}
+    });
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+</script>
+
+<script id="venus-detail-method-v207">
+/* ===== v207: DETAIL TRANSAKSI BISA UBAH METODE + CASH NGGAK ADA BUKTI ===== */
+/* 1) UBAH METODE: Detail Transaksi cuma bisa ubah Jumlah, Keterangan, Tanggal, Jam, Bukti. */
+/* Kalau salah input metode (harusnya CASH malah keinput TRANSFER/QRIS), nggak bisa dibenerin - */
+/* padahal saldo Cash/Bank di Laporan + chart Metode dihitung dari field method ini. */
+/* Fix: kolom Metode (di bawah Jam) + picker: CASH / BANK-QRIS / SPLIT CASH+BANK. */
+/* - Kalau pilih SPLIT, muncul Split Detail (Cash + Bank). Ketik Cash -> Bank auto = Total - Cash */
+/*   (sama kayak form utama). Ganti Jumlah pas SPLIT -> Bank ikut nyesuaiin (Cash tetap). */
+/* - Pre-fill Split yang pinter: dari CASH -> SPLIT: Cash = Total, Bank = 0. Dari BANK -> SPLIT: */
+/*   Cash = 0, Bank = Total. Kalau transaksinya emang udah SPLIT: pake split lamanya. */
+/* - Validasi: Cash + Bank HARUS = Jumlah. Kalau nggak sama, tombol Update ke-disable + ada info merah. */
+/* - Kalau pindah dari SPLIT ke CASH/BANK, dualCash/dualBank di-nol-in. */
+/* - Kalau metode NGGAK diubah, nilai lamanya dipertahanin (termasuk QRIS lama - nggak dikonversi diam-diam). */
+/* 2) CASH NGGAK ADA BUKTI: kalau metode-nya CASH, seksi Bukti Transfer disembunyiin (nggak ada */
+/* tombol Tambah Bukti). Kalau metode-nya BANK/QRIS/SPLIT, seksi Bukti muncul lagi. */
+/* Kalau transaksi diubah jadi CASH lalu di-Update, bukti lamanya ikut kehapus (soalnya cash nggak ada */
+/* bukti transfer). Kalau balik lagi ke BANK/QRIS, bukti harus diupload ulang. */
+/* - Mode Tampilan (dari Laporan): Metode + Split dikunci, cuma diliat. Bukti juga ngikutin aturan yang sama. */
+/* ID v207 sengaja pake prefix detail... (detailEditMethod, dst) karena id="editMethod" udah kepake */
+/* hidden field global lain - nggak boleh bentrok. Handler asli NGGAK diutak-atik: v207 cuma wrap */
+/* openDetailModal + nambah listener Update yang jalan SETELAH handler asli + SETELAH v206 (bukti), */
+/* jadi kalau metode akhirnya CASH, bukti yang barusan disimpen v206 ikut kehapus. */
+(function(){
+  function methodLabel(m){
+    if(!m) return 'CASH';
+    if(m === 'CASH') return 'CASH';
+    if(m === 'TRANSFER' || m === 'QRIS') return 'BANK / QRIS';
+    if(m === 'DUAL') return 'SPLIT CASH+BANK';
+    return m;
+  }
+  function parseAmt(str){ return parseFloat(String(str || '').replace(/\./g, '')) || 0; }
+  function fmtAmt(n){ return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+  function getTx(){
+    try{ return transactions.find(function(x){ return x.id === currentDetailId; }); }catch(e){ return null; }
+  }
+  function currentAmount(){
+    var el = document.getElementById('editAmount');
+    return el ? parseAmt(el.value) : 0;
+  }
+  function refreshProofVisibility(viewOnly){
+    var group = document.getElementById('detailProofGroup');
+    if(!group) return;
+    var methodEl = document.getElementById('detailEditMethod');
+    var m = methodEl ? methodEl.value : 'CASH';
+    if(m === 'CASH'){ group.style.display = 'none'; return; }
+    if(viewOnly){
+      var tx = getTx();
+      group.style.display = (tx && tx.proof) ? 'block' : 'none';
+    } else {
+      group.style.display = 'block';
+    }
+  }
+  function refreshDualUI(){
+    var methodEl = document.getElementById('detailEditMethod');
+    var dualGroup = document.getElementById('detailDualGroup');
+    var updBtn = document.getElementById('btnUpdateTransaction');
+    var info = document.getElementById('detailDualInfo');
+    var method = methodEl ? methodEl.value : 'CASH';
+    var isDual = (method === 'DUAL');
+    if(dualGroup) dualGroup.style.display = isDual ? 'block' : 'none';
+    var valid = true;
+    if(isDual){
+      var cash = parseAmt(document.getElementById('detailDualCash') ? document.getElementById('detailDualCash').value : '');
+      var bank = parseAmt(document.getElementById('detailDualBank') ? document.getElementById('detailDualBank').value : '');
+      var total = currentAmount();
+      valid = (cash + bank === total && total > 0);
+      if(info){
+        info.textContent = 'Cash ' + fmtAmt(cash) + ' + Bank ' + fmtAmt(bank) + ' = ' + fmtAmt(cash + bank) + ' / Total ' + fmtAmt(total) + (valid ? '' : ' \u2022 Split harus sama dengan total!');
+        info.style.color = valid ? 'var(--text-2)' : 'var(--danger)';
+      }
+    } else {
+      if(info) info.textContent = '';
+    }
+    if(updBtn){
+      updBtn.disabled = !valid;
+      updBtn.style.opacity = valid ? '' : '0.5';
+    }
+  }
+  function setMethod(newMethod){
+    var methodEl = document.getElementById('detailEditMethod');
+    var textEl = document.getElementById('detailEditMethodText');
+    if(!methodEl) return;
+    var oldMethod = methodEl.value;
+    methodEl.value = newMethod;
+    if(textEl) textEl.textContent = methodLabel(newMethod);
+    if(newMethod === 'DUAL'){
+      var cashEl = document.getElementById('detailDualCash');
+      var bankEl = document.getElementById('detailDualBank');
+      var tx = getTx();
+      var total = currentAmount();
+      var cash = total, bank = 0;
+      if(tx && tx.method === 'DUAL'){
+        cash = tx.dualCash || 0;
+        bank = tx.dualBank || 0;
+      } else if(oldMethod === 'CASH'){
+        cash = total; bank = 0;
+      } else if(oldMethod === 'TRANSFER' || oldMethod === 'QRIS'){
+        cash = 0; bank = total;
+      }
+      if(oldMethod !== 'DUAL'){
+        if(cashEl) cashEl.value = fmtAmt(cash);
+        if(bankEl) bankEl.value = fmtAmt(bank);
+      }
+    }
+    refreshDualUI();
+    refreshProofVisibility(false);
+  }
+  function init(){
+    var picker = document.getElementById('detailEditMethodModal');
+    var btn = document.getElementById('detailEditMethodBtn');
+    if(btn && picker){
+      btn.addEventListener('click', function(){
+        if(btn.disabled) return;
+        picker.style.display = 'flex';
+      });
+      picker.addEventListener('click', function(e){
+        if(e.target === picker) picker.style.display = 'none';
+      });
+      picker.querySelectorAll('button[data-value]').forEach(function(b){
+        b.addEventListener('click', function(){
+          setMethod(b.dataset.value);
+          picker.style.display = 'none';
+        });
+      });
+    }
+    var cashEl = document.getElementById('detailDualCash');
+    var bankEl = document.getElementById('detailDualBank');
+    if(cashEl) cashEl.addEventListener('input', function(){
+      this.value = this.value.replace(/[^0-9.]/g, '');
+      var total = currentAmount();
+      var cash = parseAmt(this.value);
+      var bank = total - cash;
+      if(bankEl) bankEl.value = bank > 0 ? fmtAmt(bank) : '0';
+      refreshDualUI();
+    });
+    if(bankEl) bankEl.addEventListener('input', function(){
+      this.value = this.value.replace(/[^0-9.]/g, '');
+      refreshDualUI();
+    });
+    var amtEl = document.getElementById('editAmount');
+    if(amtEl) amtEl.addEventListener('input', function(){
+      var methodEl = document.getElementById('detailEditMethod');
+      if(methodEl && methodEl.value === 'DUAL' && cashEl && bankEl){
+        var total = currentAmount();
+        var cash = parseAmt(cashEl.value);
+        var bank = total - cash;
+        bankEl.value = bank > 0 ? fmtAmt(bank) : '0';
+      }
+      refreshDualUI();
+    });
+    if(typeof window.openDetailModal === 'function'){
+      var origOpen = window.openDetailModal;
+      window.openDetailModal = function(id, viewOnly){
+        origOpen(id, viewOnly);
+        try{
+          var tx = getTx();
+          var m = tx ? (tx.method || 'CASH') : 'CASH';
+          var methodEl = document.getElementById('detailEditMethod');
+          var textEl = document.getElementById('detailEditMethodText');
+          if(methodEl) methodEl.value = m;
+          if(textEl) textEl.textContent = methodLabel(m);
+          var cEl = document.getElementById('detailDualCash');
+          var bEl = document.getElementById('detailDualBank');
+          if(cEl) cEl.value = fmtAmt(tx ? (tx.dualCash || 0) : 0);
+          if(bEl) bEl.value = fmtAmt(tx ? (tx.dualBank || 0) : 0);
+          var btn2 = document.getElementById('detailEditMethodBtn');
+          if(btn2){ btn2.disabled = !!viewOnly; btn2.style.opacity = viewOnly ? '0.7' : ''; }
+          if(cEl){ cEl.disabled = !!viewOnly; cEl.style.opacity = viewOnly ? '0.7' : ''; }
+          if(bEl){ bEl.disabled = !!viewOnly; bEl.style.opacity = viewOnly ? '0.7' : ''; }
+          var upd = document.getElementById('btnUpdateTransaction');
+          if(upd){ upd.disabled = false; upd.style.opacity = ''; }
+          refreshDualUI();
+          refreshProofVisibility(!!viewOnly);
+        }catch(e){}
+      };
+    }
+    var btnUpd = document.getElementById('btnUpdateTransaction');
+    if(btnUpd) btnUpd.addEventListener('click', function(){
+      try{
+        if(btnUpd.disabled) return;
+        var tx = getTx();
+        if(!tx) return;
+        var methodEl = document.getElementById('detailEditMethod');
+        var m = methodEl ? methodEl.value : tx.method;
+        if(!m) return;
+        if(m === 'DUAL'){
+          var cash = parseAmt(document.getElementById('detailDualCash') ? document.getElementById('detailDualCash').value : '');
+          var bank = parseAmt(document.getElementById('detailDualBank') ? document.getElementById('detailDualBank').value : '');
+          var total = tx.amount || 0;
+          if(cash + bank !== total){ alert('Split tidak sama dengan total!'); return; }
+          tx.method = 'DUAL';
+          tx.dualCash = cash;
+          tx.dualBank = bank;
+        } else {
+          tx.method = m;
+          tx.dualCash = 0;
+          tx.dualBank = 0;
+          if(m === 'CASH') tx.proof = null;
+        }
+        saveAndSync();
+        updateUI();
+      }catch(e){}
+    });
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
