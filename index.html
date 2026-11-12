@@ -2250,7 +2250,7 @@ function formatRiwayatDateOnly(isoDate){
   <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:14vh;width:100%">
     <button type="button" class="tap-here-btn" id="btnTapHere">TAP HERE</button>
   </div>
-  </div><div style="font-size:10px;color:rgba(255,255,255,0.45);letter-spacing:3px;font-weight:700;text-align:center;line-height:1">SECURE VENUS STUDIO • v212</div></div>
+  </div><div style="font-size:10px;color:rgba(255,255,255,0.45);letter-spacing:3px;font-weight:700;text-align:center;line-height:1">SECURE VENUS STUDIO • v213</div></div>
 </div>
 <style>
 @keyframes dotPulse{0%,100%{opacity:0.3; transform:scale(1)}50%{opacity:1; transform:scale(1.3)}}
@@ -9044,6 +9044,136 @@ async function authenticateBiometric(opts){
     }
     return false;
   }
+  return false;
+}
+</script>
+
+<style id="venus-smooth-v213">
+/* ===== v213: CUSTOM BIOMETRIC PRE-PROMPT ===== */
+/* Prompt SISTEM (bottom sheet hitam Android/Chrome) NGGAK BISA di-custom - dikontrol OS, */
+/* nggak ada API web buat ngubah teks/desainnya. Yang BISA: dialog in-app kita sendiri */
+/* SEBELUM prompt sistem muncul. Dialog ini branded VENUS STUDIO (card putih, ikon */
+/* sidik jari berdenyut, teks custom). Muncul 400ms, lalu prompt sistem nimpa dari atas. */
+#venusBioPrePrompt{position:fixed;inset:0;z-index:99999;background:rgba(6,26,58,.55);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:24px;animation:venusBioPreFade .25s ease both}
+.venus-bio-pre-card{background:#fff;border-radius:24px;padding:28px 24px 20px;width:100%;max-width:320px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.35);animation:venusBioPrePop .3s cubic-bezier(.34,1.3,.64,1) both}
+.venus-bio-pre-icon{width:72px;height:72px;margin:0 auto 14px;border-radius:50%;background:#EAF2FF;display:flex;align-items:center;justify-content:center;animation:venusBioPrePulse 1.2s ease-in-out infinite}
+.venus-bio-pre-title{font-size:17px;font-weight:800;color:#0A1931;margin-bottom:6px}
+.venus-bio-pre-sub{font-size:13px;color:#64748B;line-height:1.5;margin-bottom:16px}
+.venus-bio-pre-cancel{background:none;border:none;color:#0A4DA3;font-size:14px;font-weight:700;padding:10px 20px;cursor:pointer}
+@keyframes venusBioPreFade{from{opacity:0}to{opacity:1}}
+@keyframes venusBioPrePop{from{opacity:0;transform:scale(.92) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes venusBioPrePulse{0%,100%{box-shadow:0 0 0 0 rgba(10,77,163,.25)}50%{box-shadow:0 0 0 14px rgba(10,77,163,0)}}
+</style>
+<script id="venus-smooth-js-v213">
+/* ===== v213: CUSTOM BIOMETRIC PRE-PROMPT (REDEFINE authenticateBiometric) ===== */
+/* Flow baru: klik sidik jari -> dialog custom VENUS STUDIO (400ms) -> prompt sistem */
+/* Android -> sukses -> transisi berurutan v212 (PIN out 0.3s, Home in 0.15s kemudian). */
+/* Dialog custom dibikin dinamis (JS), jadi nggak ngutak-atik HTML utama. Tombol Batal */
+/* di dialog custom cuma kepake di 400ms sebelum prompt sistem muncul (begitu prompt */
+/* sistem tampil, dia yang megang layar, tombol Batal kita ketutup - cancel-nya lewat */
+/* tombol Cancel di prompt sistem). hideBioPrePrompt() dipanggil di SEMUA jalur */
+/* (sukses, gagal, batal, return awal) biar dialog custom nggak nyangkut. */
+/* Opsi silent + pesan error v209-v212 dipertahanin semua. */
+function showBioPrePrompt(){
+  var old = document.getElementById('venusBioPrePrompt');
+  if(old) old.remove();
+  var el = document.createElement('div');
+  el.id = 'venusBioPrePrompt';
+  el.innerHTML = '<div class="venus-bio-pre-card">' +
+    '<div class="venus-bio-pre-icon">' +
+      '<svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#0A4DA3" stroke-width="1.8" stroke-linecap="round">' +
+        '<path d="M12 3c2.2 0 4 1.8 4 4 0 1.8-.8 3.4-1.6 4.9-.6 1.2-1.1 2.2-1.4 3.6"/>' +
+        '<path d="M12 3c1.1 0 2 .9 2 2 0 1.5-.6 2.8-1.2 4.1"/>' +
+        '<path d="M12 3v2c0 1.2-.5 2.3-1 3.4"/>' +
+        '<path d="M9.8 4.4A4 4 0 0 1 12 3"/>' +
+        '<path d="M7.9 6.8A6 6 0 0 1 9.8 4.4"/>' +
+        '<path d="M6.7 10a8 8 0 0 1 1.2-3.2"/>' +
+        '<path d="M6.2 13.5a10 10 0 0 1 .5-3.5"/>' +
+        '<path d="M6.5 17a12 12 0 0 1-.3-3.5"/>' +
+        '<path d="M8 21c-.6-1.2-1-2.5-1.2-4"/>' +
+        '<path d="M10.5 21c-.4-1.2-.6-2.5-.7-4"/>' +
+        '<path d="M13 21c-.2-1.2-.3-2.5-.3-4"/>' +
+        '<path d="M15.5 21c0-1.2.1-2.5.4-3.8"/>' +
+      '</svg>' +
+    '</div>' +
+    '<div class="venus-bio-pre-title">Verifikasi Biometrik</div>' +
+    '<div class="venus-bio-pre-sub">Tempel sidik jari kamu di sensor<br>untuk membuka VENUS STUDIO</div>' +
+    '<button type="button" class="venus-bio-pre-cancel" id="venusBioPreCancel">Batal</button>' +
+    '</div>';
+  document.body.appendChild(el);
+  var cancelBtn = el.querySelector('#venusBioPreCancel');
+  if(cancelBtn){
+    cancelBtn.addEventListener('click', function(){
+      el.dataset.cancelled = '1';
+      hideBioPrePrompt();
+    });
+  }
+  return el;
+}
+function hideBioPrePrompt(){
+  var el = document.getElementById('venusBioPrePrompt');
+  if(el) el.remove();
+}
+async function authenticateBiometric(opts){
+  var silent = !!(opts && opts.silent);
+  try{
+    var credIdB64 = localStorage.getItem('venus_biometric_credential');
+    if(!credIdB64){
+      if(!silent) showVenusCustomAlert('Belum Daftar', 'Aktifkan dulu di Setting > Biometrik');
+      return false;
+    }
+    var supported = await isBiometricSupported();
+    if(!supported){
+      if(!silent) showVenusCustomAlert('Biometrik Tidak Didukung', biometricUnavailableMsg());
+      return false;
+    }
+    var preEl = showBioPrePrompt();
+    await new Promise(function(res){ setTimeout(res, 400); });
+    if(preEl && preEl.dataset.cancelled === '1'){
+      hideBioPrePrompt();
+      return false;
+    }
+    var challenge = new Uint8Array(32); window.crypto.getRandomValues(challenge);
+    var allowCreds = [{id: base64url2buf(credIdB64), type:"public-key", transports:["internal"]}];
+    var publicKey = {challenge: challenge, allowCredentials: allowCreds, userVerification:"required", timeout:60000};
+    if(location.hostname) publicKey.rpId = location.hostname;
+    var assertion = await navigator.credentials.get({publicKey: publicKey});
+    hideBioPrePrompt();
+    if(assertion){
+      if(window.playPinSuccessSound) playPinSuccessSound();
+      var pinOverlay = document.getElementById('pinScreenOverlay');
+      var main = document.getElementById('mainAppContainer');
+      if(pinOverlay) pinOverlay.classList.add('exiting');
+      setTimeout(function(){
+        if(pinOverlay) pinOverlay.classList.remove('active','exiting');
+        if(main){
+          main.classList.add('bio-enter');
+          main.classList.add('active');
+        }
+        if(typeof updateUI === 'function'){ try{ updateUI(); }catch(e){} }
+        setTimeout(function(){
+          if(main) main.classList.remove('bio-enter');
+        }, 400);
+      }, 150);
+      setTimeout(function(){
+        if(pinOverlay) pinOverlay.classList.remove('active','exiting');
+        if(main) main.classList.remove('bio-enter');
+      }, 500);
+      return true;
+    }
+  }catch(e){
+    hideBioPrePrompt();
+    console.log('Biometric auth error', e);
+    if(!silent){
+      var msg = (e && e.message) ? e.message : 'Batal';
+      if(e && e.name === 'NotAllowedError'){
+        msg = 'Biometrik dibatalkan. Pakai PIN aja kalau mau.';
+      }
+      showVenusCustomAlert('Biometrik Gagal', msg);
+    }
+    return false;
+  }
+  hideBioPrePrompt();
   return false;
 }
 </script>
