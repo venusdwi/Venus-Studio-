@@ -8890,4 +8890,78 @@ async function authenticateBiometric(opts){
   }, true);
 })();
 </script>
+
+<style id="venus-smooth-v211">
+/* ===== v211: SPLASH->PIN + BIOMETRIK ANTI-GOYANG ===== */
+/* (1) Splash numpuk PIN card (video 1.31s): splash z-index 99999 DI ATAS PIN 9990, jadi pas */
+/* cross-fade teks splash (di atas) tembus ke PIN card (di bawah). Fix JS v210 (display:none */
+/* pas TAP HERE) masih bisa ketembus kalau ke-cache / kebuka file lama. Fix ini CSS murni */
+/* pakai :has() - begitu PIN aktif, splash langsung ilang di FRAME YANG SAMA, nggak nunggu JS, */
+/* nggak nunggu fade. PIN fade-in-nya jalan di atas background gradient (sama kayak splash), */
+/* jadi nggak ada lompat warna. Splash cuma buat load awal; begitu PIN tampil, splash udah */
+/* selesai tugasnya, jadi aman di-hide permanen. */
+body:has(#pinScreenOverlay.active) #splashScreenOverlay{display:none !important}
+/* (2) Biometrik -> Home anti-goyang: cross-fade MURNI. Dialog sistem sidik jari pas nutup */
+/* udah bikin 1 lompatan; kalau aplikasi ikut geser naik 24px + scale (pre-enter v210), */
+/* jadinya goyang dobel. bio-enter matiin transform + delay di Home - cuma opacity 0.45s. */
+#mainAppContainer.bio-enter{transition:opacity .45s ease !important;transform:none !important}
+/* (2b) PIN fade-out disamain 0.45s tanpa delay, biar kelar BARENG Home fade-in. */
+.pin-screen-overlay.exiting{transition:opacity .45s ease !important;filter:none !important}
+</style>
+<script id="venus-smooth-js-v211">
+/* ===== v211: BIOMETRIK CROSS-FADE MURNI (REDEFINE authenticateBiometric) ===== */
+/* Jalur PIN dibiarin apa adanya (udah halus). Yang diubah CUMA jalur sidik jari: */
+/* PIN fade-out + Home fade-in BARENGAN, tanpa geser/scale/delay/pre-enter. */
+/* updateUI() dipanggil pas Home udah display:flex (canvas kebaca ukurannya) tapi masih */
+/* opacity 0 (lagi fade-in), jadi konten udah ke-layout pas PIN kebuka. Handler asli NGGAK */
+/* diutak-atik; script ini jalan sebelum initBiometric() dipanggil, jadi tombol sidik jari */
+/* otomatis pake versi baru. Opsi silent + pesan error v209/v210 dipertahanin semua. */
+async function authenticateBiometric(opts){
+  var silent = !!(opts && opts.silent);
+  try{
+    var credIdB64 = localStorage.getItem('venus_biometric_credential');
+    if(!credIdB64){
+      if(!silent) showVenusCustomAlert('Belum Daftar', 'Aktifkan dulu di Setting > Biometrik');
+      return false;
+    }
+    var supported = await isBiometricSupported();
+    if(!supported){
+      if(!silent) showVenusCustomAlert('Biometrik Tidak Didukung', biometricUnavailableMsg());
+      return false;
+    }
+    var challenge = new Uint8Array(32); window.crypto.getRandomValues(challenge);
+    var allowCreds = [{id: base64url2buf(credIdB64), type:"public-key", transports:["internal"]}];
+    var publicKey = {challenge: challenge, allowCredentials: allowCreds, userVerification:"required", timeout:60000};
+    if(location.hostname) publicKey.rpId = location.hostname;
+    var assertion = await navigator.credentials.get({publicKey: publicKey});
+    if(assertion){
+      if(window.playPinSuccessSound) playPinSuccessSound();
+      var pinOverlay = document.getElementById('pinScreenOverlay');
+      var main = document.getElementById('mainAppContainer');
+      if(main){
+        main.classList.add('bio-enter');
+        main.classList.add('active');
+      }
+      if(pinOverlay) pinOverlay.classList.add('exiting');
+      if(typeof updateUI === 'function'){ try{ updateUI(); }catch(e){} }
+      setTimeout(function(){
+        if(pinOverlay) pinOverlay.classList.remove('active','exiting');
+        if(main) main.classList.remove('bio-enter');
+      }, 500);
+      return true;
+    }
+  }catch(e){
+    console.log('Biometric auth error', e);
+    if(!silent){
+      var msg = (e && e.message) ? e.message : 'Batal';
+      if(e && e.name === 'NotAllowedError'){
+        msg = 'Biometrik dibatalkan. Pakai PIN aja kalau mau.';
+      }
+      showVenusCustomAlert('Biometrik Gagal', msg);
+    }
+    return false;
+  }
+  return false;
+}
+</script>
 </body>
