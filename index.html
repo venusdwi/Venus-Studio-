@@ -2250,7 +2250,7 @@ function formatRiwayatDateOnly(isoDate){
   <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:14vh;width:100%">
     <button type="button" class="tap-here-btn" id="btnTapHere">TAP HERE</button>
   </div>
-  </div><div style="font-size:10px;color:rgba(255,255,255,0.45);letter-spacing:3px;font-weight:700;text-align:center;line-height:1">SECURE VENUS STUDIO</div></div>
+  </div><div style="font-size:10px;color:rgba(255,255,255,0.45);letter-spacing:3px;font-weight:700;text-align:center;line-height:1">SECURE VENUS STUDIO • v212</div></div>
 </div>
 <style>
 @keyframes dotPulse{0%,100%{opacity:0.3; transform:scale(1)}50%{opacity:1; transform:scale(1.3)}}
@@ -8944,6 +8944,89 @@ async function authenticateBiometric(opts){
       }
       if(pinOverlay) pinOverlay.classList.add('exiting');
       if(typeof updateUI === 'function'){ try{ updateUI(); }catch(e){} }
+      setTimeout(function(){
+        if(pinOverlay) pinOverlay.classList.remove('active','exiting');
+        if(main) main.classList.remove('bio-enter');
+      }, 500);
+      return true;
+    }
+  }catch(e){
+    console.log('Biometric auth error', e);
+    if(!silent){
+      var msg = (e && e.message) ? e.message : 'Batal';
+      if(e && e.name === 'NotAllowedError'){
+        msg = 'Biometrik dibatalkan. Pakai PIN aja kalau mau.';
+      }
+      showVenusCustomAlert('Biometrik Gagal', msg);
+    }
+    return false;
+  }
+  return false;
+}
+</script>
+
+<style id="venus-smooth-v212">
+/* ===== v212: LOGO DIAM + BIOMETRIK BERURUTAN + SALDO LEBIH KECIL ===== */
+/* (1) LOGO V GOYANG TERUS: #splashLogoWrap punya class splash-logo-glow yang di CSS-nya */
+/* animation: logoFloatCentered 3s ease-in-out INFINITE (logo ngambang naik-turun 6px */
+/* SELAMANYA) + logoScaleIn mantul (cubic-bezier overshoot 1.56). Animasi ini !important, */
+/* jadi ngalahin animasi inline logoVContainerEntry. Fix: override pakai selektor ID+class */
+/* (spesifisitas lebih tinggi) + !important - logo cuma fade + scale halus 0.8s, lalu DIAM. */
+/* Halo/glow + shine di belakang logo dibiarin (cuma cahaya, nggak gerakin logo). */
+#splashLogoWrap.splash-logo-glow{animation:venusLogoCalm .8s ease both !important}
+@keyframes venusLogoCalm{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+/* (1b) Konten splash fade MURNI opacity (v210 masih ada translateY 8px - ikut goyang). */
+#splashScreenOverlay > div, #splashScreenOverlay > button{animation:venusSplashFadeOnly .5s ease both !important}
+@keyframes venusSplashFadeOnly{from{opacity:0}to{opacity:1}}
+/* (2) BIOMETRIK BERURUTAN (bukan cross-fade barengan): PIN fade-out dulu 0.3s, Home baru */
+/* fade-in 0.15s kemudian. Cross-fade barengan bikin efek dobel/ghosting (PIN + Home */
+/* keliatan bareng = kerasa goyang, frame 7.70s). Berurutan = PIN ilang bersih, baru Home */
+/* muncul - tanpa dobel, tanpa blank lama (background-nya gradient yang sama). */
+.pin-screen-overlay.exiting{transition:opacity .3s ease !important;filter:none !important}
+#mainAppContainer.bio-enter{transition:opacity .35s ease !important;transform:none !important}
+/* (3) SISA SALDO nominal diperkecil sedikit: 26px -> 22px. */
+.card-hero-bank p{font-size:22px !important}
+</style>
+<script id="venus-smooth-js-v212">
+/* ===== v212: BIOMETRIK BERURUTAN (REDEFINE authenticateBiometric) ===== */
+/* t=0: PIN fade-out 0.3s. t=150ms: Home fade-in 0.35s (overlap 0.15s, minim ghosting). */
+/* t=500ms: bersihin PIN + bio-enter. Jalur PIN dibiarin apa adanya. Handler asli NGGAK */
+/* diutak-atik; script ini jalan sebelum initBiometric() dipanggil, jadi tombol sidik jari */
+/* otomatis pake versi baru. Opsi silent + pesan error v209/v210/v211 dipertahanin. */
+async function authenticateBiometric(opts){
+  var silent = !!(opts && opts.silent);
+  try{
+    var credIdB64 = localStorage.getItem('venus_biometric_credential');
+    if(!credIdB64){
+      if(!silent) showVenusCustomAlert('Belum Daftar', 'Aktifkan dulu di Setting > Biometrik');
+      return false;
+    }
+    var supported = await isBiometricSupported();
+    if(!supported){
+      if(!silent) showVenusCustomAlert('Biometrik Tidak Didukung', biometricUnavailableMsg());
+      return false;
+    }
+    var challenge = new Uint8Array(32); window.crypto.getRandomValues(challenge);
+    var allowCreds = [{id: base64url2buf(credIdB64), type:"public-key", transports:["internal"]}];
+    var publicKey = {challenge: challenge, allowCredentials: allowCreds, userVerification:"required", timeout:60000};
+    if(location.hostname) publicKey.rpId = location.hostname;
+    var assertion = await navigator.credentials.get({publicKey: publicKey});
+    if(assertion){
+      if(window.playPinSuccessSound) playPinSuccessSound();
+      var pinOverlay = document.getElementById('pinScreenOverlay');
+      var main = document.getElementById('mainAppContainer');
+      if(pinOverlay) pinOverlay.classList.add('exiting');
+      setTimeout(function(){
+        if(pinOverlay) pinOverlay.classList.remove('active','exiting');
+        if(main){
+          main.classList.add('bio-enter');
+          main.classList.add('active');
+        }
+        if(typeof updateUI === 'function'){ try{ updateUI(); }catch(e){} }
+        setTimeout(function(){
+          if(main) main.classList.remove('bio-enter');
+        }, 400);
+      }, 150);
       setTimeout(function(){
         if(pinOverlay) pinOverlay.classList.remove('active','exiting');
         if(main) main.classList.remove('bio-enter');
