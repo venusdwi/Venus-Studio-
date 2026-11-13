@@ -2510,7 +2510,7 @@ function formatRiwayatDateOnly(isoDate){
       <div class="bank-card" style="margin-bottom:0;padding:14px">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><div style="width:28px;height:28px;border-radius:8px;background:#F8FAFC;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div><div><div style="font-weight:700;font-size:12px">Tentang</div><div style="font-size:10px;color:#64748B">VENUS STUDIO</div></div></div>
         <div style="background:#F8FAFC;border:1px solid #F1F5F9;border-radius:10px;padding:10px;font-size:10px;color:#64748B;line-height:1.6">
-          <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Versi</span><span style="font-weight:700;color:#0F172A"><span data-venus-version>V223</span></span></div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Versi</span><span style="font-weight:700;color:#0F172A"><span data-venus-version>V226</span></span></div>
           <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Firebase</span><span>venus-studio-e7086</span></div>
           <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Keamanan</span><span style="font-weight:700;color:var(--success)">Terproteksi ••••••</span></div>
           <div style="display:flex;justify-content:space-between"><span>Pembaruan</span><span>Otomatis</span></div>
@@ -5540,7 +5540,7 @@ document.addEventListener('DOMContentLoaded', function(){
   }
   window.applyVenusLanguage = applyLanguage;
   // Versi otomatis
-  var APP_VERSION = 'V223';
+  var APP_VERSION = 'V226';
   window.VENUS_APP_VERSION = APP_VERSION;
   function applyVersion(){
     document.querySelectorAll('[data-venus-version]').forEach(function(el){ el.textContent = APP_VERSION; });
@@ -10335,5 +10335,76 @@ async function authenticateBiometric(opts){
 /* ===== v223: POPUP JENIS & METODE TENGAH (TIDAK ADA LOGIKA BARU) ===== */
 /* Blok ini penanda versi v223. Semua perubahan di CSS v223 (centering + warna */
 /* Jenis). Handler klik modal (buka/tutup/pilih) NGGAK diutak-atik. */
+</script>
+
+<style id="venus-smooth-v224">
+/* ===== v224: JENIS & METODE JADI DROPDOWN INLINE (BUKAN POP-UP) ===== */
+/* User: "munculnya di bawah kolom jenis, jadi bukan pop-up". Fix: popup modal */
+/* Jenis & Metode DIMATIIN TOTAL (display:none !important - ngalahin handler */
+/* asli yang set display:flex). Gantinya: list inline (.venus-inline-opts) */
+/* yang disisipin JS tepat di bawah kolomnya, di dalam .form-group yang sama, */
+/* jadi ngedorong kolom di bawahnya. List hidden default, muncul kalau class */
+/* .open. Warna Jenis dibedain (hijau/merah/amber pastel, lanjutan v223); */
+/* Metode warnanya DIPERTAHANIN (putih/teks hitam). Modal Status (CICIL/LUNAS) */
+/* NGGAK diubah (nggak diminta). */
+/* v224 hide modal DICABUT di v226 - balik ke pop-up tengah */
+.venus-inline-opts{display:none;margin-top:8px}
+.venus-inline-opts.open{display:block}
+.venus-inline-opts button{width:100%;padding:14px;border-radius:12px;border:1px solid var(--border);background:var(--card);font-weight:700;font-size:14px;cursor:pointer;text-align:center}
+.venus-inline-opts button + button{margin-top:8px}
+.venus-inline-opts button[data-value="in"]{background:#DCFCE7 !important;color:#166534 !important;border-color:rgba(22,101,52,0.25) !important}
+.venus-inline-opts button[data-value="out"]{background:#FEE2E2 !important;color:#991B1B !important;border-color:rgba(153,27,27,0.25) !important}
+.venus-inline-opts button[data-value="refund"]{background:#FEF3C7 !important;color:#92400E !important;border-color:rgba(146,64,14,0.25) !important}
+</style>
+<script id="venus-smooth-js-v224">
+/* ===== v224: DROPDOWN INLINE (DICABUT DI v226) ===== */
+/* User: inline kureng, balik ke pop-up tengah. JS v224 dimatiin - list inline */
+/* nggak lagi dibikin, klik kolom balik buka modal (handler asli). */
+</script>
+
+<style id="venus-smooth-v225">
+/* ===== v225: OPSI JENIS & METODE JADI TEKS BIASA (BUKAN KOTAK KOLOM) ===== */
+/* User: "bukan kolom, jadi teks biasa". Fix: override CSS v224 (kotak: border, */
+/* background, radius, padding kotak, teks tengah) -> TEKS BIASA: background */
+/* transparan, TANPA border/radius/shadow, rata KIRI, padding kecil biar tetep */
+/* gampang diketuk. Warna TEKS-nya DIPERTAHANIN (lanjutan v223/v224): Jenis */
+/* Pemasukan teks hijau, Pengeluaran teks merah, Refund teks amber; Metode */
+/* teks hitam (dipertahanin). Semua pake !important biar ngalahin CSS v224. */
+/* Perilaku (muncul di bawah kolom, klik di luar nutup) NGGAK diubah (JS v224). */
+.venus-inline-opts button{background:transparent !important;border:none !important;border-radius:0 !important;box-shadow:none !important;padding:8px 4px !important;text-align:left !important;font-weight:600 !important}
+.venus-inline-opts button + button{margin-top:0 !important}
+.venus-inline-opts button[data-value="in"]{background:transparent !important;border:none !important;color:#166534 !important}
+.venus-inline-opts button[data-value="out"]{background:transparent !important;border:none !important;color:#991B1B !important}
+.venus-inline-opts button[data-value="refund"]{background:transparent !important;border:none !important;color:#92400E !important}
+</style>
+<script id="venus-smooth-js-v225">
+/* ===== v225: OPSI JADI TEKS BIASA (HANYA CSS, NGGAK ADA LOGIKA BARU) ===== */
+/* Blok ini penanda versi v225. Semua perubahan di CSS v225 (teks biasa). */
+/* JS v224 (bangun list inline, toggle, klik di luar nutup, DUAL) NGGAK diubah. */
+</script>
+
+<style id="venus-smooth-v226">
+/* ===== v226: BALIK KE POP-UP TENGAH + METODE PAKE WARNA ===== */
+/* User: inline kureng, pake pop-up tengah aja + Metode pake warna. Fix: */
+/* (1) Modal Jenis & Metode TENGAH (align-items:center + padding 16px + card */
+/* radius 20px semua sisi) - sama kayak v223. (2) Jenis warnanya dibedain */
+/* (hijau/merah/amber pastel). (3) Metode SEKARANG PAKE WARNA (baru di v226, */
+/* tadinya dipertahanin putih/hitam): CASH amber (samain pill CASH), BANK/QRIS */
+/* teal (samain pill BANK), SPLIT ungu (beda, campuran). Semua !important biar */
+/* ngalahin inline style HTML modal. Modal Status NGGAK diubah. */
+#modalSelectType, #modalSelectMethod{align-items:center !important;padding:16px !important}
+#modalSelectType > .bank-card, #modalSelectMethod > .bank-card{border-radius:20px !important}
+#modalSelectType button[data-value="in"]{background:#DCFCE7 !important;color:#166534 !important;border-color:rgba(22,101,52,0.25) !important}
+#modalSelectType button[data-value="out"]{background:#FEE2E2 !important;color:#991B1B !important;border-color:rgba(153,27,27,0.25) !important}
+#modalSelectType button[data-value="refund"]{background:#FEF3C7 !important;color:#92400E !important;border-color:rgba(146,64,14,0.25) !important}
+#modalSelectMethod button[data-value="CASH"]{background:#FEF3C7 !important;color:#92400E !important;border-color:rgba(146,64,14,0.25) !important}
+#modalSelectMethod button[data-value="TRANSFER"]{background:#CCFBF1 !important;color:#0F766E !important;border-color:rgba(15,118,110,0.25) !important}
+#modalSelectMethod button[data-value="DUAL"]{background:#EDE9FE !important;color:#5B21B6 !important;border-color:rgba(91,33,182,0.25) !important}
+</style>
+<script id="venus-smooth-js-v226">
+/* ===== v226: BALIK KE POP-UP TENGAH (HANYA CSS, NGGAK ADA LOGIKA BARU) ===== */
+/* Blok ini penanda versi v226. Semua perubahan di CSS v226 (modal tengah + */
+/* warna Jenis & Metode). Handler modal asli (buka/tutup/pilih) NGGAK diutak-atik */
+/* - balik jalan kayak sebelum v224. */
 </script>
 </body>
