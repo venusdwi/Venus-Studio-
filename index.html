@@ -2250,7 +2250,7 @@ function formatRiwayatDateOnly(isoDate){
   <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:14vh;width:100%">
     <button type="button" class="tap-here-btn" id="btnTapHere">TAP HERE</button>
   </div>
-  </div><div style="font-size:10px;color:rgba(255,255,255,0.45);letter-spacing:3px;font-weight:700;text-align:center;line-height:1">SECURE VENUS STUDIO • v220</div></div>
+  </div><div style="font-size:10px;color:rgba(255,255,255,0.45);letter-spacing:3px;font-weight:700;text-align:center;line-height:1">SECURE VENUS STUDIO</div></div>
 </div>
 <style>
 @keyframes dotPulse{0%,100%{opacity:0.3; transform:scale(1)}50%{opacity:1; transform:scale(1.3)}}
@@ -2510,7 +2510,7 @@ function formatRiwayatDateOnly(isoDate){
       <div class="bank-card" style="margin-bottom:0;padding:14px">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><div style="width:28px;height:28px;border-radius:8px;background:#F8FAFC;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div><div><div style="font-weight:700;font-size:12px">Tentang</div><div style="font-size:10px;color:#64748B">VENUS STUDIO</div></div></div>
         <div style="background:#F8FAFC;border:1px solid #F1F5F9;border-radius:10px;padding:10px;font-size:10px;color:#64748B;line-height:1.6">
-          <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Versi</span><span style="font-weight:700;color:#0F172A"><span data-venus-version>V199</span></span></div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Versi</span><span style="font-weight:700;color:#0F172A"><span data-venus-version>V222</span></span></div>
           <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Firebase</span><span>venus-studio-e7086</span></div>
           <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Keamanan</span><span style="font-weight:700;color:var(--success)">Terproteksi ••••••</span></div>
           <div style="display:flex;justify-content:space-between"><span>Pembaruan</span><span>Otomatis</span></div>
@@ -5540,7 +5540,7 @@ document.addEventListener('DOMContentLoaded', function(){
   }
   window.applyVenusLanguage = applyLanguage;
   // Versi otomatis
-  var APP_VERSION = 'V199';
+  var APP_VERSION = 'V222';
   window.VENUS_APP_VERSION = APP_VERSION;
   function applyVersion(){
     document.querySelectorAll('[data-venus-version]').forEach(function(el){ el.textContent = APP_VERSION; });
@@ -10283,5 +10283,33 @@ async function authenticateBiometric(opts){
   hideBioPrePrompt();
   return false;
 }
+</script>
+
+<style id="venus-smooth-v221">
+/* ===== v221: VERSI SETTING AUTO-SYNC (DICABUT DI v222) ===== */
+/* v222: versi HANYA di halaman Setting. Splash dibersihin dari tulisan versi. */
+/* Sumber versi sekarang cuma APP_VERSION (v199) -> applyVersion() -> Setting. */
+</style>
+<script id="venus-smooth-js-v221">
+/* ===== v221: (DICABUT DI v222) SYNC DARI SPLASH ===== */
+/* v222: versi HANYA di halaman Setting. Tulisan versi di splash dihapus. */
+/* Jadi sync yang baca splash dicabut - versi sekarang cuma dari APP_VERSION */
+/* (v199) -> applyVersion() -> label [data-venus-version] di Setting. Tiap */
+/* update, cukup ganti APP_VERSION, label Setting otomatis ngikutin. */
+</script>
+
+<style id="venus-smooth-v222">
+/* ===== v222: VERSI HANYA DI HALAMAN SETTING ===== */
+/* User: "versi hanya di halaman setting saja". Fix: tulisan "• vNNN" di splash */
+/* DIHAPUS (splash tinggal "SECURE VENUS STUDIO"). Versi cuma ada 1 tempat: */
+/* Setting -> Tentang -> Versi, dibaca dari APP_VERSION (v199) via */
+/* applyVersion() -> [data-venus-version]. Tiap update, cukup ganti APP_VERSION */
+/* + HTML awal data-venus-version, label Setting otomatis ngikutin. Nggak ada */
+/* lagi 2 label yang bisa nggak sinkron. */
+</style>
+<script id="venus-smooth-js-v222">
+/* ===== v222: VERSI HANYA DI SETTING (TIDAK ADA LOGIKA BARU) ===== */
+/* Blok ini penanda versi v222. Logika versi: APP_VERSION='V222' (v199) + */
+/* applyVersion() -> [data-venus-version] di Setting. Splash tanpa versi. */
 </script>
 </body>
