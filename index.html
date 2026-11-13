@@ -2250,7 +2250,7 @@ function formatRiwayatDateOnly(isoDate){
   <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:14vh;width:100%">
     <button type="button" class="tap-here-btn" id="btnTapHere">TAP HERE</button>
   </div>
-  </div><div style="font-size:10px;color:rgba(255,255,255,0.45);letter-spacing:3px;font-weight:700;text-align:center;line-height:1">SECURE VENUS STUDIO • v219</div></div>
+  </div><div style="font-size:10px;color:rgba(255,255,255,0.45);letter-spacing:3px;font-weight:700;text-align:center;line-height:1">SECURE VENUS STUDIO • v220</div></div>
 </div>
 <style>
 @keyframes dotPulse{0%,100%{opacity:0.3; transform:scale(1)}50%{opacity:1; transform:scale(1.3)}}
@@ -10153,6 +10153,135 @@ function showBioPrePrompt(){
     '</div>';
   document.body.appendChild(el);
   return el;
+}
+</script>
+
+<style id="venus-smooth-v220">
+/* ===== v220: POP-UP BIOMETRIK NGGAK LAGI KECEPETAN ===== */
+/* Keluhan: pop-up biometrik muncul cepet banget, ga kebaca. Penyebabnya 2: */
+/* (1) AUTO-PROMPT: observer PIN screen auto-panggil authenticateBiometric */
+/* ({silent:true}) begitu layar PIN muncul. (2) AUTO-TRIGGER 400ms di dalam */
+/* authenticateBiometric: dialog baru muncul 0,4 detik langsung auto-scan, */
+/* jadi user cuma dikasih 0,4 detik buat baca. Fix v220: silent -> return false */
+/* (auto-prompt dimatiin, dialog cuma muncul kalau user NEKEN tombol manual */
+/* "Buka dengan Sidik Jari"); timer 400ms DIHAPUS (dialog diem nunggu sampai */
+/* user ketuk Mulai Scan / Batal / Daftar Ulang). Alur lain NGGAK diubah. */
+</style>
+<script id="venus-smooth-js-v220">
+/* ===== v220: REDEFINE authenticateBiometric - TANPA AUTO-PROMPT & TANPA AUTO-TRIGGER 400ms ===== */
+/* authenticateBiometric v218 (yang terakhir menang) punya 2 yang bikin pop-up */
+/* kecepetan: (a) dipanggil auto sama observer PIN screen ({silent:true}), */
+/* (b) timer 400ms yang auto-trigger scan. v220 redefine: silent -> langsung */
+/* return false (auto-prompt mati, dialog cuma muncul dari tombol manual); */
+/* timer 400ms DIHAPUS - dialog nunggu sampai user ketuk Mulai Scan / card / */
+/* Batal / Daftar Ulang. Sisanya SAMA PERSIS kayak v218: cek kredensial, cek */
+/* secure context (content:// ditolak), dialog v219, allowCredentials TANPA */
+/* transports, transisi sukses full berurutan v214, catch -> konfirmasi */
+/* Daftar Ulang. Banner kuning nggak lagi muncul otomatis (soalnya auto-prompt */
+/* udah mati) - Daftar Ulang tetep bisa lewat link di dialog / konfirmasi. */
+async function authenticateBiometric(opts){
+  var silent = !!(opts && opts.silent);
+  if(silent) return false;
+  try{
+    var credIdB64 = localStorage.getItem('venus_biometric_credential');
+    if(!credIdB64){
+      showVenusCustomAlert('Belum Daftar', 'Aktifkan dulu di Setting > Biometrik');
+      return false;
+    }
+    var supported = await isBiometricSupported();
+    if(!supported){
+      showVenusCustomAlert('Biometrik Tidak Didukung', biometricUnavailableMsg());
+      return false;
+    }
+    if(!window.isSecureContext || location.protocol === 'file:' || location.protocol === 'content:'){
+      showVenusCustomAlert('Biometrik Tidak Didukung', biometricUnavailableMsg());
+      return false;
+    }
+    var preEl = showBioPrePrompt();
+    var scanStarted = false;
+    var cancelled = false;
+    var reregister = false;
+    var resolveWait = null;
+    var waitPromise = new Promise(function(res){ resolveWait = res; });
+    function triggerScan(){
+      if(scanStarted) return;
+      scanStarted = true;
+      if(resolveWait) resolveWait('tap');
+    }
+    function cancelScan(){
+      cancelled = true;
+      if(resolveWait) resolveWait('cancel');
+    }
+    function doReregister(){
+      reregister = true;
+      if(resolveWait) resolveWait('reregister');
+    }
+    var card = preEl.querySelector('.venus-bio-pre-card');
+    if(card) card.addEventListener('click', triggerScan);
+    var startBtn = preEl.querySelector('#venusBioPreStart');
+    if(startBtn) startBtn.addEventListener('click', function(e){ e.stopPropagation(); triggerScan(); });
+    var cancelBtn = preEl.querySelector('#venusBioPreCancel');
+    if(cancelBtn) cancelBtn.addEventListener('click', function(e){ e.stopPropagation(); cancelScan(); });
+    var relink = preEl.querySelector('#venusBioPreReregister');
+    if(relink) relink.addEventListener('click', function(e){ e.stopPropagation(); doReregister(); });
+    await waitPromise;
+    if(cancelled){
+      hideBioPrePrompt();
+      return false;
+    }
+    if(reregister){
+      hideBioPrePrompt();
+      await bioReregister();
+      return false;
+    }
+    var challenge = new Uint8Array(32); window.crypto.getRandomValues(challenge);
+    var allowCreds = [{id: base64url2buf(credIdB64), type:"public-key"}];
+    var publicKey = {challenge: challenge, allowCredentials: allowCreds, userVerification:"required", timeout:60000};
+    if(location.hostname) publicKey.rpId = location.hostname;
+    var assertion = await navigator.credentials.get({publicKey: publicKey});
+    hideBioPrePrompt();
+    if(assertion){
+      hideBioReregisterBanner();
+      if(window.playPinSuccessSound) playPinSuccessSound();
+      var pinOverlay = document.getElementById('pinScreenOverlay');
+      var main = document.getElementById('mainAppContainer');
+      if(pinOverlay) pinOverlay.classList.add('exiting');
+      setTimeout(function(){
+        if(pinOverlay) pinOverlay.classList.remove('active','exiting');
+        if(main){
+          main.classList.add('bio-enter');
+          main.classList.add('active');
+        }
+        if(typeof updateUI === 'function'){ try{ updateUI(); }catch(e){} }
+        setTimeout(function(){
+          if(main) main.classList.remove('bio-enter');
+        }, 400);
+      }, 300);
+      setTimeout(function(){
+        if(pinOverlay) pinOverlay.classList.remove('active','exiting');
+        if(main) main.classList.remove('bio-enter');
+      }, 700);
+      return true;
+    }
+  }catch(e){
+    hideBioPrePrompt();
+    console.log('Biometric auth error', e);
+    var msg = (e && e.message) ? e.message : 'Batal';
+    if(e && e.name === 'NotAllowedError'){
+      msg = 'Biometrik dibatalkan atau sidik jari tidak ditemukan di alamat ini.';
+    }
+    var wantRe = await showBioConfirm(
+      'Biometrik Gagal',
+      msg + ' Daftar ulang sidik jari di alamat ini?',
+      'Daftar Ulang'
+    );
+    if(wantRe){
+      await bioReregister();
+    }
+    return false;
+  }
+  hideBioPrePrompt();
+  return false;
 }
 </script>
 </body>
