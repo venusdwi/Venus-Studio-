@@ -2510,7 +2510,7 @@ function formatRiwayatDateOnly(isoDate){
       <div class="bank-card" style="margin-bottom:0;padding:14px">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><div style="width:28px;height:28px;border-radius:8px;background:#F8FAFC;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div><div><div style="font-weight:700;font-size:12px">Tentang</div><div style="font-size:10px;color:#64748B">VENUS STUDIO</div></div></div>
         <div style="background:#F8FAFC;border:1px solid #F1F5F9;border-radius:10px;padding:10px;font-size:10px;color:#64748B;line-height:1.6">
-          <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Versi</span><span style="font-weight:700;color:#0F172A"><span data-venus-version>V226</span></span></div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Versi</span><span style="font-weight:700;color:#0F172A"><span data-venus-version>V227</span></span></div>
           <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Firebase</span><span>venus-studio-e7086</span></div>
           <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Keamanan</span><span style="font-weight:700;color:var(--success)">Terproteksi ••••••</span></div>
           <div style="display:flex;justify-content:space-between"><span>Pembaruan</span><span>Otomatis</span></div>
@@ -5540,7 +5540,7 @@ document.addEventListener('DOMContentLoaded', function(){
   }
   window.applyVenusLanguage = applyLanguage;
   // Versi otomatis
-  var APP_VERSION = 'V226';
+  var APP_VERSION = 'V227';
   window.VENUS_APP_VERSION = APP_VERSION;
   function applyVersion(){
     document.querySelectorAll('[data-venus-version]').forEach(function(el){ el.textContent = APP_VERSION; });
@@ -10406,5 +10406,172 @@ async function authenticateBiometric(opts){
 /* Blok ini penanda versi v226. Semua perubahan di CSS v226 (modal tengah + */
 /* warna Jenis & Metode). Handler modal asli (buka/tutup/pilih) NGGAK diutak-atik */
 /* - balik jalan kayak sebelum v224. */
+</script>
+
+<style id="venus-smooth-v227">
+/* ===== v227: BIAYA ADMIN BANK OTOMATIS (BCA TAHAPAN GOLD) ===== */
+/* Setting baru "Biaya Admin Bank": toggle + bank + nominal + tanggal potong. */
+/* Tiap buka app, kalau udah lewat tanggal potong & bulan ini belum kepotong, */
+/* otomatis bikin transaksi Pengeluaran BANK (TRANSFER) sebesar nominal dengan */
+/* keterangan "Biaya Admin {label}". Saldo Bank kehitung dari transaksi, jadi */
+/* otomatis berkurang. Marker localStorage venus_admin_fee_last (YYYY-MM) bikin */
+/* cuma sekali sebulan, nggak ke-double. Styling ngikutin card Setting yang ada. */
+#adminFeeCard input{border:1px solid #E2E8F0;border-radius:8px;padding:5px 8px;font-size:11px;background:#fff;width:150px;text-align:right}
+#adminFeeCard input#adminFeeLabel{width:170px;text-align:left}
+#adminFeeCard input#adminFeeDay{width:64px;text-align:center}
+</style>
+<script id="venus-smooth-js-v227">
+/* ===== v227: BIAYA ADMIN BANK OTOMATIS - BCA TAHAPAN GOLD Rp 17.000/bln ===== */
+/* Keys: venus_admin_fee_enabled (default true - user yang minta), */
+/* venus_admin_fee_amount (default 17000), venus_admin_fee_label (default */
+/* "BCA Tahapan Gold"), venus_admin_fee_day (default 1), venus_admin_fee_last */
+/* (YYYY-MM terakhir dipotong). runAdminFeeAuto(): kalau enabled + tanggal hari */
+/* ini >= tanggal potong + last != bulan ini -> push transaksi {type:'out', */
+/* method:'TRANSFER', description:'Biaya Admin '+label} -> saveAndSync() + */
+/* updateUI() + notifikasi (cuma kalau layar PIN lagi nggak aktif, biar nggak */
+/* nongol di atas PIN). Setting card disisipin JS sebelum card "Tentang" di */
+/* Setting, biar nggak ngutak-atik HTML Setting yang panjang. Handler asli */
+/* NGGAK diutak-atik. */
+(function(){
+  function getCfg(){
+    return {
+      enabled: (localStorage.getItem('venus_admin_fee_enabled') || 'true') === 'true',
+      amount: parseInt(String(localStorage.getItem('venus_admin_fee_amount') || '17000').replace(/[^0-9]/g,''), 10) || 17000,
+      label: localStorage.getItem('venus_admin_fee_label') || 'BCA Tahapan Gold',
+      day: Math.min(28, Math.max(1, parseInt(localStorage.getItem('venus_admin_fee_day') || '1', 10) || 1))
+    };
+  }
+  function fmtRp(n){ try{ return n.toLocaleString('id-ID'); }catch(e){ return String(n); } }
+  function runAdminFeeAuto(){
+    try{
+      var cfg = getCfg();
+      if(!cfg.enabled) return false;
+      var now = new Date();
+      var ym = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0');
+      if(localStorage.getItem('venus_admin_fee_last') === ym) return false;
+      if(now.getDate() < cfg.day) return false;
+      if(typeof transactions === 'undefined' || typeof saveAndSync !== 'function' || typeof updateUI !== 'function') return false;
+      var tx = {
+        id: Date.now(),
+        type: 'out',
+        amount: cfg.amount,
+        description: 'Biaya Admin ' + cfg.label,
+        method: 'TRANSFER',
+        date: getLocalIsoDate(now),
+        time: now.toTimeString().slice(0,5),
+        dualCash: 0,
+        dualBank: 0,
+        proof: null
+      };
+      transactions.push(tx);
+      localStorage.setItem('venus_admin_fee_last', ym);
+      saveAndSync();
+      updateUI();
+      updateStatus();
+      var pinOverlay = document.getElementById('pinScreenOverlay');
+      var pinAktif = pinOverlay && pinOverlay.classList.contains('active');
+      if(!pinAktif && typeof showVenusCustomAlert === 'function'){
+        showVenusCustomAlert('Biaya Admin Otomatis', 'Biaya Admin ' + cfg.label + ' Rp ' + fmtRp(cfg.amount) + ' dipotong dari Bank.');
+      }
+      return true;
+    }catch(e){ return false; }
+  }
+  function updateStatus(){
+    try{
+      var st = document.getElementById('adminFeeStatus');
+      if(!st) return;
+      var cfg = getCfg();
+      var last = localStorage.getItem('venus_admin_fee_last') || '';
+      var namaBulan = ['','Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+      var lastTxt = '-';
+      if(last){
+        var p = last.split('-');
+        lastTxt = namaBulan[parseInt(p[1],10)] + ' ' + p[0];
+      }
+      var now = new Date();
+      var nextY = now.getFullYear(), nextM = now.getMonth()+1;
+      if(now.getDate() >= cfg.day){ nextM += 1; if(nextM > 12){ nextM = 1; nextY += 1; } }
+      st.textContent = 'Terakhir dipotong: ' + lastTxt + ' • Berikutnya: tgl ' + cfg.day + ' ' + namaBulan[nextM] + ' ' + nextY;
+    }catch(e){}
+  }
+  function buildSettingCard(){
+    try{
+      if(document.getElementById('adminFeeCard')) return;
+      var settingTab = document.getElementById('tab-setting');
+      if(!settingTab) return;
+      var cards = settingTab.querySelectorAll('.bank-card');
+      var tentangCard = null;
+      cards.forEach(function(c){ if(!tentangCard && (c.textContent || '').indexOf('Tentang') !== -1) tentangCard = c; });
+      var cfg = getCfg();
+      var card = document.createElement('div');
+      card.className = 'bank-card';
+      card.id = 'adminFeeCard';
+      card.style.cssText = 'margin-bottom:0;padding:14px';
+      card.innerHTML =
+        '<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">' +
+          '<div style="width:28px;height:28px;border-radius:8px;background:#EFF6FF;display:flex;align-items:center;justify-content:center">' +
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0A4DA3" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/><line x1="6" y1="15" x2="10" y2="15"/></svg>' +
+          '</div>' +
+          '<div><div style="font-weight:700;font-size:12px">Biaya Admin Bank</div><div style="font-size:10px;color:#64748B">Potong otomatis tiap bulan</div></div>' +
+        '</div>' +
+        '<div style="display:grid;gap:8px">' +
+          '<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:11px;font-weight:600">Aktif</span><div class="switch" id="adminFeeSwitch"></div></div>' +
+          '<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:11px">Bank</span><input id="adminFeeLabel" value=""></div>' +
+          '<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:11px">Nominal / bulan</span><input id="adminFeeAmount" inputmode="numeric" value=""></div>' +
+          '<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:11px">Tanggal potong</span><input id="adminFeeDay" type="number" min="1" max="28" value=""></div>' +
+          '<div id="adminFeeStatus" style="font-size:10px;color:#64748B"></div>' +
+        '</div>';
+      if(tentangCard && tentangCard.parentNode) tentangCard.parentNode.insertBefore(card, tentangCard);
+      else settingTab.appendChild(card);
+      var sw = document.getElementById('adminFeeSwitch');
+      var labelIn = document.getElementById('adminFeeLabel');
+      var amtIn = document.getElementById('adminFeeAmount');
+      var dayIn = document.getElementById('adminFeeDay');
+      if(sw){
+        if(cfg.enabled) sw.classList.add('on'); else sw.classList.remove('on');
+        sw.addEventListener('click', function(){
+          var on = !sw.classList.contains('on');
+          if(on) sw.classList.add('on'); else sw.classList.remove('on');
+          localStorage.setItem('venus_admin_fee_enabled', on ? 'true' : 'false');
+          if(on) runAdminFeeAuto();
+          updateStatus();
+        });
+      }
+      if(labelIn){
+        labelIn.value = cfg.label;
+        labelIn.addEventListener('change', function(){
+          var v = labelIn.value.trim() || 'BCA Tahapan Gold';
+          localStorage.setItem('venus_admin_fee_label', v);
+          labelIn.value = v;
+        });
+      }
+      if(amtIn){
+        amtIn.value = fmtRp(cfg.amount);
+        amtIn.addEventListener('change', function(){
+          var v = parseInt(String(amtIn.value).replace(/[^0-9]/g,''), 10) || 17000;
+          localStorage.setItem('venus_admin_fee_amount', String(v));
+          amtIn.value = fmtRp(v);
+          updateStatus();
+        });
+      }
+      if(dayIn){
+        dayIn.value = String(cfg.day);
+        dayIn.addEventListener('change', function(){
+          var v = Math.min(28, Math.max(1, parseInt(dayIn.value, 10) || 1));
+          localStorage.setItem('venus_admin_fee_day', String(v));
+          dayIn.value = String(v);
+          updateStatus();
+        });
+      }
+      updateStatus();
+    }catch(e){}
+  }
+  function init(){
+    buildSettingCard();
+    setTimeout(runAdminFeeAuto, 1500);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
 </script>
 </body>
