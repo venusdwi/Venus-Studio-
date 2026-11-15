@@ -2510,7 +2510,7 @@ function formatRiwayatDateOnly(isoDate){
       <div class="bank-card" style="margin-bottom:0;padding:14px">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><div style="width:28px;height:28px;border-radius:8px;background:#F8FAFC;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div><div><div style="font-weight:700;font-size:12px">Tentang</div><div style="font-size:10px;color:#64748B">VENUS STUDIO</div></div></div>
         <div style="background:#F8FAFC;border:1px solid #F1F5F9;border-radius:10px;padding:10px;font-size:10px;color:#64748B;line-height:1.6">
-          <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Versi</span><span style="font-weight:700;color:#0F172A"><span data-venus-version>V227</span></span></div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Versi</span><span style="font-weight:700;color:#0F172A"><span data-venus-version>V228</span></span></div>
           <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Firebase</span><span>venus-studio-e7086</span></div>
           <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Keamanan</span><span style="font-weight:700;color:var(--success)">Terproteksi ••••••</span></div>
           <div style="display:flex;justify-content:space-between"><span>Pembaruan</span><span>Otomatis</span></div>
@@ -3460,8 +3460,12 @@ function initApp(){
   if(window.initFirebaseSync){
     window.initFirebaseSync((cloudData)=>{
       if(cloudData && Array.isArray(cloudData)){
-        transactions=cloudData;
-        try{ localStorage.setItem('my_transactions', JSON.stringify(transactions)); }catch(e){}
+        /* v228 MERGE (bukan timpa): gabung lokal + cloud, dedupe by id. */
+        /* Tadinya: transactions=cloudData -> transaksi lokal yg belum ke-push */
+        /* HILANG ketimpa cloud. Sekarang: semua id unik dari 2 HP kekumpul. */
+        /* Fee admin pake id deterministik per bulan (v228), jadi 2 HP yg */
+        /* sama-sama bikin fee bulan yg sama ke-dedupe jadi 1. */
+        try{ var _m={}; (transactions||[]).forEach(function(x){ if(x && x.id!=null) _m[x.id]=x; }); cloudData.forEach(function(x){ if(x && x.id!=null) _m[x.id]=x; }); transactions=Object.keys(_m).map(function(k){ return _m[k]; }); localStorage.setItem('my_transactions', JSON.stringify(transactions)); }catch(e){}
         updateUI();
       }
     });
@@ -5540,7 +5544,7 @@ document.addEventListener('DOMContentLoaded', function(){
   }
   window.applyVenusLanguage = applyLanguage;
   // Versi otomatis
-  var APP_VERSION = 'V227';
+  var APP_VERSION = 'V228';
   window.VENUS_APP_VERSION = APP_VERSION;
   function applyVersion(){
     document.querySelectorAll('[data-venus-version]').forEach(function(el){ el.textContent = APP_VERSION; });
@@ -10452,7 +10456,7 @@ async function authenticateBiometric(opts){
       if(now.getDate() < cfg.day) return false;
       if(typeof transactions === 'undefined' || typeof saveAndSync !== 'function' || typeof updateUI !== 'function') return false;
       var tx = {
-        id: Date.now(),
+        id: Date.UTC(now.getFullYear(), now.getMonth(), 1), /* v228: id deterministik per bulan - 2 HP bikin fee yg sama, merge nge-dedupe jadi 1 */
         type: 'out',
         amount: cfg.amount,
         description: 'Biaya Admin ' + cfg.label,
@@ -10573,5 +10577,20 @@ async function authenticateBiometric(opts){
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
+</script>
+
+<style id="venus-smooth-v228">
+/* ===== v228: SYNC 2 HP - MERGE (BUKAN TIMPA) + FEE ADMIN DEDUPE ===== */
+/* Fix sync: pull dari cloud sekarang MERGE (gabung lokal+cloud, dedupe by id), */
+/* bukan timpa. Fee admin ID deterministik per bulan (Date.UTC 1st) biar 2 HP */
+/* yg sama-sama bikin fee bulan yg sama ke-dedupe jadi 1 (nggak double). */
+/* Nggak ada perubahan tampilan. */
+</style>
+<script id="venus-smooth-js-v228">
+/* ===== v228: SYNC 2 HP MERGE + FEE DEDUPE (PERUBAHAN DI MAIN + v227) ===== */
+/* Blok ini penanda versi v228. Perubahan benerannya: (1) callback */
+/* initFirebaseSync di main script -> MERGE by id (bukan transactions=cloudData). */
+/* (2) ID fee admin di v227 -> Date.UTC(year,month,1) deterministik. */
+/* Handler lain NGGAK diutak-atik. */
 </script>
 </body>
