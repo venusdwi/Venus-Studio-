@@ -2510,7 +2510,7 @@ function formatRiwayatDateOnly(isoDate){
       <div class="bank-card" style="margin-bottom:0;padding:14px">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><div style="width:28px;height:28px;border-radius:8px;background:#F8FAFC;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div><div><div style="font-weight:700;font-size:12px">Tentang</div><div style="font-size:10px;color:#64748B">VENUS STUDIO</div></div></div>
         <div style="background:#F8FAFC;border:1px solid #F1F5F9;border-radius:10px;padding:10px;font-size:10px;color:#64748B;line-height:1.6">
-          <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Versi</span><span style="font-weight:700;color:#0F172A"><span data-venus-version>V230</span></span></div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Versi</span><span style="font-weight:700;color:#0F172A"><span data-venus-version>V231</span></span></div>
           <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Firebase</span><span>venus-studio-e7086</span></div>
           <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Keamanan</span><span style="font-weight:700;color:var(--success)">Terproteksi ••••••</span></div>
           <div style="display:flex;justify-content:space-between"><span>Pembaruan</span><span>Otomatis</span></div>
@@ -5544,7 +5544,7 @@ document.addEventListener('DOMContentLoaded', function(){
   }
   window.applyVenusLanguage = applyLanguage;
   // Versi otomatis
-  var APP_VERSION = 'V230';
+  var APP_VERSION = 'V231';
   window.VENUS_APP_VERSION = APP_VERSION;
   function applyVersion(){
     document.querySelectorAll('[data-venus-version]').forEach(function(el){ el.textContent = APP_VERSION; });
@@ -10673,5 +10673,36 @@ html.ios-device #splashScreenOverlay, html.ios-device .splash-screen-overlay{
 /* Blok ini penanda versi v230. Perubahan di CSS v230: (1) html/body pas */
 /* splash-active = gradasi (timpa v201 biru polos), (2) geometri splash */
 /* dipaksa full sampai bawah + -webkit-fill-available. NGGAK ada logika baru. */
+</script>
+
+<style id="venus-smooth-v231">
+/* ===== v231: IPHONE ONLY - HEADER RIWAYAT LENGKAP NGGAK KETUTUP NOTCH ===== */
+/* User: di iPhone, atas Riwayat Lengkap ke potong notch, tombol silang (X) */
+/* nggak bisa diklik. Minta safe area iPhone, JANGAN ubah tampilan/fungsi lain. */
+/* Biang: #monthlyHistoryModalOverlay (position:fixed; inset:0), header-nya */
+/* (first-child div) height:56px, padding:0 14px, TANPA safe-area. Notch iPhone */
+/* (~47px) nutupin header -> tombol X (tengah header, ~28px dari atas) ketutup. */
+/* Fix MINIMAL, iPhone ONLY (semua rule diawali html.ios-device -> Android */
+/* NGGAK KENA): header modal Riwayat Lengkap doang yg ditambahin padding atas */
+/* = env(safe-area-inset-top) + tinggi header jadi 56px + safe-area. Jadi */
+/* background header (var(--card)) ngisi sampai atas (notch ketutup warna */
+/* header, bukan bolong), isi header (X + judul) turun ke bawah notch, bisa */
+/* diklik. Tinggi area isi header TETAP 56px kayak semula (nggak dikecilin / */
+/* digedein), warna, border, layout, ukuran tombol X, isi modal, fungsi */
+/* tutup/buka/filter NGGAK diubah. Modal lain (detail, hutang, personal, */
+/* music) NGGAK disentuh. Selector > div:first-child = header modal ini doang */
+/* (child pertama #monthlyHistoryModalOverlay). !important biar menang lawan */
+/* inline style height:56px di header. */
+html.ios-device #monthlyHistoryModalOverlay > div:first-child{
+  height: calc(56px + env(safe-area-inset-top, 0px)) !important;
+  padding-top: env(safe-area-inset-top, 0px) !important;
+  padding-bottom: 0 !important;
+}
+</style>
+<script id="venus-smooth-js-v231">
+/* ===== v231: IPHONE ONLY HEADER RIWAYAT LENGKAP SAFE AREA (HANYA CSS) ===== */
+/* Blok ini penanda versi v231. Perubahan di CSS v231: padding-top + height */
+/* header #monthlyHistoryModalOverlay (iPhone only). NGGAK ada logika baru, */
+/* handler / fungsi NGGAK diutak-atik. */
 </script>
 </body>
