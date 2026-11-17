@@ -2510,7 +2510,7 @@ function formatRiwayatDateOnly(isoDate){
       <div class="bank-card" style="margin-bottom:0;padding:14px">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><div style="width:28px;height:28px;border-radius:8px;background:#F8FAFC;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div><div><div style="font-weight:700;font-size:12px">Tentang</div><div style="font-size:10px;color:#64748B">VENUS STUDIO</div></div></div>
         <div style="background:#F8FAFC;border:1px solid #F1F5F9;border-radius:10px;padding:10px;font-size:10px;color:#64748B;line-height:1.6">
-          <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Versi</span><span style="font-weight:700;color:#0F172A"><span data-venus-version>V231</span></span></div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Versi</span><span style="font-weight:700;color:#0F172A"><span data-venus-version>V232</span></span></div>
           <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Firebase</span><span>venus-studio-e7086</span></div>
           <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Keamanan</span><span style="font-weight:700;color:var(--success)">Terproteksi ••••••</span></div>
           <div style="display:flex;justify-content:space-between"><span>Pembaruan</span><span>Otomatis</span></div>
@@ -2587,6 +2587,12 @@ function formatRiwayatDateOnly(isoDate){
 
 
 <div id="musicModalOverlay" class="music-modal-overlay"><div class="personal-modal-card bank-card"><div class="modal-header"><b>Music Player</b><button id="closeMusicModalBtn" class="bank-btn secondary" style="width:32px;height:32px">✕</button></div>
+<div style="display:flex;gap:8px;margin-bottom:10px">
+  <input id="musicOnlineSearch" type="text" placeholder="Cari lagu / artis online..." autocomplete="off" style="flex:1;height:44px;padding:0 12px;border-radius:12px;border:1px solid var(--border);background:var(--bg);font-size:12px;min-width:0">
+  <button id="btnSearchOnline" class="bank-btn" style="height:44px;padding:0 14px;font-size:11px;flex-shrink:0">Cari</button>
+</div>
+<div id="onlineMusicResults" style="display:none;flex-direction:column;gap:8px;max-height:280px;overflow:auto;margin-bottom:10px"></div>
+<div style="font-size:10px;color:var(--text-2);margin-bottom:10px;text-align:center">Cari online &bull; Preview 30 detik &bull; Ketuk Spotify / YouTube buat dengerin full</div>
 <div style="margin-bottom:12px">
   <div id="musicNowPlaying" style="background:var(--primary-light);border:1px solid var(--primary);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px">
     <div style="width:40px;height:40px;background:var(--primary);border-radius:10px;display:flex;align-items:center;justify-content:center;color:white">♫</div>
@@ -4290,7 +4296,7 @@ async function searchOnlineMusic(query){
       const div=document.createElement('div');
       div.className='account-title-card';
       div.style.padding='8px 10px';
-      div.innerHTML=`<div style="display:flex;gap:10px;align-items:center;flex:1"><img src="${track.artworkUrl60}" style="width:40px;height:40px;border-radius:8px"><div style="flex:1;min-width:0"><div style="font-weight:700;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${track.trackName}</div><div style="font-size:9px;color:var(--text-2)">${track.artistName} • ${track.collectionName||''}</div></div></div><button class="bank-btn" style="height:32px;padding:0 10px;font-size:10px">Play</button>`;
+      div.innerHTML=`<div style="display:flex;gap:10px;align-items:center;flex:1"><img src="${track.artworkUrl60}" style="width:40px;height:40px;border-radius:8px"><div style="flex:1;min-width:0"><div style="font-weight:700;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${track.trackName}</div><div style="font-size:9px;color:var(--text-2)">${track.artistName} • ${track.collectionName||''}</div></div></div><div style="display:flex;flex-direction:column;gap:4px;flex-shrink:0"><button class="bank-btn" style="height:32px;padding:0 10px;font-size:10px">Play</button><div style="display:flex;gap:4px"><a href="https://open.spotify.com/search/${encodeURIComponent(track.trackName+' '+track.artistName)}" target="_blank" rel="noopener" class="bank-btn secondary" style="height:26px;padding:0 8px;font-size:9px;display:flex;align-items:center;justify-content:center;text-decoration:none">Spotify</a><a href="https://music.youtube.com/search?q=${encodeURIComponent(track.trackName+' '+track.artistName)}" target="_blank" rel="noopener" class="bank-btn secondary" style="height:26px;padding:0 8px;font-size:9px;display:flex;align-items:center;justify-content:center;text-decoration:none">YouTube</a></div></div>`;
       div.querySelector('button').addEventListener('click', ()=>{
         const audio=document.getElementById('venusAudioPlayer');
         const titleEl=document.getElementById('musicNowTitle');
@@ -5544,7 +5550,7 @@ document.addEventListener('DOMContentLoaded', function(){
   }
   window.applyVenusLanguage = applyLanguage;
   // Versi otomatis
-  var APP_VERSION = 'V231';
+  var APP_VERSION = 'V232';
   window.VENUS_APP_VERSION = APP_VERSION;
   function applyVersion(){
     document.querySelectorAll('[data-venus-version]').forEach(function(el){ el.textContent = APP_VERSION; });
@@ -10704,5 +10710,28 @@ html.ios-device #monthlyHistoryModalOverlay > div:first-child{
 /* Blok ini penanda versi v231. Perubahan di CSS v231: padding-top + height */
 /* header #monthlyHistoryModalOverlay (iPhone only). NGGAK ada logika baru, */
 /* handler / fungsi NGGAK diutak-atik. */
+</script>
+
+<style id="venus-smooth-v232">
+/* ===== v232: MUSIK - CARI LAGU ONLINE (FIX FITUR MATI) ===== */
+/* User: fitur Musik belum berfungsi, pengen kayak YT Music/Spotify (cari */
+/* lagu online). Biang: JS searchOnlineMusic + initOnlineSearch UDAH ADA, */
+/* tapi 3 elemen HTML-nya NGGAK ADA (input #musicOnlineSearch, tombol */
+/* #btnSearchOnline, wadah #onlineMusicResults) -> initOnlineSearch return */
+/* di awal, fitur mati total. Fix: tambahin 3 elemen itu ke modal Musik */
+/* (HTML, di atas Now Playing) + tiap hasil cari ditambahin tombol Spotify */
+/* & YouTube Music (buka search lagu itu di app sana buat dengerin full). */
+/* Cari online pake iTunes Search API (gratis, tanpa API key, legal): hasil */
+/* + cover + preview 30 detik di-play pake audio player yg sama. Upload MP3 */
+/* lokal + playlist lama NGGAK diubah. Lagu FULL kayak Spotify Premium nggak */
+/* bisa (butuh lisensi + login Spotify) -> solusinya tombol Spotify/YouTube */
+/* per lagu. Nggak ada perubahan tampilan/fungsi lain. */
+</style>
+<script id="venus-smooth-js-v232">
+/* ===== v232: MUSIK CARI ONLINE (HANYA HTML + LINK DI searchOnlineMusic) ===== */
+/* Blok ini penanda versi v232. Perubahan: (1) HTML modal Musik ditambahin */
+/* input #musicOnlineSearch + tombol #btnSearchOnline + wadah */
+/* #onlineMusicResults, (2) hasil searchOnlineMusic ditambahin tombol */
+/* Spotify & YouTube Music. Logika cari/play/preview NGGAK diubah. */
 </script>
 </body>
