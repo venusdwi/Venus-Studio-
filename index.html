@@ -2510,7 +2510,7 @@ function formatRiwayatDateOnly(isoDate){
       <div class="bank-card" style="margin-bottom:0;padding:14px">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><div style="width:28px;height:28px;border-radius:8px;background:#F8FAFC;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></div><div><div style="font-weight:700;font-size:12px">Tentang</div><div style="font-size:10px;color:#64748B">VENUS STUDIO</div></div></div>
         <div style="background:#F8FAFC;border:1px solid #F1F5F9;border-radius:10px;padding:10px;font-size:10px;color:#64748B;line-height:1.6">
-          <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Versi</span><span style="font-weight:700;color:#0F172A"><span data-venus-version>V233</span></span></div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Versi</span><span style="font-weight:700;color:#0F172A"><span data-venus-version>V234</span></span></div>
           <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Firebase</span><span>venus-studio-e7086</span></div>
           <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span>Keamanan</span><span style="font-weight:700;color:var(--success)">Terproteksi ••••••</span></div>
           <div style="display:flex;justify-content:space-between"><span>Pembaruan</span><span>Otomatis</span></div>
@@ -2592,7 +2592,8 @@ function formatRiwayatDateOnly(isoDate){
   <button id="btnSearchOnline" class="bank-btn" style="height:44px;padding:0 14px;font-size:11px;flex-shrink:0">Cari</button>
 </div>
 <div id="onlineMusicResults" style="display:none;flex-direction:column;gap:8px;max-height:280px;overflow:auto;margin-bottom:10px"></div>
-<div style="font-size:10px;color:var(--text-2);margin-bottom:10px;text-align:center">Cari online &bull; Preview 30 detik &bull; Ketuk Spotify / YouTube buat dengerin full</div>
+<div style="font-size:10px;color:var(--text-2);margin-bottom:10px;text-align:center">Cari online &bull; Preview 30 detik &bull; Ketuk &#9654; Full buat dengerin lagu full (YouTube)</div>
+<div id="ytFullPlayerWrap" style="display:none;margin-bottom:10px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><b style="font-size:11px">&#9654; Full Song (YouTube)</b><button id="btnCloseYtFull" class="bank-btn secondary" style="height:28px;padding:0 10px;font-size:10px">Tutup &#10005;</button></div><iframe id="ytFullPlayer" width="100%" height="200" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius:12px;background:#000"></iframe><div style="font-size:10px;color:var(--text-2);margin-top:6px;text-align:center">Full song via YouTube &bull; Video tampil (aturan YouTube) &bull; Kalau kunci layar / keluar app, musik berhenti</div></div>
 <div style="margin-bottom:12px">
   <div id="musicNowPlaying" style="background:var(--primary-light);border:1px solid var(--primary);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:10px">
     <div style="width:40px;height:40px;background:var(--primary);border-radius:10px;display:flex;align-items:center;justify-content:center;color:white">♫</div>
@@ -4296,7 +4297,7 @@ async function searchOnlineMusic(query){
       const div=document.createElement('div');
       div.className='account-title-card';
       div.style.padding='8px 10px';
-      div.innerHTML=`<div style="display:flex;gap:10px;align-items:center;flex:1"><img src="${track.artworkUrl60}" style="width:40px;height:40px;border-radius:8px"><div style="flex:1;min-width:0"><div style="font-weight:700;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${track.trackName}</div><div style="font-size:9px;color:var(--text-2)">${track.artistName} • ${track.collectionName||''}</div></div></div><div style="display:flex;flex-direction:column;gap:4px;flex-shrink:0"><button class="bank-btn" style="height:32px;padding:0 10px;font-size:10px">Play</button><div style="display:flex;gap:4px"><a href="https://open.spotify.com/search/${encodeURIComponent(track.trackName+' '+track.artistName)}" target="_blank" rel="noopener" class="bank-btn secondary" style="height:26px;padding:0 8px;font-size:9px;display:flex;align-items:center;justify-content:center;text-decoration:none">Spotify</a><a href="https://music.youtube.com/search?q=${encodeURIComponent(track.trackName+' '+track.artistName)}" target="_blank" rel="noopener" class="bank-btn secondary" style="height:26px;padding:0 8px;font-size:9px;display:flex;align-items:center;justify-content:center;text-decoration:none">YouTube</a></div></div>`;
+      div.innerHTML=`<div style="display:flex;gap:10px;align-items:center;flex:1"><img src="${track.artworkUrl60}" style="width:40px;height:40px;border-radius:8px"><div style="flex:1;min-width:0"><div style="font-weight:700;font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${track.trackName}</div><div style="font-size:9px;color:var(--text-2)">${track.artistName} • ${track.collectionName||''}</div></div></div><div style="display:flex;flex-direction:column;gap:4px;flex-shrink:0"><button class="bank-btn" style="height:32px;padding:0 10px;font-size:10px">Play</button><div style="display:flex;gap:4px"><a href="https://open.spotify.com/search/${encodeURIComponent(track.trackName+' '+track.artistName)}" target="_blank" rel="noopener" class="bank-btn secondary" style="height:26px;padding:0 8px;font-size:9px;display:flex;align-items:center;justify-content:center;text-decoration:none">Spotify</a><button data-yt-full class="bank-btn secondary" style="height:26px;padding:0 8px;font-size:9px;display:flex;align-items:center;justify-content:center">&#9654; Full</button></div></div>`;
       div.querySelector('button').addEventListener('click', ()=>{
         const audio=document.getElementById('venusAudioPlayer');
         const titleEl=document.getElementById('musicNowTitle');
@@ -4316,6 +4317,8 @@ async function searchOnlineMusic(query){
           renderMusic();
         }
       });
+      const fullBtn = div.querySelector('[data-yt-full]');
+      if(fullBtn) fullBtn.addEventListener('click', ()=>{ try{ if(typeof playFullOnYouTube==='function') playFullOnYouTube(track.trackName+' '+track.artistName); }catch(e){} });
       container.appendChild(div);
     });
   }catch(e){
@@ -5557,7 +5560,7 @@ document.addEventListener('DOMContentLoaded', function(){
   }
   window.applyVenusLanguage = applyLanguage;
   // Versi otomatis
-  var APP_VERSION = 'V233';
+  var APP_VERSION = 'V234';
   window.VENUS_APP_VERSION = APP_VERSION;
   function applyVersion(){
     document.querySelectorAll('[data-venus-version]').forEach(function(el){ el.textContent = APP_VERSION; });
@@ -10759,5 +10762,49 @@ html.ios-device #monthlyHistoryModalOverlay > div:first-child{
 /* Blok ini penanda versi v233. Perubahan: (1) guard di initMusicPlayerEnhanced, */
 /* (2) try{ initMusicPlayerEnhanced(); } setelah override. Logika cari/play */
 /* NGGAK diubah. */
+</script>
+
+<style id="venus-smooth-v234">
+/* ===== v234: MUSIK - LAGU FULL VIA YOUTUBE EMBED ===== */
+/* User: bisa ga full lagu, jangan 30 detik? JAWABAN JUJUR: lagu full artis */
+/* populer NGGAK BISA di-play langsung di app statis (butuh lisensi Spotify */
+/* Premium + login developer). SOLUSI yg bisa dibangun: player YouTube embed */
+/* (fitur RESMI YouTube: embed?listType=search&list=QUERY, tanpa API key) di */
+/* dalam modal Musik. Tombol YouTube di tiap hasil cari diubah jadi tombol */
+/* "Full" -> ketuk -> iframe YouTube ke-load & lagu full ke-play di dalam app. */
+/* Preview 30 detik (iTunes) TETAP ada buat dengerin cepet. Spotify TETAP link */
+/* (buka app Spotify). Batasan: YouTube nampilin VIDEO (nggak bisa audio-only, */
+/* aturan YouTube); kalau kunci layar / keluar app, musik berhenti (kecuali YT */
+/* Premium); kadang ada iklan YouTube. Tutup modal / tombol Tutup -> iframe */
+/* di-clear biar musik berhenti. Fitur lain NGGAK diubah. */
+</style>
+<script id="venus-smooth-js-v234">
+/* ===== v234: MUSIK LAGU FULL VIA YOUTUBE EMBED ===== */
+function playFullOnYouTube(query){
+  var wrap = document.getElementById('ytFullPlayerWrap');
+  var frame = document.getElementById('ytFullPlayer');
+  if(!wrap || !frame) return;
+  try{ stopDemoTone(); }catch(e){}
+  var audio = document.getElementById('venusAudioPlayer');
+  if(audio){ try{ audio.pause(); }catch(e){} }
+  frame.src = 'https://www.youtube.com/embed?listType=search&list=' + encodeURIComponent(query) + '&autoplay=1&rel=0';
+  wrap.style.display = 'block';
+  var titleEl = document.getElementById('musicNowTitle');
+  var subEl = document.getElementById('musicNowSub');
+  if(titleEl) titleEl.textContent = query;
+  if(subEl) subEl.textContent = 'Full song \u2022 YouTube';
+}
+function stopYtFull(){
+  var wrap = document.getElementById('ytFullPlayerWrap');
+  var frame = document.getElementById('ytFullPlayer');
+  if(frame) frame.src = '';
+  if(wrap) wrap.style.display = 'none';
+}
+(function initYtFullV234(){
+  var btnClose = document.getElementById('btnCloseYtFull');
+  if(btnClose) btnClose.addEventListener('click', stopYtFull);
+  var closeMusicBtn = document.getElementById('closeMusicModalBtn');
+  if(closeMusicBtn) closeMusicBtn.addEventListener('click', stopYtFull);
+})();
 </script>
 </body>
